@@ -1,19 +1,15 @@
 #include <Engine/Application/Window/Window.h>
+#include <Engine/Application/Application.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Core/Assert.h>
 int main(int argumentCount, char** arguments)
 {
 	/*
-	* Create dummy window
+	* Create application
 	*/
-	DopeEngine::Window* window = DopeEngine::Window::create("Dope Editor", 512, 512);
+	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::Directx11);
+	DopeEngine::Window* window = app.get_app_window();
 	window->set_window_visibility(true);
-
-	/*
-	* Create graphics device
-	*/
-	DopeEngine::GraphicsDevice* device = DopeEngine::GraphicsDevice::create(DopeEngine::GraphicsAPIType::OpenGL, window);
-
 	while (true)
 	{
 		window->poll_messages();

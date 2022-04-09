@@ -10,8 +10,8 @@ namespace DopeEngine
 	class DOPE_ENGINE_API WindowsWindow : public Window
 	{
 	public:
-		WindowsWindow(const HINSTANCE processHandle, const String& title, const unsigned int width, const unsigned int height);
-		WindowsWindow(const String& title, const unsigned int width, const unsigned int height);
+		WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description);
+		WindowsWindow(const WindowCreateDescription& description);
 		virtual ~WindowsWindow() override;
 
 		/// <summary>

@@ -10,6 +10,6 @@ namespace DopeEngine
 		OpenGL = 1,
 		Directx11 = 2,
 		Directx12 = 3,
-		Vulkna = 4
+		Vulkan = 4
 	};
 }

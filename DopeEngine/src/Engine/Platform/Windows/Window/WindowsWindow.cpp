@@ -3,11 +3,11 @@
 namespace DopeEngine
 {
     LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const String& title, const unsigned int width, const unsigned int height) : Window(title,width,height)
+	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description) : Window(description)
 	{
 		_create_win32_window(processHandle);
 	}
-	WindowsWindow::WindowsWindow(const String& title, const unsigned int width, const unsigned int height) : Window(title,width,height)
+	WindowsWindow::WindowsWindow(const WindowCreateDescription& description) : Window(description)
 	{
 		_create_win32_window(NULL);
 	}
@@ -87,7 +87,7 @@ namespace DopeEngine
             WINDOW_CLASS_NAME,
             L"Dummy Window Title",
             WS_OVERLAPPEDWINDOW,
-            100,100,get_width(),get_height(),
+            get_position_x(),get_position_y(), get_width(), get_height(),
             NULL,
             NULL,
             processHandle,

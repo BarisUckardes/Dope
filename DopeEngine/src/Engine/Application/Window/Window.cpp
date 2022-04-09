@@ -7,18 +7,28 @@ typedef DopeEngine::WindowsWindow WindowAbstraction;
 
 namespace DopeEngine
 {
-	Window* Window::create(const String& title, const unsigned int width, const unsigned int height)
+	Window* Window::create(const WindowCreateDescription& description)
 	{
-		return new WindowAbstraction(title, width, height);
+		return new WindowAbstraction(description);
 	}
-	Window::Window(const String& title, const unsigned int width, const unsigned int height)
+	GraphicsDevice* Window::get_graphics_device() const
+	{
+		return GDevice;
+	}
+	void Window::assing_graphics_device(GraphicsDevice* device)
+	{
+		GDevice = device;
+	}
+	Window::Window(const WindowCreateDescription& description)
 	{
 		/*
 		* Initialize
 		*/
-		Title = title;
-		Width = width;
-		Height = height;
+		Title = description.Title;
+		Width = description.Width;
+		Height = description.Height;
+		PositionX = description.PositionX;
+		PositionY = description.PositionY;
 	}
 	unsigned int Window::get_width() const
 	{
@@ -27,6 +37,14 @@ namespace DopeEngine
 	unsigned int Window::get_height() const
 	{
 		return Height;
+	}
+	unsigned int Window::get_position_x() const
+	{
+		return PositionX;
+	}
+	unsigned int Window::get_position_y() const
+	{
+		return PositionY;
 	}
 	String Window::get_title() const
 	{

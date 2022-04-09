@@ -102,6 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -123,6 +124,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -140,7 +142,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GLAD.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>GLAD.lib;opengl32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -162,12 +164,22 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.h" />
+    <ClInclude Include="src\Engine\Application\Modules\ApplicationModule.h" />
+    <ClInclude Include="src\Engine\Application\Application.h" />
+    <ClInclude Include="src\Engine\Application\Window\WindowCreateDescription.h" />
     <ClInclude Include="src\Engine\Event\Event.h" />
     <ClInclude Include="src\Engine\Event\Delegate.h" />
     <ClInclude Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.h" />
@@ -198,8 +210,19 @@
     <ClInclude Include="src\Engine\Application\Events\Window\WindowResizedEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\Window\WindowFileDropEvent.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.cpp" />
+    <ClCompile Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.cpp" />
+    <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp" />
+    <ClCompile Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.cpp" />
+    <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />
+    <ClCompile Include="src\Engine\Application\Modules\ApplicationModule.cpp" />
+    <ClCompile Include="src\Engine\Application\Application.cpp" />
     <ClCompile Include="src\Engine\Event\Event.cpp" />
     <ClCompile Include="src\Engine\Event\Delegate.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.cpp" />
@@ -221,6 +244,9 @@
     <ClCompile Include="src\Engine\Application\Events\Window\WindowResizedEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowFileDropEvent.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
