@@ -8,13 +8,14 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Graphics device OpenGL implementation
+	/// </summary>
 	class OpenGLGraphicsDevice : public GraphicsDevice
 	{
 	public:
 		OpenGLGraphicsDevice(Window* ownerWindow);
 		virtual ~OpenGLGraphicsDevice() override;
-
-
 
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;

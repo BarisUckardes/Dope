@@ -168,6 +168,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Application\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\ApplicationEventType.h" />
     <ClInclude Include="src\Engine\Core\Assert.h" />
     <ClInclude Include="src\Engine\Core\ConsoleLog.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.h" />
@@ -181,13 +183,22 @@
     <ClInclude Include="src\Engine\Structures\Array.h" />
     <ClInclude Include="src\Engine\Structures\String.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Window\WindowsWindow.h" />
+    <ClInclude Include="src\Engine\Application\Events\Window\WindowClosedEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Window\WindowResizedEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Window\WindowFileDropEvent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Application\Events\ApplicationEvent.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Application\Window\Window.cpp" />
     <ClCompile Include="src\Engine\Structures\String.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Window\WindowsWindow.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Window\WindowClosedEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Window\WindowResizedEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Window\WindowFileDropEvent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

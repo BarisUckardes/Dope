@@ -6,7 +6,7 @@
 
 namespace DopeEngine
 {
-	unsigned int GetCharPointerSize(const char* target)
+	unsigned int get_char_pointer_size(const char* target)
 	{
 		unsigned int size = 0;
 		while (target[size] != '\0')
@@ -16,64 +16,64 @@ namespace DopeEngine
 
 	String::String()
 	{
-		m_Source = nullptr;
-		m_Cursor = 0;
+		Source = nullptr;
+		Cursor = 0;
 	}
 	String::String(const char* target)
 	{
 		/*
 		* Allocate
 		*/
-		m_Cursor = GetCharPointerSize(target);
-		m_Source = new char[(double)m_Cursor + 1];
+		Cursor = get_char_pointer_size(target);
+		Source = new char[(double)Cursor + 1];
 
 		/*
 		* Copy
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			m_Source[i] = target[i];
+			Source[i] = target[i];
 		}
 
 		/*
 		* Set escape
 		*/
-		m_Source[m_Cursor] = '\0';
+		Source[Cursor] = '\0';
 
 	}
-	String::String(unsigned int size)
+	String::String(const unsigned int size)
 	{
 		/*
 		* Allocate
 		*/
-		m_Cursor = size;
-		m_Source = new char[m_Cursor + 1];
+		Cursor = size;
+		Source = new char[Cursor + 1];
 
 		/*
 		* Set escape
 		*/
-		m_Source[m_Cursor] = '\0';
+		Source[Cursor] = '\0';
 	}
-	String::String(const char* target, unsigned int size)
+	String::String(const char* target, const unsigned int size)
 	{
 		/*
 		* Allocate
 		*/
-		m_Cursor = size - 1;
-		m_Source = new char[(double)m_Cursor + 1];
+		Cursor = size - 1;
+		Source = new char[(double)Cursor + 1];
 
 		/*
 		* Copy
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			m_Source[i] = target[i];
+			Source[i] = target[i];
 		}
 
 		/*
 		* Set escape
 		*/
-		m_Source[m_Cursor] = '\0';
+		Source[Cursor] = '\0';
 
 	}
 	String::String(const String& target)
@@ -81,36 +81,36 @@ namespace DopeEngine
 		/*
 		* Allocate
 		*/
-		m_Cursor = target.m_Cursor;
-		m_Source = new char[(double)m_Cursor + 1];
+		Cursor = target.Cursor;
+		Source = new char[(double)Cursor + 1];
 
 		/*
 		* Copy Elements
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			m_Source[i] = target.m_Source[i];
+			Source[i] = target.Source[i];
 		}
 
 		/*
 		* Set escape char
 		*/
-		m_Source[m_Cursor] = '\0';
+		Source[Cursor] = '\0';
 	}
 	String::~String()
 	{
-		m_Cursor = 0;
-		delete[] m_Source;
-		m_Source = nullptr;
+		Cursor = 0;
+		delete[] Source;
+		Source = nullptr;
 	}
-	String String::GetSubset(unsigned int start, unsigned  int length) const
+	String String::get_subset(const unsigned int start, const unsigned  int length) const
 	{
 		/*
 		* Normalize cursor
 		*/
 		unsigned int end = start + length;
-		/*if (end >= m_Cursor)
-			end = m_Cursor - 1;*/
+		/*if (end >= Cursor)
+			end = Cursor - 1;*/
 
 			/*
 			* Create required variables
@@ -128,7 +128,7 @@ namespace DopeEngine
 		int subsetIndex = 0;
 		for (unsigned int i = start; i < end; i++)
 		{
-			subsetSource[subsetIndex] = m_Source[i];
+			subsetSource[subsetIndex] = Source[i];
 			subsetIndex++;
 		}
 
@@ -140,19 +140,19 @@ namespace DopeEngine
 		return String(subsetSource);
 	}
 
-	char* String::GetSource() const
+	char* String::get_source() const
 	{
-		return m_Source;
+		return Source;
 	}
 
-	unsigned int String::GetCursor() const
+	unsigned int String::get_cursor() const
 	{
-		return m_Cursor;
+		return Cursor;
 	}
 
 
 
-	Array<String> String::SplitByChar(char targetChar) const
+	Array<String> String::splity_by_char(const char targetChar) const
 	{
 		/*
 		* Initialize array
@@ -163,12 +163,12 @@ namespace DopeEngine
 		* itarate
 		*/
 		unsigned int startLocation = 0;
-		for (unsigned int letterIndex = 0; letterIndex < m_Cursor; letterIndex++)
+		for (unsigned int letterIndex = 0; letterIndex < Cursor; letterIndex++)
 		{
 			/*
 			* Validate equality
 			*/
-			if (m_Source[letterIndex] == targetChar)
+			if (Source[letterIndex] == targetChar)
 			{
 				/*
 				* Validate splite requirements
@@ -180,7 +180,7 @@ namespace DopeEngine
 				/*
 				* Split
 				*/
-				String fragment(&m_Source[startLocation], difference + 1);
+				String fragment(&Source[startLocation], difference + 1);
 
 				/*
 				* Update start location
@@ -190,7 +190,7 @@ namespace DopeEngine
 				/*
 				* Register fragment
 				*/
-				fragments.Add(fragment);
+				fragments.add(fragment);
 			}
 
 		}
@@ -198,39 +198,39 @@ namespace DopeEngine
 		/*
 		* Split to end
 		*/
-		const unsigned int difference = m_Cursor - startLocation;
+		const unsigned int difference = Cursor - startLocation;
 		if (difference != 0)
 		{
-			String fragment(&m_Source[startLocation], difference + 1);
-			fragments.Add(fragment);
+			String fragment(&Source[startLocation], difference + 1);
+			fragments.add(fragment);
 		}
 
 
 		return fragments;
 	}
-	int String::FindIndex(const String& targetString, unsigned int startIndex, unsigned int targetCount) const
+	int String::find_index(const String& targetString,const unsigned int startIndex,const unsigned int targetCount) const
 	{
 		/*
 		* Validate remaining chars
 		*/
-		const unsigned int searchLength = targetString.GetCursor();
+		const unsigned int searchLength = targetString.get_cursor();
 
 		/*
 		* Look for sequence of chars
 		*/
 		unsigned int foundSoFar = 0;
 		int index = -1;
-		for (unsigned int charIndex = startIndex; charIndex < m_Cursor; charIndex++)
+		for (unsigned int charIndex = startIndex; charIndex < Cursor; charIndex++)
 		{
 			/*
 			* Validate if first letter is matched
 			*/
-			if (m_Source[charIndex] == targetString[0])
+			if (Source[charIndex] == targetString[0])
 			{
 				/*
 				* A match found first validate the length
 				*/
-				if (charIndex + targetString.GetCursor() > m_Cursor) // discard
+				if (charIndex + targetString.get_cursor() > Cursor) // discard
 				{
 					continue;
 				}
@@ -238,7 +238,7 @@ namespace DopeEngine
 				/*
 				* Get subset string
 				*/
-				String subset = GetSubset(charIndex, searchLength);
+				String subset = get_subset(charIndex, searchLength);
 
 				/*
 				* Check if its equal
@@ -253,14 +253,14 @@ namespace DopeEngine
 
 		return index;
 	}
-	unsigned int String::FindIndex(char targetChar) const
+	unsigned int String::find_index(const char targetChar) const
 	{
 		/*
 		* Look for char
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			if (m_Source[i] == targetChar)
+			if (Source[i] == targetChar)
 			{
 				return i;
 			}
@@ -270,15 +270,15 @@ namespace DopeEngine
 		return 0;
 	}
 
-	unsigned int String::GetCount(char targetChar) const
+	unsigned int String::get_count(const char targetChar) const
 	{
 		/*
 		* Look for char
 		*/
 		unsigned int count = 0;
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			if (m_Source[i] == targetChar)
+			if (Source[i] == targetChar)
 			{
 				count++;
 			}
@@ -288,28 +288,28 @@ namespace DopeEngine
 		return count;
 	}
 
-	int String::FindLastIndex(const String& targetString, unsigned int startIndex) const
+	int String::find_last_index(const String& targetString,const unsigned int startIndex) const
 	{
 		/*
 		* Validate remaining chars
 		*/
-		const unsigned int searchLength = targetString.GetCursor();
+		const unsigned int searchLength = targetString.get_cursor();
 
 		/*
 		* Look for sequence of chars
 		*/
 		unsigned int lastIndexFound = -1;
-		for (unsigned int charIndex = startIndex; charIndex < m_Cursor; charIndex++)
+		for (unsigned int charIndex = startIndex; charIndex < Cursor; charIndex++)
 		{
 			/*
 			* Validate if first letter is matched
 			*/
-			if (m_Source[charIndex] == targetString[0])
+			if (Source[charIndex] == targetString[0])
 			{
 				/*
 				* A match found first validate the length
 				*/
-				if (charIndex + targetString.GetCursor() > m_Cursor) // discard
+				if (charIndex + targetString.get_cursor() > Cursor) // discard
 				{
 					continue;
 				}
@@ -317,7 +317,7 @@ namespace DopeEngine
 				/*
 				* Get subset string
 				*/
-				String subset = GetSubset(charIndex, searchLength);
+				String subset = get_subset(charIndex, searchLength);
 
 				/*
 				* Check if its equal
@@ -333,38 +333,38 @@ namespace DopeEngine
 	}
 
 
-	void String::Clear()
+	void String::clear()
 	{
 		/*
 		* Free the whole array
 		*/
-		delete[] m_Source;
+		delete[] Source;
 
 		/*
 		* Create new source
 		*/
-		m_Source = new char[1];
+		Source = new char[1];
 
 		/*
 		* Set escape
 		*/
-		m_Source[0] = '\0';
+		Source[0] = '\0';
 
 		/*
 		* Set cursor
 		*/
-		m_Cursor = 0;
+		Cursor = 0;
 	}
 	/*
 	* Operators
 	*/
 	const char* String::operator*() const
 	{
-		return m_Source;
+		return Source;
 	}
-	char String::operator[](unsigned int index) const
+	char String::operator[](const unsigned int index) const
 	{
-		return m_Source[index];
+		return Source[index];
 	}
 
 	void String::operator=(const String& target)
@@ -372,44 +372,44 @@ namespace DopeEngine
 		/*
 		* Check for empty string
 		*/
-		if (target.m_Cursor == 0)
+		if (target.Cursor == 0)
 		{
-			m_Cursor = 1;
-			m_Source = new char[1];
-			m_Source[0] = '\0';
+			Cursor = 1;
+			Source = new char[1];
+			Source[0] = '\0';
 			return;
 		}
 
 		/*
 		* Clear old source
 		*/
-		delete[] m_Source;
+		delete[] Source;
 
 		/*
 		* Allocate
 		*/
-		m_Cursor = target.m_Cursor;
-		m_Source = new char[(double)m_Cursor + 1];
+		Cursor = target.Cursor;
+		Source = new char[(double)Cursor + 1];
 
 		/*
 		* Copy Elements
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			m_Source[i] = target.m_Source[i];
+			Source[i] = target.Source[i];
 		}
 
 		/*
 		* Set escape char
 		*/
-		m_Source[m_Cursor] = '\0';
+		Source[Cursor] = '\0';
 	}
-	void String::operator+=(char target)
+	void String::operator+=(const char target)
 	{
 		/*
 		* Get new length;
 		*/
-		const unsigned int targetLength = m_Cursor + 1;
+		const unsigned int targetLength = Cursor + 1;
 
 		/*
 		* Allocate new source
@@ -419,43 +419,43 @@ namespace DopeEngine
 		/*
 		* Set former elementss
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			newSource[i] = m_Source[i];
+			newSource[i] = Source[i];
 		}
 
 		/*
 		* Set target
 		*/
-		newSource[m_Cursor] = target;
+		newSource[Cursor] = target;
 
 		/*
 		* Set escape
 		*/
-		newSource[m_Cursor + 1] = '\0';
+		newSource[Cursor + 1] = '\0';
 
 		/*
 		* Free old source
 		*/
-		delete[] m_Source;
+		delete[] Source;
 
 		/*
 		* Set new source
 		*/
-		m_Source = newSource;
+		Source = newSource;
 
 		/*
 		* Set new length
 		*/
-		m_Cursor = targetLength;
+		Cursor = targetLength;
 	}
 	void String::operator+=(const char* target)
 	{
 		/*
 		* Get lengths
 		*/
-		unsigned int targetSourceCharLength = GetCharPointerSize(target);
-		unsigned int newLength = targetSourceCharLength + m_Cursor;
+		unsigned int target_sourceCharLength = get_char_pointer_size(target);
+		unsigned int newLength = target_sourceCharLength + Cursor;
 
 		/*
 		* Create new source and allocate
@@ -465,9 +465,9 @@ namespace DopeEngine
 		/*
 		* Copy original string
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			newSource[i] = m_Source[i];
+			newSource[i] = Source[i];
 		}
 
 		/*
@@ -475,7 +475,7 @@ namespace DopeEngine
 		*/
 		{
 			int targetIndex = 0;
-			for (unsigned int i = m_Cursor; i < newLength; i++)
+			for (unsigned int i = Cursor; i < newLength; i++)
 			{
 				newSource[i] = target[targetIndex];
 				targetIndex++;
@@ -490,13 +490,13 @@ namespace DopeEngine
 		/*
 		* Free old source
 		*/
-		delete[] m_Source;
+		delete[] Source;
 
 		/*
 		* Set new length and source
 		*/
-		m_Cursor = newLength;
-		m_Source = newSource;
+		Cursor = newLength;
+		Source = newSource;
 
 	}
 	void String::operator+=(const String& target)
@@ -504,7 +504,7 @@ namespace DopeEngine
 		/*
 		* Get new length
 		*/
-		const unsigned int targetLength = m_Cursor + target.GetCursor();
+		const unsigned int targetLength = Cursor + target.get_cursor();
 
 		/*
 		* Allocate new source
@@ -514,16 +514,16 @@ namespace DopeEngine
 		/*
 		* Set former elements
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
-			newSource[i] = m_Source[i];
+			newSource[i] = Source[i];
 		}
 
 		/*
 		* Copy the target
 		*/
 		int targetIndex = 0;
-		for (unsigned int i = m_Cursor; i < targetLength; i++)
+		for (unsigned int i = Cursor; i < targetLength; i++)
 		{
 			newSource[i] = target[targetIndex];
 			targetIndex++;
@@ -537,24 +537,24 @@ namespace DopeEngine
 		/*
 		* Free old source
 		*/
-		delete[] m_Source;
+		delete[] Source;
 
 		/*
 		* Set new source
 		*/
-		m_Source = newSource;
+		Source = newSource;
 
 		/*
 		* Set new length
 		*/
-		m_Cursor = targetLength;
+		Cursor = targetLength;
 	}
 	String operator+(const String& target0, const String& target1)
 	{
 		/*
 		* Get Lengths
 		*/
-		unsigned int newLength = target0.GetCursor() + target1.GetCursor() + 1;
+		unsigned int newLength = target0.get_cursor() + target1.get_cursor() + 1;
 
 		/*
 		* Allocate new source
@@ -566,7 +566,7 @@ namespace DopeEngine
 		*/
 		{
 			int targetIndex = 0;
-			for (unsigned int i = 0; i < target0.GetCursor(); i++)
+			for (unsigned int i = 0; i < target0.get_cursor(); i++)
 			{
 				newSource[i] = target0[targetIndex];
 				targetIndex++;
@@ -578,7 +578,7 @@ namespace DopeEngine
 		*/
 		{
 			int targetIndex = 0;
-			for (unsigned int i = target0.GetCursor(); i < newLength; i++)
+			for (unsigned int i = target0.get_cursor(); i < newLength; i++)
 			{
 				newSource[i] = target1[targetIndex];
 				targetIndex++;
@@ -597,8 +597,8 @@ namespace DopeEngine
 		/*
 		* Collect length and source
 		*/
-		unsigned int target0Length = target0.GetCursor();
-		unsigned int target1Length = target1.GetCursor();
+		unsigned int target0Length = target0.get_cursor();
+		unsigned int target1Length = target1.get_cursor();
 		const char* target0Source = *target0;
 		const char* target1Source = *target1;
 
@@ -626,8 +626,8 @@ namespace DopeEngine
 		/*
 		* Collect length and source
 		*/
-		unsigned int target0Length = target0.GetCursor();
-		unsigned int target1Length = target1.GetCursor();
+		unsigned int target0Length = target0.get_cursor();
+		unsigned int target1Length = target1.get_cursor();
 		const char* target0Source = *target0;
 		const char* target1Source = *target1;
 
@@ -651,7 +651,7 @@ namespace DopeEngine
 		return false;
 	}
 
-	String String::GetFromFloat(float value)
+	String String::get_from_float(const float value)
 	{
 		char* chars = new char[MAX_INT_DIGITS];
 
@@ -659,8 +659,16 @@ namespace DopeEngine
 
 		return chars;
 	}
+	String String::get_from_integer(const int value)
+	{
+		char* chars = new char[MAX_INT_DIGITS];
 
-	float String::ToFloat(const String& str)
+		sprintf(chars, "%d", value);
+
+		return chars;
+	}
+
+	float String::to_float(const String& str)
 	{
 		float value = -1;
 		std::stringstream stream(*str);

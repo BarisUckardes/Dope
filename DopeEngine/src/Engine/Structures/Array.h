@@ -23,112 +23,112 @@ namespace DopeEngine
 		/// <para>Deletes the former elements</para>
 		/// </summary>
 		/// <param name="capacity"></param>
-		void Reserve(unsigned int capacity);
+		void reserve(unsigned int capacity);
 
 		/// <summary>
 		/// Returns a slice of this array(does not copy the contents)
 		/// </summary>
 		/// <typeparam name="TValue"></typeparam>
-		void Copy(const TValue* data, unsigned int count);
+		void copy(const TValue* data, unsigned int count);
 
 		/// <summary>
 		/// Returns a slice of this array(does not copy the contents)
 		/// </summary>
 		/// <typeparam name="TValue"></typeparam>
-		void Copy(const Array<TValue>& data, unsigned int start, unsigned int end);
+		void copy(const Array<TValue>& data, unsigned int start, unsigned int end);
 
 		/// <summary>
-		/// Moves the target source to this array
+		/// moves the target source to this array
 		/// </summary>
 		/// <param name="targetSource"></param>
 		/// <param name="numberOfElements"></param>
-		void Move(TValue* targetSource, unsigned long numberOfElements);
+		void move(TValue* targetSource, unsigned long numberOfElements);
 
 		/// <summary>
-		/// Adds a new element to the array
+		/// adds a new element to the array
 		/// </summary>
 		/// <param name="element"></param>
-		void Add(const TValue& element);
+		void add(const TValue& element);
 
 		/// <summary>
-		/// Adds a new array to array
+		/// adds a new array to array
 		/// </summary>
 		/// <param name="elements"></param>
-		void AddRange(const Array<TValue>& elements);
+		void add_range(const Array<TValue>& elements);
 
 		/// <summary>
 		/// Insert the item
 		/// </summary>
 		/// <param name="index"></param>
 		/// <param name="element"></param>
-		void Insert(unsigned int index, const TValue& element);
+		void insert(unsigned int index, const TValue& element);
 
 		/// <summary>
 		/// Clears the whole array
 		/// <para>Invokes the deconstructors if the TValue is a value type</para>
 		/// </summary>
-		void Clear();
+		void clear();
 
 		/// <summary>
 		/// Removes the target index
 		/// </summary>
 		/// <param name="index"></param>
-		void RemoveIndex(unsigned int index);
+		void remove_index(unsigned int index);
 
 		/// <summary>
 		/// Removes the target value
 		/// </summary>
 		/// <param name="element"></param>
-		void Remove(const TValue& element);
+		void remove(const TValue& element);
 
 		/// <summary>
 		/// Removes the spare space
 		/// </summary>
-		void Compact();
+		void compact();
 
 		/// <summary>
 		/// Sets the value which determines how large the next array size is when array size is insufficient
 		/// </summary>
 		/// <param name="amount"></param>
-		void SetAllocateMultiplier(unsigned int amount);
+		void set_allocate_multiplier(unsigned int amount);
 
 		/// <summary>
 		/// Returns the value of max elements which this array can take at this instant
 		/// </summary>
 		/// <returns></returns>
-		unsigned int GetCapacity() const { return m_Capacity; }
+		unsigned int get_capacity() const { return Capacity; }
 
 		/// <summary>
 		/// Returns the current cursor of this array thus returning the number of elements inside the array
 		/// </summary>
 		/// <returns></returns>
-		unsigned int GetCursor() const { return m_Cursor; }
+		unsigned int get_cursor() const { return Cursor; }
 
 		/// <summary>
 		/// Returns a pointer to the const source
 		/// </summary>
 		/// <returns></returns>
-		TValue* GetData() const { return m_Source; }
+		TValue* get_data() const { return m_Source; }
 
 		/// <summary>
 		/// Returns the array allocation multiplier
 		/// </summary>
 		/// <returns></returns>
-		unsigned int GetAllocateMultiplier() const { return m_AllocateMultiplier; }
+		unsigned int get_allocate_multiplier() const { return AllocateMultiplier; }
 
 		/// <summary>
 		/// Returns whether the element exists in this array
 		/// </summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
-		bool Has(const TValue& element) const;
+		bool has(const TValue& element) const;
 
 		/// <summary>
 		/// Returns the index of the element
 		/// </summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
-		int FindIndex(const TValue& element) const;
+		int find_index(const TValue& element) const;
 	public:
 		TValue& operator[](unsigned int index) const;
 		void operator=(const Array<TValue>& targetSource);
@@ -137,12 +137,12 @@ namespace DopeEngine
 		/// Clears the source memory
 		/// <para>Invokes element deconstructors if the TValue is a value type</para>
 		/// </summary>
-		void ClearMemory();
+		void clear_memory();
 	private:
 		TValue* m_Source;
-		unsigned int m_Capacity;
-		unsigned int m_Cursor;
-		unsigned int m_AllocateMultiplier;
+		unsigned int Capacity;
+		unsigned int Cursor;
+		unsigned int AllocateMultiplier;
 	};
 
 	/*
@@ -151,10 +151,10 @@ namespace DopeEngine
 	template<typename TValue>
 	Array<TValue>::Array(unsigned int allocateMultiplier)
 	{
-		m_Capacity = 0;
-		m_Cursor = 0;
+		Capacity = 0;
+		Cursor = 0;
 		m_Source = nullptr;
-		m_AllocateMultiplier = allocateMultiplier;
+		AllocateMultiplier = allocateMultiplier;
 	}
 
 	template<typename TValue>
@@ -163,16 +163,16 @@ namespace DopeEngine
 		/*
 		* Get target source properties
 		*/
-		m_Cursor = targetSource.m_Cursor;
-		m_Capacity = targetSource.m_Capacity;
-		m_AllocateMultiplier = targetSource.m_AllocateMultiplier;
+		Cursor = targetSource.Cursor;
+		Capacity = targetSource.Capacity;
+		AllocateMultiplier = targetSource.AllocateMultiplier;
 
 		/*
 		* Allocate new source
 		*/
-		m_Source = new TValue[m_Capacity];
+		m_Source = new TValue[Capacity];
 
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			m_Source[i] = targetSource.m_Source[i];
 		}
@@ -183,15 +183,15 @@ namespace DopeEngine
 		/*
 		* Get properties
 		*/
-		m_Cursor = count;
-		m_Capacity = count;
+		Cursor = count;
+		Capacity = count;
 
 		/*
 		* Allocate new source
 		*/
-		m_Source = new TValue[m_Capacity];
+		m_Source = new TValue[Capacity];
 
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			m_Source[i] = data[i];
 		}
@@ -205,10 +205,10 @@ namespace DopeEngine
 		* Allocate space
 		*/
 		m_Source = new TValue[initializerList.size()];
-		m_Cursor = initializerList.size();
-		m_Capacity = initializerList.size();
+		Cursor = initializerList.size();
+		Capacity = initializerList.size();
 		/*
-		* Copy
+		* copy
 		*/
 		unsigned int index = 0;
 		for (const TValue& value : initializerList)
@@ -221,10 +221,10 @@ namespace DopeEngine
 	template<typename TValue>
 	Array<TValue>::~Array()
 	{
-		ClearMemory();
+		clear_memory();
 	}
 	template<typename TValue>
-	void Array<TValue>::ClearMemory()
+	void Array<TValue>::clear_memory()
 	{
 		if (m_Source == nullptr)
 			return;
@@ -233,12 +233,12 @@ namespace DopeEngine
 	}
 
 	template<typename TValue>
-	void Array<TValue>::Reserve(unsigned int capacity)
+	void Array<TValue>::reserve(unsigned int capacity)
 	{
 		/*
 		* Delete former source
 		*/
-		ClearMemory();
+		clear_memory();
 
 		/*
 		* Allocate new source
@@ -248,74 +248,74 @@ namespace DopeEngine
 		/*
 		* Set new capacity
 		*/
-		m_Capacity = capacity;
+		Capacity = capacity;
 
 		/*
 		* Reset the cursor
 		*/
-		m_Cursor = 0;
+		Cursor = 0;
 	}
 	template<typename TValue>
-	inline void Array<TValue>::Copy(const TValue* data, unsigned int count)
+	inline void Array<TValue>::copy(const TValue* data, unsigned int count)
 	{
 		/*
 		* Get properties
 		*/
-		m_Cursor = count;
-		m_Capacity = count;
+		Cursor = count;
+		Capacity = count;
 
 		/*
 		* Allocate new source
 		*/
-		m_Source = new TValue[m_Capacity];
+		m_Source = new TValue[Capacity];
 
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			m_Source[i] = data[i];
 		}
 	}
 	template<typename TValue>
-	inline void Array<TValue>::Copy(const Array<TValue>& data, unsigned int start, unsigned int end)
+	inline void Array<TValue>::copy(const Array<TValue>& data, unsigned int start, unsigned int end)
 	{
 		/*
 		* Get properties
 		*/
-		m_Cursor = end - start;
-		m_Capacity = end - start;
+		Cursor = end - start;
+		Capacity = end - start;
 
 		/*
 		* Allocate new source
 		*/
-		m_Source = new TValue[m_Capacity];
+		m_Source = new TValue[Capacity];
 
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			m_Source[i] = data[i];
 		}
 	}
 	template<typename TValue>
-	inline void Array<TValue>::Move(TValue* targetSource, unsigned long numberOfElements)
+	inline void Array<TValue>::move(TValue* targetSource, unsigned long numberOfElements)
 	{
 		/*
 		* Set properties
 		*/
-		m_Cursor = numberOfElements;
-		m_Capacity = numberOfElements;
+		Cursor = numberOfElements;
+		Capacity = numberOfElements;
 		m_Source = targetSource;
 
 	}
 	template<typename TValue>
-	void Array<TValue>::Add(const TValue& element)
+	void Array<TValue>::add(const TValue& element)
 	{
 		/*
 		* Validate array bounds
 		*/
-		if (m_Cursor >= m_Capacity) // time to extend the bound of this array
+		if (Cursor >= Capacity) // time to extend the bound of this array
 		{
 			/*
 			* Determine the next capacity
 			*/
-			unsigned int targetCapacity = ((m_Capacity == 0) ? 1 : m_Capacity) * m_AllocateMultiplier;
+			unsigned int targetCapacity = ((Capacity == 0) ? 1 : Capacity) * AllocateMultiplier;
 
 			/*
 			* Allocate new source
@@ -325,7 +325,7 @@ namespace DopeEngine
 			/*
 			* Fill the new source with the old source data
 			*/
-			for (unsigned int i = 0; i < m_Cursor; i++)
+			for (unsigned int i = 0; i < Cursor; i++)
 			{
 				newSource[i] = m_Source[i];
 			}
@@ -333,7 +333,7 @@ namespace DopeEngine
 			/*
 			* Delete the old source
 			*/
-			ClearMemory();
+			clear_memory();
 
 			/*
 			* Set the new source
@@ -343,33 +343,33 @@ namespace DopeEngine
 			/*
 			* Set Capacity
 			*/
-			m_Capacity = targetCapacity;
+			Capacity = targetCapacity;
 		}
 
 		/*
 		* Set the current cursor data
 		*/
-		m_Source[m_Cursor] = element;
+		m_Source[Cursor] = element;
 
 		/*
 		* Increment Cursor
 		*/
-		m_Cursor++;
+		Cursor++;
 	}
 
 	template<typename TValue>
-	void Array<TValue>::AddRange(const Array<TValue>& array)
+	void Array<TValue>::add_range(const Array<TValue>& array)
 	{
 		/*
 		* Validate array bounds
 		*/
 		const unsigned int increaseInSize = array.GetCursor();
-		const unsigned int targetSize = m_Cursor + increaseInSize + 1;
+		const unsigned int targetSize = Cursor + increaseInSize + 1;
 
 		/*
 		* Validate if it needs new array
 		*/
-		if (targetSize >= m_Capacity)
+		if (targetSize >= Capacity)
 		{
 			/*
 			* Allocate new source
@@ -379,7 +379,7 @@ namespace DopeEngine
 			/*
 			* First set old source
 			*/
-			for (unsigned int sourceIndex = 0; sourceIndex < m_Cursor; sourceIndex++)
+			for (unsigned int sourceIndex = 0; sourceIndex < Cursor; sourceIndex++)
 			{
 				newSource[sourceIndex] = m_Source[sourceIndex];
 			}
@@ -389,13 +389,13 @@ namespace DopeEngine
 			*/
 			for (unsigned int sourceIndex = 0; sourceIndex < increaseInSize; sourceIndex++)
 			{
-				newSource[m_Cursor + sourceIndex] = array.m_Source[sourceIndex];
+				newSource[Cursor + sourceIndex] = array.m_Source[sourceIndex];
 			}
 
 			/*
 			* Clear old array
 			*/
-			ClearMemory();
+			clear_memory();
 
 			/*
 			* Set new source
@@ -405,8 +405,8 @@ namespace DopeEngine
 			/*
 			* Set cursor
 			*/
-			m_Cursor = targetSize - 1;
-			m_Capacity = m_Cursor;
+			Cursor = targetSize - 1;
+			Capacity = Cursor;
 		}
 		else // just needs append
 		{
@@ -414,7 +414,7 @@ namespace DopeEngine
 			* Set target array
 			*/
 			unsigned int targetArrayIndex = 0;
-			for (unsigned int sourceIndex = m_Cursor; sourceIndex < increaseInSize; sourceIndex++)
+			for (unsigned int sourceIndex = Cursor; sourceIndex < increaseInSize; sourceIndex++)
 			{
 				m_Source[sourceIndex] = array.m_Source[targetArrayIndex];
 				targetArrayIndex++;
@@ -423,22 +423,22 @@ namespace DopeEngine
 			/*
 			* Set cursor
 			*/
-			m_Cursor = targetSize - 1;
+			Cursor = targetSize - 1;
 		}
 	}
 
 	template<typename TValue>
-	void Array<TValue>::Insert(unsigned int index, const TValue& element)
+	void Array<TValue>::insert(unsigned int index, const TValue& element)
 	{
 		/*
 		* Validate array bounds
 		*/
-		if (m_Cursor >= m_Capacity) // time to extend the bound of this array
+		if (Cursor >= Capacity) // time to extend the bound of this array
 		{
 			/*
 			* Determine the next capacity
 			*/
-			unsigned int targetCapacity = ((m_Capacity == 0) ? 1 : m_Capacity) * m_AllocateMultiplier;
+			unsigned int targetCapacity = ((Capacity == 0) ? 1 : Capacity) * AllocateMultiplier;
 
 			/*
 			* Allocate new source
@@ -448,7 +448,7 @@ namespace DopeEngine
 			/*
 			* Fill the new source with the old source data
 			*/
-			for (unsigned int i = 0; i < m_Cursor; i++)
+			for (unsigned int i = 0; i < Cursor; i++)
 			{
 				newSource[i] = m_Source[i];
 			}
@@ -456,7 +456,7 @@ namespace DopeEngine
 			/*
 			* Delete the old source
 			*/
-			ClearMemory();
+			clear_memory();
 
 			/*
 			* Set the new source
@@ -466,13 +466,13 @@ namespace DopeEngine
 			/*
 			* Set Capacity
 			*/
-			m_Capacity = targetCapacity;
+			Capacity = targetCapacity;
 		}
 
 		/*
 		* Shift elements
 		*/
-		for (unsigned int i = m_Cursor; i > index; i--)
+		for (unsigned int i = Cursor; i > index; i--)
 		{
 			m_Source[i] = m_Source[i - 1];
 		}
@@ -485,40 +485,40 @@ namespace DopeEngine
 		/*
 		* Increment cursor
 		*/
-		m_Cursor++;
+		Cursor++;
 	}
 	template<typename TValue>
-	void Array<TValue>::SetAllocateMultiplier(unsigned int multiplier)
+	void Array<TValue>::set_allocate_multiplier(unsigned int multiplier)
 	{
 		/*
 		* Set multiplier
 		*/
-		m_AllocateMultiplier = multiplier;
+		AllocateMultiplier = multiplier;
 	}
 
 	template<typename TValue>
-	void Array<TValue>::Clear()
+	void Array<TValue>::clear()
 	{
 		/*
 		* Delete source
 		*/
-		ClearMemory();
+		clear_memory();
 
 		/*
 		* Set variables
 		*/
 		m_Source = nullptr;
-		m_Capacity = 0;
-		m_Cursor = 0;
+		Capacity = 0;
+		Cursor = 0;
 	}
 
 	template<typename TValue>
-	void Array<TValue>::RemoveIndex(unsigned int index)
+	void Array<TValue>::remove_index(unsigned int index)
 	{
 		/*
 		* Shift elements
 		*/
-		for (unsigned int i = index + 1; i < m_Cursor; i++)
+		for (unsigned int i = index + 1; i < Cursor; i++)
 		{
 			m_Source[i - 1] = m_Source[i];
 		}
@@ -526,17 +526,17 @@ namespace DopeEngine
 		/*
 		* Decrement cursor
 		*/
-		m_Cursor--;
+		Cursor--;
 	}
 
 	template<typename TValue>
-	void Array<TValue>::Remove(const TValue& element)
+	void Array<TValue>::remove(const TValue& element)
 	{
 		/*
 		* Find it
 		*/
 		int index = -1;
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			if (m_Source[i] == element)
 			{
@@ -556,7 +556,7 @@ namespace DopeEngine
 		/*
 		* Shift elements
 		*/
-		for (unsigned int i = index + 1; i < m_Cursor; i++)
+		for (unsigned int i = index + 1; i < Cursor; i++)
 		{
 			m_Source[i - 1] = m_Source[i];
 		}
@@ -564,20 +564,20 @@ namespace DopeEngine
 		/*
 		* Decrement cursor
 		*/
-		m_Cursor--;
+		Cursor--;
 	}
 	template<typename TValue>
-	void Array<TValue>::Compact()
+	void Array<TValue>::compact()
 	{
 		/*
 		* Create new source
 		*/
-		TValue* newSource = new TValue[m_Cursor];
+		TValue* newSource = new TValue[Cursor];
 
 		/*
-		* Copy the contens
+		* copy the contens
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			newSource[i] = m_Source[i];
 		}
@@ -585,16 +585,16 @@ namespace DopeEngine
 		/*
 		* Update variables
 		*/
-		m_Capacity = m_Cursor;
+		Capacity = Cursor;
 	}
 
 	template<typename TValue>
-	bool Array<TValue>::Has(const TValue& element) const
+	bool Array<TValue>::has(const TValue& element) const
 	{
 		/*
 		* Iterator all elements
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			if (m_Source[i] == element) // has
 				return true;
@@ -604,14 +604,14 @@ namespace DopeEngine
 	}
 
 	template<typename TValue>
-	int Array<TValue>::FindIndex(const TValue& element) const
+	int Array<TValue>::find_index(const TValue& element) const
 	{
 		int index = -1;
 
 		/*
 		* Iterator all elements
 		*/
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			if (m_Source[i] == element)
 			{
@@ -633,16 +633,16 @@ namespace DopeEngine
 		/*
 		* Get target source properties
 		*/
-		m_Cursor = targetSource.m_Cursor;
-		m_Capacity = targetSource.m_Capacity;
-		m_AllocateMultiplier = targetSource.m_AllocateMultiplier;
+		Cursor = targetSource.Cursor;
+		Capacity = targetSource.Capacity;
+		AllocateMultiplier = targetSource.AllocateMultiplier;
 
 		/*
 		* Allocate new source
 		*/
-		m_Source = new TValue[m_Capacity];
+		m_Source = new TValue[Capacity];
 
-		for (unsigned int i = 0; i < m_Cursor; i++)
+		for (unsigned int i = 0; i < Cursor; i++)
 		{
 			m_Source[i] = targetSource.m_Source[i];
 		}
