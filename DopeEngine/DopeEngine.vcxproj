@@ -168,6 +168,17 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Event\Event.h" />
+    <ClInclude Include="src\Engine\Event\Delegate.h" />
+    <ClInclude Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Keyboard\KeyboardKeyUpEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Keyboard\KeyboardKeyDownEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Keyboard\KeyboardKeyEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Mouse\MouseScrolledEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Mouse\MousePositionChangedEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Mouse\MouseButtonUpEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Mouse\MouseButtonDownEvent.h" />
+    <ClInclude Include="src\Engine\Application\Events\Mouse\MouseButtonEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\ApplicationEventType.h" />
     <ClInclude Include="src\Engine\Core\Assert.h" />
@@ -189,6 +200,17 @@
     <ClInclude Include="src\Engine\Application\Events\Window\WindowFileDropEvent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Event\Event.cpp" />
+    <ClCompile Include="src\Engine\Event\Delegate.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardKeyUpEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardKeyDownEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardKeyEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Mouse\MouseScrolledEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Mouse\MousePositionChangedEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Mouse\MouseButtonUpEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Mouse\MouseButtonDownEvent.cpp" />
+    <ClCompile Include="src\Engine\Application\Events\Mouse\MouseButtonEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\ApplicationEvent.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDevice.cpp" />
