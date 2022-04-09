@@ -171,6 +171,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\World\Component.h" />
+    <ClInclude Include="src\Engine\World\Entity.h" />
+    <ClInclude Include="src\Engine\Structures\ColorRgba.h" />
+    <ClInclude Include="src\Engine\Memory\Memory.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.h" />
@@ -213,8 +217,14 @@
     <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.h" />
+    <ClInclude Include="src\Engine\Structures\Vector2f.h" />
+    <ClInclude Include="src\Engine\World\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\World\Component.cpp" />
+    <ClCompile Include="src\Engine\World\Entity.cpp" />
+    <ClCompile Include="src\Engine\Structures\ColorRgba.cpp" />
+    <ClCompile Include="src\Engine\Memory\Memory.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.cpp" />
@@ -247,6 +257,8 @@
     <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.cpp" />
+    <ClCompile Include="src\Engine\Structures\Vector2f.cpp" />
+    <ClCompile Include="src\Engine\World\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

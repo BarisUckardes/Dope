@@ -7,9 +7,21 @@ int main(int argumentCount, char** arguments)
 	/*
 	* Create application
 	*/
-	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::Directx11);
+	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::OpenGL);
+
+	/*
+	* Get window
+	*/
 	DopeEngine::Window* window = app.get_app_window();
+
+	/*
+	* Set window visible
+	*/
 	window->set_window_visibility(true);
+
+	/*
+	* Dummy application loop
+	*/
 	while (true)
 	{
 		window->poll_messages();
