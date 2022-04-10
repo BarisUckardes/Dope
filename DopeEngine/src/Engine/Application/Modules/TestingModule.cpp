@@ -28,6 +28,8 @@ namespace DopeEngine
 		*/
 		TestComponent* testComponent = debugEntity->create_component<TestComponent>("my log message");
 
+		testComponent->destroy();
+		debugEntity->destroy();
 		world->destroy();
 
 	}

@@ -4,6 +4,9 @@
 #include <Engine/Application/Devices/Portable/PortableDeviceInformation.h>
 namespace DopeEngine
 {
+	/// <summary>
+	/// An interface for the protable device enumarator
+	/// </summary>
 	class DOPE_ENGINE_API IPortableDeviceEnumarator
 	{
 	public:

@@ -6,7 +6,7 @@
 namespace DopeEngine
 {
 	/// <summary>
-	/// Device driver enumarator abstraction class
+	/// An interface for device driver enumarator class
 	/// </summary>
 	class DOPE_ENGINE_API IDeviceDriverEnumarator
 	{
