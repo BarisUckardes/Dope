@@ -8,6 +8,7 @@
 #include <Engine/Application/ApplicationModule.h>
 #include <Engine/Application/Events/ApplicationEvent.h>
 #include <Engine/Application/Session/GameSession.h>
+
 namespace DopeEngine
 {
 	Application::Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestGraphicsApi)

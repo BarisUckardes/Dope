@@ -43,7 +43,6 @@ namespace DopeEngine
 		*/
 		if (should_tick())
 		{
-
 			/*
 			* Get resolver
 			*/

@@ -171,9 +171,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Asset\AssetPackagePool.h" />
+    <ClInclude Include="src\Engine\Asset\AssetPackage.h" />
+    <ClInclude Include="src\Engine\Asset\Asset.h" />
+    <ClInclude Include="src\Engine\Structures\Guid.h" />
+    <ClInclude Include="src\Engine\Asset\AssetObject.h" />
     <ClInclude Include="src\Engine\Application\Modules\WorldResolverModule.h" />
     <ClInclude Include="src\Engine\Application\Session\GameSession.h" />
     <ClInclude Include="src\Engine\Application\Events\Events.h" />
+    <ClInclude Include="src\Engine\Asset\AssetImportType.h" />
+    <ClInclude Include="src\Engine\Asset\AssetType.h" />
     <ClInclude Include="src\Engine\Core\EventWorks.h" />
     <ClInclude Include="src\Engine\World\Resolvers\IterativeLogicResolver.h" />
     <ClInclude Include="src\Engine\World\Components\Spatial.h" />
@@ -229,8 +236,14 @@
     <ClInclude Include="src\Engine\World\WorldResolver.h" />
     <ClInclude Include="src\Engine\Application\Modules\TestingModule.h" />
     <ClInclude Include="src\Engine\World\Components\TestComponent.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowsGuid.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Asset\AssetPackagePool.cpp" />
+    <ClCompile Include="src\Engine\Asset\AssetPackage.cpp" />
+    <ClCompile Include="src\Engine\Asset\Asset.cpp" />
+    <ClCompile Include="src\Engine\Structures\Guid.cpp" />
+    <ClCompile Include="src\Engine\Asset\AssetObject.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\WorldResolverModule.cpp" />
     <ClCompile Include="src\Engine\Application\Session\GameSession.cpp" />
     <ClCompile Include="src\Engine\World\Resolvers\IterativeLogicResolver.cpp" />
@@ -277,6 +290,7 @@
     <ClCompile Include="src\Engine\World\WorldResolver.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\TestingModule.cpp" />
     <ClCompile Include="src\Engine\World\Components\TestComponent.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowsGuid.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -189,6 +189,30 @@
     <ClInclude Include="src\Engine\World\Components\TestComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Asset\AssetType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset\AssetImportType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset\AssetObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Structures\Guid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowsGuid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset\Asset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset\AssetPackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Asset\AssetPackagePool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Application\Window\Window.cpp">
@@ -327,6 +351,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\World\Components\TestComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Asset\AssetObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Structures\Guid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowsGuid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Asset\Asset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Asset\AssetPackage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Asset\AssetPackagePool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
