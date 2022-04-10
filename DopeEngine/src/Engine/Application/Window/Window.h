@@ -2,9 +2,11 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/String.h>
 #include <Engine/Application/Window/WindowCreateDescription.h>
+#include <Engine/Event/Delegate.h>
 namespace DopeEngine
 {
 	class GraphicsDevice;
+	class ApplicationEvent;
 	/// <summary>
 	/// Window OS abstraction class
 	/// </summary>
@@ -18,6 +20,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE GraphicsDevice* get_graphics_device() const;
+
+		/// <summary>
+		/// Returns whether this window has a close request or not
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE bool has_close_request() const;
 
 		/// <summary>
 		/// Returns the width of this window in pixels
@@ -81,7 +89,25 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="device"></param>
 		void assing_graphics_device(GraphicsDevice* device);
+
+		/// <summary>
+		/// Sets the application on event function delegate
+		/// </summary>
+		/// <param name="functionDelegate"></param>
+		void set_application_event_feed(const Delegate<void, ApplicationEvent*>& functionDelegate);
 	protected:
+		/// <summary>
+		/// Broadcast a application for the specific window
+		/// </summary>
+		/// <param name="window"></param>
+		/// <param name="event"></param>
+		void broadcast_application_event(ApplicationEvent* event);
+
+		/// <summary>
+		/// Sets a close request for this window
+		/// </summary>
+		void set_close_request();
+
 		Window(const WindowCreateDescription& description);
 		virtual ~Window() = default;
 
@@ -90,6 +116,7 @@ namespace DopeEngine
 		virtual void swap_buffers_impl() = 0;
 		virtual void poll_messages_impl() = 0;
 	private:
+		Delegate<void, ApplicationEvent*> ApplicationEventFeedDelegate;
 		GraphicsDevice* GDevice;
 		String Title;
 		unsigned int Width;
@@ -97,5 +124,6 @@ namespace DopeEngine
 		unsigned int PositionX;
 		unsigned int PositionY;
 		bool Visibility;
+		bool CloseRequest;
 	};
 }

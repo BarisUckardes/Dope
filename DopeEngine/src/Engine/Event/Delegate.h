@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <functional>
+#include <Engine/Core/EventWorks.h>
 
 namespace DopeEngine
 {
@@ -15,8 +15,9 @@ namespace DopeEngine
 	public:
 		Delegate(const std::function<TReturn(TParameters...)>& function)
 		{
-
+			FunctionPtr = function;
 		}
+		Delegate() = default;
 		~Delegate() = default;
 
 

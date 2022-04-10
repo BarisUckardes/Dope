@@ -23,4 +23,55 @@ namespace DopeEngine
         Y /= length;
     }
 
+	void Vector2f::operator=(const Vector2f& other)
+	{
+		X = other.X;
+		Y = other.Y;
+	}
+	void Vector2f::operator=(const float other)
+	{
+		X = Y = other;
+	}
+	void Vector2f::operator+=(const Vector2f& other)
+	{
+		X += other.X;
+		Y += other.Y;
+	}
+	void Vector2f::operator-=(const Vector2f& other)
+	{
+		X -= other.X;
+		Y -= other.Y;
+	}
+	void Vector2f::operator*=(const Vector2f& other)
+	{
+		X *= other.X;
+		Y *= other.Y;
+	}
+	void Vector2f::operator/=(const Vector2f& other)
+	{
+		X /= other.X;
+		Y /= other.Y;
+	}
+	void Vector2f::operator+=(const float other)
+	{
+		X += other;
+		Y += other;
+	}
+	void Vector2f::operator-=(const float other)
+	{
+		X -= other;
+		Y -= other;
+	}
+	void Vector2f::operator*=(const float other)
+	{
+		X *= other;
+		Y *= other;
+	}
+	void Vector2f::operator/=(const float other)
+	{
+		X /= other;
+		Y /= other;
+	}
+
+
 }

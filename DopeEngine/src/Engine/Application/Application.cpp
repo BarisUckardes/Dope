@@ -4,7 +4,10 @@
 #include <Engine/Application/Devices/Drivers/IDeviceDriverEnumarator.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
-
+#include <Engine/Event/Delegate.h>
+#include <Engine/Application/ApplicationModule.h>
+#include <Engine/Application/Events/ApplicationEvent.h>
+#include <Engine/Application/Session/GameSession.h>
 namespace DopeEngine
 {
 	Application::Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestGraphicsApi)
@@ -21,6 +24,158 @@ namespace DopeEngine
 	Window* Application::get_app_window() const
 	{
 		return Window;
+	}
+	void Application::run()
+	{
+		/*
+		* Create states
+		*/
+		String exitReasonMessage = "None";
+		bool shouldExit = false;
+
+		/*
+		* Create game session
+		*/
+		GameSession* session = new GameSession(Window);
+
+		/*
+		* Initialize pending modules
+		*/
+		for (unsigned int i = 0; i < PendingModules.get_cursor(); i++)
+		{
+			/*
+			* Get module
+			*/
+			ApplicationModule* module = PendingModules[i];
+
+			/*
+			* Set owner session
+			*/
+			module->_set_owner_session(session);
+
+			/*
+			* Initialize module
+			*/
+			module->initialize();
+
+			/*
+			* Register to modules
+			*/
+			ActiveModules.add(module);
+
+			/*
+			* Log
+			*/
+			LOG("Application", "The pending module[%s] is initialized and registered to the active module list of the application!",*module->get_module_class_name());
+		}
+		PendingModules.clear();
+
+		/*
+		* Make window visible
+		*/
+		Window->set_window_visibility(true);
+
+		/*
+		* Run app loop
+		*/
+		while (!shouldExit)
+		{
+			/*
+			* Poll window events
+			*/
+			Window->poll_messages();
+
+			/*
+			* Broadcast events
+			*/
+			for (unsigned int eventIndex = 0; eventIndex < BufferedEvents.get_cursor(); eventIndex++)
+			{
+				/*
+				* Get event
+				*/
+				ApplicationEvent* event = BufferedEvents[eventIndex];
+				for (int moduleIndex = ActiveModules.get_cursor() - 1; moduleIndex > 0; moduleIndex--)
+				{
+					/*
+					* Broadcast event to the module
+					*/
+					ActiveModules[moduleIndex]->on_receive_application_event(event);
+
+					/*
+					* Validate if the event is handled or not
+					*/
+					if (event->is_handled())
+					{
+						break;
+					}
+				}
+			}
+
+			/*
+			* Clear buffered events
+			*/
+			for (unsigned int i = 0; i < BufferedEvents.get_cursor(); i++)
+			{
+				delete BufferedEvents[i];
+			}
+			BufferedEvents.clear();
+
+			/*
+			* Update modules
+			*/
+			for (unsigned int i = 0; i < ActiveModules.get_cursor(); i++)
+			{
+				ActiveModules[i]->update();
+			}
+
+			/*
+			* Swapbuffers
+			*/
+			Window->swap_buffers();
+
+			/*
+			* Validate window should close
+			*/
+			if (Window->has_close_request())
+			{
+				shouldExit = true;
+				exitReasonMessage = "Window closed";
+			}
+		}
+
+		/*
+		* Finalize modules
+		*/
+		for (unsigned int i = 0; i < ActiveModules.get_cursor(); i++)
+		{
+			/*
+			* Get module
+			*/
+			ApplicationModule* module = ActiveModules[i];
+			const String className = module->get_module_class_name();
+
+			/*
+			* Finalize module
+			*/
+			module->finalize();
+
+			/*
+			* Free heap memory
+			*/
+			delete module;
+
+			/*
+			* Log
+			*/
+			LOG("Application", "The active module[%s] is finalized and removed from the active module list of the application!", *className);
+		}
+		ActiveModules.clear();
+
+		/*
+		* Log exit reason
+		*/
+		LOG("Application", "Terminated, reason: %s", *exitReasonMessage);
+
 	}
 	void Application::collect_portable_devices()
 	{
@@ -85,7 +240,15 @@ namespace DopeEngine
 	}
 	void Application::create_application_window(const WindowCreateDescription& windowDescription)
 	{
+		/*
+		* Create window
+		*/
 		Window = Window::create(windowDescription);
+
+		/*
+		* Set feed
+		*/
+		Window->set_application_event_feed(Delegate<void, ApplicationEvent*>(BIND_EVENT(Application::on_receive_application_event)));
 	}
 	void Application::create_graphics_device(GraphicsAPIType requestedApiType)
 	{
@@ -93,5 +256,9 @@ namespace DopeEngine
 		* Create graphics device
 		*/
 		GraphicsDevice* device = GraphicsDevice::create(requestedApiType, Window);
+	}
+	void Application::on_receive_application_event(ApplicationEvent* event)
+	{
+		BufferedEvents.add(event);
 	}
 }

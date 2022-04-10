@@ -171,6 +171,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Application\Modules\WorldResolverModule.h" />
+    <ClInclude Include="src\Engine\Application\Session\GameSession.h" />
+    <ClInclude Include="src\Engine\Application\Events\Events.h" />
+    <ClInclude Include="src\Engine\Core\EventWorks.h" />
+    <ClInclude Include="src\Engine\World\Resolvers\IterativeLogicResolver.h" />
+    <ClInclude Include="src\Engine\World\Components\Spatial.h" />
     <ClInclude Include="src\Engine\World\Component.h" />
     <ClInclude Include="src\Engine\World\Entity.h" />
     <ClInclude Include="src\Engine\Structures\ColorRgba.h" />
@@ -181,7 +187,7 @@
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h" />
     <ClInclude Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.h" />
     <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.h" />
-    <ClInclude Include="src\Engine\Application\Modules\ApplicationModule.h" />
+    <ClInclude Include="src\Engine\Application\ApplicationModule.h" />
     <ClInclude Include="src\Engine\Application\Application.h" />
     <ClInclude Include="src\Engine\Application\Window\WindowCreateDescription.h" />
     <ClInclude Include="src\Engine\Event\Event.h" />
@@ -219,8 +225,16 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.h" />
     <ClInclude Include="src\Engine\Structures\Vector2f.h" />
     <ClInclude Include="src\Engine\World\World.h" />
+    <ClInclude Include="src\Engine\Structures\Vector3f.h" />
+    <ClInclude Include="src\Engine\World\WorldResolver.h" />
+    <ClInclude Include="src\Engine\Application\Modules\TestingModule.h" />
+    <ClInclude Include="src\Engine\World\Components\TestComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Application\Modules\WorldResolverModule.cpp" />
+    <ClCompile Include="src\Engine\Application\Session\GameSession.cpp" />
+    <ClCompile Include="src\Engine\World\Resolvers\IterativeLogicResolver.cpp" />
+    <ClCompile Include="src\Engine\World\Components\Spatial.cpp" />
     <ClCompile Include="src\Engine\World\Component.cpp" />
     <ClCompile Include="src\Engine\World\Entity.cpp" />
     <ClCompile Include="src\Engine\Structures\ColorRgba.cpp" />
@@ -231,7 +245,7 @@
     <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />
-    <ClCompile Include="src\Engine\Application\Modules\ApplicationModule.cpp" />
+    <ClCompile Include="src\Engine\Application\ApplicationModule.cpp" />
     <ClCompile Include="src\Engine\Application\Application.cpp" />
     <ClCompile Include="src\Engine\Event\Event.cpp" />
     <ClCompile Include="src\Engine\Event\Delegate.cpp" />
@@ -259,6 +273,10 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Structures\Vector2f.cpp" />
     <ClCompile Include="src\Engine\World\World.cpp" />
+    <ClCompile Include="src\Engine\Structures\Vector3f.cpp" />
+    <ClCompile Include="src\Engine\World\WorldResolver.cpp" />
+    <ClCompile Include="src\Engine\Application\Modules\TestingModule.cpp" />
+    <ClCompile Include="src\Engine\World\Components\TestComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

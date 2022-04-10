@@ -1,8 +1,9 @@
 #include "WindowsWindow.h"
 #include <Engine/Core/Assert.h>
+#include <Engine/Application/Events/Events.h>
 namespace DopeEngine
 {
-    LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    //LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description) : Window(description)
 	{
 		_create_win32_window(processHandle);
@@ -110,7 +111,7 @@ namespace DopeEngine
     {
         return (WindowsWindow*)GetWindowLongPtr(windowHandle, -21);
     }
-    LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+    LRESULT CALLBACK WindowsWindow::Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     {
         switch (uMsg)
         {
@@ -132,10 +133,22 @@ namespace DopeEngine
                 WindowsWindow* window = GetWindowData(hwnd);
 
                 /*
-                * Set new size properties
+                * Broadcast event
                 */
-                //  window->Width = LOWORD(lParam);
-                 // window->Height = HIWORD(lParam);
+                window->broadcast_application_event(new WindowResizedEvent(LOWORD(lParam), HIWORD(lParam)));
+                break;
+            }
+            case WM_MOVE:
+            {
+                /*
+                * Get window data
+                */
+                WindowsWindow* window = GetWindowData(hwnd);
+
+                /*
+                * Broadcast event
+                */
+                window->broadcast_application_event(new WindowPositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
                 break;
             }
             case WM_KEYDOWN:
@@ -146,10 +159,9 @@ namespace DopeEngine
                 WindowsWindow* window = GetWindowData(hwnd);
 
                 /*
-                * Set key
+                * Broadcast event
                 */
-                // window->Keys[(unsigned char)wParam] = U_TRUE;
-               //  LOG("Win32", "Key down: %d", (unsigned int)wParam);
+                window->broadcast_application_event(new KeyboardKeyDownEvent((unsigned int)wParam, false));
                 break;
             }
             case WM_KEYUP:
@@ -160,9 +172,9 @@ namespace DopeEngine
                 WindowsWindow* window = GetWindowData(hwnd);
 
                 /*
-                * Set key
+                * Broadcast event
                 */
-                // window->Keys[(unsigned char)wParam] = GL_FALSE;
+                window->broadcast_application_event(new KeyboardKeyUpEvent((unsigned int)wParam));
                 break;
             }
             case WM_RBUTTONDOWN:
@@ -173,10 +185,9 @@ namespace DopeEngine
                 WindowsWindow* window = GetWindowData(hwnd);
 
                 /*
-                * Set button
+                * Broadcast event
                 */
-                // window->Buttons[1] = U_TRUE;
-
+                window->broadcast_application_event(new MouseButtonDownEvent(0, false));
                 break;
             }
             case WM_RBUTTONUP:
@@ -187,9 +198,9 @@ namespace DopeEngine
                 WindowsWindow* window = GetWindowData(hwnd);
 
                 /*
-                * Set button
+                * Boardcast event
                 */
-                //window->Buttons[1] = U_FALSE;
+                window->broadcast_application_event(new MouseButtonUpEvent(0));
                 break;
             }
             case WM_LBUTTONDOWN:
@@ -199,10 +210,10 @@ namespace DopeEngine
                 */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Set button
+                 /*
+                * Broadcast event
                 */
-                //window->Buttons[0] = U_TRUE;
+                window->broadcast_application_event(new MouseButtonDownEvent(1, false));
                 break;
             }
             case WM_LBUTTONUP:
@@ -212,10 +223,10 @@ namespace DopeEngine
                 */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Set button
+                 /*
+                * Boardcast event
                 */
-                //window->Buttons[0] = U_FALSE;
+                window->broadcast_application_event(new MouseButtonUpEvent(1));
                 break;
             }
             case WM_MOUSEMOVE:
@@ -225,14 +236,10 @@ namespace DopeEngine
                 */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                unsigned int x = LOWORD(lParam);
-                unsigned int y = HIWORD(lParam);
-
-
-                //window->DeltaX = (float)x - (float)window->X;
-                //window->DeltaY = (float)y - (float)window->Y;
-               // window->X = x;
-               // window->Y = y;
+                /*
+                * Broadcast event
+                */
+                window->broadcast_application_event(new MousePositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
                 break;
             }
             case WM_MOUSEWHEEL:
@@ -242,9 +249,10 @@ namespace DopeEngine
                 */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                short wheelAmount = GET_WHEEL_DELTA_WPARAM(wParam) / 120;
-
-                //  window->Wheel = wheelAmount;
+                /*
+                * Broadcast event
+                */
+                window->broadcast_application_event(new MouseScrolledEvent(GET_WHEEL_DELTA_WPARAM(wParam) / 120));
                 break;
             }
 
@@ -258,7 +266,7 @@ namespace DopeEngine
                 /*
                 * Set close request
                 */
-                // window->CloseRequest = U_TRUE;
+                window->broadcast_application_event(new WindowClosedEvent());
                 break;
             }
         }

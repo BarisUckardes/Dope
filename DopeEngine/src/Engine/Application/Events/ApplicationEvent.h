@@ -32,9 +32,10 @@ namespace DopeEngine
 		/// Marks this event handled
 		/// </summary>
 		void mark_handled();
+
+		~ApplicationEvent() = default;
 	protected:
 		ApplicationEvent() : Handled(false) {}
-		~ApplicationEvent() = default;
 	private:
 		bool Handled;
 	};

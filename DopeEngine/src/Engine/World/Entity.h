@@ -2,11 +2,10 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/String.h>
 #include <Engine/Structures/Array.h>
-#include <Engine/World/Component.h>
+#include <Engine/World/Components/Spatial.h>
 namespace DopeEngine
 {
 	class World;
-
 	/// <summary>
 	/// A single entity object which acts as a component container in a world
 	/// </summary>
@@ -18,7 +17,7 @@ namespace DopeEngine
 		/// Returns a reference to the components list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<Component*>& get_components_fast();
+		FORCEINLINE const Array<Component*>& get_components_fast() const;
 
 		/// <summary>
 		/// Returns a copy of the component list
@@ -39,22 +38,37 @@ namespace DopeEngine
 		FORCEINLINE World* get_owner_world() const;
 
 		/// <summary>
+		/// Returns the spatial of this entity
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Spatial* get_spatial() const;
+
+		/// <summary>
 		/// Returns whether the target component exists or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool has_component();
+		template<typename TComponent>
+		FORCEINLINE bool has_component() const;
 
 		/// <summary>
 		/// Creates and adds anew component
 		/// </summary>
 		template<typename TComponent,typename ...TParameters>
-		FORCEINLINE void create_component(TParameters... parameters);
+		FORCEINLINE TComponent* create_component(TParameters... parameters);
 
 		/// <summary>
 		/// Removes the existing component,returns if the removal happened or not
 		/// </summary>
 		/// <returns></returns>
+		template<typename TComponent>
 		FORCEINLINE bool delete_component();
+
+		/// <summary>
+		/// Removes the existing component, returns if the removal happened or not
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		FORCEINLINE bool delete_component(Component* other);
 
 		/// <summary>
 		/// Destroys this entity
@@ -65,16 +79,40 @@ namespace DopeEngine
 	private:
 		Entity(const String& name,World* ownerWorld);
 		~Entity();
+
+		FORCEINLINE void destory_component(Component* component);
+
+		void create_default_spatial();
 		void _on_destroy();
 	private:
 		Array<Component*> Components;
 		World* OwnerWorld;
+		Spatial* EntitySpatial;
 		String Name;
 	};
 
 
+	template<typename TComponent>
+	inline bool Entity::has_component() const
+	{
+		/*
+		* Get component class name
+		*/
+		const String className = TComponent::get_component_class_name_static();
+
+		/*
+		* Iterate and look for a match
+		*/
+		for (unsigned int i = 0; i < Components.get_cursor(); i++)
+		{
+			if (className == Components[i]->get_component_class_name())
+				return true;
+		}
+		return false;
+	}
+
 	template<typename TComponent, typename ...TParameters>
-	FORCEINLINE void Entity::create_component(TParameters ...parameters)
+	FORCEINLINE TComponent* Entity::create_component(TParameters ...parameters)
 	{
 		/*
 		* Create component
@@ -95,6 +133,40 @@ namespace DopeEngine
 		* Call initialize implementation
 		*/
 		component->initialize();
+
+		return component;
+	}
+
+	template<typename TComponent>
+	inline bool Entity::delete_component()
+	{
+		/*
+		* Get component class name
+		*/
+		const String className = TComponent::get_component_class_name_static();
+
+		/*
+		* Iterate and find a match
+		*/
+		for (unsigned int i = 0; i < Components.get_cursor(); i++)
+		{
+			/*
+			* Get component
+			*/
+			Component* component = Components[i];
+
+			/*
+			* Validate a match
+			*/
+			if (className == component->get_component_class_name())
+			{
+				destory_component(component);
+				Components.remove_index(i);
+				i--;
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

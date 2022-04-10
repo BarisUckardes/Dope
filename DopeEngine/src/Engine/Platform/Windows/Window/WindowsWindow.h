@@ -34,6 +34,7 @@ namespace DopeEngine
 		virtual void poll_messages_impl() override;
 
 	private:
+		static LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		void _create_win32_window(const HINSTANCE processHandle);
 	private:
 		HWND WindowHandle;

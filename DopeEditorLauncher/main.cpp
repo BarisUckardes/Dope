@@ -2,6 +2,8 @@
 #include <Engine/Application/Application.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Core/Assert.h>
+#include <Engine/Application/Modules/WorldResolverModule.h>
+#include <Engine/Application/Modules/TestingModule.h>
 int main(int argumentCount, char** arguments)
 {
 	/*
@@ -10,22 +12,15 @@ int main(int argumentCount, char** arguments)
 	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::OpenGL);
 
 	/*
-	* Get window
+	* Register modules
 	*/
-	DopeEngine::Window* window = app.get_app_window();
+	app.register_pending_module<DopeEngine::WorldResolverModule>();
+	app.register_pending_module<DopeEngine::TestingModule>();
 
 	/*
-	* Set window visible
+	* Run app
 	*/
-	window->set_window_visibility(true);
+	app.run();
 
-	/*
-	* Dummy application loop
-	*/
-	while (true)
-	{
-		window->poll_messages();
-		window->swap_buffers();
-	}
 	return 0;
 }

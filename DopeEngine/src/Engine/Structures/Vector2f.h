@@ -39,5 +39,28 @@ namespace DopeEngine
 		/// The y-axis component
 		/// </summary>
 		float Y;
+
+		/*
+		* Operators
+		*/
+		void operator=(const Vector2f& other);
+		void operator=(const float other);
+		void operator+=(const Vector2f& other);
+		void operator-=(const Vector2f& other);
+		void operator*=(const Vector2f& other);
+		void operator/=(const Vector2f& other);
+		void operator+=(const float other);
+		void operator-=(const float other);
+		void operator*=(const float other);
+		void operator/=(const float other);
 	};
+
+	static Vector2f operator+(const Vector2f& a, const Vector2f& b)
+	{
+		return Vector2f(a.X + b.X, a.Y + b.Y);
+	}
+	static Vector2f operator-(const Vector2f& a, const Vector2f& b)
+	{
+		return Vector2f(a.X - b.X, a.Y - b.Y);
+	}
 }
