@@ -9,7 +9,7 @@ namespace DopeEngine
 	/// <typeparam name="TReturn"></typeparam>
 	/// <typeparam name="...TParameters"></typeparam>
 	template<typename TReturn,typename...TParameters>
-	class DOPE_ENGINE_API Event
+	class DOPE_ENGINE_API Event final
 	{
 	public:
 		Event() = default;

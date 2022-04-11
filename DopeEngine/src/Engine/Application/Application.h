@@ -6,15 +6,17 @@
 #include <Engine/Application/Window/WindowCreateDescription.h>
 #include <Engine/Graphics/Device/GraphicsAPIType.h>
 #include <Engine/Application/ApplicationModule.h>
+#include <Engine/Application/Window/Window.h>
+
 namespace DopeEngine
 {
-	class Window;
 	class ApplicationEvent;
 	class ApplicationModule;
+
 	/// <summary>
 	/// Represents the whole application
 	/// </summary>
-	class DOPE_ENGINE_API Application
+	class DOPE_ENGINE_API Application final
 	{
 	public:
 		Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestedGraphicsApiType);
@@ -67,7 +69,7 @@ namespace DopeEngine
 		/// <param name="event"></param>
 		void on_receive_application_event(ApplicationEvent* event);
 	private:
-		Window* Window;
+		Window* ApplicationWindow;
 		Array<ApplicationEvent*> BufferedEvents;
 		Array<ApplicationModule*> PendingModules;
 		Array<ApplicationModule*> ActiveModules;

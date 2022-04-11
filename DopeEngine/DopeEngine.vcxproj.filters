@@ -114,16 +114,16 @@
     <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.h">
+    <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceEnumarator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.h">
+    <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceEnumarator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.h">
+    <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverEnumarator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.h">
@@ -144,10 +144,10 @@
     <ClInclude Include="src\Engine\Memory\Memory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Structures\ColorRgba.h">
+    <ClInclude Include="src\Engine\Math\ColorRgbaByte.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Structures\Vector2f.h">
+    <ClInclude Include="src\Engine\Math\Vector2f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\World\World.h">
@@ -159,7 +159,7 @@
     <ClInclude Include="src\Engine\World\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Structures\Vector3f.h">
+    <ClInclude Include="src\Engine\Math\Vector3f.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\World\Components\Spatial.h">
@@ -213,11 +213,29 @@
     <ClInclude Include="src\Engine\Asset\AssetPackagePool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Math\Matrix3x3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Math\Matrix4x4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Math\Math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Threading\Thread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Threading\Mutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsMutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\Application\Window\Window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Structures\String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -287,16 +305,10 @@
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.cpp">
+    <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceEnumarator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.cpp">
@@ -314,10 +326,10 @@
     <ClCompile Include="src\Engine\Memory\Memory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Structures\ColorRgba.cpp">
+    <ClCompile Include="src\Engine\Math\ColorRgbaByte.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Structures\Vector2f.cpp">
+    <ClCompile Include="src\Engine\Math\Vector2f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\World\World.cpp">
@@ -329,7 +341,7 @@
     <ClCompile Include="src\Engine\World\Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Structures\Vector3f.cpp">
+    <ClCompile Include="src\Engine\Math\Vector3f.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\World\Components\Spatial.cpp">
@@ -369,6 +381,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Asset\AssetPackagePool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Math\Matrix3x3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Math\Matrix4x4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Math\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Threading\Thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Threading\Mutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsMutex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsThread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

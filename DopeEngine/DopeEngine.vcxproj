@@ -171,6 +171,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Threading\Mutex.h" />
+    <ClInclude Include="src\Engine\Math\Math.h" />
+    <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
+    <ClInclude Include="src\Engine\Math\Matrix3x3.h" />
     <ClInclude Include="src\Engine\Asset\AssetPackagePool.h" />
     <ClInclude Include="src\Engine\Asset\AssetPackage.h" />
     <ClInclude Include="src\Engine\Asset\Asset.h" />
@@ -186,13 +190,13 @@
     <ClInclude Include="src\Engine\World\Components\Spatial.h" />
     <ClInclude Include="src\Engine\World\Component.h" />
     <ClInclude Include="src\Engine\World\Entity.h" />
-    <ClInclude Include="src\Engine\Structures\ColorRgba.h" />
+    <ClInclude Include="src\Engine\Math\ColorRgbaByte.h" />
     <ClInclude Include="src\Engine\Memory\Memory.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.h" />
-    <ClInclude Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverEnumarator.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h" />
-    <ClInclude Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.h" />
+    <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceEnumarator.h" />
     <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.h" />
     <ClInclude Include="src\Engine\Application\ApplicationModule.h" />
     <ClInclude Include="src\Engine\Application\Application.h" />
@@ -227,18 +231,25 @@
     <ClInclude Include="src\Engine\Application\Events\Window\WindowResizedEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.h" />
     <ClInclude Include="src\Engine\Application\Events\Window\WindowFileDropEvent.h" />
-    <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceEnumarator.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.h" />
-    <ClInclude Include="src\Engine\Structures\Vector2f.h" />
+    <ClInclude Include="src\Engine\Math\Vector2f.h" />
     <ClInclude Include="src\Engine\World\World.h" />
-    <ClInclude Include="src\Engine\Structures\Vector3f.h" />
+    <ClInclude Include="src\Engine\Math\Vector3f.h" />
     <ClInclude Include="src\Engine\World\WorldResolver.h" />
     <ClInclude Include="src\Engine\Application\Modules\TestingModule.h" />
     <ClInclude Include="src\Engine\World\Components\TestComponent.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowsGuid.h" />
+    <ClInclude Include="src\Engine\Threading\Thread.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsMutex.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsThread.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Threading\Mutex.cpp" />
+    <ClCompile Include="src\Engine\Math\Math.cpp" />
+    <ClCompile Include="src\Engine\Math\Matrix4x4.cpp" />
+    <ClCompile Include="src\Engine\Math\Matrix3x3.cpp" />
     <ClCompile Include="src\Engine\Asset\AssetPackagePool.cpp" />
     <ClCompile Include="src\Engine\Asset\AssetPackage.cpp" />
     <ClCompile Include="src\Engine\Asset\Asset.cpp" />
@@ -250,13 +261,11 @@
     <ClCompile Include="src\Engine\World\Components\Spatial.cpp" />
     <ClCompile Include="src\Engine\World\Component.cpp" />
     <ClCompile Include="src\Engine\World\Entity.cpp" />
-    <ClCompile Include="src\Engine\Structures\ColorRgba.cpp" />
+    <ClCompile Include="src\Engine\Math\ColorRgbaByte.cpp" />
     <ClCompile Include="src\Engine\Memory\Memory.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.cpp" />
-    <ClCompile Include="src\Engine\Application\Devices\Drivers\IDeviceDriverEnumarator.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp" />
-    <ClCompile Include="src\Engine\Application\Devices\Portable\IPortableDeviceEnumarator.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />
     <ClCompile Include="src\Engine\Application\ApplicationModule.cpp" />
     <ClCompile Include="src\Engine\Application\Application.cpp" />
@@ -274,23 +283,25 @@
     <ClCompile Include="src\Engine\Application\Events\ApplicationEvent.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDevice.cpp" />
-    <ClCompile Include="src\Engine\Application\Window\Window.cpp" />
     <ClCompile Include="src\Engine\Structures\String.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Window\WindowsWindow.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowClosedEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowResizedEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowPositionChangedEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Window\WindowFileDropEvent.cpp" />
-    <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceManager.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Devices\Portable\WindowsPortableDeviceEnumarator.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.cpp" />
-    <ClCompile Include="src\Engine\Structures\Vector2f.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector2f.cpp" />
     <ClCompile Include="src\Engine\World\World.cpp" />
-    <ClCompile Include="src\Engine\Structures\Vector3f.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector3f.cpp" />
     <ClCompile Include="src\Engine\World\WorldResolver.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\TestingModule.cpp" />
     <ClCompile Include="src\Engine\World\Components\TestComponent.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowsGuid.cpp" />
+    <ClCompile Include="src\Engine\Threading\Thread.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsMutex.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsThread.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

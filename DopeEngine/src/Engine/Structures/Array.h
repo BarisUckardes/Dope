@@ -9,7 +9,7 @@ namespace DopeEngine
 	/// Basic Dope array implementation
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	class Array
+	class Array final
 	{
 	public:
 		Array(unsigned int allocateMultiplier = 2);

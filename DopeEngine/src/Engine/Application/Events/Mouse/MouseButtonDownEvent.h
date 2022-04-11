@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Mouse button down event representation class
 	/// </summary>
-	class DOPE_ENGINE_API MouseButtonDownEvent : public MouseButtonEvent
+	class DOPE_ENGINE_API MouseButtonDownEvent final : public MouseButtonEvent
 	{
 	public:
 		MouseButtonDownEvent(const unsigned int button, const bool holding);
@@ -20,8 +20,8 @@ namespace DopeEngine
 		FORCEINLINE bool is_holding() const;
 
 		// Inherited via MouseButtonEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 	private:
 		bool Holding;
 

@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Window closed event representation class
 	/// </summary>
-	class DOPE_ENGINE_API WindowClosedEvent : public ApplicationEvent
+	class DOPE_ENGINE_API WindowClosedEvent final : public ApplicationEvent
 	{
 	public:
 		WindowClosedEvent() = default;
@@ -14,8 +14,8 @@ namespace DopeEngine
 
 
 		// Inherited via ApplicationEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 	};
 
 

@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Basic os-agnostic guid abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API Guid
+	class DOPE_ENGINE_API Guid final
 	{
 	public:
 

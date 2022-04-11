@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Mouse position changed event class representation
 	/// </summary>
-	class DOPE_ENGINE_API MousePositionChangedEvent : public ApplicationEvent
+	class DOPE_ENGINE_API MousePositionChangedEvent final : public ApplicationEvent
 	{
 	public:
 		MousePositionChangedEvent(const unsigned int x,const unsigned int y);
@@ -29,8 +29,8 @@ namespace DopeEngine
 		unsigned int Y;
 
 		// Inherited via ApplicationEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 	};
 
 

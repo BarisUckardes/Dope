@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// X-Y Axis Float Vector
 	/// </summary>
-	class Vector2f
+	class Vector2f final
 	{
 	public:
 		Vector2f(const float x, const float y) : X(x),Y(y) {}
@@ -30,16 +30,6 @@ namespace DopeEngine
 		/// </summary>
 		FORCEINLINE void normalize_this();
 
-		/// <summary>
-		/// The x-axis component
-		/// </summary>
-		float X;
-
-		/// <summary>
-		/// The y-axis component
-		/// </summary>
-		float Y;
-
 		/*
 		* Operators
 		*/
@@ -53,6 +43,17 @@ namespace DopeEngine
 		void operator-=(const float other);
 		void operator*=(const float other);
 		void operator/=(const float other);
+
+		/// <summary>
+		/// The x-axis component
+		/// </summary>
+		float X;
+
+		/// <summary>
+		/// The y-axis component
+		/// </summary>
+		float Y;
+
 	};
 
 	static Vector2f operator+(const Vector2f& a, const Vector2f& b)

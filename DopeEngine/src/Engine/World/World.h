@@ -11,7 +11,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Represents a collection of entities
 	/// </summary>
-	class DOPE_ENGINE_API World
+	class DOPE_ENGINE_API World final
 	{
 		friend class GameSession;
 	public:

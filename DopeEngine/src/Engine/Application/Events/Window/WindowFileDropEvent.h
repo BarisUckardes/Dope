@@ -7,7 +7,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Window file drop event representation class
 	/// </summary>
-	class DOPE_ENGINE_API WindowFileDropEvent : public ApplicationEvent
+	class DOPE_ENGINE_API WindowFileDropEvent final : public ApplicationEvent
 	{
 	public:
 		WindowFileDropEvent(const Array<String>& files);
@@ -20,8 +20,8 @@ namespace DopeEngine
 		FORCEINLINE Array<String> get_drops() const;
 
 		// Inherited via ApplicationEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 
 	private:
 		Array<String> Drops;

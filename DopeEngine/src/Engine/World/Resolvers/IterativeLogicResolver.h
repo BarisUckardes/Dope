@@ -4,7 +4,7 @@
 
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API IterativeLogicResolver : public WorldResolver
+	class DOPE_ENGINE_API IterativeLogicResolver final : public WorldResolver
 	{
 		GENERATE_RESOLVER(IterativeLogicResolver);
 	public:
@@ -12,11 +12,11 @@ namespace DopeEngine
 		~IterativeLogicResolver() = default;
 
 
-		virtual void register_component(Component* component) override;
-		virtual void remove_component(Component* component) override;
-		virtual void initialize() override;
-		virtual void resolve() override;
-		virtual void finalize() override;
+		virtual void register_component(Component* component) override final;
+		virtual void remove_component(Component* component) override final;
+		virtual void initialize() override final;
+		virtual void resolve() override final;
+		virtual void finalize() override final;
 	private:
 		Array<Component*> LogicInflictedComponents;
 	};

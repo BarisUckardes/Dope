@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Window resize event representation class
 	/// </summary>
-	class DOPE_ENGINE_API WindowResizedEvent : public ApplicationEvent
+	class DOPE_ENGINE_API WindowResizedEvent final : public ApplicationEvent 
 	{
 	public:
 		WindowResizedEvent(const unsigned int width, const unsigned int height);
@@ -25,8 +25,8 @@ namespace DopeEngine
 		FORCEINLINE unsigned int get_height() const;
 
 		// Inherited via ApplicationEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 	private:
 		unsigned int Width;
 		unsigned int Height;

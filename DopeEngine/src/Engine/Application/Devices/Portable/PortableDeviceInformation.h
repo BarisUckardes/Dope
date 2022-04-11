@@ -7,7 +7,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Hold's the descriptive device information
 	/// </summary>
-	class DOPE_ENGINE_API PortableDeviceInformation
+	class DOPE_ENGINE_API PortableDeviceInformation final
 
 	{
 	public:

@@ -9,7 +9,7 @@ namespace DopeEngine
 	/// <summary>
 	/// A single entity object which acts as a component container in a world
 	/// </summary>
-	class DOPE_ENGINE_API Entity
+	class DOPE_ENGINE_API Entity final
 	{
 		friend class World;
 	public:

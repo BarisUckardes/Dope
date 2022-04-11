@@ -7,7 +7,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Holds the information of a device driver
 	/// </summary>
-	class  DOPE_ENGINE_API DeviceDriverInformation
+	class DOPE_ENGINE_API DeviceDriverInformation final
 	{
 	public:
 		DeviceDriverInformation(const String& baseName);

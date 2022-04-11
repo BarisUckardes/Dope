@@ -1,4 +1,4 @@
-#include "WindowsPortableDeviceManager.h"
+#include "WindowsPortableDeviceEnumarator.h"
 #include <Engine/Core/Assert.h>
 #include <Windows.h>
 #include <PortableDeviceApi.h>
@@ -6,7 +6,7 @@
 #include <wrl/client.h>
 namespace DopeEngine
 {
-	Array<PortableDeviceInformation> WindowsPortableDeviceManager::enumarate_devices() const
+	Array<PortableDeviceInformation> WindowsPortableDeviceEnumarator::enumarate_devices() const
 	{
 		
 		/*

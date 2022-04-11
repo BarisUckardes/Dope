@@ -4,12 +4,38 @@
 namespace DopeEngine
 {
     //LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description) : Window(description)
+	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description)
 	{
+        /*
+         * Initialize
+         */
+        Title = description.Title;
+        Width = description.Width;
+        Height = description.Height;
+        PositionX = description.PositionX;
+        PositionY = description.PositionY;
+        CloseRequest = false;
+
+        /*
+        * Create win32
+        */
 		_create_win32_window(processHandle);
 	}
-	WindowsWindow::WindowsWindow(const WindowCreateDescription& description) : Window(description)
+	WindowsWindow::WindowsWindow(const WindowCreateDescription& description)
 	{
+        /*
+        * Initialize
+        */
+        Title = description.Title;
+        Width = description.Width;
+        Height = description.Height;
+        PositionX = description.PositionX;
+        PositionY = description.PositionY;
+        CloseRequest = false;
+
+        /*
+        * Create win32
+        */
 		_create_win32_window(NULL);
 	}
 	WindowsWindow::~WindowsWindow()
@@ -24,19 +50,24 @@ namespace DopeEngine
     {
         return WindowDeviceContext;
     }
-    void WindowsWindow::set_visibility_impl(const bool state)
+	void WindowsWindow::set_title(const String& title)
 	{
-		ShowWindow(WindowHandle, state == true ? SW_SHOW : SW_HIDE);
+        /*
+         * Set win32 window title
+         */
+        SetWindowTextA(WindowHandle, *title);
+
+        /*
+        * Set the title
+        */
+        Title = title;
+		
 	}
-	void WindowsWindow::set_title_impl(const String& title)
-	{
-		SetWindowTextA(WindowHandle, *title);
-	}
-	void WindowsWindow::swap_buffers_impl()
+	void WindowsWindow::swap_buffers()
 	{
 		SwapBuffers(WindowDeviceContext);
 	}
-	void WindowsWindow::poll_messages_impl()
+	void WindowsWindow::poll_messages()
 	{
 		/*
 		* Iterate current pending messages and dispatch them
@@ -107,6 +138,115 @@ namespace DopeEngine
         WindowDeviceContext = GetDC(windowHandle);
 
 	}
+    GraphicsDevice* WindowsWindow::get_graphics_device() const
+    {
+        return GDevice;
+    }
+    bool WindowsWindow::has_close_request() const
+    {
+        return CloseRequest;
+    }
+    void WindowsWindow::assing_graphics_device(GraphicsDevice* device)
+    {
+        GDevice = device;
+    }
+    void WindowsWindow::set_application_event_feed(const Delegate<void, ApplicationEvent*>& functionDelegate)
+    {
+        ApplicationEventFeedDelegate = functionDelegate;
+    }
+    void WindowsWindow::set_close_request()
+    {
+        CloseRequest = true;
+    }
+  
+    void WindowsWindow::broadcast_application_event(ApplicationEvent* event)
+    {
+        /*
+        * Catch events
+        */
+        const ApplicationEventType type = event->get_type();
+
+        switch (type)
+        {
+        case DopeEngine::ApplicationEventType::Undefined:
+            break;
+        case DopeEngine::ApplicationEventType::KeyboardKeyDown:
+            break;
+        case DopeEngine::ApplicationEventType::KeyboardKeyUp:
+            break;
+        case DopeEngine::ApplicationEventType::KeyboardChar:
+            break;
+        case DopeEngine::ApplicationEventType::WindowResized:
+            break;
+        case DopeEngine::ApplicationEventType::WindowClosed:
+            CloseRequest = true;
+            break;
+        case DopeEngine::ApplicationEventType::WindowPositionChanged:
+            break;
+        case DopeEngine::ApplicationEventType::MouseButtonDown:
+            break;
+        case DopeEngine::ApplicationEventType::MouseButtonUp:
+            break;
+        case DopeEngine::ApplicationEventType::MouseScrolled:
+            break;
+        case DopeEngine::ApplicationEventType::MousePositionChanged:
+            break;
+        case DopeEngine::ApplicationEventType::WindowFileDrop:
+            break;
+        default:
+            break;
+
+        }
+
+        /*
+        * Forward event to application feed
+        */
+        ApplicationEventFeedDelegate.invoke(event);
+
+        /*
+        * Dummy debug
+        */
+        //LOG("Window", "Event broacasting -> %s", *event->get_as_string());
+    }
+    unsigned int WindowsWindow::get_width() const
+    {
+        return Width;
+    }
+    unsigned int WindowsWindow::get_height() const
+    {
+        return Height;
+    }
+    unsigned int WindowsWindow::get_position_x() const
+    {
+        return PositionX;
+    }
+    unsigned int WindowsWindow::get_position_y() const
+    {
+        return PositionY;
+    }
+    String WindowsWindow::get_title() const
+    {
+        return Title;
+    }
+    bool WindowsWindow::is_visible() const
+    {
+        return Visibility;
+    }
+   
+ 
+    void WindowsWindow::set_window_visibility(bool state)
+    {
+        /*
+        * 
+        * Set win32 window visiblity
+        */
+        ShowWindow(WindowHandle, state == true ? SW_SHOW : SW_HIDE);
+
+        /*
+        * Set visibility
+        */
+        Visibility = state;
+    }
     WindowsWindow* GetWindowData(HWND windowHandle)
     {
         return (WindowsWindow*)GetWindowLongPtr(windowHandle, -21);

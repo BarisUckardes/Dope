@@ -13,7 +13,7 @@ namespace DopeEngine
 	/// <summary>
 	/// A package consist of assets
 	/// </summary>
-	class DOPE_ENGINE_API AssetPackage
+	class DOPE_ENGINE_API AssetPackage final
 	{
 		friend class AssetPackagePool;
 	public:

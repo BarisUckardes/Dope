@@ -2,11 +2,10 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Device/GraphicsAPIType.h>
 #include <Engine/Structures/String.h>
+#include <Engine/Application/Window/Window.h>
 
 namespace DopeEngine
 {
-	class Window;
-
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>

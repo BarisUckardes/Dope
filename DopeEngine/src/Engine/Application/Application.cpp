@@ -1,7 +1,7 @@
 #include "Application.h"
 #include <Engine/Application/Window/Window.h>
-#include <Engine/Application/Devices/Portable/IPortableDeviceEnumarator.h>
-#include <Engine/Application/Devices/Drivers/IDeviceDriverEnumarator.h>
+#include <Engine/Application/Devices/Portable/PortableDeviceEnumarator.h>
+#include <Engine/Application/Devices/Drivers/DeviceDriverEnumarator.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Event/Delegate.h>
@@ -24,7 +24,7 @@ namespace DopeEngine
 	}
 	Window* Application::get_app_window() const
 	{
-		return Window;
+		return ApplicationWindow;
 	}
 	void Application::run()
 	{
@@ -37,7 +37,7 @@ namespace DopeEngine
 		/*
 		* Create game session
 		*/
-		GameSession* session = new GameSession(Window);
+		GameSession* session = new GameSession(ApplicationWindow);
 
 		/*
 		* Initialize pending modules
@@ -74,7 +74,7 @@ namespace DopeEngine
 		/*
 		* Make window visible
 		*/
-		Window->set_window_visibility(true);
+		ApplicationWindow->set_window_visibility(true);
 
 		/*
 		* Run app loop
@@ -84,7 +84,7 @@ namespace DopeEngine
 			/*
 			* Poll window events
 			*/
-			Window->poll_messages();
+			ApplicationWindow->poll_messages();
 
 			/*
 			* Broadcast events
@@ -132,12 +132,12 @@ namespace DopeEngine
 			/*
 			* Swapbuffers
 			*/
-			Window->swap_buffers();
+			ApplicationWindow->swap_buffers();
 
 			/*
 			* Validate window should close
 			*/
-			if (Window->has_close_request())
+			if (ApplicationWindow->has_close_request())
 			{
 				shouldExit = true;
 				exitReasonMessage = "Window closed";
@@ -185,12 +185,12 @@ namespace DopeEngine
 		/*
 		* Create portable device enumarator
 		*/
-		IPortableDeviceEnumarator* portableDeviceEnumarator = IPortableDeviceEnumarator::create();
+		PortableDeviceEnumarator portableDeviceEnumarator;
 
 		/*
 		* Collect devices
 		*/
-		PortableDeviceInformations = portableDeviceEnumarator->enumarate_devices();
+		PortableDeviceInformations = portableDeviceEnumarator.enumarate_devices();
 
 		/*
 		* Simple debug
@@ -204,11 +204,6 @@ namespace DopeEngine
 				*deviceInformation.get_description())
 		}
 		LOG("Application", "Portable devices collected!");
-		
-		/*
-		* Free resources
-		*/
-		delete portableDeviceEnumarator;
 	}
 	void Application::collect_device_drivers()
 	{
@@ -217,12 +212,12 @@ namespace DopeEngine
 		/*
 		* Create device driver enumarator
 		*/
-		IDeviceDriverEnumarator* driverEnumarator = IDeviceDriverEnumarator::create();
+		DeviceDriverEnumarator driverEnumarator;
 
 		/*
 		* Collect drivers
 		*/
-		DeviceDriverInformations = driverEnumarator->enumarate_drivers();
+		DeviceDriverInformations = driverEnumarator.enumarate_drivers();
 
 		/*
 		* Simple debug
@@ -244,19 +239,19 @@ namespace DopeEngine
 		/*
 		* Create window
 		*/
-		Window = Window::create(windowDescription);
+		ApplicationWindow = new Window(windowDescription);
 
 		/*
 		* Set feed
 		*/
-		Window->set_application_event_feed(Delegate<void, ApplicationEvent*>(BIND_EVENT(Application::on_receive_application_event)));
+		ApplicationWindow->set_application_event_feed(Delegate<void, ApplicationEvent*>(BIND_TARGET_EVENT(this,Application::on_receive_application_event)));
 	}
 	void Application::create_graphics_device(GraphicsAPIType requestedApiType)
 	{
 		/*
 		* Create graphics device
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(requestedApiType, Window);
+		GraphicsDevice* device = GraphicsDevice::create(requestedApiType, ApplicationWindow);
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

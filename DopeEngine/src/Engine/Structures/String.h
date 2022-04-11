@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Basic string implementation
 	/// </summary>
-	class DOPE_ENGINE_API String
+	class DOPE_ENGINE_API String final
 	{
 	public:
 		/// <summary>

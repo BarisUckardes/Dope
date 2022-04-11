@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/World/Component.h>
-#include <Engine/Structures/Vector3f.h>
+#include <Engine/Math/Vector3f.h>
 
 namespace DopeEngine
 {
@@ -51,10 +51,10 @@ namespace DopeEngine
 		FORCEINLINE void set_scale(const Vector3f& scale);
 
 		// Inherited via Component
-		virtual bool should_tick() const override;
-		virtual void initialize() override;
-		virtual void update() override;
-		virtual void finalize() override;
+		virtual bool should_tick() const override final; 
+		virtual void initialize() override final;
+		virtual void update() override final;
+		virtual void finalize() override final;
 	private:
 		Vector3f Position;
 		Vector3f Rotation;

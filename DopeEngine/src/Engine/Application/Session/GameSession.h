@@ -1,12 +1,12 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/String.h>
+#include <Engine/Application/Window/Window.h>
 
 namespace DopeEngine
 {
 	class World;
-	class Window;
-	class DOPE_ENGINE_API GameSession
+	class DOPE_ENGINE_API GameSession final
 	{
 	public:
 		GameSession(Window* window);

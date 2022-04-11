@@ -10,17 +10,15 @@ namespace DopeEngine
 	/// <typeparam name="TReturn"></typeparam>
 	/// <typeparam name="...TParameters"></typeparam>
 	template<typename TReturn,typename... TParameters>
-	class DOPE_ENGINE_API Delegate
+	class Delegate final
 	{
 	public:
-		Delegate(const std::function<TReturn(TParameters...)>& function)
-		{
-			FunctionPtr = function;
-		}
-		Delegate() = default;
+		Delegate(const std::function<TReturn(TParameters...)>& function) : FunctionPtr(function),Empty(false) {}
+		Delegate() : Empty(true) {}
 		~Delegate() = default;
 
 
+		FORCEINLINE bool is_empty() const { return Empty; }
 		/// <summary>
 		/// Returns the address of the target function pointer
 		/// </summary>
@@ -36,9 +34,9 @@ namespace DopeEngine
 		/// invokes the target function ptr with the given parameter set
 		/// </summary>
 		/// <param name="...parameters"></param>
-		void invoke(TParameters... parameters)
+		TReturn invoke(TParameters... parameters)
 		{
-			FunctionPtr(parameters...);
+			return FunctionPtr(parameters...);
 		}
 
 	private:
@@ -53,6 +51,7 @@ namespace DopeEngine
 
 	private:
 		std::function<TReturn(TParameters...)> FunctionPtr;
+		bool Empty;
 	};
 
 	template<typename TReturn, typename...TParameters>

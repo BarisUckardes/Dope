@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Window position changed event representation class
 	/// </summary>
-	class DOPE_ENGINE_API WindowPositionChangedEvent : public ApplicationEvent
+	class DOPE_ENGINE_API WindowPositionChangedEvent final : public ApplicationEvent
 	{
 	public:
 		WindowPositionChangedEvent(const unsigned int x, const unsigned int y);
@@ -23,8 +23,8 @@ namespace DopeEngine
 		FORCEINLINE unsigned int get_y() const;
 
 		// Inherited via ApplicationEvent
-		virtual ApplicationEventType get_type() const override;
-		virtual String get_as_string() const override;
+		virtual ApplicationEventType get_type() const override final;
+		virtual String get_as_string() const override final;
 	private:
 		unsigned int X;
 		unsigned int Y;
