@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Buffer/VertexElementDescription.h>
+#include <Engine/Graphics/Vertex/VertexElementDescription.h>
 #include <Engine/Structures/Array.h>
 namespace DopeEngine
 {

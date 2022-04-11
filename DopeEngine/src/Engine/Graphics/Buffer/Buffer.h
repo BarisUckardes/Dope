@@ -3,6 +3,7 @@
 #include <Engine/Structures/String.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Buffer/BufferType.h>
+#include <Engine/Core/Definitions.h>
 
 namespace DopeEngine
 {
@@ -12,7 +13,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API Buffer : public DeviceObject
 	{
 	public:
-		Buffer(const BufferType type);
+		Buffer(const BufferType type,const unsigned long allocatedSize);
 		~Buffer() = default;
 
 		/// <summary>
@@ -26,8 +27,14 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE unsigned long get_allocated_size() const;
+
+		/// <summary>
+		/// Updates the buffer size
+		/// </summary>
+		/// <param name="data"></param>
+		FORCEINLINE void update(const Byte* data);
 	protected:
-		void set_allocated_size(const unsigned long size);
+		virtual void update_impl(const Byte* data) = 0;
 	private:
 		BufferType Type;
 		unsigned long AllocatedSize;

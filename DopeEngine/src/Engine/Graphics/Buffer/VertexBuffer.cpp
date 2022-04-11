@@ -2,61 +2,22 @@
 
 namespace DopeEngine
 {
-	VertexBuffer::VertexBuffer(const VertexLayoutDescription& layoutDescription) : Buffer(BufferType::VertexBuffer)
+	
+	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferType::VertexBuffer,allocatedSize)
 	{
-		/*
-		* Initialize
-		*/
-		Layout = layoutDescription;
-		VertexCount = 0;
+		PerVertexSize = perVertexSize;
+		VertexCapacity = allocatedSize / perVertexSize;
+	}
 
-		/*
-		* Run diagnostics
-		*/
-		calculate_diagnostics();
-	}
-	const VertexLayoutDescription& VertexBuffer::get_layout_fast() const
+	unsigned long VertexBuffer::get_vertex_capacity() const
 	{
-		return Layout;
+		return VertexCapacity;
 	}
-	VertexLayoutDescription VertexBuffer::get_layout_slow() const
-	{
-		return Layout;
-	}
-	unsigned long VertexBuffer::get_vertex_count() const
-	{
-		return VertexCount;
-	}
-	void VertexBuffer::allocate(const unsigned long vertexCount)
-	{
-		/*
-		* Call impl
-		*/
-		allocate_impl(vertexCount);
 
-		/*
-		* Set and calculate diagnostics
-		*/
-		VertexCount = vertexCount;
-		calculate_diagnostics();
-	}
-	void VertexBuffer::update(const Byte* data)
+	unsigned int VertexBuffer::get_per_vertex_size() const
 	{
-		/*
-		* Call impl
-		*/
-		update_impl(data);
+		return PerVertexSize;
 	}
-	void VertexBuffer::calculate_diagnostics()
-	{
-		/*
-		* Calculate total size
-		*/
-		const unsigned long size = Layout.get_stride() * VertexCount;
 
-		/*
-		* Update buffer's allocated size
-		*/
-		set_allocated_size(size);
-	}
+
 }

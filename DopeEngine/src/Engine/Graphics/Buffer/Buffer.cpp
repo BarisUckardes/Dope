@@ -2,10 +2,10 @@
 
 namespace DopeEngine
 {
-	Buffer::Buffer(const BufferType type)
+	Buffer::Buffer(const BufferType type,const unsigned long allocatedSize)
 	{
 		Type = type;
-		AllocatedSize = 0;
+		AllocatedSize = allocatedSize;
 	}
 	BufferType Buffer::get_type() const
 	{
@@ -15,8 +15,12 @@ namespace DopeEngine
 	{
 		return AllocatedSize;
 	}
-	void Buffer::set_allocated_size(const unsigned long size)
+	void Buffer::update(const Byte* data)
 	{
-		AllocatedSize = size;
+		/*
+		* Call impl
+		*/
+		update_impl(data);
+
 	}
 }

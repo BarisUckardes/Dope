@@ -249,19 +249,55 @@
     <ClInclude Include="src\Engine\Graphics\Buffer\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Buffer\VertexElementDataType.h">
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDataType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Buffer\VertexElementDescription.h">
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Buffer\VertexLayoutDescription.h">
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Buffer\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Buffer\IndexBufferDescription.h">
+    <ClInclude Include="src\Engine\Graphics\Buffer\UniformBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Shader\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Shader\ShaderSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\Pipeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\BlendState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\DepthComparisionKind.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\FaceCullMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\FronFaceMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\PolygonFillMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Pipeline\PrimitiveTopology.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -446,10 +482,25 @@
     <ClCompile Include="src\Engine\Graphics\Buffer\VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Buffer\VertexLayoutDescription.cpp">
+    <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Buffer\IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Buffer\UniformBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Shader\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Shader\ShaderSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Pipeline\Pipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

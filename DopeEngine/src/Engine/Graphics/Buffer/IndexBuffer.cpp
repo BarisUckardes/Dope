@@ -2,48 +2,23 @@
 
 namespace DopeEngine
 {
-	IndexBuffer::IndexBuffer(const IndexBufferDescription& description) : Buffer(BufferType::IndexBuffer)
-	{
-		Description = description;
-		IndexCount = 0;
-	}
-	IndexBufferDescription IndexBuffer::get_description() const
-	{
-		return Description;
-	}
-	unsigned long IndexBuffer::get_index_count() const
-	{
-		return IndexCount;
-	}
-	void IndexBuffer::allocate(unsigned long count)
-	{
-		/*
-		* Call impl
-		*/
-		allocate_impl(count);
 
-		/*
-		* Call diagnostics
-		*/
-		calculate_diagnostics();
-	}
-	void IndexBuffer::update(const Byte* data)
+	IndexBuffer::IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferType::IndexBuffer,allocatedSize)
 	{
-		/*
-		* Call update impl
-		*/
-		update_impl(data);
+		Range = range;
+		ElementSize = elementSize;
+		IndexCapacity = allocatedSize / elementSize;
 	}
-	void IndexBuffer::calculate_diagnostics()
+	unsigned long IndexBuffer::get_index_capacity() const
 	{
-		/*
-		* Calculate size
-		*/
-		const unsigned long size = IndexCount * Description.Padding;
-
-		/*
-		* Set allocated size
-		*/
-		set_allocated_size(size);
+		return IndexCapacity;
+	}
+	unsigned long IndexBuffer::get_range() const
+	{
+		return Range;
+	}
+	unsigned int IndexBuffer::get_element_size() const
+	{
+		return ElementSize;
 	}
 }

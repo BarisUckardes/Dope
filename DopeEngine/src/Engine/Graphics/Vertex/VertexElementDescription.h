@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/String.h>
-#include <Engine/Graphics/Buffer/VertexElementDataType.h>
+#include <Engine/Graphics/Vertex/VertexElementDataType.h>
 
 namespace DopeEngine
 {
