@@ -4,6 +4,10 @@
 namespace DopeEngine
 {
 	class Shader;
+
+	/// <summary>
+	/// Graphics api agnostic shader-set(program) abstraction class
+	/// </summary>
 	class DOPE_ENGINE_API ShaderSet : public DeviceObject
 	{
 	public:

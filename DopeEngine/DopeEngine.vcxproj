@@ -171,6 +171,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\Framebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\FramebufferAttachmentDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\FramebufferDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\BlendState.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\DepthComparisionKind.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\FaceCullMode.h" />
@@ -183,6 +186,10 @@
     <ClInclude Include="src\Engine\Graphics\Shader\Shader.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\IndexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\BufferType.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureFormat.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureType.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureUsage.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDataType.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObject.h" />
@@ -266,8 +273,10 @@
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\UniformBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayout.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\Framebuffer\Framebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Pipeline\Pipeline.cpp" />
     <ClCompile Include="src\Engine\Graphics\Shader\ShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\Shader\Shader.cpp" />
@@ -335,6 +344,7 @@
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.cpp" />
     <ClCompile Include="src\Engine\Graphics\Buffer\UniformBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayout.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Texture\Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

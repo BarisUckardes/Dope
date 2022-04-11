@@ -8,6 +8,9 @@
 #include <Engine/Graphics/Pipeline/PrimitiveTopology.h>
 namespace DopeEngine
 {
+	/// <summary>
+	/// Description for creating a pipeline
+	/// </summary>
 	struct DOPE_ENGINE_API PipelineDescription
 	{
 		PipelineDescription(const BlendState blending,
