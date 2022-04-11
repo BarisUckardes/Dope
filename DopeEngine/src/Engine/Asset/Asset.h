@@ -3,7 +3,7 @@
 #include <Engine/Structures/Guid.h>
 #include <Engine/Asset/AssetType.h>
 #include <Engine/Asset/AssetImportType.h>
-#
+
 namespace DopeEngine
 {
 	class AssetPackage;

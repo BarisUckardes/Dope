@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Supported asset import types
 	/// </summary>
-	enum class AssetImportType
+	enum class DOPE_ENGINE_API AssetImportType
 	{
 		Undefined = 0,
 		Virtual = 1,

@@ -1,11 +1,11 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/Array.h>
+#include <Engine/Structures/Guid.h>
+#include <Engine/Structures/String.h>
 namespace DopeEngine
 {
 	class AssetPackage;
-	class Guid;
-	class String;
 	class DOPE_ENGINE_API AssetPackagePool final
 	{
 		friend class GameSession;

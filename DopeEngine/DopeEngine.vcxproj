@@ -171,6 +171,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\Buffer\IndexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\BufferType.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\IndexBufferDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\VertexElementDataType.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\VertexElementDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\DeviceObject.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\Buffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.h" />
     <ClInclude Include="src\Engine\Threading\Mutex.h" />
     <ClInclude Include="src\Engine\Math\Math.h" />
     <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
@@ -244,8 +252,14 @@
     <ClInclude Include="src\Engine\Threading\Thread.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsMutex.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsThread.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\VertexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\VertexLayoutDescription.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\Buffer\IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Device\DeviceObject.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Buffer\Buffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.cpp" />
     <ClCompile Include="src\Engine\Threading\Mutex.cpp" />
     <ClCompile Include="src\Engine\Math\Math.cpp" />
     <ClCompile Include="src\Engine\Math\Matrix4x4.cpp" />
@@ -302,6 +316,8 @@
     <ClCompile Include="src\Engine\Threading\Thread.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsMutex.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsThread.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Buffer\VertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Buffer\VertexLayoutDescription.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
