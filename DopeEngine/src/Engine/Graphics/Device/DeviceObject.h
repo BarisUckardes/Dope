@@ -8,10 +8,8 @@ namespace DopeEngine
 	/// </summary>
 	class DOPE_ENGINE_API DeviceObject
 	{
+		friend class GraphicsDevice;
 	public:
-		DeviceObject() : DebugName("Device Object") {}
-		~DeviceObject() = default;
-
 		/// <summary>
 		/// Returns the debug name for this device object
 		/// </summary>
@@ -23,6 +21,9 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="name"></param>
 		FORCEINLINE void set_debug_name(const String& name);
+	protected:
+		DeviceObject() : DebugName("Device Object") {}
+		virtual ~DeviceObject() = 0 {}
 	private:
 		String DebugName;
 	};

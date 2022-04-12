@@ -4,14 +4,14 @@
 namespace DopeEngine
 {
 	class Texture;
-
+	class GraphicsDevice;
 	/// <summary>
 	/// Graphics api agnostic framebuffer abstraction class
 	/// </summary>
 	class DOPE_ENGINE_API Framebuffer : public DeviceObject
 	{
 	public:
-		Framebuffer(const FramebufferDescription& description);
+		Framebuffer(const FramebufferDescription& description,GraphicsDevice* device);
 		virtual ~Framebuffer() = default;
 
 		/// <summary>
@@ -43,10 +43,20 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE Array<Texture*> get_attachments_slow() const;
+
+		/// <summary>
+		/// Returns the depth attachment
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Texture* get_depth_attachment() const;
+
+	private:
+		void create_attachments(const Array<FramebufferAttachmentDescription>& descriptions, GraphicsDevice* device);
 	private:
 		unsigned int Width;
 		unsigned int Height;
 		bool HasDepthAttachment;
 		Array<Texture*> Attachments;
+		Texture* DepthAttachment;
 	};
 }

@@ -14,7 +14,7 @@ namespace DopeEngine
 	{
 	public:
 		Buffer(const BufferType type,const unsigned long allocatedSize);
-		~Buffer() = default;
+		virtual ~Buffer() = default;
 
 		/// <summary>
 		/// Returns the type of this buffer

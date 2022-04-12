@@ -22,6 +22,44 @@ namespace DopeEngine
 	{
 		ASSERT(false, "Directx12GraphicsDevice", "Not implemented yet!");
 	}
+	CommandBuffer* Directx12GraphicsDevice::create_command_buffer_impl()
+	{
+		return nullptr;
+	}
+	void Directx12GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	{
+	}
+	void Directx12GraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	{
+	}
+	Buffer* Directx12GraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	{
+		return nullptr;
+	}
+	Framebuffer* Directx12GraphicsDevice::create_framebuffer_impl(const FramebufferDescription& description)
+	{
+		return nullptr;
+	}
+	Pipeline* Directx12GraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	{
+		return nullptr;
+	}
+	Shader* Directx12GraphicsDevice::create_shader_impl(const ShaderDescription& description)
+	{
+		return nullptr;
+	}
+	ShaderSet* Directx12GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
+	{
+		return nullptr;
+	}
+	Texture* Directx12GraphicsDevice::create_texture_impl(const TextureDescription& description)
+	{
+		return nullptr;
+	}
+	VertexLayout* Directx12GraphicsDevice::create_vertex_layout_impl(const VertexLayoutDescription& description)
+	{
+		return nullptr;
+	}
 	GraphicsAPIType Directx12GraphicsDevice::get_api_type() const
 	{
 		return GraphicsAPIType::Directx12;

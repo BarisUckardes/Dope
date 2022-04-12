@@ -4,6 +4,7 @@
 #include <Engine/Core/Assert.h>
 #include <Engine/Application/Modules/WorldResolverModule.h>
 #include <Engine/Application/Modules/TestingModule.h>
+#include <Engine/Application/Modules/TestRenderingModule.h>
 #include <Engine/Threading/Thread.h>
 
 void* test_thread(void* param)
@@ -24,6 +25,7 @@ int main(int argumentCount, char** arguments)
 	*/
 	app.register_pending_module<DopeEngine::WorldResolverModule>();
 	app.register_pending_module<DopeEngine::TestingModule>();
+	app.register_pending_module<DopeEngine::TestRenderingModule>();
 
 	Thread thread;
 	unsigned int a = 1;

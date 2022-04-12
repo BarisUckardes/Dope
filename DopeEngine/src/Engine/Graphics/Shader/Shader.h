@@ -2,6 +2,7 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderDescription.h>
 
 namespace DopeEngine
 {
@@ -11,7 +12,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API Shader : public DeviceObject
 	{
 	public:
-		Shader(const String& source,const ShaderType type);
+		Shader(const ShaderDescription& description);
 		virtual ~Shader() = default;
 
 

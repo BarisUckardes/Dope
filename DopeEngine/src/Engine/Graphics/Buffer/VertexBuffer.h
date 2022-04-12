@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics API agnostic vertex buffer abstraction class
 	/// </summary>
-	struct DOPE_ENGINE_API VertexBuffer : public Buffer
+	class DOPE_ENGINE_API VertexBuffer : public Buffer
 	{
 	public:
 		VertexBuffer(const unsigned int perVertexSize,const unsigned long allocatedSize);

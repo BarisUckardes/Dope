@@ -11,7 +11,7 @@ namespace DopeEngine
 	{
 	public:
 		UniformBuffer(const unsigned long allocatedSize);
-		~UniformBuffer();
+		virtual ~UniformBuffer() = default;
 	};
 
 

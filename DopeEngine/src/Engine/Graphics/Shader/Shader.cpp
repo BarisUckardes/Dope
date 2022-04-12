@@ -2,10 +2,10 @@
 
 namespace DopeEngine
 {
-	Shader::Shader(const String& source, const ShaderType type)
+	Shader::Shader(const ShaderDescription& description)
 	{
-		Source = source;
-		Type = type;
+		Source = description.Source;
+		Type = description.Type;
 	}
 	String Shader::get_source() const
 	{

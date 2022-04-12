@@ -6,8 +6,4 @@ namespace DopeEngine
 	{
 
 	}
-	UniformBuffer::~UniformBuffer()
-	{
-
-	}
 }

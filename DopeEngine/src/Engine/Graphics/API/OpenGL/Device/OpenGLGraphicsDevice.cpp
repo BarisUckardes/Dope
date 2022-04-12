@@ -1,5 +1,6 @@
 #include "OpenGLGraphicsDevice.h"
 #include <Engine/Core/Assert.h>
+#include <Engine/Graphics/API/OpenGL/Device/OpenGLDeviceObjects.h>
 #include <GLAD/glad.h>
 #include <gl/GL.h>
 
@@ -139,5 +140,111 @@ namespace DopeEngine
 		*/
 		WindowDeviceContext = windowDeviceContext;
 		WindowOpenGLContext = gladHglrc;
+	}
+	CommandBuffer* OpenGLGraphicsDevice::create_command_buffer_impl()
+	{
+		return new OpenGLCommandBuffer();
+	}
+	void OpenGLGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	{
+	}
+	void OpenGLGraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	{
+
+	}
+	Buffer* OpenGLGraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	{
+		/*
+		* Create OpenGLBuffer
+		*/
+		const BufferType type = description.Type;
+		switch (type)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				return new OpenGLVertexBuffer(description.AllocatedSize,0,(DEVICE)this);
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				return new OpenGLIndexBuffer(0,0,description.AllocatedSize,(DEVICE)this);
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				return new OpenGLUniformBuffer(description.AllocatedSize, (DEVICE)this);
+				break;
+			default:
+				ASSERT(false,"OpenGLGraphicsDevice", "Invalid buffer type.Cannot create buffer");
+				return nullptr;
+				break;
+		}
+	}
+	Framebuffer* OpenGLGraphicsDevice::create_framebuffer_impl(const FramebufferDescription& description)
+	{
+		/*
+		* Create OpeGL framebuffer
+		*/
+		OpenGLFramebuffer* framebuffer = new OpenGLFramebuffer(description, (DEVICE)this);
+
+		return framebuffer;
+	}
+	Pipeline* OpenGLGraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	{
+		/*
+		* Create OpenGL pipeline
+		*/
+		OpenGLPipeline* pipeline = new OpenGLPipeline(description, (DEVICE)this);
+
+		return pipeline;
+	}
+	Shader* OpenGLGraphicsDevice::create_shader_impl(const ShaderDescription& description)
+	{
+		/*
+		* Create OpenGL shader
+		*/
+		OpenGLShader* shader = new OpenGLShader(description,(DEVICE)this);
+
+		return shader;
+	}
+	ShaderSet* OpenGLGraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
+	{
+		/*
+		* Create OpenGL shader set
+		*/
+		OpenGLShaderSet* shaderSet = new OpenGLShaderSet(shaders, (DEVICE)this);
+
+		return shaderSet;
+	}
+	Texture* OpenGLGraphicsDevice::create_texture_impl(const TextureDescription& description)
+	{
+		/*
+		* Create OpenGL texture
+		*/
+		const TextureType type = description.Type;
+		switch (type)
+		{
+			case DopeEngine::TextureType::Texture1D:
+				return nullptr;
+				break;
+			case DopeEngine::TextureType::Texture2D:
+				return new OpenGLTexture2D(description, (DEVICE)this);
+				break;
+			case DopeEngine::TextureType::Texture3D:
+				break;
+				return nullptr;
+			case DopeEngine::TextureType::CubeTexture:
+				return nullptr;
+				break;
+			default:
+				ASSERT(false, "OpenGLGraphicsDevice", "Cannot create texture because given texture type is invalid");
+				return nullptr;
+				break;
+		}
+
+	}
+	VertexLayout* OpenGLGraphicsDevice::create_vertex_layout_impl(const VertexLayoutDescription& description)
+	{
+		/*
+		* Create OpenGL vertex layout
+		*/
+		OpenGLVertexLayout* layout = new OpenGLVertexLayout(description, (DEVICE)this);
+
+		return layout;
 	}
 }

@@ -22,6 +22,16 @@ namespace DopeEngine
 		virtual String get_version() const override;
 	protected:
 		virtual void make_current_impl() override;
+		virtual void delete_device_object_impl(DeviceObject* object) override;
+		virtual Buffer* create_buffer_impl(const BufferDescription& description) override;
+		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) override;
+		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) override;
+		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
+		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) override;
+		virtual Texture* create_texture_impl(const TextureDescription& description) override;
+		virtual VertexLayout* create_vertex_layout_impl(const VertexLayoutDescription& description) override;
+		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
+		virtual CommandBuffer* create_command_buffer_impl() override;
 	private:
 		void _create_opengl_device();
 		void _create_opengl_win32_device();
@@ -30,6 +40,10 @@ namespace DopeEngine
 		HGLRC WindowOpenGLContext;
 		HDC WindowDeviceContext;
 #endif
+
+
+
+
 
 	};
 
