@@ -22,6 +22,10 @@ namespace DopeEngine
 	{
 		invalidate();
 	}
+	INDEX_BUFFER_HANDLE OpenGLIndexBuffer::get_handle() const
+	{
+		return Handle;
+	}
 	void OpenGLIndexBuffer::update_impl(const Byte* data)
 	{
 		/*

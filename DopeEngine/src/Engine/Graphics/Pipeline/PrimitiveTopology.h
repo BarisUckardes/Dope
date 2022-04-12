@@ -8,6 +8,9 @@ namespace DopeEngine
 	/// </summary>
 	enum class DOPE_ENGINE_API PrimitiveTopology
 	{
-
+		Points = 0,
+		Lines = 1,
+		Triangles = 2,
+		Patches = 3
 	};
 }

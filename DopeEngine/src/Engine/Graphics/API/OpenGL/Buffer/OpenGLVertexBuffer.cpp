@@ -20,6 +20,10 @@ namespace DopeEngine
 		invalidate();
 		Device = nullptr;
 	}
+	VERTEX_BUFFER_HANDLE OpenGLVertexBuffer::get_handle() const
+	{
+		return Handle;
+	}
 	void OpenGLVertexBuffer::update_impl(const Byte* data)
 	{
 		/*

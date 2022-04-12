@@ -171,6 +171,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Command\CommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLDeviceObjects.h" />
@@ -295,6 +296,7 @@
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Command\CommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipeline.cpp" />

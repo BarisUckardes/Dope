@@ -80,6 +80,11 @@ namespace DopeEngine
 		/// <param name="depth"></param>
 		virtual void clear_depth(const float depth) = 0;
 
+		/// <summary>
+		/// Draw call
+		/// </summary>
+		virtual void indexed_draw_call(const unsigned int count) = 0;
+
 	protected:
 		CommandBuffer() : CurrentBoundTextures(0) {}
 		virtual ~CommandBuffer() = 0 {}

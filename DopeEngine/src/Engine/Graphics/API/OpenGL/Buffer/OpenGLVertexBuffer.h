@@ -10,6 +10,11 @@ namespace DopeEngine
 		OpenGLVertexBuffer(const unsigned long allocatedSize,const unsigned int perVertexSize ,DEVICE device);
 		virtual ~OpenGLVertexBuffer() final override;
 
+		/// <summary>
+		/// Returns the opengl handle
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE VERTEX_BUFFER_HANDLE get_handle() const;
 	protected:
 		virtual void update_impl(const Byte* data) override;
 	private:

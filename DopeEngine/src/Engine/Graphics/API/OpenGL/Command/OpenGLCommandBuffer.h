@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Command/CommandBuffer.h>
-
+#include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
 namespace DopeEngine
 {
 	class DOPE_ENGINE_API OpenGLCommandBuffer final : public CommandBuffer
@@ -18,8 +18,15 @@ namespace DopeEngine
 		virtual void set_vertex_layout(const VertexLayout& layout) override;
 		virtual void clear_color(const ColorRgbaByte& color) override;
 		virtual void clear_depth(const float depth) override;
+		virtual void indexed_draw_call(const unsigned int count) override;
+
 		virtual void lock_impl() override;
 		virtual void unlock_impl() override;
+	private:
+		PRIMITIVE CurrentPrimitive;
+		PROGRAM_HANDLE CurrentProgram;
+
+	
 	};
 
 

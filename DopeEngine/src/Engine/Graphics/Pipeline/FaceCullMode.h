@@ -10,6 +10,7 @@ namespace DopeEngine
 	{
 		Front = 0,
 		Back = 1,
-		FrontAndBack = 2
+		FrontAndBack = 2,
+		DontCull = 3
 	};
 }

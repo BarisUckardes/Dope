@@ -13,6 +13,11 @@ namespace DopeEngine
 		OpenGLIndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize,DEVICE device);
 		virtual ~OpenGLIndexBuffer() final override;
 
+		/// <summary>
+		/// Returns opengl index buffer handle
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE INDEX_BUFFER_HANDLE get_handle() const;
 	protected:
 		virtual void update_impl(const Byte* data) override;
 	private:
