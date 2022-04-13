@@ -241,6 +241,7 @@ namespace DopeEngine
         * Set win32 window visiblity
         */
         ShowWindow(WindowHandle, state == true ? SW_SHOW : SW_HIDE);
+        UpdateWindow(WindowHandle);
 
         /*
         * Set visibility

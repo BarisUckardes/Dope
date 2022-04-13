@@ -24,5 +24,6 @@ namespace DopeEngine
 	void CommandBuffer::clear_cached_state()
 	{
 		CurrentBoundTextures = 0;
+		clear_cached_state_impl();
 	}
 }

@@ -3,6 +3,7 @@
 #include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
 namespace DopeEngine
 {
+	class OpenGLVertexLayout;
 	class DOPE_ENGINE_API OpenGLCommandBuffer final : public CommandBuffer
 	{
 	public:
@@ -22,9 +23,15 @@ namespace DopeEngine
 		virtual void indexed_draw_call(const unsigned int count) override;
 		virtual void lock_impl() override;
 		virtual void unlock_impl() override;
+	protected:
+		virtual void clear_cached_state_impl() override final;
 	private:
+		const OpenGLVertexLayout* CurrentVertexLayout;
 		PRIMITIVE CurrentPrimitive;
 		PROGRAM_HANDLE CurrentProgram;
+		VERTEX_LAYOUT_HANDLE VertexArrayHandle;
+		VERTEX_BUFFER_HANDLE CurrentVertexBuffer;
+		INDEX_BUFFER_HANDLE CurrentIndexBuffer;
 	};
 
 

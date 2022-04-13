@@ -24,7 +24,7 @@ namespace DopeEngine
 			{
 				if (GetDeviceDriverBaseName(drivers[i], szDriver, sizeof(szDriver)))
 				{
-					_tprintf(TEXT("Driver[%d]: %s\n"), i + 1, szDriver);
+					//_tprintf(TEXT("Driver[%d]: %s\n"), i + 1, szDriver);
 				}
 			}
 		}

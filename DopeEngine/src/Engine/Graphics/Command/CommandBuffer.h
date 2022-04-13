@@ -99,6 +99,7 @@ namespace DopeEngine
 
 		virtual void lock_impl() = 0;
 		virtual void unlock_impl() = 0;
+		virtual void clear_cached_state_impl() = 0;
 	private:
 		void clear_cached_state();
 		unsigned int CurrentBoundTextures;

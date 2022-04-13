@@ -2,23 +2,18 @@
 #include <Engine/Graphics/API/OpenGL/Device/OpenGLDeviceObjects.h>
 #include <Glad/glad.h>
 #include <Engine/Graphics/API/OpenGL/Pipeline/OpenGLPipelineUtils.h>
+#include <Engine/Graphics/API/OpenGL/Vertex/OpenGLVertexLayout.h>
 #include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
 	void OpenGLCommandBuffer::set_vertex_buffer(const VertexBuffer& vertexBuffer)
 	{
-		const VERTEX_LAYOUT_HANDLE handle = ((const OpenGLVertexBuffer&)vertexBuffer).get_handle();
-		glBindBuffer(GL_ARRAY_BUFFER, handle);
-		CheckGLError();
-		LOG("OpenGLCommandBuffer", "Set vertex buffer: %d", handle);
+		CurrentVertexBuffer = ((const OpenGLVertexBuffer&)vertexBuffer).get_handle();
 	}
 
 	void OpenGLCommandBuffer::set_index_buffer(const IndexBuffer& indexBuffer)
 	{
-		const INDEX_BUFFER_HANDLE handle = ((const OpenGLIndexBuffer&)indexBuffer).get_handle();
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, handle);
-		CheckGLError();
-		LOG("OpenGLCommandBuffer", "Set index buffer: %d", handle);
+		CurrentIndexBuffer = ((const OpenGLIndexBuffer&)indexBuffer).get_handle();
 	}
 
 	void OpenGLCommandBuffer::set_uniform_buffer(const UniformBuffer& buffer)
@@ -91,14 +86,12 @@ namespace DopeEngine
 	{
 		CurrentProgram = ((const OpenGLShaderSet&)shaderSet).get_handle();
 		glUseProgram(CurrentProgram);
-		CheckGLError();
-		LOG("OpenGLCommandBuffer", "ShaderSet: %d", CurrentProgram);
 	}
 
 	void OpenGLCommandBuffer::set_vertex_layout(const VertexLayout& layout)
 	{
-		glBindVertexArray(((const OpenGLVertexLayout&)layout).get_handle());
-		CheckGLError();
+		VertexArrayHandle = ((const OpenGLVertexLayout&)layout).get_handle();
+		CurrentVertexLayout = (const OpenGLVertexLayout*)&layout;
 	}
 
 	void OpenGLCommandBuffer::clear_color(const ColorRgbaByte& color)
@@ -115,6 +108,25 @@ namespace DopeEngine
 	
 	void OpenGLCommandBuffer::indexed_draw_call(const unsigned int count)
 	{
+		/*
+		* Bind vertex array
+		*/
+		glBindVertexArray(VertexArrayHandle);
+
+		/*
+		* Bind given vertex and index buffers
+		*/
+		glBindBuffer(GL_ARRAY_BUFFER, CurrentVertexBuffer);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CurrentIndexBuffer);
+
+		/*
+		* Set current vertex layout active
+		*/
+		CurrentVertexLayout->set_layout_active();
+
+		/*
+		* Issue draw call
+		*/
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
 	}
 
@@ -126,5 +138,13 @@ namespace DopeEngine
 	void OpenGLCommandBuffer::unlock_impl()
 	{
 
+	}
+	void OpenGLCommandBuffer::clear_cached_state_impl()
+	{
+		CurrentPrimitive = GL_NONE;
+		CurrentProgram = GL_NONE;
+		VertexArrayHandle = GL_NONE;
+		CurrentVertexBuffer = GL_NONE;
+		CurrentIndexBuffer = GL_NONE;
 	}
 }

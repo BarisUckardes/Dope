@@ -198,10 +198,10 @@ namespace DopeEngine
 		for (unsigned int i = 0; i < PortableDeviceInformations.get_cursor(); i++)
 		{
 			const PortableDeviceInformation& deviceInformation = PortableDeviceInformations[i];
-			LOG("Application","Portable Device -> Manufacturer: %s,\nFriendly Name: %s\n,Description:%s\n",
+			/*LOG("Application","Portable Device -> Manufacturer: %s,\nFriendly Name: %s\n,Description:%s\n",
 				*deviceInformation.get_manufacturer(),
 				*deviceInformation.get_friendly_name(),
-				*deviceInformation.get_description())
+				*deviceInformation.get_description())*/
 		}
 		LOG("Application", "Portable devices collected!");
 	}
@@ -225,7 +225,7 @@ namespace DopeEngine
 		for (unsigned int i = 0; i < DeviceDriverInformations.get_cursor(); i++)
 		{
 			const DeviceDriverInformation& driverInformation = DeviceDriverInformations[i];
-			LOG("Application", "Device Driver -> Manufacturer: %s", *driverInformation.get_base_name());
+			//LOG("Application", "Device Driver -> Manufacturer: %s", *driverInformation.get_base_name());
 		}
 		
 		LOG("Application", "Device drivers collected!");

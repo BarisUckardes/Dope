@@ -24,7 +24,7 @@ namespace DopeEngine
 		"layout(location = 0) in vec2 aPosition;\n"
 		"void main()\n"
 		"{\n"
-		"gl_Position = vec4(aPosition.x, aPosition.y, 0.0, 1.0);\n"
+		"gl_Position = vec4(aPosition, 0.0, 1.0);\n"
 		"}\n";
 
 	const String fs =
@@ -32,10 +32,15 @@ namespace DopeEngine
 		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
-		"FragColor = vec4(0.0f,1.0f,0.0f,0.0f);\n"
+		"FragColor = vec4(0.0f,1.0f,0.0f,1.0f);\n"
 		"}\n";
 	
-
+	unsigned int vb;
+	unsigned int ib;
+	unsigned int varr;
+	unsigned int vss;
+	unsigned int fss;
+	unsigned int prg;
 	void TestRenderingModule::initialize()
 	{
 		
@@ -62,6 +67,9 @@ namespace DopeEngine
 		indexes.add(0);
 		indexes.add(1);
 		indexes.add(2);
+		indexes.add(0);
+		indexes.add(2);
+		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "IBuffer", vertexes.get_cursor() * sizeof(int)));
 		iBuffer->update((Byte*)indexes.get_data());
 
@@ -80,19 +88,30 @@ namespace DopeEngine
 		fShader = device->create_shader(ShaderDescription(ShaderType::Fragment, fs));
 
 		shaderSet = device->create_shader_set({vShader,fShader});
+
+		/*
+		* Disable depth
+		*/
+		glDisable(GL_DEPTH_TEST);
+
+
 	}
+
 	void TestRenderingModule::update()
 	{
+		//LOG("Render", "Vertex Array: %d, Vertex Buffer: %d, Index Buffer: %d,Program: %d,Draw elements count: %d", varr, vb, ib, prg, 6);
+
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
 		buffer->clear_color({ 1u,0u,0u,1u });
+
 		buffer->set_vertex_layout(*layout);
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
 		buffer->set_shader_set(*shaderSet);
 
-		buffer->indexed_draw_call(3);
+		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);
 	}

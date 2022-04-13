@@ -46,7 +46,7 @@ namespace DopeEngine
 		/*
 		* Create buffer
 		*/
-		glCreateBuffers(1, &Handle);
+		glGenBuffers(1, &Handle);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Handle);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

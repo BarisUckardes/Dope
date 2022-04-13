@@ -16,6 +16,7 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE VERTEX_LAYOUT_HANDLE get_handle() const;
 		virtual void create_layout() final override;
+		virtual void set_layout_active() const final override;
 	private:
 		void create();
 		void invalidate();

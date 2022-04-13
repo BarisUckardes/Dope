@@ -29,6 +29,11 @@ namespace DopeEngine
 		/// Creates the layout object
 		/// </summary>
 		virtual void create_layout() = 0;
+
+		/// <summary>
+		/// Sets the layout active
+		/// </summary>
+		virtual void set_layout_active() const = 0;
 	private:
 		VertexLayoutDescription Description;
 	};

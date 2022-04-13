@@ -45,12 +45,11 @@ namespace DopeEngine
 		/*
 		* Create vertex buffer
 		*/
-		glDeleteBuffers(1, &Handle);
+		glGenBuffers(1, &Handle);
 
 		/*
 		* Allocate buffer
 		*/
-		glCreateBuffers(1, &Handle);
 		glBindBuffer(GL_ARRAY_BUFFER, Handle);
 		glBufferData(GL_ARRAY_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
