@@ -14,7 +14,7 @@ namespace DopeEngine
 		/// Returns the handle of this OpenGL shader
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE SHADER_HANDLE get_handle() const;
+		SHADER_HANDLE get_handle() const;
 
 		// Inherited via Shader
 		virtual void compile() final override;

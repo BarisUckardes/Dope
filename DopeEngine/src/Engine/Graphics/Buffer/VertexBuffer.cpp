@@ -1,9 +1,10 @@
 #include "VertexBuffer.h"
+#include <Engine/Core/ConsoleLog.h>
 
 namespace DopeEngine
 {
 	
-	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferType::VertexBuffer,allocatedSize)
+	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::VertexBuffer,"Vertex buffer", allocatedSize))
 	{
 		PerVertexSize = perVertexSize;
 		VertexCapacity = allocatedSize / perVertexSize;

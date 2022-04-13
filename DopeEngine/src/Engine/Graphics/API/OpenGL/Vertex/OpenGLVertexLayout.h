@@ -10,6 +10,11 @@ namespace DopeEngine
 		OpenGLVertexLayout(const VertexLayoutDescription& description,DEVICE device);
 		virtual ~OpenGLVertexLayout() final override;
 
+		/// <summary>
+		/// Returns vertex array handle
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE VERTEX_LAYOUT_HANDLE get_handle() const;
 		virtual void create_layout() final override;
 	private:
 		void create();

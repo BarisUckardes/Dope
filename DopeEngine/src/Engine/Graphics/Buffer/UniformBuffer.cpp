@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	UniformBuffer::UniformBuffer(const unsigned long allocatedSize) : Buffer(BufferType::UniformBuffer,allocatedSize)
+	UniformBuffer::UniformBuffer(const String& name,const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::UniformBuffer,name, allocatedSize))
 	{
 
 	}

@@ -1,5 +1,6 @@
 #include "OpenGLVertexBuffer.h"
 #include <GLAD/glad.h>
+#include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
 
@@ -32,6 +33,7 @@ namespace DopeEngine
 		glBindBuffer(GL_ARRAY_BUFFER, Handle);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, get_allocated_size(), data);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	}
 	void OpenGLVertexBuffer::create()
 	{
@@ -48,6 +50,7 @@ namespace DopeEngine
 		/*
 		* Allocate buffer
 		*/
+		glCreateBuffers(1, &Handle);
 		glBindBuffer(GL_ARRAY_BUFFER, Handle);
 		glBufferData(GL_ARRAY_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

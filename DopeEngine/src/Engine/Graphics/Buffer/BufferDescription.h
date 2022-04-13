@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Buffer/BufferType.h>
+#include <Engine/Structures/String.h>
 
 namespace DopeEngine
 {
@@ -8,7 +9,7 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API BufferDescription
 	{
-		BufferDescription(const BufferType type,const unsigned long allocatedSize) : Type(type),AllocatedSize(allocatedSize) {}
+		BufferDescription(const BufferType type,const String& name,const unsigned long allocatedSize) : Type(type),Name(name), AllocatedSize(allocatedSize) {}
 		BufferDescription() = default;
 		~BufferDescription() = default;
 
@@ -16,6 +17,11 @@ namespace DopeEngine
 		/// The type of the buffer
 		/// </summary>
 		BufferType Type;
+
+		/// <summary>
+		/// The name of the buffer
+		/// </summary>
+		String Name;
 
 		/// <summary>
 		/// Staticly allocated size of the buffer

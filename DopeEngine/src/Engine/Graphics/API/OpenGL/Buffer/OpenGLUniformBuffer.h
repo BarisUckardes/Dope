@@ -7,16 +7,17 @@ namespace DopeEngine
 	class DOPE_ENGINE_API OpenGLUniformBuffer : public UniformBuffer
 	{
 	public:
-		OpenGLUniformBuffer(const unsigned long allocatedSize,DEVICE device);
+		OpenGLUniformBuffer(const String& name,const unsigned long allocatedSize,DEVICE device);
 		virtual ~OpenGLUniformBuffer() final override;
 
+		FORCEINLINE UNIFORM_BUFFER_HANDLE get_handle() const;
 	protected:
 		virtual void update_impl(const Byte* data) override;
 	private:
 		void create();
 		void invalidate();
 	private:
-		INDEX_BUFFER_HANDLE Handle;
+		UNIFORM_BUFFER_HANDLE Handle;
 		DEVICE Device;
 	};
 

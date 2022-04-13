@@ -641,5 +641,8 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -49,6 +49,19 @@ namespace DopeEngine
 		_create_opengl_win32_device();
 #endif
 
+#ifdef _DEBUG
+		glEnable(GL_DEBUG_OUTPUT);
+		/*
+		* Create debug
+		*/
+		glDebugMessageCallback(
+			[](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+			{
+					printf("OPENGL ERROR: %s\n", message);
+			}
+		, nullptr);
+#endif
+	
 	}
 	void OpenGLGraphicsDevice::_create_opengl_win32_device()
 	{
@@ -123,7 +136,6 @@ namespace DopeEngine
 		wglDeleteContext(tempContext);
 		wglMakeCurrent(windowDeviceContext, gladHglrc);
 
-
 		/*
 		* Init glad
 		*/
@@ -161,13 +173,13 @@ namespace DopeEngine
 		switch (type)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
-				return new OpenGLVertexBuffer(description.AllocatedSize,0,(DEVICE)this);
+				return new OpenGLVertexBuffer(description.AllocatedSize,1u,(DEVICE)this);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new OpenGLIndexBuffer(0,0,description.AllocatedSize,(DEVICE)this);
+				return new OpenGLIndexBuffer(1u,1u,description.AllocatedSize,(DEVICE)this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
-				return new OpenGLUniformBuffer(description.AllocatedSize, (DEVICE)this);
+				return new OpenGLUniformBuffer(description.Name,description.AllocatedSize, (DEVICE)this);
 				break;
 			default:
 				ASSERT(false,"OpenGLGraphicsDevice", "Invalid buffer type.Cannot create buffer");

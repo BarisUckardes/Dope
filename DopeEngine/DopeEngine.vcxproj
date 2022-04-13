@@ -296,6 +296,7 @@
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Command\CommandBuffer.cpp" />

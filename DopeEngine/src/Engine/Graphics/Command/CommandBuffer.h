@@ -7,6 +7,7 @@ namespace DopeEngine
 	class Buffer;
 	class VertexBuffer;
 	class IndexBuffer;
+	class UniformBuffer;
 	class Texture;
 	class Framebuffer;
 	class Pipeline;
@@ -43,6 +44,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="indexBuffer"></param>
 		virtual void set_index_buffer(const IndexBuffer& indexBuffer) = 0;
+
+		/// <summary>
+		/// Sets a uniform buffer
+		/// </summary>
+		/// <param name="buffer"></param>
+		virtual void set_uniform_buffer(const UniformBuffer& buffer) = 0;
 
 		/// <summary>
 		/// Sets the target framebuffer
@@ -84,6 +91,7 @@ namespace DopeEngine
 		/// Draw call
 		/// </summary>
 		virtual void indexed_draw_call(const unsigned int count) = 0;
+
 
 	protected:
 		CommandBuffer() : CurrentBoundTextures(0) {}

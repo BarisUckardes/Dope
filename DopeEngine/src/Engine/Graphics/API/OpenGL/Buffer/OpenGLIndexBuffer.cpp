@@ -1,5 +1,6 @@
 #include "OpenGLIndexBuffer.h"
 #include <GLAD/glad.h>
+#include <Engine/Core/ConsoleLog.h>
 
 
 namespace DopeEngine

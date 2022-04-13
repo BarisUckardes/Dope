@@ -1,9 +1,10 @@
 #include "IndexBuffer.h"
+#include <Engine/Core/ConsoleLog.h>
 
 namespace DopeEngine
 {
 
-	IndexBuffer::IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferType::IndexBuffer,allocatedSize)
+	IndexBuffer::IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::IndexBuffer,"IndexBuffer", allocatedSize))
 	{
 		Range = range;
 		ElementSize = elementSize;

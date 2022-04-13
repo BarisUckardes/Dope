@@ -10,7 +10,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API UniformBuffer : public Buffer
 	{
 	public:
-		UniformBuffer(const unsigned long allocatedSize);
+		UniformBuffer(const String& name,const unsigned long allocatedSize);
 		virtual ~UniformBuffer() = default;
 	};
 

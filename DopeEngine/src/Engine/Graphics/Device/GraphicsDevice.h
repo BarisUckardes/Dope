@@ -13,6 +13,7 @@
 namespace DopeEngine
 {
 	class Buffer;
+	class VertexBuffer;
 	class Texture;
 	class Framebuffer;
 	class Pipeline;
