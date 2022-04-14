@@ -25,7 +25,7 @@ namespace DopeEngine
 	{
 		return Handle;
 	}
-	void OpenGLUniformBuffer::update_impl(const Byte* data)
+	void OpenGLUniformBuffer::update(const Byte* data)
 	{
 		/*
 		* Update

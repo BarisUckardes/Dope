@@ -34,14 +34,6 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE unsigned long get_allocated_size() const;
-
-		/// <summary>
-		/// Updates the buffer size
-		/// </summary>
-		/// <param name="data"></param>
-		FORCEINLINE void update(const Byte* data);
-	protected:
-		virtual void update_impl(const Byte* data) = 0;
 	private:
 		BufferType Type;
 		String Name;

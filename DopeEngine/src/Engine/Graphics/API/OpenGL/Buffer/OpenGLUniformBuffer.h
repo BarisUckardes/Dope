@@ -11,8 +11,7 @@ namespace DopeEngine
 		virtual ~OpenGLUniformBuffer() final override;
 
 		FORCEINLINE UNIFORM_BUFFER_HANDLE get_handle() const;
-	protected:
-		virtual void update_impl(const Byte* data) override;
+		void update(const Byte* data);
 	private:
 		void create();
 		void invalidate();

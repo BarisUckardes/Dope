@@ -15,8 +15,9 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE VERTEX_BUFFER_HANDLE get_handle() const;
+		void update(const Byte* data);
 	protected:
-		virtual void update_impl(const Byte* data) override;
+
 	private:
 		void create();
 		void invalidate();

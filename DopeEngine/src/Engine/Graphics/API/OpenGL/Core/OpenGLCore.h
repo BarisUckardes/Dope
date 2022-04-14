@@ -8,6 +8,7 @@ typedef unsigned int TEXTURE_HANDLE;
 typedef unsigned int TEXTURE_FORMAT;
 typedef unsigned int TEXTURE_INTERNAL_FORMAT;
 typedef unsigned int TEXTURE_DATA_TYPE;
+typedef unsigned int TEXTURE_TYPE;
 typedef unsigned int FRAMEBUFFER_HANDLE;
 typedef unsigned int FRAMEBUFFER_ATTACHMENT;
 typedef unsigned int VERTEX_BUFFER_HANDLE;

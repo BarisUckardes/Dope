@@ -7,11 +7,11 @@ namespace DopeEngine
 	/// <summary>
 	/// OpenGL implementaiton of the texture2D
 	/// </summary>
-	class DOPE_ENGINE_API OpenGLTexture2D final : public Texture
+	class DOPE_ENGINE_API OpenGLTexture final : public Texture
 	{
 	public:
-		OpenGLTexture2D(const TextureDescription& description, DEVICE device);
-		virtual ~OpenGLTexture2D() override final;
+		OpenGLTexture(const TextureDescription& description, DEVICE device);
+		virtual ~OpenGLTexture() override final;
 
 		/// <summary>
 		/// Returns the texture handle

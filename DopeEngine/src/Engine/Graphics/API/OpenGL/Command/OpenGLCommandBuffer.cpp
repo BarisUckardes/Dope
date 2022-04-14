@@ -5,6 +5,7 @@
 #include <Engine/Graphics/API/OpenGL/Vertex/OpenGLVertexUtils.h>
 #include <Engine/Graphics/Resource/ResourceTypeUtils.h>
 #include <Engine/Core/ConsoleLog.h>
+#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTextureUtils.h>
 namespace DopeEngine
 {
 	void OpenGLCommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
@@ -188,22 +189,38 @@ namespace DopeEngine
 			* Get device object
 			*/
 			const DeviceObject* deviceObject = resources[i];
-			const DeviceObjectType resourceType = deviceObject->get_device_object_type();
+			const DeviceObjectType resourceDeviceObjectType = deviceObject->get_device_object_type();
+			const ResourceLayoutElementDescription elementDescription = targetDescription.Elements[i];
+			ResourceType resourceType = elementDescription.Type;
 
-			/*
-			* Bind resource
-			*/
+
 			switch (resourceType)
 			{
-				case DopeEngine::DeviceObjectType::Texture:
+				case DopeEngine::ResourceType::Texture:
 				{
+					/*
+					* Get gl texture
+					*/
+					const OpenGLTexture* glTexture = ((const OpenGLTexture*)deviceObject);
+
+					/*
+					* Get texture location
+					*/
 					const unsigned int uniformLocation = glGetUniformLocation(CurrentProgramHandle, *targetDescription.Elements[i].Name);
+
+					/*
+					* Active and bind texture
+					*/
 					glActiveTexture(GL_TEXTURE0 + get_bound_texture_count());
-					glBindTexture(GL_TEXTURE_2D, ((const OpenGLTexture2D*)deviceObject)->get_handle());
+					glBindTexture(OpenGLTextureUtils::get_texture_type(glTexture->get_type()), glTexture->get_handle());
+
+					/*
+					* Set texture uniform
+					*/
 					glUniform1i(uniformLocation, get_bound_texture_count());
 					break;
 				}
-				case DopeEngine::DeviceObjectType::Buffer:
+				case DopeEngine::ResourceType::UniformBuffer:
 				{
 					/*
 					* Get uniform buffer handle
@@ -223,7 +240,7 @@ namespace DopeEngine
 					/*
 					* Set buffer
 					*/
-					glBindBufferBase(GL_UNIFORM_BUFFER,index,handle);
+					glBindBufferBase(GL_UNIFORM_BUFFER, index, handle);
 
 					/*
 					* Increment global state
@@ -231,7 +248,10 @@ namespace DopeEngine
 					increment_uniformbuffer_bound_count();
 					break;
 				}
+				default:
+					break;
 			}
+			
 		}
 	}
 

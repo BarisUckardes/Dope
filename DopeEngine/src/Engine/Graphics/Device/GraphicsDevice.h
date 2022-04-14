@@ -148,6 +148,20 @@ namespace DopeEngine
 		/// </summary>
 		void submit_command_buffer(CommandBuffer* commandBuffer);
 
+		/// <summary>
+		/// Updates the texture
+		/// </summary>
+		/// <param name="texture"></param>
+		/// <param name="data"></param>
+		void update_texture(Texture* texture,const Byte* data);
+
+		/// <summary>
+		/// Updates the buffer
+		/// </summary>
+		/// <param name="buffer"></param>
+		/// <param name="data"></param>
+		void update_buffer(Buffer* buffer, const Byte* data);
+
 	protected:
 		GraphicsDevice(Window* window);
 		virtual ~GraphicsDevice() = default;
@@ -165,6 +179,8 @@ namespace DopeEngine
 		virtual ResourceLayout* create_resource_layout_impl(const ResourceLayoutDescription & description) = 0;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
+		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;
+		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
 
 	private:
 		void create_swapchain_framebuffer();

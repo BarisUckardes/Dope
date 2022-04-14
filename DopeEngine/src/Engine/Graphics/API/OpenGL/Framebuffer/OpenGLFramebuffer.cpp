@@ -1,5 +1,5 @@
 #include "OpenGLFramebuffer.h"
-#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTexture2D.h>
+#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTexture.h>
 #include <GLAD/glad.h>
 
 namespace DopeEngine
@@ -60,7 +60,7 @@ namespace DopeEngine
 			/*
 			* Get texture as opengl texture
 			*/
-			const OpenGLTexture2D* texture = (const OpenGLTexture2D*)attachments[i];
+			const OpenGLTexture* texture = (const OpenGLTexture*)attachments[i];
 
 			/*
 			* Attach
@@ -82,7 +82,7 @@ namespace DopeEngine
 			/*
 			* Get depth attachment as opengl texture
 			*/
-			const OpenGLTexture2D* depthAttachment = (const OpenGLTexture2D*)get_depth_attachment();
+			const OpenGLTexture* depthAttachment = (const OpenGLTexture*)get_depth_attachment();
 
 			/*
 			* Attach depth

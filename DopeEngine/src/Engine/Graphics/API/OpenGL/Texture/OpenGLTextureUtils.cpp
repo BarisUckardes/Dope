@@ -1,5 +1,6 @@
 #include "OpenGLTextureUtils.h"
 #include <Glad/glad.h>
+#include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
 	TEXTURE_FORMAT OpenGLTextureUtils::get_format(const TextureFormat format)
@@ -87,6 +88,27 @@ namespace DopeEngine
 				return GL_UNSIGNED_BYTE;
 				break;
 			default:
+				break;
+		}
+	}
+	TEXTURE_TYPE OpenGLTextureUtils::get_texture_type(const TextureType type)
+	{
+		switch (type)
+		{
+			case DopeEngine::TextureType::Texture1D:
+				return GL_TEXTURE_1D;
+				break;
+			case DopeEngine::TextureType::Texture2D:
+				return GL_TEXTURE_2D;
+				break;
+			case DopeEngine::TextureType::Texture3D:
+				return GL_TEXTURE_3D;
+				break;
+			case DopeEngine::TextureType::CubeTexture:
+				return GL_TEXTURE_CUBE_MAP;
+				break;
+			default:
+				ASSERT(false, "OpenGLTextureUtils", "Invalid TextureType, cannot convert TextureType to GL_TEXTURE_?");
 				break;
 		}
 	}

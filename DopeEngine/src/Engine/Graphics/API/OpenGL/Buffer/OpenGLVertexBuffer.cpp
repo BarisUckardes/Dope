@@ -25,7 +25,7 @@ namespace DopeEngine
 	{
 		return Handle;
 	}
-	void OpenGLVertexBuffer::update_impl(const Byte* data)
+	void OpenGLVertexBuffer::update(const Byte* data)
 	{
 		/*
 		* Update buffer data

@@ -333,7 +333,7 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderSet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture2D.h">
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTextureUtils.h">
@@ -629,7 +629,7 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture2D.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTextureUtils.cpp">

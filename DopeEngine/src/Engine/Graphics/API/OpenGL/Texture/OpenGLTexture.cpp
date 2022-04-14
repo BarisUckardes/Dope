@@ -1,10 +1,10 @@
-#include "OpenGLTexture2D.h"
+#include "OpenGLTexture.h"
 #include <Engine/Graphics/API/OpenGL/Texture/OpenGLTextureUtils.h>
 #include <GLAD/glad.h>
 
 namespace DopeEngine
 {
-	OpenGLTexture2D::OpenGLTexture2D(const TextureDescription& description, DEVICE device) : Texture(description)
+	OpenGLTexture::OpenGLTexture(const TextureDescription& description, DEVICE device) : Texture(description)
 	{
 		/*
 		* Initialize
@@ -16,15 +16,15 @@ namespace DopeEngine
 		*/
 		create_texture();
 	}
-	OpenGLTexture2D::~OpenGLTexture2D()
+	OpenGLTexture::~OpenGLTexture()
 	{
 		invalidate();
 	}
-	TEXTURE_HANDLE OpenGLTexture2D::get_handle() const
+	TEXTURE_HANDLE OpenGLTexture::get_handle() const
 	{
 		return Handle;
 	}
-	void OpenGLTexture2D::update(const Byte* data)
+	void OpenGLTexture::update(const Byte* data)
 	{
 		/*
 		* Update texture data region
@@ -34,7 +34,7 @@ namespace DopeEngine
 		glTextureSubImage2D(Handle, 0, 0, 0, get_width(), get_height(), OpenGLTextureUtils::get_format(format), OpenGLTextureUtils::get_data_type(format), data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-	void OpenGLTexture2D::create_texture()
+	void OpenGLTexture::create_texture()
 	{
 		/*
 		* First invalidate
@@ -50,7 +50,7 @@ namespace DopeEngine
 		glTexImage2D(GL_TEXTURE_2D, 0, OpenGLTextureUtils::get_internal_format(format), get_width(), get_height(), 0, OpenGLTextureUtils::get_format(format), OpenGLTextureUtils::get_data_type(format), nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-	void OpenGLTexture2D::invalidate()
+	void OpenGLTexture::invalidate()
 	{
 		/*
 		* Validate and delete

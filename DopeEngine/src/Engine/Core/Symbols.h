@@ -1,4 +1,5 @@
 #pragma once
+#include <Engine/Core/Definitions.h>
 #ifdef DOPE_ENGINE_BUILD
 #define DOPE_ENGINE_API __declspec(dllexport)
 #else

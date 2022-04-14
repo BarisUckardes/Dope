@@ -7,7 +7,7 @@
 #include <Engine/Graphics/API/OpenGL/Pipeline/OpenGLPipeline.h>
 #include <Engine/Graphics/API/OpenGL/Shader/OpenGLShader.h>
 #include <Engine/Graphics/API/OpenGL/Shader/OpenGLShaderSet.h>
-#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTexture2D.h>
+#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTexture.h>
 #include <Engine/Graphics/API/OpenGL/Command/OpenGLCommandBuffer.h>
 #include <Engine/Graphics/API/OpenGL/Resource/OpenGLResourceLayout.h>
 #include <Engine/Graphics/API/OpenGL/Resource/OpenGLResourceView.h>

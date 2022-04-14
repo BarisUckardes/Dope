@@ -51,6 +51,7 @@ namespace DopeEngine
 
 #ifdef _DEBUG
 		//glEnable(GL_DEBUG_OUTPUT);
+
 		///*
 		//* Create debug
 		//*/
@@ -139,19 +140,43 @@ namespace DopeEngine
 		/*
 		* Init glad
 		*/
-		int gladInitState = gladLoadGL();
+		ASSERT(gladLoadGL() != 0, "GLAD", "Glad intialization failed!");
 		LOG("GLAD", "%s", *get_version());
 
 		/*
 		* Validate glad
 		*/
-		ASSERT(gladInitState != 0, "GLAD", "Glad intialization failed!");
+		
 
 		/*
 		* Initialize
 		*/
 		WindowDeviceContext = windowDeviceContext;
 		WindowOpenGLContext = gladHglrc;
+	}
+	void OpenGLGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
+	{
+		const BufferType type = buffer->get_type();
+		switch (type)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				((OpenGLVertexBuffer*)buffer)->update(data);
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				((OpenGLIndexBuffer*)buffer)->update(data);
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				((OpenGLUniformBuffer*)buffer)->update(data);
+				break;
+			default:
+				ASSERT(false, "OpenGLGraphicsDevice", "Invalid buffer type, cannot update the buffer!");
+				break;
+
+		}
+	}
+	void OpenGLGraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
+	{
+		((OpenGLTexture*)texture)->update(data);
 	}
 	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
 	{
@@ -258,7 +283,7 @@ namespace DopeEngine
 				return nullptr;
 				break;
 			case DopeEngine::TextureType::Texture2D:
-				return new OpenGLTexture2D(description, (DEVICE)this);
+				return new OpenGLTexture(description, (DEVICE)this);
 				break;
 			case DopeEngine::TextureType::Texture3D:
 				break;

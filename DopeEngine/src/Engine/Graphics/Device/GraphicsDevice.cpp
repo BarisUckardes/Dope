@@ -97,6 +97,16 @@ namespace DopeEngine
 		submit_command_buffer_impl(commandBuffer);
 	}
 
+	void GraphicsDevice::update_texture(Texture* texture, const Byte* data)
+	{
+		update_texture_impl(texture, data);
+	}
+
+	void GraphicsDevice::update_buffer(Buffer* buffer, const Byte* data)
+	{
+		update_buffer_impl(buffer, data);
+	}
+
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
 	{
 		OwnerWindow = ownerWindow;

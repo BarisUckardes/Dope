@@ -21,12 +21,4 @@ namespace DopeEngine
 	{
 		return AllocatedSize;
 	}
-	void Buffer::update(const Byte* data)
-	{
-		/*
-		* Call impl
-		*/
-		update_impl(data);
-
-	}
 }

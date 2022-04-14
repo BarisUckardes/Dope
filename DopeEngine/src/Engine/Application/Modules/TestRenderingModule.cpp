@@ -54,7 +54,6 @@ namespace DopeEngine
 	void TestRenderingModule::initialize()
 	{
 		
-
 		/*
 		* Get graphics device
 		*/
@@ -68,7 +67,7 @@ namespace DopeEngine
 		vertexes.add(Vector2f(-1.0f, -1.0f));
 		vertexes.add(Vector2f(0, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription(BufferType::VertexBuffer, "VBuffer", vertexes.get_cursor() * sizeof(Vector2f)));
-		vBuffer->update((Byte*)vertexes.get_data());
+		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
 		/*
 		* Create index buffer
@@ -81,7 +80,7 @@ namespace DopeEngine
 		indexes.add(2);
 		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", vertexes.get_cursor() * sizeof(int)));
-		iBuffer->update((Byte*)indexes.get_data());
+		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
 		/*
 		* Create vertex layout
@@ -108,11 +107,11 @@ namespace DopeEngine
 		*/
 		colorBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor", 12u));
 		const Vector3f col(0.0f,0.0f,1.0f);
-		colorBuffer->update((const Byte*)&col);
+		device->update_buffer(colorBuffer, (const Byte*)&col);
 
 		Buffer* dummyBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor2", 12u));
 		const Vector3f col2(1.0f, 0, 0.0f);
-		dummyBuffer->update((const Byte*)&col2);
+		device->update_buffer(dummyBuffer, (const Byte*)&col2);
 
 		/*
 		* Create resource layouts

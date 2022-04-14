@@ -27,7 +27,7 @@ namespace DopeEngine
 	{
 		return Handle;
 	}
-	void OpenGLIndexBuffer::update_impl(const Byte* data)
+	void OpenGLIndexBuffer::update(const Byte* data)
 	{
 		/*
 		* Update buffer data
