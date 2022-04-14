@@ -10,6 +10,7 @@ namespace DopeEngine
 	/// </summary>
 	class DOPE_ENGINE_API Framebuffer : public DeviceObject
 	{
+		friend class SwapchainFramebuffer;
 	public:
 		Framebuffer(const FramebufferDescription& description,GraphicsDevice* device);
 		virtual ~Framebuffer() = default;
@@ -33,6 +34,12 @@ namespace DopeEngine
 		FORCEINLINE bool has_depth_attachment() const;
 
 		/// <summary>
+		/// Returns whether this is a swapchain framebuffer or not
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE bool is_swapchain_framebuffer() const;
+
+		/// <summary>
 		/// Returns a reference to the attachment list
 		/// </summary>
 		/// <returns></returns>
@@ -49,13 +56,16 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE Texture* get_depth_attachment() const;
-
 	private:
+		static void _set_width(Framebuffer* buffer, const unsigned int width);
+		static void _set_height(Framebuffer* buffer, const unsigned int height);
+		static void _mark_swapchain(Framebuffer* buffer);
 		void create_attachments(const Array<FramebufferAttachmentDescription>& descriptions, GraphicsDevice* device);
 	private:
 		unsigned int Width;
 		unsigned int Height;
 		bool HasDepthAttachment;
+		bool Swapchain;
 		Array<Texture*> Attachments;
 		Texture* DepthAttachment;
 	};

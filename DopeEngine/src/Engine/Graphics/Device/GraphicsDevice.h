@@ -9,6 +9,8 @@
 #include <Engine/Graphics/Shader/ShaderDescription.h>
 #include <Engine/Graphics/Texture/TextureDescription.h>
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
+#include <Engine/Graphics/Resource/ResourceLayout.h>
+#include <Engine/Graphics/Resource/ResourceView.h>
 
 namespace DopeEngine
 {
@@ -22,7 +24,8 @@ namespace DopeEngine
 	class VertexLayout;
 	class DeviceObject;
 	class CommandBuffer;
-
+	class ResourceView;
+	class ResourceLayout;
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>
@@ -48,6 +51,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE const Window* get_owner_window() const;
+
+		/// <summary>
+		/// Returns the swapchain framebuffer
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Framebuffer* get_swapchain_framebuffer() const;
 
 		/// <summary>
 		/// Makes this device current for this process
@@ -115,22 +124,30 @@ namespace DopeEngine
 		Texture* create_texture(const TextureDescription& description);
 
 		/// <summary>
-		/// Creates a vertex layout
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
-		VertexLayout* create_vertex_layout(const VertexLayoutDescription& description);
-
-		/// <summary>
 		/// Creates anew command buffer
 		/// </summary>
 		/// <returns></returns>
 		CommandBuffer* create_command_buffer();
 
 		/// <summary>
+		/// Creates anew resource layout device object
+		/// </summary>
+		/// <param name="description"></param>
+		/// <returns></returns>
+		ResourceLayout* create_resource_layout(const ResourceLayoutDescription& description);
+
+		/// <summary>
+		/// Creates anew resource view device object
+		/// </summary>
+		/// <param name="description"></param>
+		/// <returns></returns>
+		ResourceView* create_resource_view(const ResourceViewDescription& description);
+
+		/// <summary>
 		/// Submits a command buffer for rendering.<para>Each API has a different submit impls</para>
 		/// </summary>
 		void submit_command_buffer(CommandBuffer* commandBuffer);
+
 	protected:
 		GraphicsDevice(Window* window);
 		virtual ~GraphicsDevice() = default;
@@ -139,17 +156,24 @@ namespace DopeEngine
 		virtual void delete_device_object_impl(DeviceObject* object) = 0;
 		virtual Buffer* create_buffer_impl(const BufferDescription& description) = 0;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) = 0;
+		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const = 0;
 		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) = 0;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
-		virtual VertexLayout* create_vertex_layout_impl(const VertexLayoutDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
+		virtual ResourceLayout* create_resource_layout_impl(const ResourceLayoutDescription & description) = 0;
+		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 
 	private:
+		void create_swapchain_framebuffer();
+		FORCEINLINE void register_device_object(DeviceObject* object);
+		FORCEINLINE void remove_device_object(DeviceObject* object);
+	private:
 		Array<DeviceObject*> ChildObjects;
 		Window* OwnerWindow;
+		Framebuffer* SwapchainFramebuffer;
 		bool Current;
 	};
 

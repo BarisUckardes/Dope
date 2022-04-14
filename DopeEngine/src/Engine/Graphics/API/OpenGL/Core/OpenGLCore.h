@@ -13,6 +13,7 @@ typedef unsigned int FRAMEBUFFER_ATTACHMENT;
 typedef unsigned int VERTEX_BUFFER_HANDLE;
 typedef unsigned int INDEX_BUFFER_HANDLE;
 typedef unsigned int UNIFORM_BUFFER_HANDLE;
+typedef unsigned int UNIFORM_BUFFER_INDEX;
 typedef unsigned int VERTEX_LAYOUT_HANDLE;
 typedef unsigned int VERTEX_DATA_TYPE;
 typedef unsigned int DEPTH_FUNCTION;

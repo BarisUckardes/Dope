@@ -66,6 +66,9 @@ namespace DopeEngine
 			case DopeEngine::FaceCullMode::FrontAndBack:
 				return GL_FRONT_AND_BACK;
 				break;
+			case DopeEngine::FaceCullMode::DontCull:
+				return GL_NEVER;
+				break;
 			default:
 				ASSERT(false, "OpenGLPipelineUtils", "Invalid cullmode");
 				return GL_NONE;

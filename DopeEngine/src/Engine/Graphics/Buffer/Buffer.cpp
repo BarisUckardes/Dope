@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-	Buffer::Buffer(const BufferDescription& description)
+	Buffer::Buffer(const BufferDescription& description) : DeviceObject(DeviceObjectType::Buffer)
 	{
 		Type = description.Type;
 		AllocatedSize = description.AllocatedSize;

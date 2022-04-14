@@ -60,6 +60,30 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE PrimitiveTopology get_primitives() const;
+
+		/// <summary>
+		/// Returns the shader set
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const ShaderSet* get_shader_set() const;
+
+		/// <summary>
+		/// Returns the layout of the vertex
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE VertexLayoutDescription get_vertex_layout() const;
+
+		/// <summary>
+		/// Returns a reference to the resource layout list
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const Array<ResourceLayout*>& get_resource_layouts_fast() const;
+
+		/// <summary>
+		/// Returns a copy of the resource layouts
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Array<ResourceLayout*> get_resource_layouts_slow() const;
 	private:
 		BlendState Blending;
 		DepthComparisionKind DepthFunction;
@@ -69,6 +93,9 @@ namespace DopeEngine
 		FaceCullMode CullingMode;
 		PolygonFillMode FillMode;
 		PrimitiveTopology Primitives;
+		const ShaderSet* ShaderSet;
+		VertexLayoutDescription VertexLayout;
+		Array<ResourceLayout*> ResourceLayouts;
 	};
 
 

@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-    ShaderSet::ShaderSet(const Array<Shader*>& shaders)
+    ShaderSet::ShaderSet(const Array<Shader*>& shaders) : DeviceObject(DeviceObjectType::ShaderSet)
     {
         /*
         * Initialize

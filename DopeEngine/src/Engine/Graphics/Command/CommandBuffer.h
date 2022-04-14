@@ -15,6 +15,8 @@ namespace DopeEngine
 	class ShaderSet;
 	class VertexLayout;
 	class DeviceObject;
+	class ResourceLayout;
+	class ResourceView;
 	struct ColorRgbaByte;
 
 	/// <summary>
@@ -37,72 +39,124 @@ namespace DopeEngine
 		/// Sets the target vertex buffer
 		/// </summary>
 		/// <param name="vertexBuffer"></param>
-		virtual void set_vertex_buffer(const VertexBuffer& vertexBuffer) = 0;
+		void set_vertex_buffer(const VertexBuffer& vertexBuffer);
 
 		/// <summary>
 		/// Sets the target index buffer
 		/// </summary>
 		/// <param name="indexBuffer"></param>
-		virtual void set_index_buffer(const IndexBuffer& indexBuffer) = 0;
+		void set_index_buffer(const IndexBuffer& indexBuffer);
 
 		/// <summary>
 		/// Sets a uniform buffer
 		/// </summary>
 		/// <param name="buffer"></param>
-		virtual void set_uniform_buffer(const UniformBuffer& buffer) = 0;
+		void set_uniform_buffer(const UniformBuffer& buffer);
 
 		/// <summary>
 		/// Sets the target framebuffer
 		/// </summary>
 		/// <param name="framebuffer"></param>
-		virtual void set_framebuffer(const Framebuffer& framebuffer) = 0;
+		void set_framebuffer(const Framebuffer& framebuffer);
 
 		/// <summary>
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		virtual void set_pipeline(const Pipeline& pipeline) = 0;
-
-		/// <summary>
-		/// Sets the target shader set
-		/// </summary>
-		/// <param name="shaderSet"></param>
-		virtual void set_shader_set(const ShaderSet& shaderSet) = 0;
-
-		/// <summary>
-		/// Sets the target vertex layout
-		/// </summary>
-		/// <param name="layout"></param>
-		virtual void set_vertex_layout(const VertexLayout& layout) = 0;
+		void set_pipeline(const Pipeline& pipeline);
 
 		/// <summary>
 		/// Clears the color
 		/// </summary>
 		/// <param name="color"></param>
-		virtual void clear_color(const ColorRgbaByte& color) = 0;
+		void clear_color(const ColorRgbaByte& color);
 
 		/// <summary>
 		/// Clears the depth
 		/// </summary>
 		/// <param name="depth"></param>
-		virtual void clear_depth(const float depth) = 0;
+		void clear_depth(const float depth);
+
+		/// <summary>
+		/// Sets a resource view
+		/// </summary>
+		/// <param name="slot"></param>
+		/// <param name="view"></param>
+		void set_resource_view(const unsigned int slot, const ResourceView* view);
 
 		/// <summary>
 		/// Draw call
 		/// </summary>
-		virtual void indexed_draw_call(const unsigned int count) = 0;
-
-
+		void indexed_draw_call(const unsigned int count);
 	protected:
-		CommandBuffer() : CurrentBoundTextures(0) {}
+		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0) {}
 		virtual ~CommandBuffer() = 0 {}
 
 		virtual void lock_impl() = 0;
 		virtual void unlock_impl() = 0;
 		virtual void clear_cached_state_impl() = 0;
+
+		FORCEINLINE unsigned int get_bound_texture_count() const;
+		FORCEINLINE const Pipeline* get_bound_pipeline() const;
+		FORCEINLINE unsigned int get_bound_uniformbuffer_count() const;
+		FORCEINLINE void increment_texture_bound_count();
+		FORCEINLINE void increment_uniformbuffer_bound_count();
+
+		/// <summary>
+		/// Sets the target vertex buffer
+		/// </summary>
+		/// <param name="vertexBuffer"></param>
+		virtual void set_vertex_buffer_impl(const VertexBuffer& vertexBuffer) = 0;
+
+		/// <summary>
+		/// Sets the target index buffer
+		/// </summary>
+		/// <param name="indexBuffer"></param>
+		virtual void set_index_buffer_impl(const IndexBuffer& indexBuffer) = 0;
+
+		/// <summary>
+		/// Sets a uniform buffer
+		/// </summary>
+		/// <param name="buffer"></param>
+		virtual void set_uniform_buffer_impl(const UniformBuffer& buffer) = 0;
+
+		/// <summary>
+		/// Sets the target framebuffer
+		/// </summary>
+		/// <param name="framebuffer"></param>
+		virtual void set_framebuffer_impl(const Framebuffer& framebuffer) = 0;
+
+		/// <summary>
+		/// Sets the target pipeline
+		/// </summary>
+		/// <param name="pipeline"></param>
+		virtual void set_pipeline_impl(const Pipeline& pipeline) = 0;
+
+		/// <summary>
+		/// Clears the color
+		/// </summary>
+		/// <param name="color"></param>
+		virtual void clear_color_impl(const ColorRgbaByte& color) = 0;
+
+		/// <summary>
+		/// Clears the depth
+		/// </summary>
+		/// <param name="depth"></param>
+		virtual void clear_depth_impl(const float depth) = 0;
+
+
+		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) = 0;
+
+		/// <summary>
+		/// Draw call
+		/// </summary>
+		virtual void indexed_draw_call_impl(const unsigned int count) = 0;
+
 	private:
 		void clear_cached_state();
+		const Pipeline* CurrentBoundPipeline;
 		unsigned int CurrentBoundTextures;
+		unsigned int CurrentBoundUniformBuffers;
 	};
 
 

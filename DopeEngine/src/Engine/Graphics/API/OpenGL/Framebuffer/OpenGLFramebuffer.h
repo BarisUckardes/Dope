@@ -17,7 +17,7 @@ namespace DopeEngine
 		/// Returns the framebuffer handle
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE FRAMEBUFFER_HANDLE get_handle() const;
+		virtual FRAMEBUFFER_HANDLE get_handle() const;
 	private:
 		void invalidate();
 		void create();

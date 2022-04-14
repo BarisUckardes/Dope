@@ -244,7 +244,7 @@ namespace DopeEngine
 		/*
 		* Set feed
 		*/
-		ApplicationWindow->set_application_event_feed(Delegate<void, ApplicationEvent*>(BIND_TARGET_EVENT(this,Application::on_receive_application_event)));
+		ApplicationWindow->set_event_feed_listener(Delegate<void, ApplicationEvent*>(BIND_TARGET_EVENT(this,Application::on_receive_application_event)));
 	}
 	void Application::create_graphics_device(GraphicsAPIType requestedApiType)
 	{
@@ -252,6 +252,11 @@ namespace DopeEngine
 		* Create graphics device
 		*/
 		GraphicsDevice* device = GraphicsDevice::create(requestedApiType, ApplicationWindow);
+
+		/*
+		* Create swapchain buffer
+		*/
+
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

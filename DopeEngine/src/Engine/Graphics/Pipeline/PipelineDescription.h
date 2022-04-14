@@ -6,8 +6,12 @@
 #include <Engine/Graphics/Pipeline/FaceCullMode.h>
 #include <Engine/Graphics/Pipeline/PolygonFillMode.h>
 #include <Engine/Graphics/Pipeline/PrimitiveTopology.h>
+#include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
+#include <Engine/Graphics/Resource/ResourceLayout.h>
+
 namespace DopeEngine
 {
+	class ShaderSet;
 	/// <summary>
 	/// Description for creating a pipeline
 	/// </summary>
@@ -17,11 +21,11 @@ namespace DopeEngine
 			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
 			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
 			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives) : BlendingState(blending),
+			const PrimitiveTopology primitives,const ShaderSet* shaderSet,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts) : BlendingState(blending),
 			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
 			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
 			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives) {}
+			Primitives(primitives),ShaderSet(shaderSet),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts) {}
 
 		PipelineDescription() = default;
 		~PipelineDescription() = default;
@@ -75,5 +79,20 @@ namespace DopeEngine
 		/// Target primitive types
 		/// </summary>
 		PrimitiveTopology Primitives;
+
+		/// <summary>
+		/// Target shader set
+		/// </summary>
+		const ShaderSet* ShaderSet;
+
+		/// <summary>
+		/// Vertex layout
+		/// </summary>
+		VertexLayoutDescription LayoutDescription;
+
+		/// <summary>
+		/// Resource layouts
+		/// </summary>
+		Array<ResourceLayout*> ResourceLayouts;
 	};
 }

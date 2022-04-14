@@ -10,6 +10,11 @@ namespace DopeEngine
 		*/
 		Device = device;
 		Handle = GL_NONE;
+
+		/*
+		* Create buffer
+		*/
+		create();
 	}
 	OpenGLUniformBuffer::~OpenGLUniformBuffer()
 	{
@@ -39,7 +44,7 @@ namespace DopeEngine
 		/*
 		* Create
 		*/
-		glCreateBuffers(1, &Handle);
+		glGenBuffers(1, &Handle);
 		glBindBuffer(GL_UNIFORM_BUFFER, Handle);
 		glBufferData(GL_UNIFORM_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);

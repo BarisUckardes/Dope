@@ -150,9 +150,9 @@ namespace DopeEngine
     {
         GDevice = device;
     }
-    void WindowsWindow::set_application_event_feed(const Delegate<void, ApplicationEvent*>& functionDelegate)
+    void WindowsWindow::set_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate)
     {
-        ApplicationEventFeedDelegate = functionDelegate;
+        EventFeedListeners.add(functionDelegate);
     }
     void WindowsWindow::set_close_request()
     {
@@ -201,7 +201,10 @@ namespace DopeEngine
         /*
         * Forward event to application feed
         */
-        ApplicationEventFeedDelegate.invoke(event);
+        for (unsigned int i = 0;i < EventFeedListeners.get_cursor(); i++)
+        {
+            EventFeedListeners[i].invoke(event);
+        }
 
         /*
         * Dummy debug

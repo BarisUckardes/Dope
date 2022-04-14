@@ -8,17 +8,19 @@
 #include <Engine/Math/Vector2f.h>
 #include <Engine/Graphics/Buffer/VertexBuffer.h>
 #include <Engine/Graphics/Buffer/IndexBuffer.h>
-#include <Engine/Graphics/Vertex/VertexLayout.h>
 #include <Glad/glad.h>
+#include <stdexcept>
+#include <Engine/Math/Vector3f.h>
 namespace DopeEngine
 {
 	VertexBuffer* vBuffer = nullptr;
 	IndexBuffer* iBuffer = nullptr;
-	VertexLayout* layout = nullptr;
 	Shader* vShader = nullptr;
 	Shader* fShader = nullptr;
 	ShaderSet* shaderSet = nullptr;
-
+	Pipeline* pipeline = nullptr;
+	Buffer* colorBuffer = nullptr;
+	ResourceView* resourceView = nullptr;
 	const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
@@ -30,9 +32,17 @@ namespace DopeEngine
 	const String fs =
 		"#version 450 core\n"
 		"out vec4 FragColor;\n"
+		"layout(std140) uniform MyColor"
+		"{"
+		 "vec3 color;"
+		"};"
+		"layout(std140) uniform MyColor2"
+		"{"
+		"vec3 color2;"
+		"};"
 		"void main()\n"
 		"{\n"
-		"FragColor = vec4(0.0f,1.0f,0.0f,1.0f);\n"
+		"FragColor = vec4(color,1.0f);\n"
 		"}\n";
 	
 	unsigned int vb;
@@ -70,7 +80,7 @@ namespace DopeEngine
 		indexes.add(0);
 		indexes.add(2);
 		indexes.add(1);
-		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "IBuffer", vertexes.get_cursor() * sizeof(int)));
+		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", vertexes.get_cursor() * sizeof(int)));
 		iBuffer->update((Byte*)indexes.get_data());
 
 		/*
@@ -79,7 +89,6 @@ namespace DopeEngine
 		Array<VertexElementDescription> elements;
 		elements.add(VertexElementDescription("aPosition", 2, sizeof(float), false, VertexElementDataType::Float));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
-		layout = device->create_vertex_layout(vertexLayoutDescription);
 
 		/*
 		* Create shaders
@@ -94,7 +103,48 @@ namespace DopeEngine
 		*/
 		glDisable(GL_DEPTH_TEST);
 
+		/*
+		* Create color buffer
+		*/
+		colorBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor", 12u));
+		const Vector3f col(0.0f,0.0f,1.0f);
+		colorBuffer->update((const Byte*)&col);
 
+		Buffer* dummyBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor2", 12u));
+		const Vector3f col2(1.0f, 0, 0.0f);
+		dummyBuffer->update((const Byte*)&col2);
+
+		/*
+		* Create resource layouts
+		*/
+		ResourceLayoutDescription colorResourceLayoutDesc(
+			{
+			ResourceLayoutElementDescription("MyColor",ResourceType::UniformBuffer,ShaderType::Fragment),
+			ResourceLayoutElementDescription("MyColor2",ResourceType::UniformBuffer,ShaderType::Fragment)
+			});
+
+		ResourceLayout* colorResourceLayout = device->create_resource_layout(colorResourceLayoutDesc);
+		ResourceViewDescription colorViewDesc({ colorBuffer,dummyBuffer });
+		resourceView = device->create_resource_view(colorViewDesc);
+
+		/*
+		* Create pipeline
+		*/
+		PipelineDescription pipelineDescription;
+		pipelineDescription.BlendingState = BlendState::SingleOverride;
+		pipelineDescription.CullFace = FaceCullMode::DontCull;
+		pipelineDescription.DepthClip = false;
+		pipelineDescription.DepthComparision = DepthComparisionKind::Always;
+		pipelineDescription.DepthTest = false;
+		pipelineDescription.DepthWrite = false;
+		pipelineDescription.FillMode = PolygonFillMode::Fill;
+		pipelineDescription.FrontFace = FrontFaceMode::CounterClockwise;
+		pipelineDescription.LayoutDescription = vertexLayoutDescription;
+		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
+		pipelineDescription.ScissorTest = false;
+		pipelineDescription.ShaderSet = shaderSet;
+		pipelineDescription.ResourceLayouts = { colorResourceLayout };
+		pipeline = device->create_pipeline(pipelineDescription);
 	}
 
 	void TestRenderingModule::update()
@@ -104,13 +154,13 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
-		buffer->clear_color({ 1u,0u,0u,1u });
+		buffer->set_framebuffer(*device->get_swapchain_framebuffer());
+		buffer->clear_color({ 0u,0u,0u,1u });
 
-		buffer->set_vertex_layout(*layout);
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
-		buffer->set_shader_set(*shaderSet);
-
+		buffer->set_pipeline(*pipeline);
+		buffer->set_resource_view(0, resourceView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);

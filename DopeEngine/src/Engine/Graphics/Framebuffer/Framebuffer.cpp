@@ -2,7 +2,7 @@
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 namespace DopeEngine
 {
-	Framebuffer::Framebuffer(const FramebufferDescription& description,GraphicsDevice* device)
+	Framebuffer::Framebuffer(const FramebufferDescription& description,GraphicsDevice* device) : DeviceObject(DeviceObjectType::Framebuffer)
 	{
 		/*
 		* Initialize
@@ -11,6 +11,7 @@ namespace DopeEngine
 		Height = description.Height;
 		HasDepthAttachment = description.CreateDepthAttachment;
 		DepthAttachment = nullptr;
+		Swapchain = false;
 
 		/*
 		* create attachments
@@ -29,6 +30,10 @@ namespace DopeEngine
 	{
 		return HasDepthAttachment;
 	}
+	bool Framebuffer::is_swapchain_framebuffer() const
+	{
+		return Swapchain;
+	}
 	const Array<Texture*>& Framebuffer::get_attachments_fast() const
 	{
 		return Attachments;
@@ -40,6 +45,18 @@ namespace DopeEngine
 	Texture* Framebuffer::get_depth_attachment() const
 	{
 		return DepthAttachment;
+	}
+	void Framebuffer::_set_width(Framebuffer* buffer, const unsigned int width)
+	{
+		buffer->Width = width;
+	}
+	void Framebuffer::_set_height(Framebuffer* buffer, const unsigned int height)
+	{
+		buffer->Height = height;
+	}
+	void Framebuffer::_mark_swapchain(Framebuffer* buffer)
+	{
+		buffer->Swapchain = true;
 	}
 	void Framebuffer::create_attachments(const Array<FramebufferAttachmentDescription>& descriptions,GraphicsDevice* device)
 	{

@@ -153,12 +153,35 @@ namespace DopeEngine
 		WindowDeviceContext = windowDeviceContext;
 		WindowOpenGLContext = gladHglrc;
 	}
+	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
+	{
+		/*
+		* Create new opengl resource layout
+		*/
+		OpenGLResourceLayout* layout = new OpenGLResourceLayout(description);
+
+		return layout;
+	}
+	ResourceView* OpenGLGraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
+	{
+		/*
+		* Create new opengl resource view
+		*/
+		OpenGLResourceView* view = new OpenGLResourceView(description);
+
+		return view;
+	}
+	Framebuffer* OpenGLGraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
+	{
+		return new OpenGLSwapchainFramebuffer(width,height,(DEVICE)this,(Window*)get_owner_window());
+	}
 	CommandBuffer* OpenGLGraphicsDevice::create_command_buffer_impl()
 	{
 		return new OpenGLCommandBuffer();
 	}
 	void OpenGLGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
+
 	}
 	void OpenGLGraphicsDevice::delete_device_object_impl(DeviceObject* object)
 	{
@@ -249,14 +272,5 @@ namespace DopeEngine
 				break;
 		}
 
-	}
-	VertexLayout* OpenGLGraphicsDevice::create_vertex_layout_impl(const VertexLayoutDescription& description)
-	{
-		/*
-		* Create OpenGL vertex layout
-		*/
-		OpenGLVertexLayout* layout = new OpenGLVertexLayout(description, (DEVICE)this);
-
-		return layout;
 	}
 }

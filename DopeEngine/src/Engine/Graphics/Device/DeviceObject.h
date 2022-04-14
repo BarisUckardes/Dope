@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Structures/String.h>
-
+#include <Engine/Graphics/Device/DeviceObjectType.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -21,11 +21,18 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="name"></param>
 		FORCEINLINE void set_debug_name(const String& name);
+
+		/// <summary>
+		/// Returns the type of this device object
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE DeviceObjectType get_device_object_type() const;
 	protected:
-		DeviceObject() : DebugName("Device Object") {}
+		DeviceObject(const DeviceObjectType type) : DebugName("Device Object"),Type(type) {}
 		virtual ~DeviceObject() = 0 {}
 	private:
 		String DebugName;
+		DeviceObjectType Type;
 	};
 
 

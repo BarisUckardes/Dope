@@ -9,7 +9,13 @@ namespace DopeEngine
 		OpenGLPipeline(const PipelineDescription& description,DEVICE device);
 		virtual ~OpenGLPipeline() final override = default;
 
+		FORCEINLINE PROGRAM_HANDLE get_program_handle() const;
+		FORCEINLINE VERTEX_LAYOUT_HANDLE get_vertex_layout_handle() const;
 	private:
+		void create_pipeline_state();
+	private:
+		VERTEX_LAYOUT_HANDLE VertexLayoutHandle;
+		PROGRAM_HANDLE ProgramHandle;
 		DEVICE Device;
 	};
 

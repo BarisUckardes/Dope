@@ -171,13 +171,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\DeviceObjectType.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceViewDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayout.h" />
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Command\CommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLDeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipeline.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.h" />
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexLayout.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLUniformBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLIndexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLVertexBuffer.h" />
@@ -200,6 +207,9 @@
     <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\PolygonFillMode.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\PrimitiveTopology.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutElementDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\Shader.h" />
@@ -291,18 +301,23 @@
     <ClInclude Include="src\Engine\Graphics\Buffer\VertexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\UniformBuffer.h" />
-    <ClInclude Include="src\Engine\Graphics\Vertex\VertexLayout.h" />
     <ClInclude Include="src\Engine\Graphics\Texture\Texture.h" />
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h" />
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\Resource\ResourceTypeUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Resource\ResourceView.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Resource\ResourceLayout.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Command\CommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipeline.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexLayout.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLUniformBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLVertexBuffer.cpp" />
@@ -379,9 +394,9 @@
     <ClCompile Include="src\Engine\Graphics\Buffer\VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayoutDescription.cpp" />
     <ClCompile Include="src\Engine\Graphics\Buffer\UniformBuffer.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Vertex\VertexLayout.cpp" />
     <ClCompile Include="src\Engine\Graphics\Texture\Texture.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\TestRenderingModule.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

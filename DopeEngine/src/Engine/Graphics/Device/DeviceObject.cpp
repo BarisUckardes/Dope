@@ -10,4 +10,8 @@ namespace DopeEngine
     {
         DebugName = name;
     }
+    DeviceObjectType DeviceObject::get_device_object_type() const
+    {
+        return Type;
+    }
 }

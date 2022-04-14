@@ -98,7 +98,7 @@ namespace DopeEngine
 		/// Sets the application on event function delegate
 		/// </summary>
 		/// <param name="functionDelegate"></param>
-		void set_application_event_feed(const Delegate<void, ApplicationEvent*>& functionDelegate);
+		void set_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate);
 
 		/// <summary>
 		/// Broadcast a application for the specific window
@@ -127,7 +127,7 @@ namespace DopeEngine
 		static LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		void _create_win32_window(const HINSTANCE processHandle);
 	private:
-		Delegate<void, ApplicationEvent*> ApplicationEventFeedDelegate;
+		Array<Delegate<void, ApplicationEvent*>> EventFeedListeners;
 		GraphicsDevice* GDevice;
 		String Title;
 		unsigned int Width;

@@ -10,48 +10,86 @@
 #include <Engine/Graphics/Shader/Shader.h>
 #include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Graphics/Texture/Texture.h>
-#include <Engine/Graphics/Vertex/VertexLayout.h>
+#include <Engine/Application/Window/Window.h>
 #include <Engine/Core/Assert.h>
 
 namespace DopeEngine
 {
 	GraphicsDevice* GraphicsDevice::create(GraphicsAPIType api, Window* ownerWindow)
 	{
+		/*
+		* Create graphics device
+		*/
+		GraphicsDevice* device = nullptr;
 		switch (api)
 		{
 			case DopeEngine::GraphicsAPIType::Undefined:
 				ASSERT(false,"GraphicsDevice", "Specified graphics api type is undefined!");
 				break;
 			case DopeEngine::GraphicsAPIType::OpenGL:
-				return new OpenGLGraphicsDevice(ownerWindow);
+				device = new OpenGLGraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx11:
-				return new Directx11GraphicsDevice(ownerWindow);
+				//return new Directx11GraphicsDevice(ownerWindow);
+				ASSERT(false, "GraphicsDevice", "Directx11 not supported yet!");
 				break;
 			case DopeEngine::GraphicsAPIType::Directx12:
-				return new Directx12GraphicsDevice(ownerWindow);
+				//return new Directx12GraphicsDevice(ownerWindow);
+				ASSERT(false, "GraphicsDevice", "Directx12 not supported yet!");
 				break;
 			case DopeEngine::GraphicsAPIType::Vulkan:
-				return new VulkanGraphicsDevice(ownerWindow);
+				//return new VulkanGraphicsDevice(ownerWindow);
+				ASSERT(false, "GraphicsDevice", "Vulkan not supported yet!");
+				break;
+			default:
+				ASSERT(false, "GraphicsDevice", "Specified graphics api type is not valid!");
 				break;
 		}
-		ASSERT(false,"GraphicsDevice", "Specified graphics api type is not valid!");
-		return nullptr;
-	}
-
-	VertexLayout* GraphicsDevice::create_vertex_layout(const VertexLayoutDescription& description)
-	{
+		
 		/*
-		* Create vertex layout
+		* Create swapchainbuffer
 		*/
-		VertexLayout* layout = create_vertex_layout_impl(description);
 
-		return layout;
+		device->create_swapchain_framebuffer();
+		
+		return device;
 	}
+
+
 
 	CommandBuffer* GraphicsDevice::create_command_buffer()
 	{
 		return create_command_buffer_impl();
+	}
+
+	ResourceLayout* GraphicsDevice::create_resource_layout(const ResourceLayoutDescription& description)
+	{
+		/*
+		* Create resource layout
+		*/
+		ResourceLayout* layout = create_resource_layout_impl(description);
+
+		/*
+		* Register
+		*/
+		register_device_object(layout);
+
+		return layout;
+	}
+
+	ResourceView* GraphicsDevice::create_resource_view(const ResourceViewDescription& description)
+	{
+		/*
+		* Create resource view
+		*/
+		ResourceView* view = create_resource_view_impl(description);
+
+		/*
+		* Register
+		*/
+		register_device_object(view);
+
+		return view;
 	}
 
 	void GraphicsDevice::submit_command_buffer(CommandBuffer* commandBuffer)
@@ -76,6 +114,10 @@ namespace DopeEngine
 	{
 		return OwnerWindow;
 	}
+	Framebuffer* GraphicsDevice::get_swapchain_framebuffer() const
+	{
+		return SwapchainFramebuffer;
+	}
 	void GraphicsDevice::make_current()
 	{
 		/*
@@ -93,7 +135,7 @@ namespace DopeEngine
 		/*
 		* Remove it from this device
 		*/
-		ChildObjects.remove(object);
+		remove_device_object(object);
 
 		/*
 		* Call impl
@@ -115,7 +157,7 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(buffer);
+		register_device_object(buffer);
 
 		return buffer;
 	}
@@ -129,7 +171,7 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(framebuffer);
+		register_device_object(framebuffer);
 
 		return framebuffer;
 	}
@@ -143,7 +185,7 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(pipeline);
+		register_device_object(pipeline);
 
 		return pipeline;
 	}
@@ -157,7 +199,7 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(shader);
+		register_device_object(shader);
 
 		return shader;
 	}
@@ -171,7 +213,7 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(shaderSet);
+		register_device_object(shaderSet);
 
 		return shaderSet;
 	}
@@ -185,8 +227,20 @@ namespace DopeEngine
 		/*
 		* Register it to this device
 		*/
-		ChildObjects.add(texture);
+		register_device_object(texture);
 
 		return texture;
+	}
+	void GraphicsDevice::create_swapchain_framebuffer()
+	{
+		SwapchainFramebuffer = create_window_swapchain_framebuffer_impl(OwnerWindow->get_width(),OwnerWindow->get_height());
+	}
+	void GraphicsDevice::register_device_object(DeviceObject* object)
+	{
+		ChildObjects.add(object);
+	}
+	void GraphicsDevice::remove_device_object(DeviceObject* object)
+	{
+		ChildObjects.remove(object);
 	}
 }

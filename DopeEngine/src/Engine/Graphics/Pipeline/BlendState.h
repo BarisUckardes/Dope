@@ -8,6 +8,6 @@ namespace DopeEngine
 	/// </summary>
 	enum class DOPE_ENGINE_API BlendState
 	{
-
+		SingleOverride = 0
 	};
 }
