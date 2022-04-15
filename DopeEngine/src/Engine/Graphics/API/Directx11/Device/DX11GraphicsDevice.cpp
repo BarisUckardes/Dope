@@ -62,7 +62,7 @@ namespace DopeEngine
 		/*
 		* Create swapchain,device and immediate context
 		*/
-		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
+		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
 			D3D11_SDK_VERSION, &swapchainDesc, &SwapChain, &Device, NULL, &ImmediateContext);
 		/*
 		* Create deferred context
@@ -105,9 +105,33 @@ namespace DopeEngine
 	void DX11GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{
 		/*
-		* Update resource
+		* Get dx11 buffer
 		*/
-		ImmediateContext->UpdateSubresource(nullptr, 0, nullptr, data, 0, 0);
+		BufferType type = buffer->get_type();
+		ID3D11Resource* bufferResource = nullptr;
+		switch (type)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				bufferResource = ((DX11VertexBuffer*)buffer)->get_dx11_buffer();
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				bufferResource = ((DX11IndexBuffer*)buffer)->get_dx11_buffer();
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				bufferResource = ((DX11ConstantBuffer*)buffer)->get_dx11_buffer();
+				break;
+			default:
+				break;
+		}
+
+		/*
+		* Map/UnMap and update resource
+		*/
+		LOG("DX11GraphicsDevice", "Map resource with %d", type);
+		D3D11_MAPPED_SUBRESOURCE resource;
+		ImmediateContext->Map(bufferResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
+		memcpy(resource.pData, data, buffer->get_allocated_size());
+		ImmediateContext->Unmap(bufferResource, 0);
 		
 	}
 	void DX11GraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
@@ -128,15 +152,7 @@ namespace DopeEngine
 	}
 	void DX11GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
-		/*
-		* Get dx11 commandbuffer
-		*/
-		DX11CommandBuffer* dx11CommandBuffer = (DX11CommandBuffer*)commandBuffer;
 
-		/*
-		* Execute
-		*/
-		DeferredContext->ExecuteCommandList(dx11CommandBuffer->get_dx11_commandlist(),0);
 	}
 	void DX11GraphicsDevice::delete_device_object_impl(DeviceObject* object)
 	{
@@ -144,14 +160,15 @@ namespace DopeEngine
 	}
 	Buffer* DX11GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
+		LOG("DX11GraphicsDevice", "Create bufferrii");
 		const BufferType type = description.Type;
 		switch (type)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
-				return new DX11VertexBuffer(this, description.AllocatedSize, 1);
+				return new DX11VertexBuffer(this, description.AllocatedSize, description.PerItemSize);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new DX11IndexBuffer(1, 1, description.AllocatedSize, this);
+				return new DX11IndexBuffer(1, description.PerItemSize, description.AllocatedSize, this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
 				return new DX11ConstantBuffer(description, this);
@@ -175,7 +192,7 @@ namespace DopeEngine
 	}
 	ShaderSet* DX11GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
 	{
-		return nullptr;
+		return new DX11ShaderSet(shaders);
 	}
 	Texture* DX11GraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{

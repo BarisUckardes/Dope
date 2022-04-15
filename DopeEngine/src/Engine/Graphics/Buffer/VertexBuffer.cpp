@@ -4,7 +4,7 @@
 namespace DopeEngine
 {
 	
-	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::VertexBuffer,"Vertex buffer", allocatedSize))
+	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::VertexBuffer,"Vertex buffer", allocatedSize,perVertexSize))
 	{
 		PerVertexSize = perVertexSize;
 		VertexCapacity = allocatedSize / perVertexSize;

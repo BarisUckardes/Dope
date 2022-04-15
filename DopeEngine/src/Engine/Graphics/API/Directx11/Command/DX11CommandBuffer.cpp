@@ -2,24 +2,22 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11DeviceObjects.h>
 #include <Engine/Graphics/Shader/ShaderSet.h>
+#include <Engine/Core/ConsoleLog.h>
+#include <Engine/Math/Vector2f.h>
 namespace DopeEngine
 {
 	DX11CommandBuffer::DX11CommandBuffer(DX11GraphicsDevice* device)
 	{
 		Device = device;
-		CommandList = nullptr;
 	}
 	DX11CommandBuffer::~DX11CommandBuffer()
 	{
 
 	}
-	ID3D11CommandList* DX11CommandBuffer::get_dx11_commandlist() const
-	{
-		return CommandList;
-	}
+
 	void DX11CommandBuffer::lock_impl()
 	{
-		Device->get_dx11_deferred_context()->FinishCommandList(0, &CommandList);
+
 	}
 	void DX11CommandBuffer::unlock_impl()
 	{
@@ -41,7 +39,9 @@ namespace DopeEngine
 		* Set buffer
 		*/
 		ID3D11Buffer* buffer = dx11Buffer.get_dx11_buffer();
-		Device->get_dx11_immediate_context()->IASetVertexBuffers(0, 1, &buffer, 0, 0);
+		const unsigned int stride = dx11Buffer.get_per_vertex_size();
+		const unsigned int offset = 0;
+		Device->get_dx11_immediate_context()->IASetVertexBuffers(0, 1, &buffer,&stride, &offset);
 	}
 	void DX11CommandBuffer::set_index_buffer_impl(const IndexBuffer& indexBuffer)
 	{
@@ -108,7 +108,21 @@ namespace DopeEngine
 		/*
 		* Set blending state
 		*/
-		Device->get_dx11_immediate_context()->OMSetBlendState(dx11Pipeline->get_dx1_get_blend_state(), nullptr, 0);
+		//Device->get_dx11_immediate_context()->OMSetBlendState(dx11Pipeline->get_dx1_get_blend_state(), nullptr, 0);
+
+		/*
+		* Set primitive topology
+		*/
+		Device->get_dx11_immediate_context()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+		/*
+		* Set input assembler
+		*/
+		Device->get_dx11_immediate_context()->IASetInputLayout(dx11Pipeline->get_dx11_input_layout());
+
+		/*
+		* Set viewports
+		*/
 
 		/*
 		* Set shaders

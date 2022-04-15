@@ -21,7 +21,7 @@ namespace DopeEngine
 	Pipeline* pipeline = nullptr;
 	Buffer* colorBuffer = nullptr;
 	ResourceView* resourceView = nullptr;
-	const String vs =
+	/*const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
 		"void main()\n"
@@ -43,7 +43,30 @@ namespace DopeEngine
 		"void main()\n"
 		"{\n"
 		"FragColor = vec4(color,1.0f);\n"
-		"}\n";
+		"}\n";*/
+
+	const String vs = R""""(
+	struct VOut
+	{
+		float4 position : SV_POSITION;
+	};
+
+	VOut main(float4 pos : POSITION)
+	{
+		VOut output;
+
+		output.position = pos;
+
+		return output;
+	}
+)"""";
+
+	const String fs = R""""(
+	float4 main(float4 position : SV_POSITION) : SV_TARGET
+	{
+		return float4(1,0,0,0);
+	}
+)"""";
 	
 	unsigned int vb;
 	unsigned int ib;
@@ -53,7 +76,6 @@ namespace DopeEngine
 	unsigned int prg;
 	void TestRenderingModule::initialize()
 	{
-		return;
 		/*
 		* Get graphics device
 		*/
@@ -66,7 +88,7 @@ namespace DopeEngine
 		vertexes.add(Vector2f(1.0f,-1.0f));
 		vertexes.add(Vector2f(-1.0f, -1.0f));
 		vertexes.add(Vector2f(0, 1.0f));
-		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription(BufferType::VertexBuffer, "VBuffer", vertexes.get_cursor() * sizeof(Vector2f)));
+		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription(BufferType::VertexBuffer, "VBuffer", vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
 		/*
@@ -79,14 +101,14 @@ namespace DopeEngine
 		indexes.add(0);
 		indexes.add(2);
 		indexes.add(1);
-		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", vertexes.get_cursor() * sizeof(int)));
+		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", indexes.get_cursor() * sizeof(int),sizeof(int)));
 		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
 		/*
 		* Create vertex layout
 		*/
 		Array<VertexElementDescription> elements;
-		elements.add(VertexElementDescription("aPosition", 2, sizeof(float), false, VertexElementDataType::Float));
+		elements.add(VertexElementDescription("POSITION", 2, sizeof(float), false, VertexElementDataType::Float));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -100,18 +122,18 @@ namespace DopeEngine
 		/*
 		* Disable depth
 		*/
-		glDisable(GL_DEPTH_TEST);
+		//glDisable(GL_DEPTH_TEST);
 
 		/*
 		* Create color buffer
 		*/
-		colorBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor", 12u));
+		/*colorBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor", 12u,16u));
 		const Vector3f col(0.0f,0.0f,1.0f);
 		device->update_buffer(colorBuffer, (const Byte*)&col);
 
-		Buffer* dummyBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor2", 12u));
+		Buffer* dummyBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor2", 12u,16u));
 		const Vector3f col2(1.0f, 0, 0.0f);
-		device->update_buffer(dummyBuffer, (const Byte*)&col2);
+		device->update_buffer(dummyBuffer, (const Byte*)&col2);*/
 
 		/*
 		* Create resource layouts
@@ -122,9 +144,9 @@ namespace DopeEngine
 			ResourceLayoutElementDescription("MyColor2",ResourceType::UniformBuffer,ShaderType::Fragment)
 			});
 
-		ResourceLayout* colorResourceLayout = device->create_resource_layout(colorResourceLayoutDesc);
+		/*ResourceLayout* colorResourceLayout = device->create_resource_layout(colorResourceLayoutDesc);
 		ResourceViewDescription colorViewDesc({ colorBuffer,dummyBuffer });
-		resourceView = device->create_resource_view(colorViewDesc);
+		resourceView = device->create_resource_view(colorViewDesc);*/
 
 		/*
 		* Create pipeline
@@ -142,25 +164,24 @@ namespace DopeEngine
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
-		pipelineDescription.ResourceLayouts = { colorResourceLayout };
+		pipelineDescription.ResourceLayouts = { 0 };
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
 
 	void TestRenderingModule::update()
 	{
-		return;
 		//LOG("Render", "Vertex Array: %d, Vertex Buffer: %d, Index Buffer: %d,Program: %d,Draw elements count: %d", varr, vb, ib, prg, 6);
 
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
-		buffer->set_framebuffer(*device->get_swapchain_framebuffer());
-		buffer->clear_color({ 0u,0u,0u,1u });
+		//buffer->set_framebuffer(*device->get_swapchain_framebuffer());
+		//buffer->clear_color({ 0u,0u,0u,1u });
 
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
 		buffer->set_pipeline(*pipeline);
-		buffer->set_resource_view(0, resourceView);
+		//buffer->set_resource_view(0, resourceView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);

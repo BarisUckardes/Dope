@@ -9,7 +9,7 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API BufferDescription
 	{
-		BufferDescription(const BufferType type,const String& name,const unsigned long allocatedSize) : Type(type),Name(name), AllocatedSize(allocatedSize) {}
+		BufferDescription(const BufferType type,const String& name,const unsigned long allocatedSize,unsigned int perItemSize) : Type(type),Name(name), AllocatedSize(allocatedSize),PerItemSize(perItemSize) {}
 		BufferDescription() = default;
 		~BufferDescription() = default;
 
@@ -27,5 +27,10 @@ namespace DopeEngine
 		/// Staticly allocated size of the buffer
 		/// </summary>
 		unsigned long AllocatedSize;
+
+		/// <summary>
+		/// Size of a single item
+		/// </summary>
+		unsigned int PerItemSize;
 	};
 }

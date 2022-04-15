@@ -10,7 +10,6 @@ namespace DopeEngine
 		DX11CommandBuffer(DX11GraphicsDevice* device);
 		virtual ~DX11CommandBuffer() final override;
 
-		FORCEINLINE ID3D11CommandList* get_dx11_commandlist() const;
 	protected:
 		// Inherited via CommandBuffer
 		virtual void unlock_impl() override;
@@ -27,7 +26,6 @@ namespace DopeEngine
 		virtual void lock_impl();
 	private:
 		DX11GraphicsDevice* Device;
-		ID3D11CommandList* CommandList;
 		Array <ID3D11RenderTargetView*> CurrentColorTargets;
 		ID3D11DepthStencilView* CurrentDepthTarget;
 		

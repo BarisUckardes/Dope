@@ -171,6 +171,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderSet.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.h" />
@@ -318,6 +321,10 @@
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderSet.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.cpp" />

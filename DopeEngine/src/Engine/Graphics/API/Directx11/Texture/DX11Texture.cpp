@@ -70,17 +70,9 @@ namespace DopeEngine
 		textureDesc.Format = DX11TextureUtils::get_format(desc.Format);
 
 		/*
-		* Create texture init subresource
-		*/
-		D3D11_SUBRESOURCE_DATA initSubData;
-		initSubData.pSysMem = nullptr;
-		initSubData.SysMemPitch = 0;
-		initSubData.SysMemSlicePitch = 0;
-
-		/*
 		* Create texture
 		*/
-		device->get_dx11_device()->CreateTexture2D(&textureDesc, &initSubData, &TextureBase);
+		device->get_dx11_device()->CreateTexture2D(&textureDesc, nullptr, &TextureBase);
 
 		
 	}

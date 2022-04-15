@@ -2,7 +2,9 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
 #include <Engine/Graphics/API/Directx11/Shader/DX11Shader.h>
+#include <Engine/Graphics/API/Directx11/Pipeline/DX11PipelineUtils.h>
 #include <Engine/Graphics/Shader/ShaderSet.h>
+#include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
 	DX11Pipeline::DX11Pipeline(const PipelineDescription& desc, DX11GraphicsDevice* device) : Pipeline(desc)
@@ -37,31 +39,25 @@ namespace DopeEngine
 		const VertexLayoutDescription vertexLayoutDescription = desc.LayoutDescription;
 		const Array<VertexElementDescription> vertexElements = vertexLayoutDescription.get_elements_slow();
 		Array<D3D11_INPUT_ELEMENT_DESC> inputElements;
-		inputElements.reserve(vertexElements.get_cursor());
 		unsigned int offset = 0;
 		for (unsigned int i = 0; i < vertexElements.get_cursor(); i++)
 		{
+			
 			/*
 			* Get element desc
 			*/
 			const VertexElementDescription& elementDesc = vertexElements[i];
-
+			LOG("DX11Pipeline", "Vertex element: %d,%s", i,*elementDesc.Name);
 			/*
 			* Create input element desc
 			*/
-			D3D11_INPUT_ELEMENT_DESC inputElementDesc;
-			inputElementDesc.SemanticName = *elementDesc.Name;
-			inputElementDesc.Format = DX11VertexUtils::get_format(elementDesc.DataType);
-			inputElementDesc.SemanticIndex = i;
-			inputElementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-			inputElementDesc.InstanceDataStepRate = 0;
-			inputElementDesc.AlignedByteOffset = offset;
+			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 			offset += elementDesc.ElementSizeInBytes;
 			
 			/*
 			* Register input element
 			*/
-			inputElements[i] = inputElementDesc;
+			inputElements.add(inputElementDesc);
 		}
 		
 		/*
@@ -74,6 +70,7 @@ namespace DopeEngine
 		/*
 		* Create input layout
 		*/
+		LOG("DX11Pipeline", "Creating input layout with element size of : %d", inputElements.get_cursor());
 		device->get_dx11_device()->CreateInputLayout(
 			inputElements.get_data(),
 			inputElements.get_cursor(),
@@ -88,6 +85,9 @@ namespace DopeEngine
 		rasterizerDesc.DepthClipEnable = desc.DepthClip;
 		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		rasterizerDesc.ScissorEnable = desc.ScissorTest;
+		rasterizerDesc.FillMode = DX11PipelineUtils::get_fill_mode(desc.FillMode);
+		rasterizerDesc.CullMode = DX11PipelineUtils::get_cull_mode(desc.CullFace);
+		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		device->get_dx11_device()->CreateRasterizerState(&rasterizerDesc,&RasterizerState);
 
 		/*
@@ -95,14 +95,29 @@ namespace DopeEngine
 		*/
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 		depthStencilDesc.DepthEnable = desc.DepthTest;
+		depthStencilDesc.DepthWriteMask = desc.DepthWrite == true ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+		depthStencilDesc.StencilEnable = false;
+		depthStencilDesc.StencilReadMask = 0xFF;
+		depthStencilDesc.StencilWriteMask = 0xFF;
+		depthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
+		depthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+		depthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
+		depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+		depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
 		device->get_dx11_device()->CreateDepthStencilState(&depthStencilDesc, &DepthStencilState);
 
 		/*
 		* Create blend state
 		*/
-		D3D11_BLEND_DESC blendDesc;
-		blendDesc.AlphaToCoverageEnable = false;
-		blendDesc.IndependentBlendEnable = false;
-		device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
+		//D3D11_BLEND_DESC blendDesc;
+		//blendDesc.AlphaToCoverageEnable = false;
+		//blendDesc.IndependentBlendEnable = false;
+		//blendDesc.RenderTarget->BlendEnable = true;
+		//blendDesc.RenderTarget->BlendOp = D3D11_BLEND_OP_ADD;
+		//device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
 	}
 }

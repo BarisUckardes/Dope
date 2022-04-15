@@ -1,6 +1,8 @@
 #include "DX11Shader.h"
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
+#include <Engine/Graphics/API/Directx11/Shader/DX11ShaderUtils.h>
 #include <d3dcompiler.h>
+#include <Engine/Core/Assert.h>
 #pragma comment(lib,"d3dcompiler.lib")
 
 namespace DopeEngine
@@ -46,14 +48,20 @@ namespace DopeEngine
 		/*
 		* Create and compile shader blob
 		*/
+		ID3DBlob* errorBlob = nullptr;
 		D3DCompile(*source,
 			source.get_cursor(),
 			nullptr, nullptr, nullptr,
-			"main", "ps_4_0",
+			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4),
 			D3DCOMPILE_ENABLE_STRICTNESS,
 			0,
 			&ShaderBlob,
-			nullptr);
+			&errorBlob);
+
+		/*
+		* Validate shader
+		*/
+		ASSERT(ShaderBlob, "DX11Shader", "Shader compilation error with logs: %s",errorBlob->GetBufferPointer());
 
 		/*
 		* Create shader
