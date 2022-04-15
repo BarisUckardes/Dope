@@ -12,7 +12,7 @@ namespace DopeEngine
 	{
 		friend class SwapchainFramebuffer;
 	public:
-		Framebuffer(const FramebufferDescription& description,GraphicsDevice* device);
+		Framebuffer(const FramebufferDescription& description);
 		virtual ~Framebuffer() = default;
 
 		/// <summary>
@@ -60,7 +60,6 @@ namespace DopeEngine
 		static void _set_width(Framebuffer* buffer, const unsigned int width);
 		static void _set_height(Framebuffer* buffer, const unsigned int height);
 		static void _mark_swapchain(Framebuffer* buffer);
-		void create_attachments(const Array<FramebufferAttachmentDescription>& descriptions, GraphicsDevice* device);
 	private:
 		unsigned int Width;
 		unsigned int Height;

@@ -176,7 +176,25 @@ namespace DopeEngine
 	}
 	void OpenGLGraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
 	{
-		((OpenGLTexture*)texture)->update(data);
+		/*
+		* Get gl texture
+		*/
+		OpenGLTexture* glTexture = (OpenGLTexture*)texture;
+
+		/*
+		* Update texture data region
+		*/
+		const TextureFormat format = glTexture->get_format();
+		const TEXTURE_HANDLE handle = glTexture->get_handle();
+		glBindTexture(GL_TEXTURE_2D, handle);
+		glTextureSubImage2D(handle, 0, 0, 0, glTexture->get_width(), glTexture->get_height(), OpenGLTextureUtils::get_format(format), OpenGLTextureUtils::get_data_type(format), data);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+	void OpenGLGraphicsDevice::swap_swapchain_buffers_impl()
+	{
+#ifdef DOPE_OS_WINDOWS
+		SwapBuffers(WindowDeviceContext);
+#endif
 	}
 	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
 	{

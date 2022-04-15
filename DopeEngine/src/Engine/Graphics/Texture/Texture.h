@@ -55,11 +55,6 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE unsigned int get_mip_count() const;
 
-		/// <summary>
-		/// updates the texture data
-		/// </summary>
-		/// <param name="data"></param>
-		virtual void update(const Byte* data) = 0;
 	private:
 		TextureUsage Usage;
 		TextureFormat Format;

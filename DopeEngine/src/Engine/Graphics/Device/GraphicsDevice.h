@@ -162,6 +162,10 @@ namespace DopeEngine
 		/// <param name="data"></param>
 		void update_buffer(Buffer* buffer, const Byte* data);
 
+		/// <summary>
+		/// Swaps the buffers of the swapchain
+		/// </summary>
+		void swap_swapchain_buffers();
 	protected:
 		GraphicsDevice(Window* window);
 		virtual ~GraphicsDevice() = default;
@@ -181,6 +185,7 @@ namespace DopeEngine
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
+		virtual void swap_swapchain_buffers_impl() = 0;
 
 	private:
 		void create_swapchain_framebuffer();

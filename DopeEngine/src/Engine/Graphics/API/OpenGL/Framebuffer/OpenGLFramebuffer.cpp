@@ -4,7 +4,7 @@
 
 namespace DopeEngine
 {
-	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferDescription& description, DEVICE device) : Framebuffer(description,(GraphicsDevice*)device)
+	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferDescription& description, DEVICE device) : Framebuffer(description)
 	{
 		/*
 		* Initialize

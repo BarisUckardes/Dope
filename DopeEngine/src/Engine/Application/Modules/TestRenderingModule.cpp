@@ -53,7 +53,7 @@ namespace DopeEngine
 	unsigned int prg;
 	void TestRenderingModule::initialize()
 	{
-		
+		return;
 		/*
 		* Get graphics device
 		*/
@@ -148,6 +148,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::update()
 	{
+		return;
 		//LOG("Render", "Vertex Array: %d, Vertex Buffer: %d, Index Buffer: %d,Program: %d,Draw elements count: %d", varr, vb, ib, prg, 6);
 
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();

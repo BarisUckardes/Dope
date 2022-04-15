@@ -1,6 +1,6 @@
 #include "GraphicsDevice.h"
 #include <Engine/Graphics/API/OpenGL/Device/OpenGLGraphicsDevice.h>
-#include <Engine/Graphics/API/Directx11/Device/Directx11GraphicsDevice.h>
+#include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx12/Device/Directx12GraphicsDevice.h>
 #include <Engine/Graphics/API/Vulkan/Device/VulkanGraphicsDevice.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
@@ -30,8 +30,7 @@ namespace DopeEngine
 				device = new OpenGLGraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx11:
-				//return new Directx11GraphicsDevice(ownerWindow);
-				ASSERT(false, "GraphicsDevice", "Directx11 not supported yet!");
+				return new DX11GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx12:
 				//return new Directx12GraphicsDevice(ownerWindow);
@@ -105,6 +104,11 @@ namespace DopeEngine
 	void GraphicsDevice::update_buffer(Buffer* buffer, const Byte* data)
 	{
 		update_buffer_impl(buffer, data);
+	}
+
+	void GraphicsDevice::swap_swapchain_buffers()
+	{
+		swap_swapchain_buffers_impl();
 	}
 
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)

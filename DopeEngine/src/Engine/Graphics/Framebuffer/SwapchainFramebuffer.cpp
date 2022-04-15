@@ -7,7 +7,7 @@
 
 namespace DopeEngine
 {
-	SwapchainFramebuffer::SwapchainFramebuffer(const unsigned int initialWidth, const unsigned int initialHeight,GraphicsDevice* device,Window* window) : Framebuffer(FramebufferDescription(), device)
+	SwapchainFramebuffer::SwapchainFramebuffer(const unsigned int initialWidth, const unsigned int initialHeight,GraphicsDevice* device,Window* window) : Framebuffer(FramebufferDescription())
 	{
 		/*
 		* Set event feed listener

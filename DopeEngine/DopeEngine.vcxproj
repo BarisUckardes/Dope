@@ -171,6 +171,18 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Texture\DX11TextureUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Texture\DX11Texture.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Buffer\DX11ConstantBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Buffer\DX11IndexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Buffer\DX11VertexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11Shader.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.h" />
@@ -247,7 +259,7 @@
     <ClInclude Include="src\Engine\Math\ColorRgbaByte.h" />
     <ClInclude Include="src\Engine\Memory\Memory.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h" />
-    <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverEnumarator.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h" />
     <ClInclude Include="src\Engine\Application\Devices\Portable\PortableDeviceEnumarator.h" />
@@ -306,6 +318,16 @@
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Texture\DX11TextureUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Texture\DX11Texture.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Buffer\DX11ConstantBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Buffer\DX11IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Buffer\DX11VertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11Shader.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Resource\ResourceTypeUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.cpp" />
@@ -353,7 +375,7 @@
     <ClCompile Include="src\Engine\Math\ColorRgbaByte.cpp" />
     <ClCompile Include="src\Engine\Memory\Memory.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\Directx11GraphicsDevice.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />
     <ClCompile Include="src\Engine\Application\ApplicationModule.cpp" />

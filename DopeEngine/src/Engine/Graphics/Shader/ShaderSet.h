@@ -26,9 +26,22 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE Array<Shader*> get_shaders_slow() const;
 
+		/*/// <summary>
+		/// Returns the vertex shader(if any)
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Shader* get_vertex_shader() const;
+
+		/// <summary>
+		/// Returns the fragment shader(if any)
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE Shader* get_fragment_shader() const;*/
 		virtual void create_set() = 0;
 	private:
 		Array<Shader*> Shaders;
+		Shader* VertexShader;
+		Shader* FragmentShader;
 	};
 
 

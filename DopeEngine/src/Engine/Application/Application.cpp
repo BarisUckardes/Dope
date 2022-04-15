@@ -132,7 +132,7 @@ namespace DopeEngine
 			/*
 			* Swapbuffers
 			*/
-			ApplicationWindow->swap_buffers();
+			ApplicationWindow->get_graphics_device()->swap_swapchain_buffers();
 
 			/*
 			* Validate window should close

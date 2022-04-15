@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
+#include <Engine/Graphics/API/OpenGL/Texture/OpenGLTextureUtils.h>
 
 namespace DopeEngine
 {
@@ -18,8 +19,6 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE TEXTURE_HANDLE get_handle() const;
-
-		virtual void update(const Byte* data) override;
 	private:
 		void create_texture();
 		void invalidate();
