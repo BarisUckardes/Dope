@@ -19,4 +19,31 @@ namespace DopeEngine
 		}
 
 	}
+	ResourceType ResourceTypeUtils::get_resource_type(const DeviceObjectType type)
+	{
+		switch (type)
+		{
+			case DopeEngine::DeviceObjectType::Texture:
+				break;
+			case DopeEngine::DeviceObjectType::Buffer:
+				break;
+			case DopeEngine::DeviceObjectType::Shader:
+				break;
+			case DopeEngine::DeviceObjectType::ShaderSet:
+				break;
+			case DopeEngine::DeviceObjectType::Framebuffer:
+				break;
+			case DopeEngine::DeviceObjectType::ResourceLayout:
+				break;
+			case DopeEngine::DeviceObjectType::ResourceView:
+				break;
+			case DopeEngine::DeviceObjectType::CommandBuffer:
+				break;
+			case DopeEngine::DeviceObjectType::Pipeline:
+				break;
+			default:
+				break;
+		}
+		return ResourceType::Texture;
+	}
 }

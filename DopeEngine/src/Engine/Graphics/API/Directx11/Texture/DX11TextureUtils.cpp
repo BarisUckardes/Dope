@@ -68,4 +68,25 @@ namespace DopeEngine
 				break;
 		}
 	}
+	D3D11_SRV_DIMENSION DX11TextureUtils::get_dimension(const TextureType type)
+	{
+		switch (type)
+		{
+			case DopeEngine::TextureType::Texture1D:
+				return D3D11_SRV_DIMENSION_TEXTURE1D;
+				break;
+			case DopeEngine::TextureType::Texture2D:
+				return D3D11_SRV_DIMENSION_TEXTURE2D;
+				break;
+			case DopeEngine::TextureType::Texture3D:
+				return D3D11_SRV_DIMENSION_TEXTURE3D;
+				break;
+			case DopeEngine::TextureType::CubeTexture:
+				return D3D11_SRV_DIMENSION_TEXTURECUBE;
+				break;
+			default:
+				ASSERT(false, "DX11TextureUtils", "Invalid TextureType, cannot create D3D11_SRV_DIMENSION");
+				break;
+		}
+	}
 }

@@ -21,7 +21,7 @@ namespace DopeEngine
 		/// Returns the type of this buffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE BufferType get_type() const;
+		FORCEINLINE BufferType get_buffer_type() const;
 
 		/// <summary>
 		/// Returns the name of this buffer

@@ -6,7 +6,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API OpenGLResourceLayout final : public ResourceLayout
 	{
 	public:
-		OpenGLResourceLayout(const ResourceLayoutDescription& description);
+		OpenGLResourceLayout(const ResourceDescription& description);
 		virtual ~OpenGLResourceLayout() final override;
 	};
 

@@ -21,7 +21,7 @@ namespace DopeEngine
 	Pipeline* pipeline = nullptr;
 	Buffer* colorBuffer = nullptr;
 	ResourceView* resourceView = nullptr;
-	/*const String vs =
+	const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
 		"void main()\n"
@@ -43,9 +43,9 @@ namespace DopeEngine
 		"void main()\n"
 		"{\n"
 		"FragColor = vec4(color,1.0f);\n"
-		"}\n";*/
+		"}\n";
 
-	const String vs = R""""(
+	/*const String vs = R""""(
 
 	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
@@ -58,7 +58,7 @@ namespace DopeEngine
 	{
 		return float4(1.0f,1.0f,1.0f,1.0f);
 	}
-)"""";
+)"""";*/
 	
 	void TestRenderingModule::initialize()
 	{
@@ -74,7 +74,7 @@ namespace DopeEngine
 		vertexes.add(Vector2f(0.0f,0.5f));
 		vertexes.add(Vector2f(0.5f, -0.5f));
 		vertexes.add(Vector2f(-0.5f, -0.5f));
-		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription(BufferType::VertexBuffer, "VBuffer", vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
+		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
@@ -88,7 +88,7 @@ namespace DopeEngine
 		indexes.add(0);
 		indexes.add(2);
 		indexes.add(1);
-		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", indexes.get_cursor() * sizeof(int),sizeof(int)));
+		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription("MyColor", BufferType::IndexBuffer, indexes.get_cursor() * sizeof(int),sizeof(int)));
 		iBuffer->set_debug_name("My index buffer");
 		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
@@ -96,7 +96,7 @@ namespace DopeEngine
 		* Create vertex layout
 		*/
 		Array<VertexElementDescription> elements;
-		elements.add(VertexElementDescription("POSITION", 2, sizeof(float), false, VertexElementDataType::Float));
+		elements.add(VertexElementDescription("POSITION", VertexElementDataType::Float2, false));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -111,13 +111,19 @@ namespace DopeEngine
 		shaderSet = device->create_shader_set({vShader,fShader});
 
 		/*
+		* Create color buffer
+		*/
+		colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
+		const Vector3f color{ 1.0f,0.0f,0.0f };
+		device->update_buffer(colorBuffer, (const Byte*)&color);
+
+		/*
 		* Create resource layouts
 		*/
-		ResourceLayoutDescription colorResourceLayoutDesc(
-			{
-			ResourceLayoutElementDescription("MyColor",ResourceType::UniformBuffer,ShaderType::Fragment),
-			ResourceLayoutElementDescription("MyColor2",ResourceType::UniformBuffer,ShaderType::Fragment)
-			});
+		ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
+		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
+		ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
+		resourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
 
 		/*
 		* Create pipeline
@@ -135,7 +141,7 @@ namespace DopeEngine
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
-		pipelineDescription.ResourceLayouts = { 0 };
+		pipelineDescription.ResourceLayouts = { colorBufferLayout };
 		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
@@ -153,7 +159,7 @@ namespace DopeEngine
 
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
-		//buffer->set_resource_view(0, resourceView);
+		buffer->set_resource_view(0, resourceView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);

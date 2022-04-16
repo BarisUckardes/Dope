@@ -11,10 +11,7 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API VertexElementDescription
 	{
 
-		VertexElementDescription(const String& name,
-			const unsigned int componentCount, const unsigned int elementSizeInBytes,
-			const bool normalized,
-			const VertexElementDataType dataType) : Name(name), ComponentCount(componentCount), ElementSizeInBytes(elementSizeInBytes), Normalized(normalized), DataType(dataType)
+		VertexElementDescription(const String& name, const VertexElementDataType dataType, const bool normalized) : Name(name), Normalized(normalized), DataType(dataType)
 		{}
 		VertexElementDescription() = default;
 		~VertexElementDescription() = default;
@@ -23,16 +20,6 @@ namespace DopeEngine
 		/// Name of the attribute
 		/// </summary>
 		String Name;
-
-		/// <summary>
-		/// Component quantity
-		/// </summary>
-		unsigned int ComponentCount;
-
-		/// <summary>
-		/// Size of the each component
-		/// </summary>
-		unsigned int ElementSizeInBytes;
 
 		/// <summary>
 		/// Data is normalized or not

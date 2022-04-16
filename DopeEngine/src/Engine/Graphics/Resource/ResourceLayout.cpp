@@ -2,12 +2,12 @@
 
 namespace DopeEngine
 {
-	ResourceLayout::ResourceLayout(const ResourceLayoutDescription& description) : DeviceObject(DeviceObjectType::ResourceLayout)
+	ResourceLayout::ResourceLayout(const ResourceDescription& description) : DeviceObject(DeviceObjectType::ResourceLayout)
 	{
 		Description = description;
 	}
 
-	ResourceLayoutDescription ResourceLayout::get_description() const
+	ResourceDescription ResourceLayout::get_description() const
 	{
 		return Description;
 	}

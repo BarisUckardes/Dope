@@ -8,13 +8,13 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API ResourceViewDescription
 	{
-		ResourceViewDescription(const Array<DeviceObject*> deviceObjects) : Resources(deviceObjects) {}
+		ResourceViewDescription(DeviceObject* deviceObjects) : Resource(deviceObjects) {}
 		ResourceViewDescription() = default;
 		~ResourceViewDescription() = default;
 
 		/// <summary>
 		/// The resource array which is bound
 		/// </summary>
-		Array<DeviceObject*> Resources;
+		DeviceObject* Resource;
 	};
 }

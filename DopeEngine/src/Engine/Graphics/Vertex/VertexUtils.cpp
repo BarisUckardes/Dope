@@ -1,28 +1,32 @@
-#include "DX11VertexUtils.h"
+#include "VertexUtils.h"
+#include <Engine/Core/Assert.h>
 
 namespace DopeEngine
 {
-	DXGI_FORMAT DX11VertexUtils::get_format(const VertexElementDataType type)
+	unsigned int VertexUtils::get_data_type_size(const VertexElementDataType type)
 	{
 		switch (type)
 		{
 			case DopeEngine::VertexElementDataType::Float:
-				return DXGI_FORMAT_R32_FLOAT;
+				return 4;
 				break;
 			case DopeEngine::VertexElementDataType::Float2:
-				return DXGI_FORMAT_R32G32_FLOAT;
+				return 8;
 				break;
 			case DopeEngine::VertexElementDataType::Float3:
-				return DXGI_FORMAT_R32G32B32_FLOAT;
+				return 12;
 				break;
 			case DopeEngine::VertexElementDataType::Float4:
-				return DXGI_FORMAT_R32G32B32A32_FLOAT;
+				return 16;
 				break;
 			case DopeEngine::VertexElementDataType::Mat3:
+				return 36;
 				break;
 			case DopeEngine::VertexElementDataType::Mat4:
+				return 64;
 				break;
 			default:
+				ASSERT(false, "OpenGLVertexUtils", "Invalid VertexElementDataType, cannot get the single component size");
 				break;
 		}
 	}

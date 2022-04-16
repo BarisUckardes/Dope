@@ -8,11 +8,11 @@ namespace DopeEngine
 	/// <summary>
 	/// Description for a graphics resource
 	/// </summary>
-	struct DOPE_ENGINE_API ResourceLayoutElementDescription
+	struct DOPE_ENGINE_API ResourceDescription
 	{
-		ResourceLayoutElementDescription(const String& name,const ResourceType type,const ShaderType shaderStage) : Name(name),Type(type),ShaderStage(shaderStage) {}
-		ResourceLayoutElementDescription() = default;
-		~ResourceLayoutElementDescription() = default;
+		ResourceDescription(const String& name,const ResourceType type,const ShaderType shaderStage) : Name(name),Type(type),ShaderStage(shaderStage) {}
+		ResourceDescription() = default;
+		~ResourceDescription() = default;
 
 		/// <summary>
 		/// The name of the resource

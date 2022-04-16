@@ -1,4 +1,5 @@
 #include "VertexLayoutDescription.h"
+#include <Engine/Graphics/Vertex/VertexUtils.h>
 
 namespace DopeEngine
 {
@@ -36,7 +37,7 @@ namespace DopeEngine
 		for (unsigned int i = 0; i < ElementDescriptions.get_cursor(); i++)
 		{
 			const VertexElementDescription& description = ElementDescriptions[i];
-			Stride += description.ComponentCount * description.ElementSizeInBytes;
+			Stride += VertexUtils::get_data_type_size(description.DataType);
 		}
 	}
 }

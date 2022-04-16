@@ -8,5 +8,6 @@ namespace DopeEngine
 	public:
 		OpenGLResourceView(const ResourceViewDescription& description);
 		virtual ~OpenGLResourceView() final override;
+
 	};
 }

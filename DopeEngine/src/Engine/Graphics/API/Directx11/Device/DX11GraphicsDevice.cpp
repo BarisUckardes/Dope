@@ -108,7 +108,7 @@ namespace DopeEngine
 		return new DX11SwapchainFramebuffer(width,height,(DX11GraphicsDevice*)this,(Window*)get_owner_window());
 	}
 
-	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
+	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
 		return nullptr;
 	}
@@ -123,7 +123,7 @@ namespace DopeEngine
 		/*
 		* Get dx11 buffer
 		*/
-		BufferType type = buffer->get_type();
+		BufferType type = buffer->get_buffer_type();
 		ID3D11Resource* bufferResource = nullptr;
 		switch (type)
 		{
@@ -161,7 +161,7 @@ namespace DopeEngine
 		/*
 		* Update resource
 		*/
-		ImmediateContext->UpdateSubresource(dx11Texture->get_dx11_texture(), 0, nullptr, data, 0, 0);
+		//ImmediateContext->UpdateSubresource(dx11Texture->get(), 0, nullptr, data, 0, 0);
 	}
 
 	CommandBuffer* DX11GraphicsDevice::create_command_buffer_impl()

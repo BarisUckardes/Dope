@@ -14,13 +14,17 @@ namespace DopeEngine
 	{
 
 	}
-	ID3D11Texture2D* DX11Texture::get_dx11_texture() const
+	DXPTR<ID3D11Texture1D> DX11Texture::get_dx11_texture1d() const
 	{
-		return TextureBase;
+		return Texture1D;
 	}
-	ID3D11ShaderResourceView* DX11Texture::get_dx11_shader_resource() const
+	DXPTR<ID3D11Texture2D> DX11Texture::get_dx11_texture2d() const
 	{
-		return ResourceView;
+		return Texture2D;
+	}
+	DXPTR<ID3D11Texture3D> DX11Texture::get_dx11_texture3d() const
+	{
+		return Texture3D;
 	}
 	void DX11Texture::create(const TextureDescription& desc, DX11GraphicsDevice* device)
 	{
@@ -28,32 +32,22 @@ namespace DopeEngine
 		* Create texture desc
 		*/
 		const TextureType textureType = get_type();
-		D3D_SRV_DIMENSION dimension = D3D_SRV_DIMENSION_UNKNOWN;
 		switch (textureType)
 		{
 			case DopeEngine::TextureType::Texture1D:
-				dimension =  D3D_SRV_DIMENSION_TEXTURE1D;
 				break;
 			case DopeEngine::TextureType::Texture2D:
-				dimension = D3D_SRV_DIMENSION_TEXTURE2D;
 				create2d(desc, device);
 				break;
 			case DopeEngine::TextureType::Texture3D:
-				dimension = D3D_SRV_DIMENSION_TEXTURE3D;
 				create3d(desc, device);
 				break;
 			case DopeEngine::TextureType::CubeTexture:
-				dimension = D3D_SRV_DIMENSION_TEXTURECUBE;
 				createcube(desc, device);
 				break;
 			default:
 				break;
 		}
-
-		/*
-		* Validate and create shader resource view
-		*/
-		createShaderResourceView(device,dimension, DX11TextureUtils::get_format(desc.Format));
 	}
 	void DX11Texture::create2d(const TextureDescription& desc, DX11GraphicsDevice* device)
 	{
@@ -72,7 +66,7 @@ namespace DopeEngine
 		/*
 		* Create texture
 		*/
-		device->get_dx11_device()->CreateTexture2D(&textureDesc, nullptr, &TextureBase);
+		device->get_dx11_device()->CreateTexture2D(&textureDesc, nullptr, &Texture2D);
 
 		
 	}
@@ -85,21 +79,5 @@ namespace DopeEngine
 
 	}
 
-	void DX11Texture::createShaderResourceView(DX11GraphicsDevice* device, D3D_SRV_DIMENSION dimension, DXGI_FORMAT format)
-	{
-		/*
-		* Create shader resource view desc
-		*/
-		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
-		srvDesc.Format = format;
-		srvDesc.ViewDimension = dimension;
-		srvDesc.Texture2D.MostDetailedMip = 0;
-		srvDesc.Texture2D.MipLevels = -1;
-
-		/*
-		* Create shader resource view
-		*/
-		device->get_dx11_device()->CreateShaderResourceView(TextureBase,&srvDesc,&ResourceView);
-	}
 	
 }

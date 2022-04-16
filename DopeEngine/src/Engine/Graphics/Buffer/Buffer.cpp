@@ -11,7 +11,7 @@ namespace DopeEngine
 		Name = description.Name;
 
 	}
-	BufferType Buffer::get_type() const
+	BufferType Buffer::get_buffer_type() const
 	{
 		return Type;
 	}

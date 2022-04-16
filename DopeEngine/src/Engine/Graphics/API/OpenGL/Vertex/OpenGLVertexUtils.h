@@ -9,7 +9,8 @@ namespace DopeEngine
 		OpenGLVertexUtils() = delete;
 		~OpenGLVertexUtils() = delete;
 
-		VERTEX_DATA_TYPE static get_data_type(const VertexElementDataType type);
+		FORCEINLINE static VERTEX_DATA_TYPE get_data_type(const VertexElementDataType type);
+		FORCEINLINE static unsigned int get_component_count(const VertexElementDataType type);
 	};
 
 

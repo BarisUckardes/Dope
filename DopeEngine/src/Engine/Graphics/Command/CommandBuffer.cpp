@@ -72,30 +72,24 @@ namespace DopeEngine
 		*/
 		const Array<ResourceLayout*> layouts = CurrentBoundPipeline->get_resource_layouts_fast();
 		const ResourceLayout* targetLayout = layouts[slot];
-		const ResourceLayoutDescription targetLayoutDescription = targetLayout->get_description();
-		const Array<DeviceObject*> viewObjects = view->get_resources_fast();
+		const ResourceDescription targetResourceDescription = targetLayout->get_description();
+		const DeviceObject* resource = view->get_resource();
 		const unsigned int resourceSlotCount = layouts.get_cursor();
 		ASSERT(slot < resourceSlotCount, "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
-		for (unsigned int objectIndex = 0; objectIndex < viewObjects.get_cursor(); objectIndex++)
+		/*
+		* Get object type
+		*/
+		const DeviceObjectType objectType = resource->get_device_object_type();
+
+		/*
+		* Check resource layout
+		*/
+		if (objectType != ResourceTypeUtils::get_device_object_type(targetResourceDescription.Type))
 		{
-			/*
-			* Get object
-			*/
-			const DeviceObject* object = viewObjects[objectIndex];
-			const DeviceObjectType objectType = object->get_device_object_type();
-
-			/*
-			* Check resource layout
-			*/
-			if (objectType != ResourceTypeUtils::get_device_object_type(targetLayoutDescription.Elements[objectIndex].Type))
-			{
-				ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.", slot);
-				return;
-			}
+			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.", slot);
+			return;
 		}
-
-
 #endif
 		set_resource_view_impl(slot, view);
 	}

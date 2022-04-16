@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Resource/ResourceLayoutDescription.h>
+#include <Engine/Graphics/Resource/ResourceDescription.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
 
 namespace DopeEngine
@@ -10,15 +10,15 @@ namespace DopeEngine
 	class DOPE_ENGINE_API ResourceLayout : public DeviceObject
 	{
 	public:
-		ResourceLayout(const ResourceLayoutDescription& description);
+		ResourceLayout(const ResourceDescription& description);
 		virtual ~ResourceLayout() = 0 {}
 
 		/// <summary>
 		/// Returns the description
 		/// </summary>
-		FORCEINLINE ResourceLayoutDescription get_description() const;
+		FORCEINLINE ResourceDescription get_description() const;
 	private:
-		ResourceLayoutDescription Description;
+		ResourceDescription Description;
 	};
 
 

@@ -4,7 +4,7 @@
 namespace DopeEngine
 {
 
-	IndexBuffer::IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferDescription(BufferType::IndexBuffer,"IndexBuffer", allocatedSize,elementSize))
+	IndexBuffer::IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferDescription("IndexBuffer", BufferType::IndexBuffer, allocatedSize,elementSize))
 	{
 		Range = range;
 		ElementSize = elementSize;

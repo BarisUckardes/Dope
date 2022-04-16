@@ -387,13 +387,10 @@
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutElementDescription.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h">
@@ -463,6 +460,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -783,6 +789,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

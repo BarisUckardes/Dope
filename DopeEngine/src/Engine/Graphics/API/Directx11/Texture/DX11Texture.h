@@ -10,17 +10,19 @@ namespace DopeEngine
 		DX11Texture(const TextureDescription& desc, DX11GraphicsDevice* device);
 		virtual ~DX11Texture() final override;
 
-		FORCEINLINE ID3D11Texture2D* get_dx11_texture() const;
-		FORCEINLINE ID3D11ShaderResourceView* get_dx11_shader_resource() const;
+		FORCEINLINE DXPTR<ID3D11Texture1D> get_dx11_texture1d() const;
+		FORCEINLINE DXPTR<ID3D11Texture2D> get_dx11_texture2d() const;
+		FORCEINLINE DXPTR<ID3D11Texture3D> get_dx11_texture3d() const;
+
 	private:
 		void create(const TextureDescription& desc, DX11GraphicsDevice* device);
 		void create2d(const TextureDescription& desc, DX11GraphicsDevice* device);
 		void create3d(const TextureDescription& desc, DX11GraphicsDevice* device);
 		void createcube(const TextureDescription& desc, DX11GraphicsDevice* device);
-		void createShaderResourceView(DX11GraphicsDevice* device,D3D_SRV_DIMENSION dimension,DXGI_FORMAT format);
 	private:
-		ID3D11Texture2D* TextureBase;
-		ID3D11ShaderResourceView* ResourceView;
+		DXPTR<ID3D11Texture1D> Texture1D;
+		DXPTR<ID3D11Texture2D> Texture2D;
+		DXPTR<ID3D11Texture3D> Texture3D;
 	};
 
 

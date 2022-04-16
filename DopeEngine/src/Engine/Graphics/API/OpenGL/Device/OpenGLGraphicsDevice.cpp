@@ -156,7 +156,7 @@ namespace DopeEngine
 	}
 	void OpenGLGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{
-		const BufferType type = buffer->get_type();
+		const BufferType type = buffer->get_buffer_type();
 		switch (type)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
@@ -196,7 +196,7 @@ namespace DopeEngine
 		SwapBuffers(WindowDeviceContext);
 #endif
 	}
-	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
+	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
 		/*
 		* Create new opengl resource layout

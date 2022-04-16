@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	OpenGLResourceLayout::OpenGLResourceLayout(const ResourceLayoutDescription& description) : ResourceLayout(description)
+	OpenGLResourceLayout::OpenGLResourceLayout(const ResourceDescription& description) : ResourceLayout(description)
 	{
 
 	}

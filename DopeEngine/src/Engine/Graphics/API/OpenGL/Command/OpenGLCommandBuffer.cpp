@@ -6,6 +6,7 @@
 #include <Engine/Graphics/Resource/ResourceTypeUtils.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/API/OpenGL/Texture/OpenGLTextureUtils.h>
+#include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
 	void OpenGLCommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
@@ -160,13 +161,13 @@ namespace DopeEngine
 			*/
 			const VertexElementDataType dataType = elementDescription.DataType;
 			glEnableVertexAttribArray(i);
-			glVertexAttribPointer(i, elementDescription.ComponentCount, OpenGLVertexUtils::get_data_type(dataType), elementDescription.Normalized ? GL_TRUE : GL_FALSE, layoutDescription.get_stride(), (const void*)offset);
+			glVertexAttribPointer(i, OpenGLVertexUtils::get_component_count(dataType), OpenGLVertexUtils::get_data_type(dataType), elementDescription.Normalized ? GL_TRUE : GL_FALSE, layoutDescription.get_stride(), (const void*)offset);
 
 			/*
 			* Increment offset
 			*/
-			offset += elementDescription.ComponentCount * elementDescription.ElementSizeInBytes;
-		}
+			offset += VertexUtils::get_data_type_size(dataType);
+;		}
 
 		/*
 		* Issue draw call
@@ -184,80 +185,74 @@ namespace DopeEngine
 		/*
 		* Set resource
 		*/
-		const Array<DeviceObject*> resources = view->get_resources_fast();
+		const DeviceObject* resource = view->get_resource();
 		const Array<ResourceLayout*>& resourceLayouts = get_bound_pipeline()->get_resource_layouts_fast();
 		const ResourceLayout* targetLayout = resourceLayouts[slot];
-		const ResourceLayoutDescription targetDescription = targetLayout->get_description();
-		for (unsigned int i = 0; i < resources.get_cursor(); i++)
+		const ResourceDescription targetDescription = targetLayout->get_description();
+		/*
+		* Get device object
+		*/
+		const DeviceObjectType resourceDeviceObjectType = resource->get_device_object_type();
+		ResourceType resourceType = targetDescription.Type;
+
+
+		switch (resourceType)
 		{
-			/*
-			* Get device object
-			*/
-			const DeviceObject* deviceObject = resources[i];
-			const DeviceObjectType resourceDeviceObjectType = deviceObject->get_device_object_type();
-			const ResourceLayoutElementDescription elementDescription = targetDescription.Elements[i];
-			ResourceType resourceType = elementDescription.Type;
-
-
-			switch (resourceType)
+			case DopeEngine::ResourceType::Texture:
 			{
-				case DopeEngine::ResourceType::Texture:
-				{
-					/*
-					* Get gl texture
-					*/
-					const OpenGLTexture* glTexture = ((const OpenGLTexture*)deviceObject);
+				/*
+				* Get gl texture
+				*/
+				const OpenGLTexture* glTexture = ((const OpenGLTexture*)resource);
 
-					/*
-					* Get texture location
-					*/
-					const unsigned int uniformLocation = glGetUniformLocation(CurrentProgramHandle, *targetDescription.Elements[i].Name);
+				/*
+				* Get texture location
+				*/
+				const unsigned int uniformLocation = glGetUniformLocation(CurrentProgramHandle, *targetDescription.Name);
 
-					/*
-					* Active and bind texture
-					*/
-					glActiveTexture(GL_TEXTURE0 + get_bound_texture_count());
-					glBindTexture(OpenGLTextureUtils::get_texture_type(glTexture->get_type()), glTexture->get_handle());
+				/*
+				* Active and bind texture
+				*/
+				glActiveTexture(GL_TEXTURE0 + get_bound_texture_count());
+				glBindTexture(OpenGLTextureUtils::get_texture_type(glTexture->get_type()), glTexture->get_handle());
 
-					/*
-					* Set texture uniform
-					*/
-					glUniform1i(uniformLocation, get_bound_texture_count());
-					break;
-				}
-				case DopeEngine::ResourceType::UniformBuffer:
-				{
-					/*
-					* Get uniform buffer handle
-					*/
-					const UNIFORM_BUFFER_HANDLE handle = ((OpenGLUniformBuffer*)deviceObject)->get_handle();
-
-					/*
-					* Get uniform buffer program uniform location
-					*/
-					const UNIFORM_BUFFER_INDEX index = glGetUniformBlockIndex(CurrentProgramHandle, *targetDescription.Elements[i].Name);
-
-					/*
-					* Bind uniform block location to binding location
-					*/
-					glUniformBlockBinding(CurrentProgramHandle, index, get_bound_uniformbuffer_count());
-
-					/*
-					* Set buffer
-					*/
-					glBindBufferBase(GL_UNIFORM_BUFFER, index, handle);
-
-					/*
-					* Increment global state
-					*/
-					increment_uniformbuffer_bound_count();
-					break;
-				}
-				default:
-					break;
+				/*
+				* Set texture uniform
+				*/
+				glUniform1i(uniformLocation, get_bound_texture_count());
+				break;
 			}
-			
-		}
+			case DopeEngine::ResourceType::UniformBuffer:
+			{
+				/*
+				* Get uniform buffer handle
+				*/
+				const UNIFORM_BUFFER_HANDLE handle = ((OpenGLUniformBuffer*)resource)->get_handle();
+
+				/*
+				* Get uniform buffer program uniform location
+				*/
+				const UNIFORM_BUFFER_INDEX index = glGetUniformBlockIndex(CurrentProgramHandle, *targetDescription.Name);
+
+				/*
+				* Bind uniform block location to binding location
+				*/
+				glUniformBlockBinding(CurrentProgramHandle, index, get_bound_uniformbuffer_count());
+
+				/*
+				* Set buffer
+				*/
+				glBindBufferBase(GL_UNIFORM_BUFFER, index, handle);
+
+				/*
+				* Increment global state
+				*/
+				increment_uniformbuffer_bound_count();
+				break;
+			}
+			default:
+				break;
+			}
 	}
 
 	void OpenGLCommandBuffer::lock_impl()

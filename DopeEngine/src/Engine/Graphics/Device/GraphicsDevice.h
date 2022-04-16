@@ -134,7 +134,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="description"></param>
 		/// <returns></returns>
-		ResourceLayout* create_resource_layout(const ResourceLayoutDescription& description);
+		ResourceLayout* create_resource_layout(const ResourceDescription& description);
 
 		/// <summary>
 		/// Creates anew resource view device object
@@ -180,7 +180,7 @@ namespace DopeEngine
 		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
-		virtual ResourceLayout* create_resource_layout_impl(const ResourceLayoutDescription & description) = 0;
+		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) = 0;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;

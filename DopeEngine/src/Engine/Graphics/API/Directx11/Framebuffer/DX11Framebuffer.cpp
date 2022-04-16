@@ -56,7 +56,7 @@ namespace DopeEngine
 			*/
 			DX11Texture* dx11Texture = (DX11Texture*)device->create_texture(textureDescription);
 			D3D11_TEXTURE2D_DESC dx11TextureDesc;
-			dx11Texture->get_dx11_texture()->GetDesc(&dx11TextureDesc);
+			dx11Texture->get_dx11_texture2d().Get()->GetDesc(&dx11TextureDesc);
 
 			/*
 			* Create attachment render target desc
@@ -70,7 +70,7 @@ namespace DopeEngine
 			* Create render target
 			*/
 			ID3D11RenderTargetView* rtv = nullptr;
-			device->get_dx11_device()->CreateRenderTargetView(dx11Texture->get_dx11_texture(), &rtvDesc, &rtv);
+			device->get_dx11_device()->CreateRenderTargetView(dx11Texture->get_dx11_texture2d().Get(), &rtvDesc, &rtv);
 
 			/*
 			* Register rtv
@@ -99,7 +99,7 @@ namespace DopeEngine
 			*/
 			DX11Texture* dx11Texture = (DX11Texture*)device->create_texture(textureDesc);
 			D3D11_TEXTURE2D_DESC dx11TextureDesc;
-			dx11Texture->get_dx11_texture()->GetDesc(&dx11TextureDesc);
+			dx11Texture->get_dx11_texture2d().Get()->GetDesc(&dx11TextureDesc);
 
 			/*
 			* Create rtv desc
@@ -112,7 +112,7 @@ namespace DopeEngine
 			/*
 			* Create depth rtv
 			*/
-			device->get_dx11_device()->CreateDepthStencilView(dx11Texture->get_dx11_texture(), &rtvDesc, &DepthTarget);
+			device->get_dx11_device()->CreateDepthStencilView(dx11Texture->get_dx11_texture2d().Get(), &rtvDesc, &DepthTarget);
 		}
 	}
 }

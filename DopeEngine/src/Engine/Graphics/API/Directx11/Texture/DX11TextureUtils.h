@@ -12,5 +12,6 @@ namespace DopeEngine
 		FORCEINLINE static D3D11_USAGE get_usage(const TextureUsage usage);
 		FORCEINLINE static unsigned int get_bind_flags(const TextureUsage usage);
 		FORCEINLINE static DXGI_FORMAT get_format(const TextureFormat format);
+		FORCEINLINE static D3D11_SRV_DIMENSION get_dimension(const TextureType type);
 	};
 }

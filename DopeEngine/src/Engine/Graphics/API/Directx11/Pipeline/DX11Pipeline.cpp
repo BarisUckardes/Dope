@@ -5,6 +5,7 @@
 #include <Engine/Graphics/API/Directx11/Pipeline/DX11PipelineUtils.h>
 #include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Core/ConsoleLog.h>
+#include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
 	DX11Pipeline::DX11Pipeline(const PipelineDescription& desc, DX11GraphicsDevice* device) : Pipeline(desc)
@@ -55,7 +56,7 @@ namespace DopeEngine
 			/*
 			* Create input element desc
 			*/
-			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DXGI_FORMAT_R32G32_FLOAT, 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0};
 			
 			/*
 			* Register input element
@@ -65,7 +66,7 @@ namespace DopeEngine
 			/*
 			* Increment offset
 			*/
-			offset += elementDesc.ElementSizeInBytes;
+			offset += VertexUtils::get_data_type_size(elementDesc.DataType);
 		}
 		
 		/*
@@ -124,12 +125,12 @@ namespace DopeEngine
 		/*
 		* Create blend state
 		*/
-		//D3D11_BLEND_DESC blendDesc;
-		//blendDesc.AlphaToCoverageEnable = false;
-		//blendDesc.IndependentBlendEnable = false;
-		//blendDesc.RenderTarget->BlendEnable = true;
-		//blendDesc.RenderTarget->BlendOp = D3D11_BLEND_OP_ADD;
-		//device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
+		D3D11_BLEND_DESC blendDesc;
+		blendDesc.AlphaToCoverageEnable = false;
+		blendDesc.IndependentBlendEnable = false;
+		blendDesc.RenderTarget->BlendEnable = true;
+		blendDesc.RenderTarget->BlendOp = D3D11_BLEND_OP_ADD;
+		device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
 
 		/*
 		* Create viewport
@@ -139,9 +140,8 @@ namespace DopeEngine
 		viewport.Height = desc.OutputDesc.Height;
 		viewport.MinDepth = 0;
 		viewport.MaxDepth = 1.0f;
-		viewport.TopLeftX = 0;
-		viewport.TopLeftY = 0;
-		LOG("DX11Pipeline", "Viewport setup with Width: %d, Height: %d, Offset [%d,%d]", desc.OutputDesc.Width, desc.OutputDesc.Height, desc.OutputDesc.OffsetX, desc.OutputDesc.OffsetY);
+		viewport.TopLeftX = desc.OutputDesc.OffsetX;
+		viewport.TopLeftY = desc.OutputDesc.OffsetY;
 		Viewport = viewport;
 	}
 }

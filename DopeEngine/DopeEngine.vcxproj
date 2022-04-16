@@ -171,6 +171,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderSet.h" />
@@ -224,8 +226,7 @@
     <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\PolygonFillMode.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\PrimitiveTopology.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutDescription.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayoutElementDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderSet.h" />
@@ -321,8 +322,11 @@
     <ClInclude Include="src\Engine\Graphics\Texture\Texture.h" />
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.cpp" />
@@ -429,6 +433,7 @@
     <ClCompile Include="src\Engine\Graphics\Texture\Texture.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\TestRenderingModule.cpp" />
     <ClCompile Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
