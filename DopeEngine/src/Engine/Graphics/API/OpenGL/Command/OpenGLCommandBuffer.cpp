@@ -60,34 +60,34 @@ namespace DopeEngine
 
 		/*
 		* Depth
-		*/
-		if (pipeline.is_depth_test_enabled())
-			glEnable(GL_DEPTH_TEST);
-		else
-			glDisable(GL_DEPTH_TEST);
+		//*/
+		//if (pipeline.is_depth_test_enabled())
+		//	glEnable(GL_DEPTH_TEST);
+		//else
+		//	glDisable(GL_DEPTH_TEST);
 
-		if (pipeline.is_depth_write_enabled())
-			glEnable(GL_DEPTH_WRITEMASK);
-		else
-			glDisable(GL_DEPTH_WRITEMASK);
+		//if (pipeline.is_depth_write_enabled())
+		//	glEnable(GL_DEPTH_WRITEMASK);
+		//else
+		//	glDisable(GL_DEPTH_WRITEMASK);
 
-		glDepthFunc(OpenGLPipelineUtils::get_depth_function(pipeline.get_depth_function()));
+		////glDepthFunc(OpenGLPipelineUtils::get_depth_function(pipeline.get_depth_function()));
 
-		/*
-		* Face culling
-		*/
-		if (pipeline.get_cull_mode() != FaceCullMode::DontCull)
-			glEnable(GL_CULL_FACE);
-		else
-			glDisable(GL_CULL_FACE);
+		///*
+		//* Face culling
+		//*/
+		//if (pipeline.get_cull_mode() != FaceCullMode::DontCull)
+		//	glEnable(GL_CULL_FACE);
+		//else
+		//	glDisable(GL_CULL_FACE);
 
-		glFrontFace(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()));
-		glCullFace(OpenGLPipelineUtils::get_cull_mode(pipeline.get_cull_mode()));
+		//glFrontFace(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()));
+		//glCullFace(OpenGLPipelineUtils::get_cull_mode(pipeline.get_cull_mode()));
 
 		/*
 		* Polygon fill mode
 		*/
-		glPolygonMode(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()), OpenGLPipelineUtils::get_fill_mode(pipeline.get_fill_mode()));
+		//glPolygonMode(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()), OpenGLPipelineUtils::get_fill_mode(pipeline.get_fill_mode()));
 
 		/*
 		* Set primitive
@@ -220,6 +220,11 @@ namespace DopeEngine
 				* Set texture uniform
 				*/
 				glUniform1i(uniformLocation, get_bound_texture_count());
+
+				/*
+				* Increment currently bound textures
+				*/
+				increment_texture_bound_count();
 				break;
 			}
 			case DopeEngine::ResourceType::UniformBuffer:

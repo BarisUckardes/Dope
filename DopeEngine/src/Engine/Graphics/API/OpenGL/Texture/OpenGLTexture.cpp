@@ -36,8 +36,16 @@ namespace DopeEngine
 		* Create and allocate texture
 		*/
 		const TextureFormat format = get_format();
-		glCreateTextures(GL_TEXTURE_2D, 1, &Handle);
+		glGenTextures(1, &Handle);
 		glBindTexture(GL_TEXTURE_2D, Handle);
+
+		/*
+		* Default texture parameters
+		*/
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, OpenGLTextureUtils::get_internal_format(format), get_width(), get_height(), 0, OpenGLTextureUtils::get_format(format), OpenGLTextureUtils::get_data_type(format), nullptr);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}

@@ -11,6 +11,8 @@
 #include <Glad/glad.h>
 #include <stdexcept>
 #include <Engine/Math/Vector3f.h>
+#include <Engine/Utils/TextureLoader/TextureLoader.h>
+#include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
 	VertexBuffer* vBuffer = nullptr;
@@ -21,17 +23,24 @@ namespace DopeEngine
 	Pipeline* pipeline = nullptr;
 	Buffer* colorBuffer = nullptr;
 	ResourceView* resourceView = nullptr;
+	Texture* texture = nullptr;
+	ResourceView* textureView = nullptr;
 	const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
+		"layout(location = 1) in vec2 aUv;"
+		"out vec2 fUv;"
 		"void main()\n"
 		"{\n"
 		"gl_Position = vec4(aPosition, 0.0, 1.0);\n"
+		"fUv = aUv;"
 		"}\n";
 
 	const String fs =
 		"#version 450 core\n"
 		"out vec4 FragColor;\n"
+		"in vec2 fUv;"
+		"uniform sampler2D MyTexture;"
 		"layout(std140) uniform MyColor"
 		"{"
 		 "vec3 color;"
@@ -42,7 +51,7 @@ namespace DopeEngine
 		"};"
 		"void main()\n"
 		"{\n"
-		"FragColor = vec4(color,1.0f);\n"
+		"FragColor = texture(MyTexture,fUv)*vec4(color,1.0f);\n"
 		"}\n";
 
 	/*const String vs = R""""(
@@ -72,8 +81,11 @@ namespace DopeEngine
 		*/
 		Array<Vector2f> vertexes;
 		vertexes.add(Vector2f(0.0f,0.5f));
+		vertexes.add(Vector2f(0, 0));
 		vertexes.add(Vector2f(0.5f, -0.5f));
+		vertexes.add(Vector2f(1, 0));
 		vertexes.add(Vector2f(-0.5f, -0.5f));
+		vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
@@ -97,6 +109,7 @@ namespace DopeEngine
 		*/
 		Array<VertexElementDescription> elements;
 		elements.add(VertexElementDescription("POSITION", VertexElementDataType::Float2, false));
+		elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -118,12 +131,22 @@ namespace DopeEngine
 		device->update_buffer(colorBuffer, (const Byte*)&color);
 
 		/*
+		* Create texture
+		*/
+		TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\smiley.png");
+		ASSERT(textureLoadResult.Data != nullptr, "TestRenderingModule", "Texture failed to load from path, error message: %s", *textureLoadResult.FailureMessage);
+		texture = device->create_texture(TextureDescription{ textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA32F,TextureType::Texture2D });
+		device->update_texture(texture, textureLoadResult.Data);
+
+		/*
 		* Create resource layouts
 		*/
 		ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
 		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
 		ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
 		resourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
+		ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
+		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));
 
 		/*
 		* Create pipeline
@@ -141,7 +164,7 @@ namespace DopeEngine
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
-		pipelineDescription.ResourceLayouts = { colorBufferLayout };
+		pipelineDescription.ResourceLayouts = { colorBufferLayout,textureLayout };
 		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
@@ -160,6 +183,7 @@ namespace DopeEngine
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
 		buffer->set_resource_view(0, resourceView);
+		buffer->set_resource_view(1, textureView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);

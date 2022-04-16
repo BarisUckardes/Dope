@@ -6,4 +6,4 @@
 #include <Engine/Platform/Windows/Core/WindowsAssert.h>
 #endif
 
-#define ASSERT(condition,header,message,...) if(!condition) { LOG(header,message,__VA_ARGS__) ASSERT_IMPL  }
+#define ASSERT(condition,header,message,...) if(!(condition)) { LOG(header,message,__VA_ARGS__) ASSERT_IMPL  }

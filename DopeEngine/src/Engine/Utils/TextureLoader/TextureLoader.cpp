@@ -12,7 +12,6 @@ namespace DopeEngine
 		int height = 0;
 		int depth = 0;
 		int channels = 0;
-		bool isFailed = false;
 		const Byte* data = stbi_load(*path, &width, &height, &channels, 4);
 
 		/*
@@ -24,7 +23,6 @@ namespace DopeEngine
 			* Get failure message from stbi
 			*/
 			failReason = stbi_failure_reason();
-			isFailed = true;
 		}
 
 		/*

@@ -10,7 +10,7 @@ namespace DopeEngine
 		TextureLoader() = delete;
 		~TextureLoader() = delete;
 
-		TextureLoadResult load_texture_from_path(const String& path);
+		static TextureLoadResult load_texture_from_path(const String& path);
 	};
 
 

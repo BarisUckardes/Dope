@@ -85,9 +85,10 @@ namespace DopeEngine
 		/*
 		* Check resource layout
 		*/
-		if (objectType != ResourceTypeUtils::get_device_object_type(targetResourceDescription.Type))
+		const DeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetResourceDescription.Type);
+		if (objectType != slotType)
 		{
-			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.", slot);
+			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.Trying to bind resource type %d whereas slot accepts %d", slot,objectType, slotType);
 			return;
 		}
 #endif

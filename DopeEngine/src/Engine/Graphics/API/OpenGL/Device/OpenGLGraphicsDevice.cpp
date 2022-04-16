@@ -50,17 +50,17 @@ namespace DopeEngine
 #endif
 
 #ifdef _DEBUG
-		//glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT);
 
-		///*
-		//* Create debug
-		//*/
-		//glDebugMessageCallback(
-		//	[](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
-		//	{
-		//			printf("OPENGL ERROR: %s\n", message);
-		//	}
-		//, nullptr);
+		/*
+		* Create debug
+		*/
+		glDebugMessageCallback(
+			[](GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+			{
+					printf("OPENGL ERROR: %s\n", message);
+			}
+		, nullptr);
 #endif
 	
 	}
@@ -125,8 +125,8 @@ namespace DopeEngine
 		wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC)wglGetProcAddress("wglCreateContextAttribsARB");
 
 		const int attribList[] = {
-			WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
-			WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+			WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
+			WGL_CONTEXT_MINOR_VERSION_ARB, 5,
 			WGL_CONTEXT_FLAGS_ARB, 0,
 			WGL_CONTEXT_PROFILE_MASK_ARB,
 			WGL_CONTEXT_COREPROFILE_BIT_ARB, 0,
