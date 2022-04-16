@@ -96,13 +96,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -116,15 +116,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -136,13 +136,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GLAD.lib;opengl32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -156,15 +156,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -258,6 +258,7 @@
     <ClInclude Include="src\Engine\Asset\AssetImportType.h" />
     <ClInclude Include="src\Engine\Asset\AssetType.h" />
     <ClInclude Include="src\Engine\Core\EventWorks.h" />
+    <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoadResult.h" />
     <ClInclude Include="src\Engine\World\Resolvers\IterativeLogicResolver.h" />
     <ClInclude Include="src\Engine\World\Components\Spatial.h" />
     <ClInclude Include="src\Engine\World\Component.h" />
@@ -323,6 +324,7 @@
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h" />
+    <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp" />
@@ -434,6 +436,7 @@
     <ClCompile Include="src\Engine\Application\Modules\TestRenderingModule.cpp" />
     <ClCompile Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp" />
+    <ClCompile Include="src\Engine\Utils\TextureLoader\TextureLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

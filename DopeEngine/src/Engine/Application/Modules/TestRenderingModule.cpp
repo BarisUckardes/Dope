@@ -114,7 +114,7 @@ namespace DopeEngine
 		* Create color buffer
 		*/
 		colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
-		const Vector3f color{ 1.0f,0.0f,0.0f };
+		const Vector3f color{ 1.0f,0.3f,0.0f };
 		device->update_buffer(colorBuffer, (const Byte*)&color);
 
 		/*

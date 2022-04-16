@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DopeEditorLauncher", "DopeE
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLAD", "GLAD\GLAD.vcxproj", "{E76850C0-F7B5-4E1C-B864-A8358DE8DF6A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STBI", "STBI\STBI.vcxproj", "{659BFA91-9A27-49F6-ABB3-88939F380950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{E76850C0-F7B5-4E1C-B864-A8358DE8DF6A}.Release|x64.Build.0 = Release|x64
 		{E76850C0-F7B5-4E1C-B864-A8358DE8DF6A}.Release|x86.ActiveCfg = Release|Win32
 		{E76850C0-F7B5-4E1C-B864-A8358DE8DF6A}.Release|x86.Build.0 = Release|Win32
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Debug|x64.ActiveCfg = Debug|x64
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Debug|x64.Build.0 = Debug|x64
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Debug|x86.ActiveCfg = Debug|Win32
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Debug|x86.Build.0 = Debug|Win32
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Release|x64.ActiveCfg = Release|x64
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Release|x64.Build.0 = Release|x64
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Release|x86.ActiveCfg = Release|Win32
+		{659BFA91-9A27-49F6-ABB3-88939F380950}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
