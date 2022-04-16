@@ -63,11 +63,6 @@ namespace DopeEngine
 			* Register to modules
 			*/
 			ActiveModules.add(module);
-
-			/*
-			* Log
-			*/
-			LOG("Application", "The pending module[%s] is initialized and registered to the active module list of the application!",*module->get_module_class_name());
 		}
 		PendingModules.clear();
 
@@ -164,11 +159,6 @@ namespace DopeEngine
 			* Free heap memory
 			*/
 			delete module;
-
-			/*
-			* Log
-			*/
-			LOG("Application", "The active module[%s] is finalized and removed from the active module list of the application!", *className);
 		}
 		ActiveModules.clear();
 
@@ -180,7 +170,7 @@ namespace DopeEngine
 	}
 	void Application::collect_portable_devices()
 	{
-		LOG("Application","Collecting portable devices...");
+
 
 		/*
 		* Create portable device enumarator
@@ -203,11 +193,9 @@ namespace DopeEngine
 				*deviceInformation.get_friendly_name(),
 				*deviceInformation.get_description())*/
 		}
-		LOG("Application", "Portable devices collected!");
 	}
 	void Application::collect_device_drivers()
 	{
-		LOG("Application", "Collecting device drivers...");
 
 		/*
 		* Create device driver enumarator
@@ -228,7 +216,6 @@ namespace DopeEngine
 			//LOG("Application", "Device Driver -> Manufacturer: %s", *driverInformation.get_base_name());
 		}
 		
-		LOG("Application", "Device drivers collected!");
 
 		/*
 		* Free resources

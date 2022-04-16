@@ -8,6 +8,7 @@
 #include <Engine/Graphics/Pipeline/PrimitiveTopology.h>
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
+#include <Engine/Graphics/Pipeline/OutputDescription.h>
 
 namespace DopeEngine
 {
@@ -21,11 +22,11 @@ namespace DopeEngine
 			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
 			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
 			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives,const ShaderSet* shaderSet,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts) : BlendingState(blending),
+			const PrimitiveTopology primitives,const ShaderSet* shaderSet,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,const OutputDescription& outputDesc) : BlendingState(blending),
 			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
 			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
 			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives),ShaderSet(shaderSet),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts) {}
+			Primitives(primitives),ShaderSet(shaderSet),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts),OutputDesc(outputDesc) {}
 
 		PipelineDescription() = default;
 		~PipelineDescription() = default;
@@ -84,6 +85,11 @@ namespace DopeEngine
 		/// Target shader set
 		/// </summary>
 		const ShaderSet* ShaderSet;
+
+		/// <summary>
+		/// The output framebuffer description
+		/// </summary>
+		OutputDescription OutputDesc;
 
 		/// <summary>
 		/// Vertex layout

@@ -27,16 +27,16 @@ int main(int argumentCount, char** arguments)
 	app.register_pending_module<DopeEngine::TestingModule>();
 	app.register_pending_module<DopeEngine::TestRenderingModule>();
 
-	Thread thread;
-	unsigned int a = 1;
+	//Thread thread;
+	//unsigned int a = 1;
 
-	thread.give_new_task(DopeEngine::Delegate<void*, void*>(BIND_EVENT(test_thread)) ,&a);
-	thread.wait_for_task_finish();
-	a = 555;
-	thread.give_new_task(DopeEngine::Delegate<void*, void*>(BIND_EVENT(test_thread)), &a);
-	thread.wait_for_task_finish();
-	
-	LOG("Test app", "Value is : %d", a);
+	//thread.give_new_task(DopeEngine::Delegate<void*, void*>(BIND_EVENT(test_thread)) ,&a);
+	//thread.wait_for_task_finish();
+	//a = 555;
+	//thread.give_new_task(DopeEngine::Delegate<void*, void*>(BIND_EVENT(test_thread)), &a);
+	//thread.wait_for_task_finish();
+	//
+	//LOG("Test app", "Value is : %d", a);
 	/*
 	* Run app
 	*/

@@ -7,7 +7,9 @@ namespace DopeEngine
 	{
 		Type = description.Type;
 		AllocatedSize = description.AllocatedSize;
+		ItemSize = description.PerItemSize;
 		Name = description.Name;
+
 	}
 	BufferType Buffer::get_type() const
 	{
@@ -20,5 +22,9 @@ namespace DopeEngine
 	unsigned long Buffer::get_allocated_size() const
 	{
 		return AllocatedSize;
+	}
+	unsigned int Buffer::get_item_size() const
+	{
+		return ItemSize;
 	}
 }

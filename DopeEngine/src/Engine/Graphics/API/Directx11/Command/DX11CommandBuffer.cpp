@@ -4,6 +4,7 @@
 #include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Math/Vector2f.h>
+#include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
 	DX11CommandBuffer::DX11CommandBuffer(DX11GraphicsDevice* device)
@@ -67,26 +68,56 @@ namespace DopeEngine
 	void DX11CommandBuffer::set_framebuffer_impl(const Framebuffer& framebuffer)
 	{
 		/*
-		* Get dx11 framebuffer
+		* Validate if this is a swapchain buffer
 		*/
-		const DX11Framebuffer& dx11Framebuffer = (const DX11Framebuffer&)framebuffer;
+		if (framebuffer.is_swapchain_framebuffer())
+		{
+			/*
+			* Get dx11 swapchain framebuffer
+			*/
+			const DX11SwapchainFramebuffer& dx11SFarmebuffer = (const DX11SwapchainFramebuffer&)framebuffer;
 
-		/*
-		* Get render targets
-		*/
-		const Array<ID3D11RenderTargetView*> colorRenderTargets = dx11Framebuffer.get_dx11_rtvs_slow();
-		ID3D11DepthStencilView* depthStencilTarget = dx11Framebuffer.get_dx11_depth_rtv();
+			/*
+			* Get render target
+			*/
+			ID3D11RenderTargetView* rtv = dx11SFarmebuffer.get_dx11_swapchain_rtv();
 
-		/*
-		* Set targets
-		*/
-		Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
+			/*
+			* Set rtv
+			*/
+			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, &rtv, nullptr);
 
-		/*
-		* Set currents
-		*/
-		CurrentColorTargets = colorRenderTargets;
-		CurrentDepthTarget = depthStencilTarget;
+			CurrentColorTargets.add(rtv);
+			CurrentDepthTarget = nullptr;
+		}
+		else
+		{
+			/*
+			* Get dx11 framebuffer
+			*/
+			const DX11Framebuffer& dx11Framebuffer = (const DX11Framebuffer&)framebuffer;
+
+			/*
+			* Get render targets
+			*/
+			const Array<ID3D11RenderTargetView*> colorRenderTargets = dx11Framebuffer.get_dx11_rtvs_slow();
+			ID3D11DepthStencilView* depthStencilTarget = dx11Framebuffer.get_dx11_depth_rtv();
+
+			/*
+			* Set targets
+			*/
+			ASSERT(colorRenderTargets.get_cursor() > 0, "DX11CommandBuffer", "You have set a Dx11Framebuffer with no render target views!");
+			Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
+
+
+			/*
+			* Set currents
+			*/
+			CurrentColorTargets = colorRenderTargets;
+			CurrentDepthTarget = depthStencilTarget;
+		}
+
+
 	}
 	void DX11CommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
 	{
@@ -98,12 +129,12 @@ namespace DopeEngine
 		/*
 		* Set rasterizer state
 		*/
-		Device->get_dx11_immediate_context()->RSSetState(dx11Pipeline->get_dx11_rasterizer_state());
+		//Device->get_dx11_immediate_context()->RSSetState(dx11Pipeline->get_dx11_rasterizer_state());
 
 		/*
 		* Set depth-stencil state
 		*/
-		Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11Pipeline->get_dx11_depth_stencil_state(), 0);
+		//Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11Pipeline->get_dx11_depth_stencil_state(), 0);
 
 		/*
 		* Set blending state
@@ -123,6 +154,9 @@ namespace DopeEngine
 		/*
 		* Set viewports
 		*/
+		D3D11_VIEWPORT dx11Viewport = {};
+		dx11Pipeline->get_dx11_viewport(dx11Viewport);
+		Device->get_dx11_immediate_context()->RSSetViewports(1, &dx11Viewport);
 
 		/*
 		* Set shaders
@@ -172,7 +206,8 @@ namespace DopeEngine
 			/*
 			* Clear color
 			*/
-			Device->get_dx11_immediate_context()->ClearRenderTargetView(rtv, nullptr);
+			const FLOAT dxColor[] = { color.Red,color.Green,color.Blue,color.Alpha };
+			Device->get_dx11_immediate_context()->ClearRenderTargetView(rtv,dxColor);
 		}
 	}
 	void DX11CommandBuffer::clear_depth_impl(const float depth)

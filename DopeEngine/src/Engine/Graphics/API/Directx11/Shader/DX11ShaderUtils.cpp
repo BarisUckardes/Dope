@@ -34,7 +34,6 @@ namespace DopeEngine
 		* Embed shader ver
 		*/
 		text += String::get_from_integer(shaderVer) + "_0";
-		LOG("Tt", ":%s", *text);
 		return text;
 	}
 }

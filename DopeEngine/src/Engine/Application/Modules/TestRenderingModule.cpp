@@ -46,25 +46,17 @@ namespace DopeEngine
 		"}\n";*/
 
 	const String vs = R""""(
-	struct VOut
+
+	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
-		float4 position : SV_POSITION;
-	};
-
-	VOut main(float4 pos : POSITION)
-	{
-		VOut output;
-
-		output.position = pos;
-
-		return output;
+		return float4(pos.x,pos.y,0.0f,1.0f);
 	}
 )"""";
 
 	const String fs = R""""(
-	float4 main(float4 position : SV_POSITION) : SV_TARGET
+	float4 main() : SV_TARGET
 	{
-		return float4(1,0,0,0);
+		return float4(1.0f,1.0f,1.0f,1.0f);
 	}
 )"""";
 	
@@ -85,10 +77,11 @@ namespace DopeEngine
 		* Create vertex buffer
 		*/
 		Array<Vector2f> vertexes;
-		vertexes.add(Vector2f(1.0f,-1.0f));
-		vertexes.add(Vector2f(-1.0f, -1.0f));
-		vertexes.add(Vector2f(0, 1.0f));
+		vertexes.add(Vector2f(0.0f,0.5f));
+		vertexes.add(Vector2f(0.5f, -0.5f));
+		vertexes.add(Vector2f(-0.5f, -0.5f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription(BufferType::VertexBuffer, "VBuffer", vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
+		vBuffer->set_debug_name("My vertex buffer");
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
 		/*
@@ -102,6 +95,7 @@ namespace DopeEngine
 		indexes.add(2);
 		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription(BufferType::IndexBuffer, "MyColor", indexes.get_cursor() * sizeof(int),sizeof(int)));
+		iBuffer->set_debug_name("My index buffer");
 		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
 		/*
@@ -117,23 +111,10 @@ namespace DopeEngine
 		vShader = device->create_shader(ShaderDescription(ShaderType::Vertex,vs));
 		fShader = device->create_shader(ShaderDescription(ShaderType::Fragment, fs));
 
+		/*
+		* Create shader set
+		*/
 		shaderSet = device->create_shader_set({vShader,fShader});
-
-		/*
-		* Disable depth
-		*/
-		//glDisable(GL_DEPTH_TEST);
-
-		/*
-		* Create color buffer
-		*/
-		/*colorBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor", 12u,16u));
-		const Vector3f col(0.0f,0.0f,1.0f);
-		device->update_buffer(colorBuffer, (const Byte*)&col);
-
-		Buffer* dummyBuffer = device->create_buffer(BufferDescription(BufferType::UniformBuffer, "MyColor2", 12u,16u));
-		const Vector3f col2(1.0f, 0, 0.0f);
-		device->update_buffer(dummyBuffer, (const Byte*)&col2);*/
 
 		/*
 		* Create resource layouts
@@ -143,10 +124,6 @@ namespace DopeEngine
 			ResourceLayoutElementDescription("MyColor",ResourceType::UniformBuffer,ShaderType::Fragment),
 			ResourceLayoutElementDescription("MyColor2",ResourceType::UniformBuffer,ShaderType::Fragment)
 			});
-
-		/*ResourceLayout* colorResourceLayout = device->create_resource_layout(colorResourceLayoutDesc);
-		ResourceViewDescription colorViewDesc({ colorBuffer,dummyBuffer });
-		resourceView = device->create_resource_view(colorViewDesc);*/
 
 		/*
 		* Create pipeline
@@ -165,6 +142,7 @@ namespace DopeEngine
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
 		pipelineDescription.ResourceLayouts = { 0 };
+		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
 
@@ -175,12 +153,12 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
-		//buffer->set_framebuffer(*device->get_swapchain_framebuffer());
-		//buffer->clear_color({ 0u,0u,0u,1u });
+		buffer->set_pipeline(*pipeline);
+		buffer->set_framebuffer(*device->get_swapchain_framebuffer());
+		buffer->clear_color({ 0u,0u,1u,1u });
 
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
-		buffer->set_pipeline(*pipeline);
 		//buffer->set_resource_view(0, resourceView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();

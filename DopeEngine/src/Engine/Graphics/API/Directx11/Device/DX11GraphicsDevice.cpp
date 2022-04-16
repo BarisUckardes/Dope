@@ -20,6 +20,10 @@ namespace DopeEngine
 	{
 		return DeferredContext;
 	}
+	ID3D11RenderTargetView* DX11GraphicsDevice::get_swawpchain_rtv() const
+	{
+		return SwapchainRenderTargetView;
+	}
 	void DX11GraphicsDevice::_create_directx11_device()
 	{
 #ifdef DOPE_OS_WINDOWS
@@ -78,7 +82,12 @@ namespace DopeEngine
 		/*
 		* Create render target
 		*/
-		Device->CreateRenderTargetView(backBuffer, NULL, &SwapchainRenderTargetView);
+		Device->CreateRenderTargetView(backBuffer, nullptr, &SwapchainRenderTargetView);
+
+		/*
+		* Release backbuffer
+		*/
+		backBuffer->Release();
 
 		/*
 		* Set render target
@@ -88,11 +97,11 @@ namespace DopeEngine
 	}
 	void DX11GraphicsDevice::swap_swapchain_buffers_impl()
 	{
-		SwapChain->Present(0, 0);
+		SwapChain->Present(1u, 0);
 	}
 	Framebuffer* DX11GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		return nullptr;
+		return new DX11SwapchainFramebuffer(width,height,(DX11GraphicsDevice*)this,(Window*)get_owner_window());
 	}
 	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceLayoutDescription& description)
 	{
@@ -121,16 +130,17 @@ namespace DopeEngine
 				bufferResource = ((DX11ConstantBuffer*)buffer)->get_dx11_buffer();
 				break;
 			default:
+				ASSERT(false, "DX11GraphicsDevice", "Invalid BufferType, cannot update the ID3D11Resource!");
 				break;
 		}
 
 		/*
 		* Map/UnMap and update resource
 		*/
-		LOG("DX11GraphicsDevice", "Map resource with %d", type);
-		D3D11_MAPPED_SUBRESOURCE resource;
-		ImmediateContext->Map(bufferResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &resource);
-		memcpy(resource.pData, data, buffer->get_allocated_size());
+		LOG("DX11GraphicsDevice", "Copying %d bytes to buffer %s", buffer->get_allocated_size(),*buffer->get_debug_name());
+		D3D11_MAPPED_SUBRESOURCE mappedResource = {0};
+		ImmediateContext->Map(bufferResource,0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		memcpy(mappedResource.pData, data, buffer->get_allocated_size());
 		ImmediateContext->Unmap(bufferResource, 0);
 		
 	}
@@ -160,7 +170,6 @@ namespace DopeEngine
 	}
 	Buffer* DX11GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
-		LOG("DX11GraphicsDevice", "Create bufferrii");
 		const BufferType type = description.Type;
 		switch (type)
 		{

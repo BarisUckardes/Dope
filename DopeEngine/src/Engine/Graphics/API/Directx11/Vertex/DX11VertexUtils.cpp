@@ -7,7 +7,7 @@ namespace DopeEngine
 		switch (type)
 		{
 			case DopeEngine::VertexElementDataType::Float:
-				return DXGI_FORMAT_R32_FLOAT;
+				return DXGI_FORMAT_R32G32_FLOAT;
 				break;
 			case DopeEngine::VertexElementDataType::Float2:
 				return DXGI_FORMAT_R32G32_FLOAT;

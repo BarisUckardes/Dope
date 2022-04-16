@@ -15,6 +15,6 @@ namespace DopeEngine
 	private:
 		void create(DX11GraphicsDevice* device);
 	private:
-		DXPTR<ID3D11Buffer> Buffer;
+		ID3D11Buffer* Buffer;
 	};
 }

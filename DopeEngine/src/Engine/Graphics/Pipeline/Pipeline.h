@@ -84,6 +84,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE Array<ResourceLayout*> get_resource_layouts_slow() const;
+
+		/// <summary>
+		/// Returns the output description
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE OutputDescription get_output_desc() const;
 	private:
 		BlendState Blending;
 		DepthComparisionKind DepthFunction;
@@ -96,6 +102,7 @@ namespace DopeEngine
 		const ShaderSet* ShaderSet;
 		VertexLayoutDescription VertexLayout;
 		Array<ResourceLayout*> ResourceLayouts;
+		OutputDescription OutputDesc;
 	};
 
 

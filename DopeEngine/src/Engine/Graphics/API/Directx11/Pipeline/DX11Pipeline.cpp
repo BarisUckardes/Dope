@@ -31,6 +31,10 @@ namespace DopeEngine
 	{
 		return BlendState;
 	}
+	void DX11Pipeline::get_dx11_viewport(D3D11_VIEWPORT viewport) const
+	{
+		viewport = Viewport;
+	}
 	void DX11Pipeline::create(const PipelineDescription& desc, DX11GraphicsDevice* device)
 	{
 		/*
@@ -47,11 +51,11 @@ namespace DopeEngine
 			* Get element desc
 			*/
 			const VertexElementDescription& elementDesc = vertexElements[i];
-			LOG("DX11Pipeline", "Vertex element: %d,%s", i,*elementDesc.Name);
+
 			/*
 			* Create input element desc
 			*/
-			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
+			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DXGI_FORMAT_R32G32_FLOAT, 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
 			offset += elementDesc.ElementSizeInBytes;
 			
 			/*
@@ -70,7 +74,6 @@ namespace DopeEngine
 		/*
 		* Create input layout
 		*/
-		LOG("DX11Pipeline", "Creating input layout with element size of : %d", inputElements.get_cursor());
 		device->get_dx11_device()->CreateInputLayout(
 			inputElements.get_data(),
 			inputElements.get_cursor(),
@@ -119,5 +122,17 @@ namespace DopeEngine
 		//blendDesc.RenderTarget->BlendEnable = true;
 		//blendDesc.RenderTarget->BlendOp = D3D11_BLEND_OP_ADD;
 		//device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
+
+		/*
+		* Create viewport
+		*/
+		D3D11_VIEWPORT viewport = { 0 };
+		viewport.Width = desc.OutputDesc.Width;
+		viewport.Height = desc.OutputDesc.Height;
+		viewport.MinDepth = 0;
+		viewport.MaxDepth = 1.0f;
+		viewport.TopLeftX = desc.OutputDesc.Width;
+		viewport.TopLeftY = desc.OutputDesc.Height;
+		Viewport = viewport;
 	}
 }

@@ -36,7 +36,6 @@ namespace DopeEngine
 		*/
 		unsigned long deviceCount = 0;
 		HRESULT getDeviceCountState = deviceManager->GetDevices(NULL, &deviceCount);
-		LOG("WindowsPortableDevicemanager", "Portable devices: %d",deviceCount);
 
 		/*
 		* Validate get device count state

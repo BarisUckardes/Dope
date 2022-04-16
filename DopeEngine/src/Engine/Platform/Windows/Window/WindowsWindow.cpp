@@ -81,7 +81,6 @@ namespace DopeEngine
 	}
 	void WindowsWindow::_create_win32_window(const HINSTANCE processHandle)
 	{
-        LOG("WindowsWindow", "Hello");
 		constexpr wchar_t WINDOW_CLASS_NAME[] = L"Win32Window";
 
 		/*

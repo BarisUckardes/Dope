@@ -19,6 +19,4 @@ namespace DopeEngine
 	{
 		return PerVertexSize;
 	}
-
-
 }

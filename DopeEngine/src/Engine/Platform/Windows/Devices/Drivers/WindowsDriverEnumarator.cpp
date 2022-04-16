@@ -18,7 +18,6 @@ namespace DopeEngine
 		{
 			TCHAR szDriver[DRIVER_MAX_COUNT];
 			cDrivers = cbNeeded / sizeof(drivers[0]);
-			LOG("WindowsDriverEnumarator", "Device drivers found: %d", cDrivers);
 
 			for (unsigned int i = 0; i < cDrivers; i++)
 			{

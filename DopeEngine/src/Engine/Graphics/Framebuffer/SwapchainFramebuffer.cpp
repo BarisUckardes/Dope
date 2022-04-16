@@ -20,8 +20,6 @@ namespace DopeEngine
 		_set_width(this, initialWidth);
 		_set_height(this, initialHeight);
 		_mark_swapchain(this);
-
-		LOG("SwapchainFramebuffer", "SwapchainFramebuffer created with %d,%d", initialWidth, initialHeight);
 	}
 	void SwapchainFramebuffer::on_event_receive(ApplicationEvent* event)
 	{

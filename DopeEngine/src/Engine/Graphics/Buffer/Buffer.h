@@ -34,10 +34,17 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE unsigned long get_allocated_size() const;
+
+		/// <summary>
+		/// Returns the element size
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE unsigned int get_item_size() const;
 	private:
 		BufferType Type;
 		String Name;
 		unsigned long AllocatedSize;
+		unsigned int ItemSize;
 	};
 
 

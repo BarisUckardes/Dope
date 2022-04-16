@@ -49,8 +49,6 @@ namespace DopeEngine
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer&)framebuffer).get_handle());
 		}
-		
-		glViewport(0, 0, framebuffer.get_width(), framebuffer.get_height());
 	}
 
 	void OpenGLCommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
@@ -107,9 +105,16 @@ namespace DopeEngine
 		CurrentVertexLayoutDescription = pipeline.get_vertex_layout();
 
 		/*
+		* Set viewport
+		*/
+		const OutputDescription outputDesc = pipeline.get_output_desc();
+		glViewport(outputDesc.OffsetX, outputDesc.OffsetY, outputDesc.Width, outputDesc.Height);
+
+		/*
 		* Start using current program
 		*/
 		glUseProgram(CurrentProgramHandle);
+
 	}
 
 	void OpenGLCommandBuffer::clear_color_impl(const ColorRgbaByte& color)

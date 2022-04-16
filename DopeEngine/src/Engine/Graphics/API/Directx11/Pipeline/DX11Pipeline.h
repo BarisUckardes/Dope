@@ -14,6 +14,7 @@ namespace DopeEngine
 		FORCEINLINE ID3D11RasterizerState* get_dx11_rasterizer_state() const;
 		FORCEINLINE ID3D11DepthStencilState* get_dx11_depth_stencil_state() const;
 		FORCEINLINE ID3D11BlendState* get_dx1_get_blend_state() const;
+		FORCEINLINE void get_dx11_viewport(D3D11_VIEWPORT viewport) const;
 	private:
 		void create(const PipelineDescription& desc, DX11GraphicsDevice* device);
 	private:
@@ -21,6 +22,7 @@ namespace DopeEngine
 		ID3D11RasterizerState* RasterizerState;
 		ID3D11DepthStencilState* DepthStencilState;
 		ID3D11BlendState* BlendState;
+		D3D11_VIEWPORT Viewport;
 	};
 
 

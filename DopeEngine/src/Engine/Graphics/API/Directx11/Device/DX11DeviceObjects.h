@@ -8,3 +8,4 @@
 #include <Engine/Graphics/API/Directx11/Shader/DX11ShaderSet.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11Texture.h>
 #include <Engine/Graphics/API/Directx11/Framebuffer/DX11Framebuffer.h>
+#include <Engine/Graphics/API/Directx11/Framebuffer/DX11SwapchainFramebuffer.h>

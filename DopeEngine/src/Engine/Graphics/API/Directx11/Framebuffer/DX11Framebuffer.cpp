@@ -1,6 +1,7 @@
 #include "DX11Framebuffer.h"
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11Texture.h>
+#include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
 	DX11Framebuffer::DX11Framebuffer(const FramebufferDescription& desc, DX11GraphicsDevice* device) : Framebuffer(desc)

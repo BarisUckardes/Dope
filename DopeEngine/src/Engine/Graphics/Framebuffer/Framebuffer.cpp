@@ -42,6 +42,10 @@ namespace DopeEngine
 	{
 		return DepthAttachment;
 	}
+	OutputDescription Framebuffer::get_output_desc() const
+	{
+		return {0,0,Width,Height};
+	}
 	void Framebuffer::_set_width(Framebuffer* buffer, const unsigned int width)
 	{
 		buffer->Width = width;

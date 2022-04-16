@@ -30,7 +30,7 @@ namespace DopeEngine
 				device = new OpenGLGraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx11:
-				return new DX11GraphicsDevice(ownerWindow);
+				device =  new DX11GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx12:
 				//return new Directx12GraphicsDevice(ownerWindow);

@@ -14,6 +14,7 @@ namespace DopeEngine
 		FORCEINLINE ID3D11Device* get_dx11_device() const;
 		FORCEINLINE ID3D11DeviceContext* get_dx11_immediate_context() const;
 		FORCEINLINE ID3D11DeviceContext* get_dx11_deferred_context() const;
+		FORCEINLINE ID3D11RenderTargetView* get_swawpchain_rtv() const;
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
