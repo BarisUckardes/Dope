@@ -11,10 +11,10 @@ namespace DopeEngine
 		DX11ConstantBuffer(const BufferDescription& desc,DX11GraphicsDevice* device);
 		virtual ~DX11ConstantBuffer() final override;
 
-		FORCEINLINE ID3D11Buffer* get_dx11_buffer() const;
+		FORCEINLINE DXPTR<ID3D11Buffer> get_dx11_buffer() const;
 	private:
 		void create(DX11GraphicsDevice* device);
 	private:
-		ID3D11Buffer* Buffer;
+		DXPTR<ID3D11Buffer> Buffer;
 	};
 }

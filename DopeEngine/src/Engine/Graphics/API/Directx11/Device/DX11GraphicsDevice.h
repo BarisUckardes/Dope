@@ -1,5 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Device/GraphicsDevice.h>
+#include <Engine/Graphics/API/Directx11/Core/DX11Core.h>
 #include <d3d11.h>
 #pragma comment(lib,"d3d11.lib")
 
@@ -11,10 +12,9 @@ namespace DopeEngine
 		DX11GraphicsDevice(Window* ownerWindow);
 		~DX11GraphicsDevice() = default;
 		
-		FORCEINLINE ID3D11Device* get_dx11_device() const;
-		FORCEINLINE ID3D11DeviceContext* get_dx11_immediate_context() const;
-		FORCEINLINE ID3D11DeviceContext* get_dx11_deferred_context() const;
-		FORCEINLINE ID3D11RenderTargetView* get_swawpchain_rtv() const;
+		FORCEINLINE ComPtr<ID3D11Device> get_dx11_device() const;
+		FORCEINLINE ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
+		FORCEINLINE ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
@@ -39,11 +39,11 @@ namespace DopeEngine
 		void _create_directx11_device();
 		void _create_win32_directx11_device();
 	private:
-		IDXGISwapChain* SwapChain;
-		ID3D11Device* Device;
-		ID3D11DeviceContext* ImmediateContext;
-		ID3D11DeviceContext* DeferredContext;
-		ID3D11RenderTargetView* SwapchainRenderTargetView;
+		DXPTR<IDXGISwapChain> SwapChain;
+		DXPTR<ID3D11Device> Device;
+		DXPTR<ID3D11DeviceContext> ImmediateContext;
+		DXPTR<ID3D11DeviceContext> DeferredContext;
+		DXPTR<ID3D11RenderTargetView> SwapchainRenderTargetView;
 	};
 
 

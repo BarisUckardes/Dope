@@ -24,17 +24,17 @@ namespace DopeEngine
 
 	}
 	
-	ID3D11VertexShader* DX11Shader::get_dx11_vertex_shader() const
+	DXPTR<ID3D11VertexShader> DX11Shader::get_dx11_vertex_shader() const
 	{
 		return VertexShader;
 	}
 
-	ID3D11PixelShader* DX11Shader::get_dx11_fragment_shader() const
+	DXPTR<ID3D11PixelShader> DX11Shader::get_dx11_fragment_shader() const
 	{
 		return FragmentShader;
 	}
 
-	ID3DBlob* DX11Shader::get_dx11_blob() const
+	DXPTR<ID3DBlob> DX11Shader::get_dx11_blob() const
 	{
 		return ShaderBlob;
 	}

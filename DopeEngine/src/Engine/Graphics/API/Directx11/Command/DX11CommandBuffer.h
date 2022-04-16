@@ -26,8 +26,8 @@ namespace DopeEngine
 		virtual void lock_impl();
 	private:
 		DX11GraphicsDevice* Device;
-		Array <ID3D11RenderTargetView*> CurrentColorTargets;
-		ID3D11DepthStencilView* CurrentDepthTarget;
+		Array <ComPtr<ID3D11RenderTargetView>> CurrentColorTargets;
+		ComPtr<ID3D11DepthStencilView> CurrentDepthTarget;
 		
 	};
 

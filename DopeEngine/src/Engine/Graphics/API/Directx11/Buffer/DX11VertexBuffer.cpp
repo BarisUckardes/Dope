@@ -13,7 +13,7 @@ namespace DopeEngine
 	{
 
 	}
-	ID3D11Buffer* DX11VertexBuffer::get_dx11_buffer() const
+	DXPTR<ID3D11Buffer> DX11VertexBuffer::get_dx11_buffer() const
 	{
 		return Buffer;
 	}
@@ -30,7 +30,7 @@ namespace DopeEngine
 		bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		bufferDesc.MiscFlags = 0;
-
+		LOG("DX11VertexBuffer", "Per vertex size: %d", get_per_vertex_size());
 		/*
 		* Create vertex buffer
 		*/

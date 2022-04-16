@@ -15,15 +15,15 @@ namespace DopeEngine
 	{
 
 	}
-	const Array<ID3D11RenderTargetView*>& DX11Framebuffer::get_dx11_rtvs_fast() const
+	const Array<DXPTR<ID3D11RenderTargetView>>& DX11Framebuffer::get_dx11_rtvs_fast() const
 	{
 		return RenderTargets;
 	}
-	Array<ID3D11RenderTargetView*> DX11Framebuffer::get_dx11_rtvs_slow() const
+	Array<DXPTR<ID3D11RenderTargetView>> DX11Framebuffer::get_dx11_rtvs_slow() const
 	{
 		return RenderTargets;
 	}
-	ID3D11DepthStencilView* DX11Framebuffer::get_dx11_depth_rtv() const
+	DXPTR<ID3D11DepthStencilView> DX11Framebuffer::get_dx11_depth_rtv() const
 	{
 		return DepthTarget;
 	}

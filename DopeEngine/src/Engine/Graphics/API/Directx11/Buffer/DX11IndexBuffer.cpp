@@ -11,7 +11,7 @@ namespace DopeEngine
 	{
 
 	}
-	ID3D11Buffer* DX11IndexBuffer::get_dx11_buffer() const
+	DXPTR<ID3D11Buffer> DX11IndexBuffer::get_dx11_buffer() const
 	{
 		return Buffer;
 	}

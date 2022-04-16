@@ -9,15 +9,15 @@ namespace DopeEngine
 		DX11Shader(const ShaderDescription& description, DX11GraphicsDevice* device);
 		virtual ~DX11Shader() final override;
 
-		FORCEINLINE ID3D11VertexShader* get_dx11_vertex_shader() const;
-		FORCEINLINE ID3D11PixelShader* get_dx11_fragment_shader() const;
-		FORCEINLINE ID3DBlob* get_dx11_blob() const;
+		FORCEINLINE DXPTR<ID3D11VertexShader> get_dx11_vertex_shader() const;
+		FORCEINLINE DXPTR<ID3D11PixelShader> get_dx11_fragment_shader() const;
+		FORCEINLINE DXPTR<ID3DBlob> get_dx11_blob() const;
 		// Inherited via Shader
 		virtual void compile() override;
 	private:
 		DX11GraphicsDevice* Device;
-		ID3D11VertexShader* VertexShader;
-		ID3D11PixelShader* FragmentShader;
-		ID3DBlob* ShaderBlob;
+		DXPTR<ID3D11VertexShader> VertexShader;
+		DXPTR<ID3D11PixelShader> FragmentShader;
+		DXPTR<ID3DBlob> ShaderBlob;
 	};
 }

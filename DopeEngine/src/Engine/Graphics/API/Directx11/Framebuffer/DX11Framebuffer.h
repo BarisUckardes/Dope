@@ -11,14 +11,14 @@ namespace DopeEngine
 		DX11Framebuffer(const FramebufferDescription& desc, DX11GraphicsDevice* device);
 		virtual ~DX11Framebuffer() final override;
 
-		FORCEINLINE const Array<ID3D11RenderTargetView*>& get_dx11_rtvs_fast() const;
-		FORCEINLINE Array<ID3D11RenderTargetView*> get_dx11_rtvs_slow() const;
-		FORCEINLINE ID3D11DepthStencilView* get_dx11_depth_rtv() const;
+		FORCEINLINE const Array<DXPTR<ID3D11RenderTargetView>>& get_dx11_rtvs_fast() const;
+		FORCEINLINE Array<DXPTR<ID3D11RenderTargetView>> get_dx11_rtvs_slow() const;
+		FORCEINLINE DXPTR<ID3D11DepthStencilView> get_dx11_depth_rtv() const;
 	private:
 		void create(const FramebufferDescription& desc, DX11GraphicsDevice* device);
 	private:
-		Array<ID3D11RenderTargetView*> RenderTargets;
-		ID3D11DepthStencilView* DepthTarget;
+		Array<DXPTR<ID3D11RenderTargetView>> RenderTargets;
+		DXPTR<ID3D11DepthStencilView> DepthTarget;
 	};
 
 

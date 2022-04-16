@@ -15,25 +15,25 @@ namespace DopeEngine
 	{
 
 	}
-	ID3D11InputLayout* DX11Pipeline::get_dx11_input_layout() const
+	DXPTR<ID3D11InputLayout> DX11Pipeline::get_dx11_input_layout() const
 	{
 		return InputLayout;
 	}
-	ID3D11RasterizerState* DX11Pipeline::get_dx11_rasterizer_state() const
+	DXPTR<ID3D11RasterizerState> DX11Pipeline::get_dx11_rasterizer_state() const
 	{
 		return RasterizerState;
 	}
-	ID3D11DepthStencilState* DX11Pipeline::get_dx11_depth_stencil_state() const
+	DXPTR<ID3D11DepthStencilState> DX11Pipeline::get_dx11_depth_stencil_state() const
 	{
 		return DepthStencilState;
 	}
-	ID3D11BlendState* DX11Pipeline::get_dx1_get_blend_state() const
+	DXPTR<ID3D11BlendState> DX11Pipeline::get_dx1_get_blend_state() const
 	{
 		return BlendState;
 	}
-	void DX11Pipeline::get_dx11_viewport(D3D11_VIEWPORT viewport) const
+	D3D11_VIEWPORT DX11Pipeline::get_dx11_viewport() const
 	{
-		viewport = Viewport;
+		return Viewport;
 	}
 	void DX11Pipeline::create(const PipelineDescription& desc, DX11GraphicsDevice* device)
 	{
@@ -56,20 +56,24 @@ namespace DopeEngine
 			* Create input element desc
 			*/
 			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DXGI_FORMAT_R32G32_FLOAT, 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0 };
-			offset += elementDesc.ElementSizeInBytes;
 			
 			/*
 			* Register input element
 			*/
 			inputElements.add(inputElementDesc);
+
+			/*
+			* Increment offset
+			*/
+			offset += elementDesc.ElementSizeInBytes;
 		}
 		
 		/*
 		* Get vertex shader
 		*/
 		const DX11Shader* dx11Shader = (const DX11Shader*)desc.ShaderSet->get_shaders_fast()[0];
-		const ID3D11VertexShader* vertexShader =  dx11Shader->get_dx11_vertex_shader();
-		ID3DBlob* vertexShaderBlob = dx11Shader->get_dx11_blob();
+		const ID3D11VertexShader* vertexShader =  dx11Shader->get_dx11_vertex_shader().Get();
+		ID3DBlob* vertexShaderBlob = dx11Shader->get_dx11_blob().Get();
 
 		/*
 		* Create input layout
@@ -85,12 +89,15 @@ namespace DopeEngine
 		* Create rasterizer state
 		*/
 		D3D11_RASTERIZER_DESC rasterizerDesc;
+		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
 		rasterizerDesc.DepthClipEnable = desc.DepthClip;
 		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		rasterizerDesc.ScissorEnable = desc.ScissorTest;
 		rasterizerDesc.FillMode = DX11PipelineUtils::get_fill_mode(desc.FillMode);
 		rasterizerDesc.CullMode = DX11PipelineUtils::get_cull_mode(desc.CullFace);
 		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
+		rasterizerDesc.DepthBias = 0;
+		rasterizerDesc.DepthBiasClamp = 0;
 		device->get_dx11_device()->CreateRasterizerState(&rasterizerDesc,&RasterizerState);
 
 		/*
@@ -111,6 +118,7 @@ namespace DopeEngine
 		depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
 		depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 		depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
 		device->get_dx11_device()->CreateDepthStencilState(&depthStencilDesc, &DepthStencilState);
 
 		/*
@@ -131,8 +139,9 @@ namespace DopeEngine
 		viewport.Height = desc.OutputDesc.Height;
 		viewport.MinDepth = 0;
 		viewport.MaxDepth = 1.0f;
-		viewport.TopLeftX = desc.OutputDesc.Width;
-		viewport.TopLeftY = desc.OutputDesc.Height;
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
+		LOG("DX11Pipeline", "Viewport setup with Width: %d, Height: %d, Offset [%d,%d]", desc.OutputDesc.Width, desc.OutputDesc.Height, desc.OutputDesc.OffsetX, desc.OutputDesc.OffsetY);
 		Viewport = viewport;
 	}
 }

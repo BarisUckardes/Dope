@@ -39,7 +39,8 @@ namespace DopeEngine
 		/*
 		* Set buffer
 		*/
-		ID3D11Buffer* buffer = dx11Buffer.get_dx11_buffer();
+		DXPTR<ID3D11Buffer> dx11VertexBuffer = dx11Buffer.get_dx11_buffer();
+		ID3D11Buffer* buffer = dx11VertexBuffer.Get();
 		const unsigned int stride = dx11Buffer.get_per_vertex_size();
 		const unsigned int offset = 0;
 		Device->get_dx11_immediate_context()->IASetVertexBuffers(0, 1, &buffer,&stride, &offset);
@@ -54,7 +55,7 @@ namespace DopeEngine
 		/*
 		* Set buffer
 		*/
-		ID3D11Buffer* buffer = dx11Buffer.get_dx11_buffer();
+		ID3D11Buffer* buffer = dx11Buffer.get_dx11_buffer().Get();
 		Device->get_dx11_immediate_context()->IASetIndexBuffer(buffer, DXGI_FORMAT_R32_UINT, 0);
 	}
 	void DX11CommandBuffer::set_uniform_buffer_impl(const UniformBuffer& buffer)
@@ -80,12 +81,12 @@ namespace DopeEngine
 			/*
 			* Get render target
 			*/
-			ID3D11RenderTargetView* rtv = dx11SFarmebuffer.get_dx11_swapchain_rtv();
+			DXPTR<ID3D11RenderTargetView> rtv = dx11SFarmebuffer.get_dx11_swapchain_rtv();
 
 			/*
 			* Set rtv
 			*/
-			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, &rtv, nullptr);
+			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, rtv.GetAddressOf(), nullptr);
 
 			CurrentColorTargets.add(rtv);
 			CurrentDepthTarget = nullptr;
@@ -100,14 +101,14 @@ namespace DopeEngine
 			/*
 			* Get render targets
 			*/
-			const Array<ID3D11RenderTargetView*> colorRenderTargets = dx11Framebuffer.get_dx11_rtvs_slow();
-			ID3D11DepthStencilView* depthStencilTarget = dx11Framebuffer.get_dx11_depth_rtv();
+			const Array<DXPTR<ID3D11RenderTargetView>> colorRenderTargets = dx11Framebuffer.get_dx11_rtvs_slow();
+			DXPTR<ID3D11DepthStencilView> depthStencilTarget = dx11Framebuffer.get_dx11_depth_rtv();
 
 			/*
 			* Set targets
 			*/
-			ASSERT(colorRenderTargets.get_cursor() > 0, "DX11CommandBuffer", "You have set a Dx11Framebuffer with no render target views!");
-			Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
+			//ASSERT(colorRenderTargets.get_cursor() > 0, "DX11CommandBuffer", "You have set a Dx11Framebuffer with no render target views!");
+			//Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
 
 
 			/*
@@ -129,17 +130,17 @@ namespace DopeEngine
 		/*
 		* Set rasterizer state
 		*/
-		//Device->get_dx11_immediate_context()->RSSetState(dx11Pipeline->get_dx11_rasterizer_state());
+		Device->get_dx11_immediate_context()->RSSetState(dx11Pipeline->get_dx11_rasterizer_state().Get());
 
 		/*
 		* Set depth-stencil state
 		*/
-		//Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11Pipeline->get_dx11_depth_stencil_state(), 0);
+		Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11Pipeline->get_dx11_depth_stencil_state().Get(), 0);
 
 		/*
 		* Set blending state
 		*/
-		//Device->get_dx11_immediate_context()->OMSetBlendState(dx11Pipeline->get_dx1_get_blend_state(), nullptr, 0);
+		//Device->get_dx11_immediate_context()->OMSetBlendState(dx11Pipeline->get_dx1_get_blend_state().Get(), nullptr, 0);
 
 		/*
 		* Set primitive topology
@@ -149,13 +150,12 @@ namespace DopeEngine
 		/*
 		* Set input assembler
 		*/
-		Device->get_dx11_immediate_context()->IASetInputLayout(dx11Pipeline->get_dx11_input_layout());
+		Device->get_dx11_immediate_context()->IASetInputLayout(dx11Pipeline->get_dx11_input_layout().Get());
 
 		/*
 		* Set viewports
 		*/
-		D3D11_VIEWPORT dx11Viewport = {};
-		dx11Pipeline->get_dx11_viewport(dx11Viewport);
+		D3D11_VIEWPORT dx11Viewport = dx11Pipeline->get_dx11_viewport();
 		Device->get_dx11_immediate_context()->RSSetViewports(1, &dx11Viewport);
 
 		/*
@@ -176,10 +176,10 @@ namespace DopeEngine
 			switch (type)
 			{
 				case DopeEngine::ShaderType::Vertex:
-					Device->get_dx11_immediate_context()->VSSetShader(shader->get_dx11_vertex_shader(), nullptr, 0);
+					Device->get_dx11_immediate_context()->VSSetShader(shader->get_dx11_vertex_shader().Get(), nullptr, 0);
 					break;
 				case DopeEngine::ShaderType::Fragment:
-					Device->get_dx11_immediate_context()->PSSetShader(shader->get_dx11_fragment_shader(), nullptr, 0);
+					Device->get_dx11_immediate_context()->PSSetShader(shader->get_dx11_fragment_shader().Get(), nullptr, 0);
 					break;
 				case DopeEngine::ShaderType::Geometry:
 					break;
@@ -193,6 +193,7 @@ namespace DopeEngine
 					break;
 			}
 		}
+
 	}
 	void DX11CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{
@@ -201,7 +202,7 @@ namespace DopeEngine
 			/*
 			* Get color target
 			*/
-			ID3D11RenderTargetView* rtv = CurrentColorTargets[i];
+			ID3D11RenderTargetView* rtv = CurrentColorTargets[i].Get();
 
 			/*
 			* Clear color
@@ -212,7 +213,7 @@ namespace DopeEngine
 	}
 	void DX11CommandBuffer::clear_depth_impl(const float depth)
 	{
-		Device->get_dx11_immediate_context()->ClearDepthStencilView(CurrentDepthTarget, 0, depth, 0);
+		Device->get_dx11_immediate_context()->ClearDepthStencilView(CurrentDepthTarget.Get(), 0, depth, 0);
 	}
 	void DX11CommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
 	{

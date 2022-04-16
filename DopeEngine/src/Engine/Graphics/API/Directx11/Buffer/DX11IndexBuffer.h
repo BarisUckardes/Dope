@@ -11,11 +11,11 @@ namespace DopeEngine
 		DX11IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize, DX11GraphicsDevice* device);
 		virtual ~DX11IndexBuffer() final override;
 
-		FORCEINLINE ID3D11Buffer* get_dx11_buffer() const;
+		FORCEINLINE DXPTR<ID3D11Buffer> get_dx11_buffer() const;
 	private:
 		void create(DX11GraphicsDevice* device);
 	private:
-		ID3D11Buffer* Buffer;
+		DXPTR<ID3D11Buffer> Buffer;
 	};
 
 

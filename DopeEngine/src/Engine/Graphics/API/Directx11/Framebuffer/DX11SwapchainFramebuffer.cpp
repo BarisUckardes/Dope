@@ -18,7 +18,7 @@ namespace DopeEngine
 	{
 
 	}
-	ID3D11RenderTargetView* DX11SwapchainFramebuffer::get_dx11_swapchain_rtv() const
+	DXPTR<ID3D11RenderTargetView> DX11SwapchainFramebuffer::get_dx11_swapchain_rtv() const
 	{
 		return Rtv;
 	}

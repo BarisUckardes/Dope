@@ -49,7 +49,7 @@ namespace DopeEngine
 
 	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
-		return float4(pos.x,pos.y,0.0f,1.0f);
+		return float4(pos.x,pos.y,0.2f,1.0f);
 	}
 )"""";
 
@@ -60,12 +60,6 @@ namespace DopeEngine
 	}
 )"""";
 	
-	unsigned int vb;
-	unsigned int ib;
-	unsigned int varr;
-	unsigned int vss;
-	unsigned int fss;
-	unsigned int prg;
 	void TestRenderingModule::initialize()
 	{
 		/*
