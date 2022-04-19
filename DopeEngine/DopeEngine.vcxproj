@@ -102,7 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -124,7 +124,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -142,7 +142,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -164,13 +164,14 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.h" />
@@ -265,7 +266,7 @@
     <ClInclude Include="src\Engine\World\Entity.h" />
     <ClInclude Include="src\Engine\Math\ColorRgbaByte.h" />
     <ClInclude Include="src\Engine\Memory\Memory.h" />
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverEnumarator.h" />
     <ClInclude Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.h" />
@@ -328,6 +329,7 @@
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.cpp" />
@@ -391,7 +393,7 @@
     <ClCompile Include="src\Engine\World\Entity.cpp" />
     <ClCompile Include="src\Engine\Math\ColorRgbaByte.cpp" />
     <ClCompile Include="src\Engine\Memory\Memory.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\DX12GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Drivers\DeviceDriverInformation.cpp" />
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />

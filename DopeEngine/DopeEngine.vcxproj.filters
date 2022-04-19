@@ -138,7 +138,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.h">
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12GraphicsDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Memory\Memory.h">
@@ -480,6 +480,9 @@
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -566,7 +569,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\Directx12GraphicsDevice.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\DX12GraphicsDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Memory\Memory.cpp">
@@ -813,6 +816,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Texture\TextureUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
