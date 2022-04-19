@@ -1,6 +1,7 @@
 #include "DX11GraphicsDevice.h"
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11DeviceObjects.h>
+#include <Engine/Graphics/Texture/TextureUtils.h>
 
 namespace DopeEngine
 {
@@ -110,12 +111,12 @@ namespace DopeEngine
 
 	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
-		return nullptr;
+		return new DX11ResourceLayout(description,this);
 	}
 
 	ResourceView* DX11GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
-		return nullptr;
+		return new DX11ResourceView(description,this);
 	}
 
 	void DX11GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
@@ -157,11 +158,40 @@ namespace DopeEngine
 		* Get dx11 texture
 		*/
 		const DX11Texture* dx11Texture = (const DX11Texture*)texture;
+		const TextureType textureType = dx11Texture->get_type();
+		const unsigned int rowPitch = (texture->get_width() + texture->get_height()) * TextureUtils::get_format_size(texture->get_format());
+		ID3D11Resource* textureResource = nullptr;
+
+		/*
+		* Catch resource
+		*/
+		switch (textureType)
+		{
+			case DopeEngine::TextureType::Texture1D:
+				textureResource = dx11Texture->get_dx11_texture1d().Get();
+				break;
+			case DopeEngine::TextureType::Texture2D:
+				textureResource = dx11Texture->get_dx11_texture2d().Get();
+				break;
+			case DopeEngine::TextureType::Texture3D:
+				textureResource = dx11Texture->get_dx11_texture3d().Get();
+				break;
+			case DopeEngine::TextureType::CubeTexture:
+				break;
+			default:
+				return;
+				break;
+		}
 
 		/*
 		* Update resource
 		*/
-		//ImmediateContext->UpdateSubresource(dx11Texture->get(), 0, nullptr, data, 0, 0);
+		D3D11_MAPPED_SUBRESOURCE mappedResource;
+		ImmediateContext->Map(textureResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+		mappedResource.pData = (void*)data;
+		mappedResource.RowPitch = rowPitch;
+		mappedResource.DepthPitch = 0;
+		ImmediateContext->Unmap(textureResource, 0);
 	}
 
 	CommandBuffer* DX11GraphicsDevice::create_command_buffer_impl()

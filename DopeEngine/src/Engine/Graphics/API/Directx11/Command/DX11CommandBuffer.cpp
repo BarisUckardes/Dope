@@ -20,6 +20,7 @@ namespace DopeEngine
 	{
 
 	}
+	
 	void DX11CommandBuffer::unlock_impl()
 	{
 
@@ -217,11 +218,81 @@ namespace DopeEngine
 	}
 	void DX11CommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
 	{
+		/*
+		* Get slot resource layout
+		*/
+		const ResourceLayout* layout = get_bound_pipeline()->get_resource_layouts_fast()[slot];
 
+		/*
+		* Catch resource type
+		*/
+		const ResourceType resourceType = layout->get_description().Type;
+		const ShaderType shaderStage = layout->get_description().ShaderStage;
+		switch (resourceType)
+		{
+			case DopeEngine::ResourceType::UniformBuffer:
+				set_constant_buffer((const Buffer*)view->get_resource(), shaderStage);
+				break;
+			case DopeEngine::ResourceType::Texture:
+				set_shader_resource(view, shaderStage);
+				break;
+			default:
+				break;
+		}
+		
 	}
 	void DX11CommandBuffer::indexed_draw_call_impl(const unsigned int count)
 	{
 		Device->get_dx11_immediate_context()->DrawIndexed(count, 0, 0);
+	}
+	
+	void DX11CommandBuffer::set_constant_buffer(const Buffer* buffer, ShaderType stage)
+	{
+		switch (stage)
+		{
+			case DopeEngine::ShaderType::Vertex:
+				Device->get_dx11_immediate_context()->VSSetConstantBuffers(0, 1, ((const DX11ConstantBuffer*)buffer)->get_dx11_buffer().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::Fragment:
+				Device->get_dx11_immediate_context()->PSSetConstantBuffers(0, 1, ((const DX11ConstantBuffer*)buffer)->get_dx11_buffer().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::Geometry:
+				Device->get_dx11_immediate_context()->GSSetConstantBuffers(0, 1, ((const DX11ConstantBuffer*)buffer)->get_dx11_buffer().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::TesellationEval:
+				break;
+			case DopeEngine::ShaderType::TesellationControl:
+				break;
+			case DopeEngine::ShaderType::Compute:
+				break;
+			default:
+				break;
+		}
+	}
+	
+	void DX11CommandBuffer::set_shader_resource(const ResourceView* view, const ShaderType stage)
+	{
+		switch (stage)
+		{
+			case DopeEngine::ShaderType::Vertex:
+				Device->get_dx11_immediate_context()->VSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::Fragment:
+				Device->get_dx11_immediate_context()->PSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::Geometry:
+				Device->get_dx11_immediate_context()->GSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				break;
+			case DopeEngine::ShaderType::TesellationEval:
+				break;
+			case DopeEngine::ShaderType::TesellationControl:
+				break;
+			case DopeEngine::ShaderType::Compute:
+				break;
+			default:
+				break;
+		}
+		
 	}
 	
 }

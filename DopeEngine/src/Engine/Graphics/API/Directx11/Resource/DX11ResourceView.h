@@ -9,6 +9,7 @@ namespace DopeEngine
 		DX11ResourceView(const ResourceViewDescription& desc, DX11GraphicsDevice* device);
 		virtual ~DX11ResourceView() final override;
 
+		FORCEINLINE DXPTR<ID3D11ShaderResourceView> get_dx11_srv() const;
 	private:
 		void create(const ResourceViewDescription& desc,DX11GraphicsDevice* device);
 		void create_as_texture(const DeviceObject* deviceObject, DX11GraphicsDevice* device);

@@ -22,10 +22,10 @@ namespace DopeEngine
 	ShaderSet* shaderSet = nullptr;
 	Pipeline* pipeline = nullptr;
 	Buffer* colorBuffer = nullptr;
-	ResourceView* resourceView = nullptr;
+	ResourceView* colorResourceView = nullptr;
 	Texture* texture = nullptr;
 	ResourceView* textureView = nullptr;
-	const String vs =
+	/*const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
 		"layout(location = 1) in vec2 aUv;"
@@ -52,23 +52,31 @@ namespace DopeEngine
 		"void main()\n"
 		"{\n"
 		"FragColor = texture(MyTexture,fUv)*vec4(color,1.0f);\n"
-		"}\n";
+		"}\n";*/
 
-	/*const String vs = R""""(
+	const String vs = R"(
 
 	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
 		return float4(pos.x,pos.y,0.2f,1.0f);
 	}
-)"""";
 
-	const String fs = R""""(
+)";
+
+	const String fs = R"(
+
+	Texture2D MyTexture;
+	cbuffer VS_CONSTANT_BUFFER : register(b0)
+	{
+		float3 Color;
+	};
+
 	float4 main() : SV_TARGET
 	{
-		return float4(1.0f,1.0f,1.0f,1.0f);
+		return float4(1.0f,0,0,1.0f);
 	}
-)"""";*/
-	
+)";
+
 	void TestRenderingModule::initialize()
 	{
 		/*
@@ -80,11 +88,8 @@ namespace DopeEngine
 		* Create vertex buffer
 		*/
 		Array<Vector2f> vertexes;
-		vertexes.add(Vector2f(0.0f,0.5f));
-		vertexes.add(Vector2f(0, 0));
-		vertexes.add(Vector2f(0.5f, -0.5f));
-		vertexes.add(Vector2f(1, 0));
-		vertexes.add(Vector2f(-0.5f, -0.5f));
+		vertexes.add(Vector2f(0.0f,0.0f));
+		vertexes.add(Vector2f(1.0f, 0));
 		vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
@@ -109,7 +114,6 @@ namespace DopeEngine
 		*/
 		Array<VertexElementDescription> elements;
 		elements.add(VertexElementDescription("POSITION", VertexElementDataType::Float2, false));
-		elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -127,16 +131,19 @@ namespace DopeEngine
 		* Create color buffer
 		*/
 		colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
-		const Vector3f color{ 1.0f,0.3f,0.0f };
+		const Vector3f color{ 1.0f,0.3f,0.80f };
 		device->update_buffer(colorBuffer, (const Byte*)&color);
 
 		/*
 		* Create texture
 		*/
-		TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\smiley.png");
+		TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\orange.png");
 		ASSERT(textureLoadResult.Data != nullptr, "TestRenderingModule", "Texture failed to load from path, error message: %s", *textureLoadResult.FailureMessage);
-		texture = device->create_texture(TextureDescription{ textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA32F,TextureType::Texture2D });
-		device->update_texture(texture, textureLoadResult.Data);
+		texture = device->create_texture(
+			TextureDescription
+			{
+				textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA8f,TextureType::Texture2D,textureLoadResult.Data
+			});
 
 		/*
 		* Create resource layouts
@@ -144,7 +151,11 @@ namespace DopeEngine
 		ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
 		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
 		ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
-		resourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
+		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
+
+		/*
+		* Create texture layout and view
+		*/
 		ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
 		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));
 
@@ -164,25 +175,22 @@ namespace DopeEngine
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
-		pipelineDescription.ResourceLayouts = { colorBufferLayout,textureLayout };
+		pipelineDescription.ResourceLayouts = { colorBufferLayout,textureLayout};
 		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
 
 	void TestRenderingModule::update()
 	{
-		//LOG("Render", "Vertex Array: %d, Vertex Buffer: %d, Index Buffer: %d,Program: %d,Draw elements count: %d", varr, vb, ib, prg, 6);
-
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
 		buffer->set_pipeline(*pipeline);
 		buffer->set_framebuffer(*device->get_swapchain_framebuffer());
 		buffer->clear_color({ 0u,0u,1u,1u });
-
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
-		buffer->set_resource_view(0, resourceView);
+		buffer->set_resource_view(0, colorResourceView);
 		buffer->set_resource_view(1, textureView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();

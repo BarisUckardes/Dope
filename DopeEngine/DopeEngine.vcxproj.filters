@@ -477,6 +477,9 @@
     <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoadResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -807,6 +810,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Utils\TextureLoader\TextureLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Texture\TextureUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

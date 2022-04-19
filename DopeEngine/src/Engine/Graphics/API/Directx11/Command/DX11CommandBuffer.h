@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/Graphics/Command/CommandBuffer.h>
 #include <Engine/Graphics/API/Directx11/Core/DX11Core.h>
+#include <Engine/Graphics/Shader/ShaderType.h>
 namespace DopeEngine
 {
 	class DX11GraphicsDevice;
@@ -24,6 +25,9 @@ namespace DopeEngine
 		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) override;
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
+	private:
+		FORCEINLINE void set_constant_buffer(const Buffer* buffer,const ShaderType stage);
+		FORCEINLINE void set_shader_resource(const ResourceView* view, const ShaderType stage);
 	private:
 		DX11GraphicsDevice* Device;
 		Array <ComPtr<ID3D11RenderTargetView>> CurrentColorTargets;

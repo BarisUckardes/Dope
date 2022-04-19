@@ -325,6 +325,7 @@
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h" />
     <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoader.h" />
+    <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp" />
@@ -437,6 +438,7 @@
     <ClCompile Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp" />
     <ClCompile Include="src\Engine\Utils\TextureLoader\TextureLoader.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Texture\TextureUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,6 +17,10 @@ namespace DopeEngine
 	{
 
 	}
+	DXPTR<ID3D11ShaderResourceView> DX11ResourceView::get_dx11_srv() const
+	{
+		return ShaderResourceView;
+	}
 	void DX11ResourceView::create(const ResourceViewDescription& desc, DX11GraphicsDevice* device)
 	{
 		/*

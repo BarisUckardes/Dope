@@ -68,14 +68,18 @@ namespace DopeEngine
 		ASSERT(get_bound_pipeline(), "CommandBuffer", "You must first set a pipeline in order to set resource views! ");
 
 		/*
-		* Validate resources
+		* Validate slot length and resources
 		*/
 		const Array<ResourceLayout*> layouts = CurrentBoundPipeline->get_resource_layouts_fast();
+		const unsigned int resourceSlotCount = layouts.get_cursor();
+		ASSERT(slot < CurrentBoundPipeline->get_resource_layouts_fast().get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
+
+		/*
+		* Get layout variables
+		*/
 		const ResourceLayout* targetLayout = layouts[slot];
 		const ResourceDescription targetResourceDescription = targetLayout->get_description();
 		const DeviceObject* resource = view->get_resource();
-		const unsigned int resourceSlotCount = layouts.get_cursor();
-		ASSERT(slot < resourceSlotCount, "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
 		/*
 		* Get object type

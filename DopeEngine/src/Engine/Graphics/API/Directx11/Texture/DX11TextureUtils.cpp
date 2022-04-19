@@ -7,7 +7,7 @@ namespace DopeEngine
 		switch (usage)
 		{
 			case DopeEngine::TextureUsage::ReadOnly:
-				return D3D11_USAGE_IMMUTABLE;
+				return D3D11_USAGE_DEFAULT;
 				break;
 			case DopeEngine::TextureUsage::ReadWrite:
 				return D3D11_USAGE_DEFAULT;
@@ -86,6 +86,27 @@ namespace DopeEngine
 				break;
 			default:
 				ASSERT(false, "DX11TextureUtils", "Invalid TextureType, cannot create D3D11_SRV_DIMENSION");
+				break;
+		}
+	}
+	unsigned int DX11TextureUtils::get_cpu_access(const TextureUsage usage)
+	{
+		switch (usage)
+		{
+			case DopeEngine::TextureUsage::ReadOnly:
+				return D3D11_CPU_ACCESS_READ;
+				break;
+			case DopeEngine::TextureUsage::ReadWrite:
+				return D3D11_CPU_ACCESS_WRITE;
+				break;
+			case DopeEngine::TextureUsage::FramebufferAttachment:
+				return D3D11_CPU_ACCESS_READ;
+				break;
+			case DopeEngine::TextureUsage::DepthStencil:
+				return D3D11_CPU_ACCESS_READ;
+				break;
+			default:
+				ASSERT(false, "DX11TextureUtils", "Invalid TextureUsage, cannot create d3d11 cpu access flag out of it");
 				break;
 		}
 	}

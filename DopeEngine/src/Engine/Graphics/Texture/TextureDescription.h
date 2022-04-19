@@ -1,4 +1,5 @@
 #pragma once
+#include <Engine/Core/Definitions.h>
 #include <Engine/Graphics/Texture/TextureFormat.h>
 #include <Engine/Graphics/Texture/TextureType.h>
 #include <Engine/Graphics/Texture/TextureUsage.h>
@@ -12,9 +13,10 @@ namespace DopeEngine
 		TextureDescription(
 			const unsigned int width, const unsigned int height, const unsigned int depth,
 			const unsigned int mipcount,
-			const TextureUsage usage,const TextureFormat format,const TextureType type) : Width(width),Height(height),Depth(depth),MipCount(mipcount),Usage(usage),Format(format),Type(type) {}
+			const TextureUsage usage,const TextureFormat format,const TextureType type,const Byte* initialData) : Width(width),Height(height),Depth(depth),MipCount(mipcount),Usage(usage),Format(format),Type(type),InitialData(initialData) {}
 		TextureDescription() = default;
 		~TextureDescription() = default;
+
 		/// <summary>
 		/// The usage flags
 		/// </summary>
@@ -49,5 +51,10 @@ namespace DopeEngine
 		/// Minification levels count
 		/// </summary>
 		unsigned int MipCount;
+
+		/// <summary>
+		/// Initial data ptr for readonly textures
+		/// </summary>
+		const Byte* InitialData;
 	};
 }
