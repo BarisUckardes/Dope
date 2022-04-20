@@ -171,6 +171,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Buffer\DX12IndexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Buffer\DX12VertexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h" />
@@ -329,6 +331,8 @@
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Buffer\DX12IndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Buffer\DX12VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.cpp" />

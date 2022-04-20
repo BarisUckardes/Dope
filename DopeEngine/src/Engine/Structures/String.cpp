@@ -383,7 +383,8 @@ namespace DopeEngine
 		/*
 		* Clear old source
 		*/
-		delete[] Source;
+		if(Source != nullptr)
+			delete[] Source;
 
 		/*
 		* Allocate

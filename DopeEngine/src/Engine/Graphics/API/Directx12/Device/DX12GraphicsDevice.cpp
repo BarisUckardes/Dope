@@ -13,7 +13,7 @@ namespace DopeEngine
 	void DX12GraphicsDevice::_create_directx12_device()
 	{
 #ifdef DOPE_OS_WINDOWS
-		_create_directx12_device();
+		_create_win32_directx12_device();
 #else
 		ASSERT(false, "DX12GraphicsDevice", "Directx12 cannot be initialized with non-windows operating system");
 #endif

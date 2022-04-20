@@ -137,13 +137,13 @@ namespace DopeEngine
 		/*
 		* Create texture
 		*/
-		TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\orange.png");
+	/*	TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\orange.png");
 		ASSERT(textureLoadResult.Data != nullptr, "TestRenderingModule", "Texture failed to load from path, error message: %s", *textureLoadResult.FailureMessage);
 		texture = device->create_texture(
 			TextureDescription
 			{
 				textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA8f,TextureType::Texture2D,textureLoadResult.Data
-			});
+			});*/
 
 		/*
 		* Create resource layouts
@@ -156,8 +156,8 @@ namespace DopeEngine
 		/*
 		* Create texture layout and view
 		*/
-		ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
-		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));
+		/*ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
+		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));*/
 
 		/*
 		* Create pipeline
@@ -175,7 +175,7 @@ namespace DopeEngine
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = shaderSet;
-		pipelineDescription.ResourceLayouts = { colorBufferLayout,textureLayout};
+		pipelineDescription.ResourceLayouts = { colorBufferLayout};
 		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
@@ -191,7 +191,7 @@ namespace DopeEngine
 		buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
 		buffer->set_resource_view(0, colorResourceView);
-		buffer->set_resource_view(1, textureView);
+		//buffer->set_resource_view(1, textureView);
 		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->delete_device_object(buffer);

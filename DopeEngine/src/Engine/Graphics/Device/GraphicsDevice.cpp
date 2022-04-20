@@ -33,8 +33,7 @@ namespace DopeEngine
 				device =  new DX11GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx12:
-				//return new Directx12GraphicsDevice(ownerWindow);
-				ASSERT(false, "GraphicsDevice", "Directx12 not supported yet!");
+				return new DX12GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Vulkan:
 				//return new VulkanGraphicsDevice(ownerWindow);
@@ -48,7 +47,6 @@ namespace DopeEngine
 		/*
 		* Create swapchainbuffer
 		*/
-
 		device->create_swapchain_framebuffer();
 		
 		return device;
