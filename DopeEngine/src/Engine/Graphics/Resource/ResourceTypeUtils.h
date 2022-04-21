@@ -14,8 +14,8 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		static FORCEINLINE DeviceObjectType get_device_object_type(const ResourceType type);
-		static FORCEINLINE ResourceType get_resource_type(const DeviceObjectType type);
+		static  DeviceObjectType get_device_object_type(const ResourceType type);
+		static  ResourceType get_resource_type(const DeviceObjectType type);
 	};
 
 

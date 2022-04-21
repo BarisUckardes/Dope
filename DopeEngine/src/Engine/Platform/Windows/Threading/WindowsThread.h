@@ -20,13 +20,13 @@ namespace DopeEngine
 		/// Returns whether this thread is active or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_active();
+		 bool is_active();
 
 		/// <summary>
 		/// Returns whether this thread has a task ongoing or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool has_task();
+		 bool has_task();
 
 		/// <summary>
 		/// Starts the thread

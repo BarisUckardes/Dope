@@ -10,11 +10,11 @@ namespace DopeEngine
 		DX11Pipeline(const PipelineDescription& desc, DX11GraphicsDevice* device);
 		virtual ~DX11Pipeline() final override;
 
-		FORCEINLINE DXPTR<ID3D11InputLayout> get_dx11_input_layout() const;
-		FORCEINLINE DXPTR<ID3D11RasterizerState> get_dx11_rasterizer_state() const;
-		FORCEINLINE DXPTR<ID3D11DepthStencilState> get_dx11_depth_stencil_state() const;
-		FORCEINLINE DXPTR<ID3D11BlendState> get_dx1_get_blend_state() const;
-		FORCEINLINE D3D11_VIEWPORT get_dx11_viewport() const;
+		 DXPTR<ID3D11InputLayout> get_dx11_input_layout() const;
+		 DXPTR<ID3D11RasterizerState> get_dx11_rasterizer_state() const;
+		 DXPTR<ID3D11DepthStencilState> get_dx11_depth_stencil_state() const;
+		 DXPTR<ID3D11BlendState> get_dx1_get_blend_state() const;
+		 D3D11_VIEWPORT get_dx11_viewport() const;
 	private:
 		void create(const PipelineDescription& desc, DX11GraphicsDevice* device);
 	private:

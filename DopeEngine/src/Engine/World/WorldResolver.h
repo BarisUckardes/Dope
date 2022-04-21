@@ -51,7 +51,7 @@ namespace DopeEngine
 		WorldResolver() = default;
 		~WorldResolver() = default;
 
-		FORCEINLINE World* get_owner_world() const;
+		 World* get_owner_world() const;
 	private:
 		void _set_owner_world(World* world);
 	private:

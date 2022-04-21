@@ -12,9 +12,9 @@ namespace DopeEngine
 		DX11GraphicsDevice(Window* ownerWindow);
 		~DX11GraphicsDevice() = default;
 		
-		FORCEINLINE ComPtr<ID3D11Device> get_dx11_device() const;
-		FORCEINLINE ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
-		FORCEINLINE ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
+		 ComPtr<ID3D11Device> get_dx11_device() const;
+		 ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
+		 ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;

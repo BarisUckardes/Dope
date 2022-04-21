@@ -18,37 +18,37 @@ namespace DopeEngine
 		/// Returns the position
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Vector3f get_position() const;
+		 Vector3f get_position() const;
 
 		/// <summary>
 		/// Returns the rotation
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Vector3f get_rotation() const;
+		 Vector3f get_rotation() const;
 
 		/// <summary>
 		/// Returns the scale
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Vector3f get_scale() const;
+		 Vector3f get_scale() const;
 
 		/// <summary>
 		/// Sets the position
 		/// </summary>
 		/// <param name="position"></param>
-		FORCEINLINE void set_position(const Vector3f& position);
+		 void set_position(const Vector3f& position);
 
 		/// <summary>
 		/// Sets the rotation
 		/// </summary>
 		/// <param name="rotation"></param>
-		FORCEINLINE void set_rotation(const Vector3f& rotation);
+		 void set_rotation(const Vector3f& rotation);
 
 		/// <summary>
 		/// Sets the scale
 		/// </summary>
 		/// <param name="scale"></param>
-		FORCEINLINE void set_scale(const Vector3f& scale);
+		 void set_scale(const Vector3f& scale);
 
 		// Inherited via Component
 		virtual bool should_tick() const override final; 

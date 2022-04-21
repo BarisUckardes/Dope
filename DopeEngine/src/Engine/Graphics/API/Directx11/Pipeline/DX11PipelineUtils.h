@@ -9,8 +9,8 @@ namespace DopeEngine
 		DX11PipelineUtils() = delete;
 		~DX11PipelineUtils() = delete;
 
-		FORCEINLINE static D3D11_FILL_MODE get_fill_mode(const PolygonFillMode mode);
-		FORCEINLINE static D3D11_CULL_MODE get_cull_mode(const FaceCullMode mode);
+		 static D3D11_FILL_MODE get_fill_mode(const PolygonFillMode mode);
+		 static D3D11_CULL_MODE get_cull_mode(const FaceCullMode mode);
 		
 	};
 

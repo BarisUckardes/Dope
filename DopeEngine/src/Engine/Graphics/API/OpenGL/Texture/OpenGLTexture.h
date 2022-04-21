@@ -18,7 +18,7 @@ namespace DopeEngine
 		/// Returns the texture handle
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE TEXTURE_HANDLE get_handle() const;
+		 TEXTURE_HANDLE get_handle() const;
 	private:
 		void create_texture();
 		void invalidate();

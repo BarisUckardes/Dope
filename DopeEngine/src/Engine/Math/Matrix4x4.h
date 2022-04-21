@@ -35,10 +35,10 @@ namespace DopeEngine
 		);
 		Matrix4x4();
 
-		FORCEINLINE bool is_invertable() const;
-		FORCEINLINE float get_determinant() const;
-		FORCEINLINE Matrix4x4 get_transpose() const;
-		FORCEINLINE void transpose_this();
+		 bool is_invertable() const;
+		 float get_determinant() const;
+		 Matrix4x4 get_transpose() const;
+		 void transpose_this();
 
 		Matrix4x4 operator +(const Matrix4x4& a);
 		Matrix4x4 operator -(const Matrix4x4& a);

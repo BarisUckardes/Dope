@@ -16,7 +16,7 @@ namespace DopeEngine
 		/// Returns the amount and direction of the wheel scrolled
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE float get_amount() const;
+		 float get_amount() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

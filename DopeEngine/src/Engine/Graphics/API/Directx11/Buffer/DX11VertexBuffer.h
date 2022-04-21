@@ -10,12 +10,10 @@ namespace DopeEngine
 		DX11VertexBuffer(DX11GraphicsDevice* device,const unsigned long allocatedSize, const unsigned int perVertexSize);
 		virtual ~DX11VertexBuffer() final override;
 
-		FORCEINLINE DXPTR<ID3D11Buffer> get_dx11_buffer() const;
+		 DXPTR<ID3D11Buffer> get_dx11_buffer() const;
 	private:
 		void create(DX11GraphicsDevice* device);
 	private:
 		DXPTR<ID3D11Buffer> Buffer;
 	};
-
-
 }

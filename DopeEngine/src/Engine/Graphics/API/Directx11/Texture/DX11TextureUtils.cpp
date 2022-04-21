@@ -24,18 +24,18 @@ namespace DopeEngine
 	{
 		switch (usage)
 		{
-		case DopeEngine::TextureUsage::ReadOnly:
-			return D3D11_BIND_SHADER_RESOURCE;
-			break;
-		case DopeEngine::TextureUsage::ReadWrite:
-			return D3D11_BIND_SHADER_RESOURCE;
-			break;
-		case DopeEngine::TextureUsage::FramebufferAttachment:
-			return D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-			break;
-		default:
-			ASSERT(false, "DX11TextureUtils", "Invalid TextureUsage, cant create dx11 bind flags");
-			break;
+			case DopeEngine::TextureUsage::ReadOnly:
+				return D3D11_BIND_SHADER_RESOURCE;
+				break;
+			case DopeEngine::TextureUsage::ReadWrite:
+				return D3D11_BIND_SHADER_RESOURCE;
+				break;
+			case DopeEngine::TextureUsage::FramebufferAttachment:
+				return D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+				break;
+			default:
+				ASSERT(false, "DX11TextureUtils", "Invalid TextureUsage, cant create dx11 bind flags");
+				break;
 		}
 	}
 	DXGI_FORMAT DX11TextureUtils::get_format(const TextureFormat format)

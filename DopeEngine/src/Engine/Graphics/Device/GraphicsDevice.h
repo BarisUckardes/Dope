@@ -44,24 +44,24 @@ namespace DopeEngine
 		/// Returns whether this device is the current device
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_current() const;
+		 bool is_current() const;
 
 		/// <summary>
 		/// Returns the owner window of this device (if any)
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE const Window* get_owner_window() const;
+		 const Window* get_owner_window() const;
 
 		/// <summary>
 		/// Returns the swapchain framebuffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Framebuffer* get_swapchain_framebuffer() const;
+		 Framebuffer* get_swapchain_framebuffer() const;
 
 		/// <summary>
 		/// Makes this device current for this process
 		/// </summary>
-		FORCEINLINE void make_current();
+		 void make_current();
 
 		/// <summary>
 		/// Deletes the target device object
@@ -189,8 +189,8 @@ namespace DopeEngine
 
 	private:
 		void create_swapchain_framebuffer();
-		FORCEINLINE void register_device_object(DeviceObject* object);
-		FORCEINLINE void remove_device_object(DeviceObject* object);
+		 void register_device_object(DeviceObject* object);
+		 void remove_device_object(DeviceObject* object);
 	private:
 		Array<DeviceObject*> ChildObjects;
 		Window* OwnerWindow;

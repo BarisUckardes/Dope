@@ -13,6 +13,7 @@ namespace DopeEngine
 		Geometry = 2,
 		TesellationEval = 3,
 		TesellationControl = 4,
-		Compute = 5
+		Compute = 5,
+		Undefined = 6
 	};
 }

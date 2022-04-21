@@ -18,7 +18,7 @@ namespace DopeEngine
 		/// Returns the base name of the device driver
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_base_name() const;
+		String get_base_name() const;
 	private:
 		String BaseName;
 	};

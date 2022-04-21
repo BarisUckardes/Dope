@@ -16,7 +16,7 @@ namespace DopeEngine
 		/// Returns whether this keyboard key is holding at the moment
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_holding() const;
+		 bool is_holding() const;
 
 		// Inherited via KeyboardKeyEvent
 		virtual ApplicationEventType get_type() const override final;

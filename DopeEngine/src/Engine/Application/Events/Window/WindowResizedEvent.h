@@ -16,13 +16,13 @@ namespace DopeEngine
 		/// Returns the new width of the window
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_width() const;
+		 unsigned int get_width() const;
 
 		/// <summary>
 		/// Returns the new height of the window
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_height() const;
+		 unsigned int get_height() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

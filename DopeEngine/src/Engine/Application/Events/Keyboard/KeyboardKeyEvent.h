@@ -16,7 +16,7 @@ namespace DopeEngine
 		/// Returns the related key for this keyboard key event
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_key() const;
+		 unsigned int get_key() const;
 	private:
 		unsigned int RelatedKey;
 	};

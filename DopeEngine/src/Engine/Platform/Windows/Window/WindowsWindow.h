@@ -23,65 +23,65 @@ namespace DopeEngine
 		/// Returns the assinged graphics device to this window(if any)
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE GraphicsDevice* get_graphics_device() const;
+		 GraphicsDevice* get_graphics_device() const;
 
 		/// <summary>
 		/// Returns whether this window has a close request or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool has_close_request() const;
+		 bool has_close_request() const;
 
 		/// <summary>
 		/// Returns the width of this window in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_width() const;
+		 unsigned int get_width() const;
 
 		/// <summary>
 		/// Returns the height of this window in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_height() const;
+		 unsigned int get_height() const;
 
 		/// <summary>
 		/// Returns the position-x of the window in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_position_x() const;
+		 unsigned int get_position_x() const;
 
 		/// <summary>
 		/// Returns the position-y of the window in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_position_y() const;
+		 unsigned int get_position_y() const;
 
 		/// <summary>
 		/// Returns the title of this window
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_title() const;
+		 String get_title() const;
 
 		/// <summary>
 		/// Returns whether this window is visible or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_visible() const;
+		 bool is_visible() const;
 
 		/// <summary>
 		/// Swaps the window backbuffers
 		/// </summary>
-		FORCEINLINE void swap_buffers();
+		 void swap_buffers();
 
 		/// <summary>
 		/// Collects the pending window messages
 		/// </summary>
-		FORCEINLINE void poll_messages();
+		 void poll_messages();
 
 		/// <summary>
 		/// Sets the title of this window
 		/// </summary>
 		/// <param name="title"></param>
-		FORCEINLINE void set_title(const String& title);
+		 void set_title(const String& title);
 
 		/// <summary>
 		/// Changesthe visibility state of this window
@@ -116,13 +116,13 @@ namespace DopeEngine
 		/// Returns the win32 window handle HWND
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE HWND get_win32_window_handle() const;
+		 HWND get_win32_window_handle() const;
 
 		/// <summary>
 		/// Returns the win32 device context HDC
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE HDC get_win32_device_context() const;
+		 HDC get_win32_device_context() const;
 	private:
 		static LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 		void _create_win32_window(const HINSTANCE processHandle);

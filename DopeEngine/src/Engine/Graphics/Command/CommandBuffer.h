@@ -89,18 +89,18 @@ namespace DopeEngine
 		/// </summary>
 		void indexed_draw_call(const unsigned int count);
 	protected:
-		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0) {}
+		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundPipeline(nullptr),CurrentBoundUniformBuffers(0) {}
 		virtual ~CommandBuffer() = 0 {}
 
 		virtual void lock_impl() = 0;
 		virtual void unlock_impl() = 0;
 		virtual void clear_cached_state_impl() = 0;
 
-		FORCEINLINE unsigned int get_bound_texture_count() const;
-		FORCEINLINE const Pipeline* get_bound_pipeline() const;
-		FORCEINLINE unsigned int get_bound_uniformbuffer_count() const;
-		FORCEINLINE void increment_texture_bound_count();
-		FORCEINLINE void increment_uniformbuffer_bound_count();
+		 unsigned int get_bound_texture_count() const;
+		 const Pipeline* get_bound_pipeline() const;
+		 unsigned int get_bound_uniformbuffer_count() const;
+		 void increment_texture_bound_count();
+		 void increment_uniformbuffer_bound_count();
 
 		/// <summary>
 		/// Sets the target vertex buffer

@@ -41,6 +41,7 @@ namespace DopeEngine
 		IDXGISwapChain3* Swapchain;
 		ID3D12Device* Device;
 
+
 	};
 
 

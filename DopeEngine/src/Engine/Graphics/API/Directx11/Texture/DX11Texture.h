@@ -10,9 +10,9 @@ namespace DopeEngine
 		DX11Texture(const TextureDescription& desc, DX11GraphicsDevice* device);
 		virtual ~DX11Texture() final override;
 
-		FORCEINLINE DXPTR<ID3D11Texture1D> get_dx11_texture1d() const;
-		FORCEINLINE DXPTR<ID3D11Texture2D> get_dx11_texture2d() const;
-		FORCEINLINE DXPTR<ID3D11Texture3D> get_dx11_texture3d() const;
+		 DXPTR<ID3D11Texture1D> get_dx11_texture1d() const;
+		 DXPTR<ID3D11Texture2D> get_dx11_texture2d() const;
+		 DXPTR<ID3D11Texture3D> get_dx11_texture3d() const;
 
 	private:
 		void create(const TextureDescription& desc, DX11GraphicsDevice* device);

@@ -11,7 +11,7 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API ResourceDescription
 	{
 		ResourceDescription(const String& name,const ResourceType type,const ShaderType shaderStage) : Name(name),Type(type),ShaderStage(shaderStage) {}
-		ResourceDescription() = default;
+		ResourceDescription() : ShaderStage(ShaderType::Undefined),Type(ResourceType::Undefined) {}
 		~ResourceDescription() = default;
 
 		/// <summary>

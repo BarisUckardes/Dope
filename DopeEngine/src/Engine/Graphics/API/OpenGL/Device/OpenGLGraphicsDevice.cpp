@@ -242,7 +242,7 @@ namespace DopeEngine
 				return new OpenGLVertexBuffer(description.AllocatedSize,1u,(DEVICE)this);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new OpenGLIndexBuffer(1u,1u,description.AllocatedSize,(DEVICE)this);
+				return new OpenGLIndexBuffer(1u,description.AllocatedSize,(DEVICE)this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
 				return new OpenGLUniformBuffer(description.Name,description.AllocatedSize, (DEVICE)this);

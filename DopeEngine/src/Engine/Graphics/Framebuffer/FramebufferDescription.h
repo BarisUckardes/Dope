@@ -13,7 +13,7 @@ namespace DopeEngine
 			,const Array<FramebufferAttachmentDescription>& attachmentDescriptions) : Width(width),Height(height),
 			CreateDepthAttachment(createDepthAttachment),DepthAttachmentFormat(depthAttachmentFormat),
 			AttachmentDescriptions(attachmentDescriptions) {}
-		FramebufferDescription() = default;
+		FramebufferDescription() : Width(0),Height(0),CreateDepthAttachment(false),DepthAttachmentFormat(TextureFormat::Red),AttachmentDescriptions() {}
 		~FramebufferDescription() = default;
 
 		/// <summary>

@@ -8,10 +8,10 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX11IndexBuffer final : public IndexBuffer
 	{
 	public:
-		DX11IndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize, DX11GraphicsDevice* device);
+		DX11IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DX11GraphicsDevice* device);
 		virtual ~DX11IndexBuffer() final override;
 
-		FORCEINLINE DXPTR<ID3D11Buffer> get_dx11_buffer() const;
+		 DXPTR<ID3D11Buffer> get_dx11_buffer() const;
 	private:
 		void create(DX11GraphicsDevice* device);
 	private:

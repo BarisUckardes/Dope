@@ -9,6 +9,6 @@ namespace DopeEngine
 		VertexUtils() = delete;
 		~VertexUtils() = delete;
 
-		FORCEINLINE static unsigned int get_data_type_size(const VertexElementDataType);
+		 static unsigned int get_data_type_size(const VertexElementDataType);
 	};
 }

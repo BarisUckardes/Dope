@@ -21,25 +21,25 @@ namespace DopeEngine
 		/// Returns the type of this buffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE BufferType get_buffer_type() const;
+		 BufferType get_buffer_type() const;
 
 		/// <summary>
 		/// Returns the name of this buffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_buffer_name() const;
+		 String get_buffer_name() const;
 
 		/// <summary>
 		/// Returns the allocated size of this buffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned long get_allocated_size() const;
+		 unsigned long get_allocated_size() const;
 
 		/// <summary>
 		/// Returns the element size
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_item_size() const;
+		 unsigned int get_item_size() const;
 	private:
 		BufferType Type;
 		String Name;

@@ -10,7 +10,7 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API BufferDescription
 	{
 		BufferDescription(const String& name, const BufferType type,const unsigned long allocatedSize,unsigned int perItemSize) : Type(type),Name(name), AllocatedSize(allocatedSize),PerItemSize(perItemSize) {}
-		BufferDescription() = default;
+		BufferDescription() : Type(BufferType::Undefined),Name("Undefined buffer"),AllocatedSize(0),PerItemSize(0) {}
 		~BufferDescription() = default;
 
 		/// <summary>

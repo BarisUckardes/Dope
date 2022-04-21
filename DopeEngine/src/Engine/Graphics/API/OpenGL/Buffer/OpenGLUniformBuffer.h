@@ -10,7 +10,7 @@ namespace DopeEngine
 		OpenGLUniformBuffer(const String& name,const unsigned long allocatedSize,DEVICE device);
 		virtual ~OpenGLUniformBuffer() final override;
 
-		FORCEINLINE UNIFORM_BUFFER_HANDLE get_handle() const;
+		 UNIFORM_BUFFER_HANDLE get_handle() const;
 		void update(const Byte* data);
 	private:
 		void create();

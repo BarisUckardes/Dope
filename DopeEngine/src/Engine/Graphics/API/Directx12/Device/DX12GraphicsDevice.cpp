@@ -1,5 +1,6 @@
 #include "DX12GraphicsDevice.h"
 #include <Engine/Core/Assert.h>
+#include <Engine/Graphics/API/Directx12/Device/DX12DeviceObjects.h>
 namespace DopeEngine
 {
 	DX12GraphicsDevice::DX12GraphicsDevice(Window* ownerWindow) : GraphicsDevice(ownerWindow)
@@ -126,54 +127,122 @@ namespace DopeEngine
 	}
 	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx12 resource layout
+		*/
+		DX12ResourceLayout* layout = new DX12ResourceLayout(description,this);
+
+		return layout;
 	}
 	ResourceView* DX12GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx12 resource view
+		*/
+		DX12ResourceView* view = new DX12ResourceView(description, this);
+
+		return view;
 	}
 	void DX12GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{
+
 	}
 	void DX12GraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
 	{
+
 	}
 	void DX12GraphicsDevice::swap_swapchain_buffers_impl()
 	{
+
 	}
 	CommandBuffer* DX12GraphicsDevice::create_command_buffer_impl()
 	{
-		return nullptr;
+		/*
+		* Create directx12 command buffer
+		*/
+		DX12CommandBuffer* commandBuffer = new DX12CommandBuffer(this);
+
+		return commandBuffer;
 	}
 	void DX12GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
+
 	}
 	void DX12GraphicsDevice::delete_device_object_impl(DeviceObject* object)
 	{
+
 	}
 	Buffer* DX12GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
-		return nullptr;
+		/*
+		* Catch buffer type
+		*/
+		BufferType bufferType = description.Type;
+		Buffer* buffer = nullptr;
+		switch (bufferType)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				buffer = new DX12VertexBuffer(description.AllocatedSize, description.PerItemSize, this);
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				buffer = new DX12IndexBuffer(4,description.AllocatedSize,this);
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				buffer = new DX12ConstantBuffer(description,this);
+				break;
+			case DopeEngine::BufferType::Undefined:
+				ASSERT(false, "DX12GraphicsDevice", "Invalid BufferType, cannot create a buffer!");
+				break;
+			default:
+				break;
+		}
+
+		return buffer;
 	}
 	Framebuffer* DX12GraphicsDevice::create_framebuffer_impl(const FramebufferDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx12 framebuffer
+		*/
+		DX12Framebuffer* framebuffer = new DX12Framebuffer(description, this);
+
+		return framebuffer;
 	}
 	Pipeline* DX12GraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx 12 pipeline
+		*/
+		DX12Pipeline* pipeline = new DX12Pipeline(description, this);
+
+		return pipeline;
 	}
 	Shader* DX12GraphicsDevice::create_shader_impl(const ShaderDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx12 shader
+		*/
+		DX12Shader* shader = new DX12Shader(description, this);
+
+		return shader;
 	}
 	ShaderSet* DX12GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
 	{
-		return nullptr;
+		/*
+		* Create directx12 shader set
+		*/
+		DX12ShaderSet* shaderSet = new DX12ShaderSet(shaders,this);
+
+		return shaderSet;
 	}
 	Texture* DX12GraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{
-		return nullptr;
+		/*
+		* Create directx12 texture
+		*/
+		DX12Texture* texture = new DX12Texture(description, this);
+
+		return texture;
 	}
 	GraphicsAPIType DX12GraphicsDevice::get_api_type() const
 	{
@@ -185,5 +254,6 @@ namespace DopeEngine
 	}
 	void DX12GraphicsDevice::make_current_impl()
 	{
+
 	}
 }

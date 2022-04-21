@@ -17,18 +17,18 @@ namespace DopeEngine
 		/// Returns the length of the vector(distance from the origin)
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE float get_length() const;
+		 float get_length() const;
 
 		/// <summary>
 		/// Returns it as a unit vector
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Vector2f get_normalized() const;
+		 Vector2f get_normalized() const;
 
 		/// <summary>
 		/// Makes this vector a unit vector
 		/// </summary>
-		FORCEINLINE void normalize_this();
+		 void normalize_this();
 
 		/*
 		* Operators

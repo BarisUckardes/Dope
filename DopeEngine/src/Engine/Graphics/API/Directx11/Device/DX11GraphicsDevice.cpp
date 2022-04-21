@@ -218,7 +218,7 @@ namespace DopeEngine
 				return new DX11VertexBuffer(this, description.AllocatedSize, description.PerItemSize);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new DX11IndexBuffer(1, description.PerItemSize, description.AllocatedSize, this);
+				return new DX11IndexBuffer(description.PerItemSize, description.AllocatedSize, this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
 				return new DX11ConstantBuffer(description, this);

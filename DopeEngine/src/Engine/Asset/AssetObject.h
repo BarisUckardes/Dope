@@ -17,13 +17,13 @@ namespace DopeEngine
 		/// Returns the owner asset for this object
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Asset* get_owner_asset() const;
+		 Asset* get_owner_asset() const;
 
 		/// <summary>
 		/// Returns the asset type
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE AssetType get_asset_type() const;
+		 AssetType get_asset_type() const;
 
 		/// <summary>
 		/// Destroys the owning asset of this object

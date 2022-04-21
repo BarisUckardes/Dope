@@ -13,7 +13,7 @@ namespace DopeEngine
 		/// Returns the related button
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_button() const;
+		 unsigned int get_button() const;
 	protected:
 		MouseButtonEvent(const unsigned int relatedButton);
 		~MouseButtonEvent() = default;

@@ -17,7 +17,7 @@ namespace DopeEngine
 		/// Returns the drag and dropped files
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<String> get_drops() const;
+		 Array<String> get_drops() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

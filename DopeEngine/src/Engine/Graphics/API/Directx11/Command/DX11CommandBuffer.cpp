@@ -208,7 +208,7 @@ namespace DopeEngine
 			/*
 			* Clear color
 			*/
-			const FLOAT dxColor[] = { color.Red,color.Green,color.Blue,color.Alpha };
+			const FLOAT dxColor[] = { (Byte)color.Red,(Byte)color.Green,(Byte)color.Blue,(Byte)color.Alpha };
 			Device->get_dx11_immediate_context()->ClearRenderTargetView(rtv,dxColor);
 		}
 	}

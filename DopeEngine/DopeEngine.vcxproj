@@ -97,6 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,6 +118,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,6 +139,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +160,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,6 +175,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12Pipeline.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12Framebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Command\DX12CommandBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Buffer\DX12ConstantBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Buffer\DX12IndexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Buffer\DX12VertexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.h" />
@@ -192,6 +205,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11DeviceObjects.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
@@ -331,6 +345,15 @@
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12Pipeline.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12Framebuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Command\DX12CommandBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Buffer\DX12ConstantBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Buffer\DX12IndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Buffer\DX12VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Core\DX12Core.cpp" />

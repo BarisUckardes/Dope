@@ -120,7 +120,7 @@ namespace DopeEngine
 		/*
 		* Create new source for subset
 		*/
-		char* subsetSource = new char[(double)gap + 1];
+		char* subsetSource = new char[gap + 1];
 
 		/*
 		* Get subset data from the source

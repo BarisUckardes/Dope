@@ -15,12 +15,12 @@ namespace DopeEngine
 		/// <summary>
 		/// Returns the current x-axis position of the window
 		/// </summary>
-		FORCEINLINE unsigned int get_x() const;
+		 unsigned int get_x() const;
 
 		/// <summary>
 		/// Returns the current y-axis position of the window
 		/// </summary>
-		FORCEINLINE unsigned int get_y() const;
+		 unsigned int get_y() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

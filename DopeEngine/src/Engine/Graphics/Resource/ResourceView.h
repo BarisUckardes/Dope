@@ -11,7 +11,7 @@ namespace DopeEngine
 		ResourceView(const ResourceViewDescription& description);
 		virtual ~ResourceView() = 0 {}
 
-		FORCEINLINE DeviceObject* get_resource() const;
+		 DeviceObject* get_resource() const;
 	private:
 		DeviceObject* Resource;
 	};

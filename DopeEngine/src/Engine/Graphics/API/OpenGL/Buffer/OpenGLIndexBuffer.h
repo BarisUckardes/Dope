@@ -10,14 +10,14 @@ namespace DopeEngine
 	class DOPE_ENGINE_API OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(const unsigned long range, const unsigned int elementSize, const unsigned long allocatedSize,DEVICE device);
+		OpenGLIndexBuffer( const unsigned int elementSize, const unsigned long allocatedSize,DEVICE device);
 		virtual ~OpenGLIndexBuffer() final override;
 
 		/// <summary>
 		/// Returns opengl index buffer handle
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE INDEX_BUFFER_HANDLE get_handle() const;
+		 INDEX_BUFFER_HANDLE get_handle() const;
 		void update(const Byte* data);
 	private:
 		void create();

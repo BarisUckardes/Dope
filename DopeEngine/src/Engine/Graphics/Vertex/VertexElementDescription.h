@@ -13,7 +13,7 @@ namespace DopeEngine
 
 		VertexElementDescription(const String& name, const VertexElementDataType dataType, const bool normalized) : Name(name), Normalized(normalized), DataType(dataType)
 		{}
-		VertexElementDescription() = default;
+		VertexElementDescription() : Normalized(false),DataType(VertexElementDataType::Float) {}
 		~VertexElementDescription() = default;
 
 		/// <summary>

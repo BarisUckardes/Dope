@@ -16,7 +16,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Returns the description
 		/// </summary>
-		FORCEINLINE ResourceDescription get_description() const;
+		 ResourceDescription get_description() const;
 	private:
 		ResourceDescription Description;
 	};

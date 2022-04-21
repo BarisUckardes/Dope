@@ -10,9 +10,9 @@ namespace DopeEngine
 		Memory() = delete;
 		~Memory() = delete;
 
-		FORCEINLINE static void memory_copy(void* destination, const void* source, unsigned long byteCount);
-		FORCEINLINE static void memory_set(void* destination, Byte value, unsigned long count);
-		FORCEINLINE static bool memory_check(const void* a, const void* b, unsigned long count);
+		 static void memory_copy(void* destination, const void* source, unsigned long byteCount);
+		 static void memory_set(void* destination, Byte value, unsigned long count);
+		 static bool memory_check(const void* a, const void* b, unsigned long count);
 	};
 
 

@@ -9,7 +9,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API WindowsGuid final
 	{
 	public:
-		static FORCEINLINE WindowsGuid create();
+		static  WindowsGuid create();
 		WindowsGuid(unsigned long a, unsigned short b, unsigned short c, unsigned char d[8]);
 		WindowsGuid();
 		~WindowsGuid();

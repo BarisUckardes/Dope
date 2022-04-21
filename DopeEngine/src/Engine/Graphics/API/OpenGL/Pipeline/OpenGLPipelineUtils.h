@@ -11,11 +11,11 @@ namespace DopeEngine
 		OpenGLPipelineUtils() = delete;
 		~OpenGLPipelineUtils() = delete;
 
-		FORCEINLINE static DEPTH_FUNCTION get_depth_function(const DepthComparisionKind function);
-		FORCEINLINE static FRONT_FACE get_front_face(const FrontFaceMode frontFace);
-		FORCEINLINE static CULL_MODE get_cull_mode(const FaceCullMode face);
-		FORCEINLINE static FILL_MODE get_fill_mode(const PolygonFillMode fillMode);
-		FORCEINLINE static PRIMITIVE get_primitive(const PrimitiveTopology primitive);
+		 static DEPTH_FUNCTION get_depth_function(const DepthComparisionKind function);
+		 static FRONT_FACE get_front_face(const FrontFaceMode frontFace);
+		 static CULL_MODE get_cull_mode(const FaceCullMode face);
+		 static FILL_MODE get_fill_mode(const PolygonFillMode fillMode);
+		 static PRIMITIVE get_primitive(const PrimitiveTopology primitive);
 	};
 
 

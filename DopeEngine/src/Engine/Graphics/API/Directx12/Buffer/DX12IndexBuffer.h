@@ -6,6 +6,11 @@ namespace DopeEngine
 {
 	class DOPE_ENGINE_API DX12IndexBuffer : public IndexBuffer
 	{
+	public:
+		DX12IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DX12GraphicsDevice* device);
+		virtual ~DX12IndexBuffer() final override;
+
+
 	};
 
 }

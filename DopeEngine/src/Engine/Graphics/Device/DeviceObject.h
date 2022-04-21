@@ -14,19 +14,19 @@ namespace DopeEngine
 		/// Returns the debug name for this device object
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_debug_name() const;
+		 String get_debug_name() const;
 
 		/// <summary>
 		/// Sets the debug name for this device object
 		/// </summary>
 		/// <param name="name"></param>
-		FORCEINLINE void set_debug_name(const String& name);
+		 void set_debug_name(const String& name);
 
 		/// <summary>
 		/// Returns the type of this device object
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE DeviceObjectType get_device_object_type() const;
+		 DeviceObjectType get_device_object_type() const;
 	protected:
 		DeviceObject(const DeviceObjectType type) : DebugName("Device Object"),Type(type) {}
 		virtual ~DeviceObject() = 0 {}

@@ -19,49 +19,49 @@ namespace DopeEngine
 		/// Returns a reference to the entity list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE const Array<Entity*>& get_entities_fast() const;
+		 const Array<Entity*>& get_entities_fast() const;
 
 		/// <summary>
 		/// Returns a copy to the entity list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<Entity*> get_entities_slow() const;
+		 Array<Entity*> get_entities_slow() const;
 
 		/// <summary>
 		/// Returns a reference to the resolver list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<WorldResolver*>& get_resolvers_fast();
+		 Array<WorldResolver*>& get_resolvers_fast();
 
 		/// <summary>
 		/// Returns a copy to the resolver list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<WorldResolver*> get_resolvers_slow();
+		 Array<WorldResolver*> get_resolvers_slow();
 
 		/// <summary>
 		/// Returns whether this world is current
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_current() const;
+		 bool is_current() const;
 
 		/// <summary>
 		/// Returns the owning game session of this world
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE GameSession* get_owner_session() const;
+		 GameSession* get_owner_session() const;
 
 		/// <summary>
 		/// Creates anew entity and returns it
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		FORCEINLINE Entity* create_entity(const String& name = "Default Entity Name");
+		 Entity* create_entity(const String& name = "Default Entity Name");
 
 		/// <summary>
 		/// Deletes an existing entity
 		/// </summary>
-		FORCEINLINE void delete_entity(Entity* entity);
+		 void delete_entity(Entity* entity);
 
 		/// <summary>
 		/// Returns a resolver with the specified type
@@ -69,7 +69,7 @@ namespace DopeEngine
 		/// <typeparam name="TResolver"></typeparam>
 		/// <returns></returns>
 		template<typename TResolver>
-		FORCEINLINE TResolver* get_resolver() const;
+		 TResolver* get_resolver() const;
 
 		/// <summary>
 		/// Registers anew resolver to the world
@@ -112,7 +112,7 @@ namespace DopeEngine
 
 
 	template<typename TResolver>
-	FORCEINLINE TResolver* World::get_resolver() const
+	 TResolver* World::get_resolver() const
 	{
 		/*
 		* Get resolver class name

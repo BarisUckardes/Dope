@@ -19,19 +19,19 @@ namespace DopeEngine
 		/// Returns the manufacturer name
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_manufacturer() const;
+		 String get_manufacturer() const;
 
 		/// <summary>
 		/// Returns the device friendly name
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_friendly_name() const;
+		 String get_friendly_name() const;
 
 		/// <summary>
 		/// Returns the description of the device
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_description() const;
+		 String get_description() const;
 	private:
 		String Manufacturer;
 		String FriendlyName;

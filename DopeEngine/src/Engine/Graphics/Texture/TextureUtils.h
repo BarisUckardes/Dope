@@ -9,7 +9,7 @@ namespace DopeEngine
 		TextureUtils() = delete;
 		~TextureUtils() = delete;
 
-		FORCEINLINE static unsigned int get_format_size(const TextureFormat format);
+		 static unsigned int get_format_size(const TextureFormat format);
 	};
 
 

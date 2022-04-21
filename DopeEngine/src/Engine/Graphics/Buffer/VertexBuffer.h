@@ -16,13 +16,13 @@ namespace DopeEngine
 		/// Returns the index buffer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned long get_vertex_capacity() const;
+		 unsigned long get_vertex_capacity() const;
 
 		/// <summary>
 		/// Returns the single vertex size in bytes
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_per_vertex_size() const;
+		 unsigned int get_per_vertex_size() const;
 	private:
 		unsigned long VertexCapacity;
 		unsigned int PerVertexSize;

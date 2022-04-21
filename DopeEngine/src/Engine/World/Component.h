@@ -17,13 +17,13 @@ namespace DopeEngine
 		/// Returns the spatial of this component's owner entity
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Spatial* get_spatial() const;
+		 Spatial* get_spatial() const;
 
 		/// <summary>
 		/// Returns the owning entity of this component
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Entity* get_owner_entity() const;
+		 Entity* get_owner_entity() const;
 
 		/// <summary>
 		/// Destroys this component

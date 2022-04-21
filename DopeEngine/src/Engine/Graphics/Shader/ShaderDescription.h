@@ -9,7 +9,7 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API ShaderDescription
 	{
 		ShaderDescription(const ShaderType type, const String& source) : Type(type),Source(source) {}
-		ShaderDescription() = default;
+		ShaderDescription() : Type(ShaderType::Undefined) {}
 		~ShaderDescription() = default;
 
 		/// <summary>

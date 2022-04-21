@@ -9,6 +9,7 @@ namespace DopeEngine
 	enum class DOPE_ENGINE_API ResourceType
 	{
 		UniformBuffer = 0,
-		Texture = 1
+		Texture = 1,
+		Undefined = 2
 	};
 }

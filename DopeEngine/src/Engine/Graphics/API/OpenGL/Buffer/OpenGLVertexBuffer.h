@@ -14,7 +14,7 @@ namespace DopeEngine
 		/// Returns the opengl handle
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE VERTEX_BUFFER_HANDLE get_handle() const;
+		 VERTEX_BUFFER_HANDLE get_handle() const;
 		void update(const Byte* data);
 	protected:
 

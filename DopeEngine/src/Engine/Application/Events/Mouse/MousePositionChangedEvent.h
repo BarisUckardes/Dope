@@ -17,13 +17,13 @@ namespace DopeEngine
 		/// Returns the mouse position in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_x() const;
+		 unsigned int get_x() const;
 
 		/// <summary>
 		/// Returns the mouse position in pixels
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_y() const;
+		 unsigned int get_y() const;
 	private:
 		unsigned int X;
 		unsigned int Y;

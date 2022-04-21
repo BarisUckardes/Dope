@@ -9,7 +9,7 @@ namespace DopeEngine
 		DX11VertexUtils() = delete;
 		~DX11VertexUtils() = delete;
 
-		static FORCEINLINE DXGI_FORMAT get_format(const VertexElementDataType type);
+		static  DXGI_FORMAT get_format(const VertexElementDataType type);
 	};
 
 

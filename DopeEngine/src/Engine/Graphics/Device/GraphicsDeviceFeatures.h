@@ -17,25 +17,25 @@ namespace DopeEngine
 		/// Returns whether the owning device supports compute shaders or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool get_compute_shader_support() const;
+		 bool get_compute_shader_support() const;
 
 		/// <summary>
 		/// Returns whether the owning device supports geometry shaders or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool get_geometry_shader_support() const;
+		 bool get_geometry_shader_support() const;
 
 		/// <summary>
 		/// Returns whether the owning device supports tesellation shader or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool get_tesellation_shader_support() const;
+		 bool get_tesellation_shader_support() const;
 
 		/// <summary>
 		/// Returns whether the owning device supports multiple viewports or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool get_multiple_viewports_support() const;
+		 bool get_multiple_viewports_support() const;
 
     private:
         bool ComputeShader;

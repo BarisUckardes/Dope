@@ -17,7 +17,7 @@ namespace DopeEngine
 		/// Returns whether the button is a hold event
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_holding() const;
+		 bool is_holding() const;
 
 		// Inherited via MouseButtonEvent
 		virtual ApplicationEventType get_type() const override final;

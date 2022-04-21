@@ -140,7 +140,7 @@ namespace DopeEngine
 		void clear_memory();
 	private:
 		TValue* m_Source;
-		unsigned int Capacity;
+		unsigned long Capacity;
 		unsigned int Cursor;
 		unsigned int AllocateMultiplier;
 	};

@@ -26,8 +26,8 @@ namespace DopeEngine
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
 	private:
-		FORCEINLINE void set_constant_buffer(const Buffer* buffer,const ShaderType stage);
-		FORCEINLINE void set_shader_resource(const ResourceView* view, const ShaderType stage);
+		 void set_constant_buffer(const Buffer* buffer,const ShaderType stage);
+		 void set_shader_resource(const ResourceView* view, const ShaderType stage);
 	private:
 		DX11GraphicsDevice* Device;
 		Array <ComPtr<ID3D11RenderTargetView>> CurrentColorTargets;

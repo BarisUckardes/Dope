@@ -26,7 +26,7 @@ namespace DopeEngine
 		/// Returns the window of this application
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Window* get_app_window() const;
+		 Window* get_app_window() const;
 
 		/// <summary>
 		/// Starts and runs the application loop

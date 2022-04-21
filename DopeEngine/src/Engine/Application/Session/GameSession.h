@@ -16,25 +16,25 @@ namespace DopeEngine
 		/// Returns the current world of this game session
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE World* get_current_world() const;
+		 World* get_current_world() const;
 
 		/// <summary>
 		/// Returns a reference to the existing world list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE const Array<World*>& get_existing_worlds_fast() const;
+		 const Array<World*>& get_existing_worlds_fast() const;
 
 		/// <summary>
 		/// Returns a copy to the existing world list
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Array<World*> get_existing_worlds_slow() const;
+		 Array<World*> get_existing_worlds_slow() const;
 
 		/// <summary>
 		/// Returns the window for the game session
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Window* get_window() const;
+		 Window* get_window() const;
 
 		/// <summary>
 		/// Creates anew world

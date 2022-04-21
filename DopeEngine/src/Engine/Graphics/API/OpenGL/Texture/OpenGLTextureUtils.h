@@ -14,10 +14,10 @@ namespace DopeEngine
 		~OpenGLTextureUtils() = delete;
 
 
-		FORCEINLINE static TEXTURE_FORMAT get_format(const TextureFormat format);
-		FORCEINLINE static TEXTURE_INTERNAL_FORMAT get_internal_format(const TextureFormat format);
-		FORCEINLINE static TEXTURE_DATA_TYPE get_data_type(const TextureFormat format);
-		FORCEINLINE static TEXTURE_TYPE get_texture_type(const TextureType type);
+		 static TEXTURE_FORMAT get_format(const TextureFormat format);
+		 static TEXTURE_INTERNAL_FORMAT get_internal_format(const TextureFormat format);
+		 static TEXTURE_DATA_TYPE get_data_type(const TextureFormat format);
+		 static TEXTURE_TYPE get_texture_type(const TextureType type);
 
 	};
 }

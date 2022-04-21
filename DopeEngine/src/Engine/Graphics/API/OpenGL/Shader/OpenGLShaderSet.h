@@ -19,7 +19,7 @@ namespace DopeEngine
 		/// Returns the handle of the shader set as OpenGL shader program
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE PROGRAM_HANDLE get_handle() const;
+		 PROGRAM_HANDLE get_handle() const;
 
 		virtual void create_set() final override;
 

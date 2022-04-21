@@ -14,19 +14,19 @@ namespace DopeEngine
 		/// Returns whether this event is handled or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_handled() const;
+		 bool is_handled() const;
 
 		/// <summary>
 		/// Returns the event type for this event
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE virtual ApplicationEventType get_type() const = 0;
+		 virtual ApplicationEventType get_type() const = 0;
 
 		/// <summary>
 		/// Returns the event message string
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE virtual String get_as_string() const = 0;
+		 virtual String get_as_string() const = 0;
 
 		/// <summary>
 		/// Marks this event handled

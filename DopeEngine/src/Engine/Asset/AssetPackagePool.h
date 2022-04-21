@@ -10,10 +10,10 @@ namespace DopeEngine
 	{
 		friend class GameSession;
 	public:
-		FORCEINLINE const Array<AssetPackage*>& get_packages_fast() const;
-		FORCEINLINE Array<AssetPackage*> get_packages_slow() const;
-		FORCEINLINE AssetPackage* get_package_by_id(const Guid& id) const;
-		FORCEINLINE AssetPackage* get_package_by_name(const String& name) const;
+		 const Array<AssetPackage*>& get_packages_fast() const;
+		 Array<AssetPackage*> get_packages_slow() const;
+		 AssetPackage* get_package_by_id(const Guid& id) const;
+		 AssetPackage* get_package_by_name(const String& name) const;
 
 		AssetPackage* create_package(const String& name);
 	private:

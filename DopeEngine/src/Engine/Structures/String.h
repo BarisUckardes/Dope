@@ -49,7 +49,7 @@ namespace DopeEngine
 		/// Returns the current char amount in this string
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE unsigned int get_cursor() const;
+		 unsigned int get_cursor() const;
 
 		/// <summary>
 		/// Returns a pointer to the source data

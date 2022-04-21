@@ -8,4 +8,4 @@
 
 #define DOPE_ENGINE_EXPORT __declspec(dllexport)
 
-#define FORCEINLINE __forceinline
+#define  __

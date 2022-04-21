@@ -20,13 +20,13 @@ namespace DopeEngine
 		/// Returns the shader source
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE String get_source() const;
+		 String get_source() const;
 
 		/// <summary>
 		/// Returns the shader stage type of this shader
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE ShaderType get_type() const;
+		 ShaderType get_type() const;
 
 		/// <summary>
 		/// Compiles this shader

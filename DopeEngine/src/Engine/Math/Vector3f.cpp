@@ -1,5 +1,5 @@
 #include "Vector3f.h"
-#include <cmath>s
+#include <cmath>
 namespace DopeEngine
 {
 	float Vector3f::dot_product(const Vector3f& a, const Vector3f& b)

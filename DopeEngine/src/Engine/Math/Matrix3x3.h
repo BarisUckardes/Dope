@@ -25,30 +25,30 @@ namespace DopeEngine
 		/// Returns whether this matrix is invertable or not
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE bool is_invertable() const;
+		 bool is_invertable() const;
 
 		/// <summary>
 		/// Returns the determinant of this matrix
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE float get_determinant() const;
+		 float get_determinant() const;
 
 		/// <summary>
 		/// Returns the inverse version of this matrix
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Matrix3x3 get_inverse() const;
+		 Matrix3x3 get_inverse() const;
 
 		/// <summary>
 		/// Returns the transposed version of this matrix
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE Matrix3x3 get_transpose() const;
+		 Matrix3x3 get_transpose() const;
 
 		/// <summary>
 		/// Transposes this matrix
 		/// </summary>
-		FORCEINLINE void transpose_this();
+		 void transpose_this();
 
 		Matrix3x3 operator*(float a);
 		Matrix3x3 operator +(const Matrix3x3& a);

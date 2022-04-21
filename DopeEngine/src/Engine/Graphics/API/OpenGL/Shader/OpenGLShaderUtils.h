@@ -9,7 +9,7 @@ namespace DopeEngine
 		OpenGLShaderUtils() = delete;
 		~OpenGLShaderUtils() = delete;
 
-		static FORCEINLINE SHADER_TYPE get_type(const ShaderType type);
+		static  SHADER_TYPE get_type(const ShaderType type);
 	};
 
 

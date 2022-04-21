@@ -48,7 +48,7 @@ namespace DopeEngine
 		/// Returns the owner application session
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE GameSession* get_owner_session() const;
+		 GameSession* get_owner_session() const;
 	private:
 		void _set_owner_session(GameSession* session);
 	private:

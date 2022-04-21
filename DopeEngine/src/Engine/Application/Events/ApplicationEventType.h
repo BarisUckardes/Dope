@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-	DOPE_ENGINE_API enum class ApplicationEventType
+	enum class DOPE_ENGINE_API ApplicationEventType
 	{
 		/// <summary>
 		/// The event type is undefined

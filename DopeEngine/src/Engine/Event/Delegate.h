@@ -18,12 +18,12 @@ namespace DopeEngine
 		~Delegate() = default;
 
 
-		FORCEINLINE bool is_empty() const { return Empty; }
+		 bool is_empty() const { return Empty; }
 		/// <summary>
 		/// Returns the address of the target function pointer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE size_t GetAddress() const
+		 size_t GetAddress() const
 		{
 			typedef TReturn(fnType)(TParameters...);
 			fnType** fnPointer = GetFunctionPtr().template target<fnType*>();
@@ -44,7 +44,7 @@ namespace DopeEngine
 		/// Returns the function pointer
 		/// </summary>
 		/// <returns></returns>
-		FORCEINLINE std::function<TReturn(TParameters...)> GetFunctionPtr() const
+		 std::function<TReturn(TParameters...)> GetFunctionPtr() const
 		{
 			return FunctionPtr;
 		}
