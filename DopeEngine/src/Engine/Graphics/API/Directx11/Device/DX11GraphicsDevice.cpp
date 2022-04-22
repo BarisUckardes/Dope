@@ -5,8 +5,16 @@
 
 namespace DopeEngine
 {
-	DX11GraphicsDevice::DX11GraphicsDevice(Window* ownerWindow) : GraphicsDevice(ownerWindow)
+	DX11GraphicsDevice::DX11GraphicsDevice(Window* ownerWindow,const unsigned int shaderModel) : GraphicsDevice(ownerWindow)
 	{
+		/*
+		* Initialize
+		*/
+		ShaderModel = shaderModel;
+
+		/*
+		* Create device
+		*/
 		_create_directx11_device();
 	}
 
@@ -252,6 +260,11 @@ namespace DopeEngine
 	Texture* DX11GraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{
 		return new DX11Texture(description,this);
+	}
+
+	unsigned int DX11GraphicsDevice::get_dx11_shader_model() const
+	{
+		return ShaderModel;
 	}
 
 	GraphicsAPIType DX11GraphicsDevice::get_api_type() const

@@ -22,10 +22,29 @@ namespace DopeEngine
 	void DX12GraphicsDevice::_create_win32_directx12_device()
 	{
 		/*
+		* Enable debug layer if its wanted
+		*/
+		unsigned int factoryFlags = 0;
+#ifdef _DEBUG
+		ID3D12Debug* dx12Debug;
+		if (SUCCEEDED(D3D12GetDebugInterface(IID_PPV_ARGS(&dx12Debug))))
+		{
+			/*
+			* Enable debug layer
+			*/
+			dx12Debug->EnableDebugLayer();
+
+			/*
+			* Add debug flag
+			*/
+			factoryFlags |= DXGI_CREATE_FACTORY_DEBUG;
+		}
+#endif
+		/*
 		* Create dxgi factory for enumarating existing gpus
 		*/
 		IDXGIFactory4* dxgiFactory;
-		CreateDXGIFactory1(IID_PPV_ARGS(&dxgiFactory));
+		CreateDXGIFactory2(factoryFlags,IID_PPV_ARGS(&dxgiFactory));
 
 		/*
 		* Iterate existing gpus
@@ -77,6 +96,18 @@ namespace DopeEngine
 		const Window* window = get_owner_window();
 
 		/*
+		* Create command queue just for swapchain
+		*/
+		D3D12_COMMAND_QUEUE_DESC cqDesc = {};
+		ID3D12CommandQueue* commandQueue = nullptr;
+		HRESULT cqCreateHR = Device->CreateCommandQueue(&cqDesc, __uuidof(**(&commandQueue)), (void**)&commandQueue);
+
+		/*
+		* Validate cq create
+		*/
+		ASSERT(SUCCEEDED(cqCreateHR), "DX12GraphicsDevice", "Creating command queue for swapchain creation failed!");
+
+		/*
 		* Create swapchain buffer desc
 		*/
 		DXGI_MODE_DESC bufferDesc = {};
@@ -103,23 +134,114 @@ namespace DopeEngine
 		swapchainDesc.OutputWindow = get_owner_window()->get_win32_window_handle();
 
 		/*
-		* Create command queue just for swapchain
-		*/
-		D3D12_COMMAND_QUEUE_DESC cqDesc = {};
-		ID3D12CommandQueue* commandQueue = nullptr;
-		HRESULT cqCreateHR = Device->CreateCommandQueue(&cqDesc, __uuidof(**(&commandQueue)), (void**)&commandQueue);
-
-		/*
-		* Validate cq create
-		*/
-		ASSERT(SUCCEEDED(cqCreateHR), "DX12GraphicsDevice", "Creating command queue for swapchain creation failed!");
-
-		/*
 		* Create temp swapchain
 		*/
-		IDXGISwapChain* tempSwapchain;
-		dxgiFactory->CreateSwapChain(commandQueue, &swapchainDesc, &tempSwapchain);
+		IDXGISwapChain1* tempSwapchain;
+		HRESULT tempSwapchainCreateHR = dxgiFactory->CreateSwapChainForHwnd(commandQueue,window->get_win32_window_handle(), (const DXGI_SWAP_CHAIN_DESC1*)&swapchainDesc, nullptr, nullptr, &tempSwapchain);
 
+		/*
+		* Validate temp swapchain creation
+		*/
+		ASSERT(SUCCEEDED(tempSwapchainCreateHR), "DX12GraphicsDevice", "Temp swapchain creation failed!!");
+
+		/*
+		* Set swapchain 1 as 3
+		*/
+		Swapchain = (IDXGISwapChain3*)tempSwapchain;
+
+		/*
+		* Make window association
+		*/
+		dxgiFactory->MakeWindowAssociation(window->get_win32_window_handle(), DXGI_MWA_NO_ALT_ENTER);
+
+		/*
+		* Get backbuffer index
+		*/
+		const unsigned int bacbufferIndex = Swapchain->GetCurrentBackBufferIndex();
+
+
+		/*
+		* Create render target view heap descriptors
+		*/
+		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {  };
+		rtvHeapDesc.NumDescriptors = 3;
+		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+		HRESULT createRtvDescriptorHeapHR = Device->CreateDescriptorHeap(&rtvHeapDesc,IID_PPV_ARGS(&RtvHeapDescriptor));
+
+		/*
+		* Validate rtv descriptior heap creation
+		*/
+		ASSERT(SUCCEEDED(createRtvDescriptorHeapHR), "DX12GraphicsDevice", "Rtv descriptor creation failed!");
+
+		/*
+		* Collect descriptor size in rtv heap descriptor
+		*/
+		const unsigned int rtvDescriptorCount = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+
+		/*
+		* Get handle of the first descriptor
+		*/
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle(RtvHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
+
+		/*
+		* ITerate and create rtv for each buffer
+		*/
+		RenderTargets.reserve(3);
+		for (unsigned int i = 0; i < 3; i++)
+		{
+			/*
+			* Get swapchain buffer
+			*/
+			HRESULT rtvGetHR = Swapchain->GetBuffer(i, IID_PPV_ARGS(&RenderTargets[i]));
+
+			/*
+			* Validate get
+			*/
+			ASSERT(SUCCEEDED(rtvGetHR), "DX12GraphicsDevice", "Get swapchain buffer failed!");
+
+			/*
+			* Create render target view
+			*/
+			Device->CreateRenderTargetView(RenderTargets[i], nullptr, rtvStartHandle);
+
+			/*
+			* Increment TODO: cannot call a function with D3D12_CPU_DESCRIPTOR_HANDLE use D3DX12_CPU_DESCRIPTOR_HANDLE instead
+			*/
+		}
+
+		/*
+		* Create command allocators
+		*/
+		CommandAlocators.reserve(3);
+		for (unsigned int i = 0; i < 3; i++)
+		{
+			/*
+			* Create command allocator
+			*/
+			HRESULT createCommandAllocatedHR = Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&CommandAlocators[i]));
+
+			/*
+			* Validate creation of the command allocator
+			*/
+			ASSERT(SUCCEEDED(createCommandAllocatedHR), "DX12GraphicsDevice", "Command allocator creation failed!");
+		}
+
+		/*
+		* Create command list
+		*/
+		ID3D12GraphicsCommandList* commandList;
+		HRESULT createCommandListHR = Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT,CommandAlocators[0],NULL,IID_PPV_ARGS(&commandList));
+
+		/*
+		* Validate command list creation
+		*/
+		ASSERT(SUCCEEDED(createCommandListHR), "DX12GraphicsDevice","Command list creation failed!");
+
+		/*
+		* Close the command list because lists are created in recording state by default
+		*/
+		commandList->Close();
 	}
 	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
@@ -243,6 +365,14 @@ namespace DopeEngine
 		DX12Texture* texture = new DX12Texture(description, this);
 
 		return texture;
+	}
+	ID3D12Device* DX12GraphicsDevice::get_dx12_device() const
+	{
+		return Device;
+	}
+	const Array<ID3D12CommandAllocator*>& DX12GraphicsDevice::get_dx12_command_allocators() const
+	{
+		return CommandAlocators;
 	}
 	GraphicsAPIType DX12GraphicsDevice::get_api_type() const
 	{

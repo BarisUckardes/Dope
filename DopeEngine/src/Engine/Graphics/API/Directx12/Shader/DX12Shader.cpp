@@ -1,10 +1,16 @@
 #include "DX12Shader.h"
-
+#include <d3dcompiler.h>
+#include <Engine/Graphics/API/Directx11/Shader/DX11ShaderUtils.h>
+#include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
+#include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
 	DX12Shader::DX12Shader(const ShaderDescription& desc, DX12GraphicsDevice* device) : Shader(desc)
 	{
-
+		/*
+		* Compile
+		*/
+		_create_shader(desc,device);
 	}
 
 	DX12Shader::~DX12Shader()
@@ -12,8 +18,30 @@ namespace DopeEngine
 
 	}
 
+	ID3DBlob* DX12Shader::get_dx12_shader_blob() const
+	{
+		return ShaderBlob;
+	}
+
 	void DX12Shader::compile()
 	{
+
+	}
+
+	void DX12Shader::_create_shader(const ShaderDescription& desc, DX12GraphicsDevice* device)
+	{
+		/*
+		* Compile shader
+		*/
+		ID3DBlob* errorBlob;
+		HRESULT compileHR = D3DCompile(*desc.Source,desc.Source.get_cursor(),
+			nullptr,nullptr,nullptr,
+			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4),0,0,&ShaderBlob,&errorBlob);
+
+		/*
+		* Validate shader compilation
+		*/
+		ASSERT(SUCCEEDED(compileHR),"DX12Shader", "Shader compilation error with logs: %s", errorBlob->GetBufferPointer());
 	}
 
 }

@@ -23,6 +23,8 @@ namespace DopeEngine
 		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) override;
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
+	private:
+		ID3D12GraphicsCommandList* CommandList;
 	};
 
 

@@ -9,12 +9,19 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX11GraphicsDevice : public GraphicsDevice
 	{
 	public:
-		DX11GraphicsDevice(Window* ownerWindow);
+		DX11GraphicsDevice(Window* ownerWindow,const unsigned int shaderModel = 4);
 		~DX11GraphicsDevice() = default;
 		
 		 ComPtr<ID3D11Device> get_dx11_device() const;
 		 ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
 		 ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
+
+		 /// <summary>
+		 /// Returns the supported shader model
+		 /// </summary>
+		 /// <returns></returns>
+		 unsigned int get_dx11_shader_model() const;
+
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
@@ -44,6 +51,7 @@ namespace DopeEngine
 		DXPTR<ID3D11DeviceContext> ImmediateContext;
 		DXPTR<ID3D11DeviceContext> DeferredContext;
 		DXPTR<ID3D11RenderTargetView> SwapchainRenderTargetView;
+		unsigned int ShaderModel;
 	};
 
 

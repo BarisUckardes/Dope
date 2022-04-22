@@ -6,8 +6,21 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX12GraphicsDevice : public GraphicsDevice
 	{
 	public:
-		DX12GraphicsDevice(Window* ownerWindow);
+		DX12GraphicsDevice(Window* ownerWindo);
 		~DX12GraphicsDevice();
+
+		/// <summary>
+		/// Returns the native dx12 device
+		/// </summary>
+		/// <returns></returns>
+		ID3D12Device* get_dx12_device() const;
+
+		/// <summary>
+		/// Returns the command allocators
+		/// </summary>
+		/// <returns></returns>
+		const Array<ID3D12CommandAllocator*>& get_dx12_command_allocators() const;
+
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
@@ -24,15 +37,10 @@ namespace DopeEngine
 		virtual CommandBuffer* create_command_buffer_impl() override;
 		// Inherited via GraphicsDevice
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const override;
-
 		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) override;
-
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
-
 		virtual void update_buffer_impl(Buffer* buffer, const Byte* data) override;
-
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
-
 		virtual void swap_swapchain_buffers_impl() override;
 	private:
 		void _create_directx12_device();
@@ -40,8 +48,9 @@ namespace DopeEngine
 	private:
 		IDXGISwapChain3* Swapchain;
 		ID3D12Device* Device;
-
-
+		ID3D12DescriptorHeap* RtvHeapDescriptor;
+		Array<ID3D12Resource*> RenderTargets;
+		Array<ID3D12CommandAllocator*> CommandAlocators;
 	};
 
 

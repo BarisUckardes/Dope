@@ -9,5 +9,11 @@ namespace DopeEngine
 	public:
 		DX12Pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device);
 		virtual ~DX12Pipeline() final override;
+
+	private:
+		void _create_pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device);
+	private:
+		ID3D12RootSignature* RootSignature;
+		ID3D12PipelineState* PSO;
 	};
 }
