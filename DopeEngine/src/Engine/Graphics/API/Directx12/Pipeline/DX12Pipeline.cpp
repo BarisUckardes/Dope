@@ -4,6 +4,10 @@
 #include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx12/Shader/DX12Shader.h>
 #include <Engine/Graphics/API/Directx12/Shader/DX12ShaderSet.h>
+#include <Engine/Graphics/API/Directx12/Pipeline/DX12PipelineUtils.h>
+#include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
+#include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
+#include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
     DX12Pipeline::DX12Pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device) : Pipeline(desc)
@@ -16,6 +20,22 @@ namespace DopeEngine
     DX12Pipeline::~DX12Pipeline()
     {
 
+    }
+    DXPTR<ID3D12RootSignature> DX12Pipeline::get_dx12_root_signature() const
+    {
+        return RootSignature;
+    }
+    DXPTR<ID3D12PipelineState> DX12Pipeline::get_dx12_pso() const
+    {
+        return Pso;
+    }
+    D3D12_VIEWPORT DX12Pipeline::get_dx12_viewport() const
+    {
+        return D3D12_VIEWPORT();
+    }
+    D3D12_RECT DX12Pipeline::get_dx12_scissors() const
+    {
+        return D3D12_RECT();
     }
     void DX12Pipeline::_create_pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device)
     {
@@ -44,7 +64,7 @@ namespace DopeEngine
         /*
         * Create root signature
         */
-        HRESULT createRootSignatureHR = device->get_dx12_device()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(&RootSignature));
+        HRESULT createRootSignatureHR = device->get_dx12_device()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(RootSignature.GetAddressOf()));
 
         /*
         * Validate create root signature
@@ -54,7 +74,32 @@ namespace DopeEngine
         /*
         * Create input signature
         */
+        const VertexLayoutDescription vertexLayoutDescription = desc.LayoutDescription;
+        const Array<VertexElementDescription> vertexElementDescs = vertexLayoutDescription.get_elements_slow();
         Array<D3D12_INPUT_ELEMENT_DESC> inputElements;
+        unsigned int offset = 0;
+        for (unsigned int i = 0; i < vertexElementDescs.get_cursor(); i++)
+        {
+            /*
+            * Get element description
+            */
+            const VertexElementDescription& elementDesc = vertexElementDescs[i];
+
+            /*
+             * Create input element desc
+             */
+            D3D12_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, i, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
+
+            /*
+            * Register input element
+            */
+            inputElements.add(inputElementDesc);
+
+            /*
+            * Increment offset
+            */
+            offset += VertexUtils::get_data_type_size(elementDesc.DataType);
+        }
 
         /*
         * Create dx12 graphics pipeline state
@@ -63,7 +108,7 @@ namespace DopeEngine
         D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = { };
         psoDesc.InputLayout.pInputElementDescs = inputElements.get_data();
         psoDesc.InputLayout.NumElements = inputElements.get_cursor();
-        psoDesc.pRootSignature = RootSignature;
+        psoDesc.pRootSignature = RootSignature.Get();
         for (unsigned int i = 0; i < shaderSetShaders.get_cursor(); i++)
         {
             /*
@@ -107,27 +152,84 @@ namespace DopeEngine
                     break;
             }
         }
+
         /*
-        * TODO: Complete pipeline
+        * Create rasterizer state
         */
-        psoDesc.RasterizerState = {};
-        psoDesc.BlendState = {};
+        D3D12_RASTERIZER_DESC rasterizerDesc = {};
+        rasterizerDesc.AntialiasedLineEnable = false;
+        rasterizerDesc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
+        rasterizerDesc.CullMode = DX12PipelineUtils::get_dx12_cull_mode(desc.CullFace);
+        rasterizerDesc.DepthBias = 0;
+        rasterizerDesc.DepthBiasClamp = 0;
+        rasterizerDesc.DepthClipEnable = desc.DepthClip;
+        rasterizerDesc.FillMode = DX12PipelineUtils::get_dx12_fill_mode(desc.FillMode);
+        rasterizerDesc.ForcedSampleCount = 0;
+        rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
+        rasterizerDesc.MultisampleEnable = false;
+        rasterizerDesc.SlopeScaledDepthBias = 0;
+        psoDesc.RasterizerState = rasterizerDesc;
+
+        /*
+        * Create blend state
+        */
+        D3D12_BLEND_DESC blendDesc = {}; // TODO: implement this
+        blendDesc.AlphaToCoverageEnable = false;
+        blendDesc.IndependentBlendEnable = false;
+        psoDesc.BlendState = blendDesc;
+
+
+        /*
+        * Create depth stencil state
+        */
         psoDesc.DepthStencilState.DepthEnable = desc.DepthTest;
         psoDesc.DepthStencilState.StencilEnable = false;
         psoDesc.SampleMask = UINT_MAX;
-        psoDesc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
-        psoDesc.NumRenderTargets = 1;
-        psoDesc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+        /*
+        * Create output state
+        */
+        psoDesc.PrimitiveTopologyType = DX12PipelineUtils::get_dx12_primitives(desc.Primitives);
+
+        Array<DXGI_FORMAT> rtvFormats;
+        for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
+        {
+            rtvFormats.add(DX11TextureUtils::get_format(desc.OutputDesc.OutputFormats[i]));
+        }
+        for (unsigned int i = 0; i < rtvFormats.get_cursor(); i++)
+        {
+            psoDesc.RTVFormats[i] = rtvFormats[i];
+        }
+
+        psoDesc.NumRenderTargets = rtvFormats.get_cursor();
         psoDesc.SampleDesc.Count = 1;
 
         /*
         * Create pso object
         */
-        HRESULT createPSOHR = device->get_dx12_device()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&PSO));
+        HRESULT createPSOHR = device->get_dx12_device()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&Pso));
 
         /*
         * Validate pso
         */
         ASSERT(SUCCEEDED(createPSOHR), "DX12Pipeline", "PSO creation failed");
+
+        /*
+        * Create viewport
+        */
+        Viewport.Width = desc.OutputDesc.Width;
+        Viewport.Height = desc.OutputDesc.Height;
+        Viewport.TopLeftX = desc.OutputDesc.OffsetX;
+        Viewport.TopLeftY = desc.OutputDesc.OffsetY;
+        Viewport.MinDepth = 0.0f;
+        Viewport.MaxDepth = 1.0f;
+
+        /*
+        * Create scissors
+        */
+        ScissorRect.left = 0;
+        ScissorRect.right = 0;
+        ScissorRect.bottom = 0;
+        ScissorRect.top = 0;
     }
 }

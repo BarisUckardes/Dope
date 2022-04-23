@@ -33,15 +33,14 @@ namespace DopeEngine
 		/*
 		* Compile shader
 		*/
-		ID3DBlob* errorBlob;
 		HRESULT compileHR = D3DCompile(*desc.Source,desc.Source.get_cursor(),
 			nullptr,nullptr,nullptr,
-			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4),0,0,&ShaderBlob,&errorBlob);
+			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4),0,0,&ShaderBlob,&ErrorBlob);
 
 		/*
 		* Validate shader compilation
 		*/
-		ASSERT(SUCCEEDED(compileHR),"DX12Shader", "Shader compilation error with logs: %s", errorBlob->GetBufferPointer());
+		ASSERT(SUCCEEDED(compileHR),"DX12Shader", "Shader compilation error with logs: %s", ErrorBlob->GetBufferPointer());
 	}
 
 }

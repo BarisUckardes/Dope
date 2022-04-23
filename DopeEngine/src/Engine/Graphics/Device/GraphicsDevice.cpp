@@ -33,10 +33,10 @@ namespace DopeEngine
 				device =  new DX11GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Directx12:
-				return new DX12GraphicsDevice(ownerWindow);
+				device = new DX12GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Vulkan:
-				//return new VulkanGraphicsDevice(ownerWindow);
+				//device = new VulkanGraphicsDevice(ownerWindow);
 				ASSERT(false, "GraphicsDevice", "Vulkan not supported yet!");
 				break;
 			default:

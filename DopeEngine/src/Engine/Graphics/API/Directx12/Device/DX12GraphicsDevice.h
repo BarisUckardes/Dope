@@ -6,20 +6,32 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX12GraphicsDevice : public GraphicsDevice
 	{
 	public:
-		DX12GraphicsDevice(Window* ownerWindo);
+		DX12GraphicsDevice(Window* ownerWindow);
 		~DX12GraphicsDevice();
 
 		/// <summary>
 		/// Returns the native dx12 device
 		/// </summary>
 		/// <returns></returns>
-		ID3D12Device* get_dx12_device() const;
+		DXPTR<ID3D12Device> get_dx12_device() const;
 
 		/// <summary>
 		/// Returns the command allocators
 		/// </summary>
 		/// <returns></returns>
-		const Array<ID3D12CommandAllocator*>& get_dx12_command_allocators() const;
+		DXPTR<ID3D12CommandAllocator> get_dx12_command_allocator() const;
+
+		/// <summary>
+		/// Returns this device's swachain (if any)
+		/// </summary>
+		/// <returns></returns>
+		DXPTR<IDXGISwapChain3> get_dx12_swapchain() const;
+
+		/// <summary>
+		/// Returns the swapchain backbuffer render target views
+		/// </summary>
+		/// <returns></returns>
+		Array<DXPTR<ID3D12Resource>> get_dx12_swapchain_rtvs() const;
 
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
@@ -46,11 +58,15 @@ namespace DopeEngine
 		void _create_directx12_device();
 		void _create_win32_directx12_device();
 	private:
-		IDXGISwapChain3* Swapchain;
-		ID3D12Device* Device;
-		ID3D12DescriptorHeap* RtvHeapDescriptor;
-		Array<ID3D12Resource*> RenderTargets;
-		Array<ID3D12CommandAllocator*> CommandAlocators;
+		DXPTR<IDXGISwapChain3> Swapchain;
+		DXPTR<ID3D12Device> Device;
+		DXPTR<ID3D12DescriptorHeap> RtvHeapDescriptor;
+		DXPTR<ID3D12CommandQueue> CommandQueue;
+		DXPTR<ID3D12CommandAllocator> CommandAlocator;
+		Array<DXPTR<ID3D12Resource>> RenderTargets;
+		
+
+
 	};
 
 

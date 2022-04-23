@@ -23,6 +23,7 @@ namespace DopeEngine
 		void _create_shader(const ShaderDescription& desc, DX12GraphicsDevice* device);
 	private:
 		ID3DBlob* ShaderBlob;
+		ID3DBlob* ErrorBlob;
 	};
 
 

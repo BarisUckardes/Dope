@@ -30,7 +30,7 @@ namespace DopeEngine
 
 		PipelineDescription() : BlendingState(BlendState::SingleOverride), DepthComparision(DepthComparisionKind::Always),DepthTest(false),DepthWrite(false),
 		FrontFace(FrontFaceMode::CounterClockwise),CullFace(FaceCullMode::DontCull),FillMode(PolygonFillMode::Fill),DepthClip(false),ScissorTest(false),Primitives(PrimitiveTopology::Triangles),
-		ShaderSet(nullptr),OutputDesc(0,0,0,0),LayoutDescription(VertexLayoutDescription()) {};
+		ShaderSet(nullptr),OutputDesc(0,0,0,0,Array<TextureFormat>()),LayoutDescription(VertexLayoutDescription()) {};
 		~PipelineDescription() = default;
 
 		/// <summary>

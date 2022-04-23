@@ -1,6 +1,10 @@
 #include "DX12GraphicsDevice.h"
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx12/Device/DX12DeviceObjects.h>
+#include <Engine/Platform/Windows/Structures/WindowString.h>
+#include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
+#include <iostream>
+
 namespace DopeEngine
 {
 	DX12GraphicsDevice::DX12GraphicsDevice(Window* ownerWindow) : GraphicsDevice(ownerWindow)
@@ -57,7 +61,7 @@ namespace DopeEngine
 			/*
 			* Get adapter desc
 			*/
-			DXGI_ADAPTER_DESC1 desc;
+			DXGI_ADAPTER_DESC1 desc = {};
 			adapter->GetDesc1(&desc);
 
 			/*
@@ -80,7 +84,7 @@ namespace DopeEngine
 			}
 
 			/*
-			* Increment adepter index for iteration
+			* Increment adapter index for iteration
 			*/
 			adapterIndex++;
 		}
@@ -99,8 +103,7 @@ namespace DopeEngine
 		* Create command queue just for swapchain
 		*/
 		D3D12_COMMAND_QUEUE_DESC cqDesc = {};
-		ID3D12CommandQueue* commandQueue = nullptr;
-		HRESULT cqCreateHR = Device->CreateCommandQueue(&cqDesc, __uuidof(**(&commandQueue)), (void**)&commandQueue);
+		HRESULT cqCreateHR = Device->CreateCommandQueue(&cqDesc,IID_PPV_ARGS(&CommandQueue));
 
 		/*
 		* Validate cq create
@@ -125,7 +128,8 @@ namespace DopeEngine
 		* Create swapchain desc
 		*/
 		DXGI_SWAP_CHAIN_DESC swapchainDesc = {  };
-		swapchainDesc.BufferCount = 1;
+		ZeroMemory(&swapchainDesc,sizeof(DXGI_SWAP_CHAIN_DESC));
+		swapchainDesc.BufferCount = 3; // tripple buffering
 		swapchainDesc.BufferDesc = bufferDesc;
 		swapchainDesc.Windowed = true;
 		swapchainDesc.SampleDesc = sampleDesc;
@@ -136,18 +140,12 @@ namespace DopeEngine
 		/*
 		* Create temp swapchain
 		*/
-		IDXGISwapChain1* tempSwapchain;
-		HRESULT tempSwapchainCreateHR = dxgiFactory->CreateSwapChainForHwnd(commandQueue,window->get_win32_window_handle(), (const DXGI_SWAP_CHAIN_DESC1*)&swapchainDesc, nullptr, nullptr, &tempSwapchain);
+		HRESULT tempSwapchainCreateHR = dxgiFactory->CreateSwapChain(CommandQueue.Get(), &swapchainDesc, (IDXGISwapChain**)Swapchain.GetAddressOf());
 
 		/*
 		* Validate temp swapchain creation
 		*/
 		ASSERT(SUCCEEDED(tempSwapchainCreateHR), "DX12GraphicsDevice", "Temp swapchain creation failed!!");
-
-		/*
-		* Set swapchain 1 as 3
-		*/
-		Swapchain = (IDXGISwapChain3*)tempSwapchain;
 
 		/*
 		* Make window association
@@ -158,7 +156,6 @@ namespace DopeEngine
 		* Get backbuffer index
 		*/
 		const unsigned int bacbufferIndex = Swapchain->GetCurrentBackBufferIndex();
-
 
 		/*
 		* Create render target view heap descriptors
@@ -177,23 +174,23 @@ namespace DopeEngine
 		/*
 		* Collect descriptor size in rtv heap descriptor
 		*/
-		const unsigned int rtvDescriptorCount = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		const unsigned int rtvIncrementSize = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		/*
 		* Get handle of the first descriptor
 		*/
-		D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle(RtvHeapDescriptor->GetCPUDescriptorHandleForHeapStart());
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle = RtvHeapDescriptor->GetCPUDescriptorHandleForHeapStart();
 
 		/*
 		* ITerate and create rtv for each buffer
 		*/
-		RenderTargets.reserve(3);
 		for (unsigned int i = 0; i < 3; i++)
 		{
 			/*
 			* Get swapchain buffer
 			*/
-			HRESULT rtvGetHR = Swapchain->GetBuffer(i, IID_PPV_ARGS(&RenderTargets[i]));
+			DXPTR<ID3D12Resource> rtv;
+			HRESULT rtvGetHR = Swapchain->GetBuffer(i, IID_PPV_ARGS(rtv.GetAddressOf()));
 
 			/*
 			* Validate get
@@ -203,35 +200,34 @@ namespace DopeEngine
 			/*
 			* Create render target view
 			*/
-			Device->CreateRenderTargetView(RenderTargets[i], nullptr, rtvStartHandle);
+			Device->CreateRenderTargetView(rtv.Get(), nullptr, rtvStartHandle);
 
 			/*
 			* Increment TODO: cannot call a function with D3D12_CPU_DESCRIPTOR_HANDLE use D3DX12_CPU_DESCRIPTOR_HANDLE instead
 			*/
+			DX12Helper::offset_rtv_handle(1, rtvIncrementSize, rtvStartHandle);
+
+			/*
+			* Register
+			*/
+			RenderTargets.add(rtv);
 		}
 
 		/*
-		* Create command allocators
+		* Create command allocator
 		*/
-		CommandAlocators.reserve(3);
-		for (unsigned int i = 0; i < 3; i++)
-		{
-			/*
-			* Create command allocator
-			*/
-			HRESULT createCommandAllocatedHR = Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&CommandAlocators[i]));
+		HRESULT createCommandAllocatedHR = Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&CommandAlocator));
 
-			/*
-			* Validate creation of the command allocator
-			*/
-			ASSERT(SUCCEEDED(createCommandAllocatedHR), "DX12GraphicsDevice", "Command allocator creation failed!");
-		}
+		/*
+		* Validate creation of the command allocator
+		*/
+		ASSERT(SUCCEEDED(createCommandAllocatedHR), "DX12GraphicsDevice", "Command allocator creation failed!");
 
 		/*
 		* Create command list
 		*/
 		ID3D12GraphicsCommandList* commandList;
-		HRESULT createCommandListHR = Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT,CommandAlocators[0],NULL,IID_PPV_ARGS(&commandList));
+		HRESULT createCommandListHR = Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, CommandAlocator.Get(), NULL, IID_PPV_ARGS(&commandList));
 
 		/*
 		* Validate command list creation
@@ -243,9 +239,13 @@ namespace DopeEngine
 		*/
 		commandList->Close();
 	}
+	void DX12GraphicsDevice::swap_swapchain_buffers_impl()
+	{
+	}
 	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		return nullptr;
+		LOG("DX12GraphicsDevice", "Create swapchain");
+		return new DX12SwapchainFramebuffer(width,height,(DX12GraphicsDevice*)this,(Window*)get_owner_window());
 	}
 	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
@@ -273,10 +273,7 @@ namespace DopeEngine
 	{
 
 	}
-	void DX12GraphicsDevice::swap_swapchain_buffers_impl()
-	{
 
-	}
 	CommandBuffer* DX12GraphicsDevice::create_command_buffer_impl()
 	{
 		/*
@@ -288,7 +285,8 @@ namespace DopeEngine
 	}
 	void DX12GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
-
+		DXPTR<ID3D12CommandList> cmdList = ((DX12CommandBuffer*)commandBuffer)->get_dx12_command_list();
+		CommandQueue->ExecuteCommandLists(1, &cmdList);
 	}
 	void DX12GraphicsDevice::delete_device_object_impl(DeviceObject* object)
 	{
@@ -366,13 +364,21 @@ namespace DopeEngine
 
 		return texture;
 	}
-	ID3D12Device* DX12GraphicsDevice::get_dx12_device() const
+	DXPTR<ID3D12Device> DX12GraphicsDevice::get_dx12_device() const
 	{
 		return Device;
 	}
-	const Array<ID3D12CommandAllocator*>& DX12GraphicsDevice::get_dx12_command_allocators() const
+	DXPTR<ID3D12CommandAllocator> DX12GraphicsDevice::get_dx12_command_allocator() const
 	{
-		return CommandAlocators;
+		return CommandAlocator;
+	}
+	DXPTR<IDXGISwapChain3> DX12GraphicsDevice::get_dx12_swapchain() const
+	{
+		return Swapchain;
+	}
+	Array<DXPTR<ID3D12Resource>> DX12GraphicsDevice::get_dx12_swapchain_rtvs() const
+	{
+		return RenderTargets;
 	}
 	GraphicsAPIType DX12GraphicsDevice::get_api_type() const
 	{

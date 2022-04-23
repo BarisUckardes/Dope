@@ -20,7 +20,7 @@ namespace DopeEngine
 		/// Sets the debug name for this device object
 		/// </summary>
 		/// <param name="name"></param>
-		 void set_debug_name(const String& name);
+		void set_debug_name(const String& name);
 
 		/// <summary>
 		/// Returns the type of this device object

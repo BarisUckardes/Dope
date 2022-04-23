@@ -62,7 +62,7 @@ namespace DopeEngine
 		/// Returns the output desc for this framebuffer
 		/// </summary>
 		/// <returns></returns>
-		 OutputDescription get_output_desc() const;
+		OutputDescription get_output_desc() const;
 	private:
 		static void _set_width(Framebuffer* buffer, const unsigned int width);
 		static void _set_height(Framebuffer* buffer, const unsigned int height);

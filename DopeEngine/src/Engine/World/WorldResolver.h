@@ -14,7 +14,6 @@ namespace DopeEngine
 	{
 		friend class World;
 	public:
-
 		/// <summary>
 		/// Returns the class name for this resolver
 		/// </summary>
@@ -48,7 +47,7 @@ namespace DopeEngine
 		/// </summary>
 		virtual void finalize() = 0;
 	protected:
-		WorldResolver() = default;
+		WorldResolver() : OwnerWorld(nullptr) {}
 		~WorldResolver() = default;
 
 		 World* get_owner_world() const;

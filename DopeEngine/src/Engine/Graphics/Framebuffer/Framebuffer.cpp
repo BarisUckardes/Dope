@@ -1,5 +1,6 @@
 #include "Framebuffer.h"
 #include <Engine/Graphics/Device/GraphicsDevice.h>
+#include <Engine/Graphics/Texture/Texture.h>
 namespace DopeEngine
 {
 	Framebuffer::Framebuffer(const FramebufferDescription& description) : DeviceObject(DeviceObjectType::Framebuffer)
@@ -44,7 +45,25 @@ namespace DopeEngine
 	}
 	OutputDescription Framebuffer::get_output_desc() const
 	{
-		return {0,0,Width,Height};
+		/*
+		* Collect texture formats
+		*/
+		Array<TextureFormat> formats;
+		formats.reserve(Attachments.get_cursor());
+		for (unsigned int i = 0; i < Attachments.get_cursor(); i++)
+		{
+			/*
+			* Get attachment
+			*/
+			const Texture* attachment = Attachments[i];
+
+			/*
+			* Register format
+			*/
+			formats.add(attachment->get_format());
+		}
+
+		return {0,0,Width,Height,formats};
 	}
 	void Framebuffer::_set_width(Framebuffer* buffer, const unsigned int width)
 	{

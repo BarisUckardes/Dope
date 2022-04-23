@@ -1,6 +1,7 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-
+#include <Engine/Structures/Array.h>
+#include <Engine/Graphics/Texture/TextureFormat.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -8,7 +9,9 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API OutputDescription
 	{
-		OutputDescription(const unsigned int offsetX,const unsigned int offsetY,const unsigned int width,const unsigned int height) : OffsetX(offsetX),OffsetY(offsetY),Width(width),Height(height) {}
+		OutputDescription(const unsigned int offsetX,const unsigned int offsetY,const unsigned int width,const unsigned int height,
+			const Array<TextureFormat>& outputFormats) :
+			OffsetX(offsetX),OffsetY(offsetY),Width(width),Height(height),OutputFormats(outputFormats) {}
 		OutputDescription() = default;
 		~OutputDescription() = default;
 
@@ -31,5 +34,10 @@ namespace DopeEngine
 		/// Draw rect height
 		/// </summary>
 		unsigned int Height;
+
+		/// <summary>
+		/// Attachment formats
+		/// </summary>
+		Array<TextureFormat> OutputFormats;
 	};
 }

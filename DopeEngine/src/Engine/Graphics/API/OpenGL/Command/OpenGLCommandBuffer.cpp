@@ -225,6 +225,7 @@ namespace DopeEngine
 				* Increment currently bound textures
 				*/
 				increment_texture_bound_count();
+				
 				break;
 			}
 			case DopeEngine::ResourceType::UniformBuffer:

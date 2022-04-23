@@ -11,7 +11,6 @@ namespace DopeEngine
 
 		 static D3D11_FILL_MODE get_fill_mode(const PolygonFillMode mode);
 		 static D3D11_CULL_MODE get_cull_mode(const FaceCullMode mode);
-		
 	};
 
 

@@ -21,67 +21,67 @@ namespace DopeEngine
 		/// Returns a reference to the asset list
 		/// </summary>
 		/// <returns></returns>
-		 const Array<Asset*>& get_assets_fast() const;
+		const Array<Asset*>& get_assets_fast() const;
 
 		/// <summary>
 		/// Returns a copy of the asset list
 		/// </summary>
 		/// <returns></returns>
-		 Array<Asset*> get_assets_slow() const;
+		Array<Asset*> get_assets_slow() const;
 
 		/// <summary>
 		/// Returns the owning pool of this package
 		/// </summary>
 		/// <returns></returns>
-		 AssetPackagePool* get_owner_pool() const;
+		AssetPackagePool* get_owner_pool() const;
 
 		/// <summary>
 		/// Returns name of the package
 		/// </summary>
 		/// <returns></returns>
-		 String get_name() const;
+		String get_name() const;
 
 		/// <summary>
 		/// Returns id of the package
 		/// </summary>
 		/// <returns></returns>
-		 Guid get_id() const;
+		Guid get_id() const;
 
 		/// <summary>
 		/// Returns the compressed physical file size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_compressed_physical_file_size() const;
+		unsigned long get_compressed_physical_file_size() const;
 
 		/// <summary>
 		/// Returns the uncompressed physical file size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_uncompressed_physical_file_size() const;
+		unsigned long get_uncompressed_physical_file_size() const;
 
 		/// <summary>
 		/// Returns the allocated cpu memory size(only functional memory)
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_allocated_functional_memory_size() const;
+		unsigned long get_cpu_allocated_functional_memory_size() const;
 
 		/// <summary>
 		/// Returns the allocated gpu memory size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_gpu_allocated_functional_memory_size() const;
+		unsigned long get_gpu_allocated_functional_memory_size() const;
 
 		/// <summary>
 		/// Returns the cpu cached memory size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_cached_memory_size() const;
+		unsigned long get_cpu_cached_memory_size() const;
 
 		/// <summary>
 		/// Returns the total allocated cpu memory size(functional + cached)
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_allocated_total_memory_size() const;
+		unsigned long get_cpu_allocated_total_memory_size() const;
 
 		/// <summary>
 		/// Creates a packed asset
@@ -89,81 +89,81 @@ namespace DopeEngine
 		/// <param name="sourceFileAbsolutePath"></param>
 		/// <param name="headerFileAbsolutePath"></param>
 		/// <returns></returns>
-		 Asset* create_packed_asset(const String& sourceFileAbsolutePath,const String& headerFileAbsolutePath);
+		Asset* create_packed_asset(const String& sourceFileAbsolutePath,const String& headerFileAbsolutePath);
 
 		/// <summary>
 		/// Creates a raw asset
 		/// </summary>
 		/// <param name="rawFileAbsolutePath"></param>
 		/// <returns></returns>
-		 Asset* create_raw_asset(const String& rawFileAbsolutePath,const AssetType fileAssetType);
+		Asset* create_raw_asset(const String& rawFileAbsolutePath,const AssetType fileAssetType);
 
 		/// <summary>
 		/// Creates a virtual asset
 		/// </summary>
 		/// <param name="object"></param>
 		/// <returns></returns>
-		 Asset* create_virtual_asset(AssetObject* object);
+		Asset* create_virtual_asset(AssetObject* object);
 
 		/// <summary>
 		/// Internal method for incrementing compressed physical file size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _add_compressed_physical_file_size(unsigned long size);
+		void _add_compressed_physical_file_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for decrementing compressed physical file size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _remove_compressed_physical_file_size(unsigned long size);
+		void _remove_compressed_physical_file_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for incrementing uncompressed physical file size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _add_uncompressed_physical_file_size(unsigned long size);
+		void _add_uncompressed_physical_file_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for decrementing uncompressed physical file size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _remove_uncompressed_physical_file_size(unsigned long size);
+		void _remove_uncompressed_physical_file_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for incrementing cpu allocated functional memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _add_cpu_functional_memory_size(unsigned long size);
+		void _add_cpu_functional_memory_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for decrementing cpu allocated functional memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _remove_cpu_functional_memory_size(unsigned long size);
+		void _remove_cpu_functional_memory_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for incrementing gpu allocated functional memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _add_gpu_functional_memory_size(unsigned long size);
+		void _add_gpu_functional_memory_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for decrementing gpu allocated functional memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _remove_gpu_functional_memory_size(unsigned long size);
+		void _remove_gpu_functional_memory_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for incrementing cpu cached memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _add_cached_cpu_memory_size(unsigned long size);
+		void _add_cached_cpu_memory_size(unsigned long size);
 
 		/// <summary>
 		/// Internal method for decrementing cpu cached memory size
 		/// </summary>
 		/// <param name="size"></param>
-		 void _remove_cached_cpu_memory_size(unsigned long size);
+		void _remove_cached_cpu_memory_size(unsigned long size);
 		
 	private:
 		AssetPackage(const String& packageName,AssetPackagePool* ownerPool);

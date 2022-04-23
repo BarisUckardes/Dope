@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -138,7 +138,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -159,7 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -175,6 +175,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.h" />
@@ -260,6 +263,7 @@
     <ClInclude Include="src\Engine\Graphics\Buffer\Buffer.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h" />
+    <ClInclude Include="src\Engine\Platform\PlatformString.h" />
     <ClInclude Include="src\Engine\Threading\Mutex.h" />
     <ClInclude Include="src\Engine\Math\Math.h" />
     <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
@@ -343,8 +347,12 @@
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h" />
     <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoader.h" />
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.cpp" />
@@ -468,6 +476,7 @@
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp" />
     <ClCompile Include="src\Engine\Utils\TextureLoader\TextureLoader.cpp" />
     <ClCompile Include="src\Engine\Graphics\Texture\TextureUtils.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowString.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

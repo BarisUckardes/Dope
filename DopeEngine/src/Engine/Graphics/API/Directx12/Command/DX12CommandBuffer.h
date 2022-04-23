@@ -9,6 +9,7 @@ namespace DopeEngine
 		DX12CommandBuffer(DX12GraphicsDevice* device);
 		virtual ~DX12CommandBuffer() final override;
 
+		DXPTR<ID3D12GraphicsCommandList> get_dx12_command_list() const;
 	protected:
 		// Inherited via CommandBuffer
 		virtual void unlock_impl() override;
@@ -24,7 +25,8 @@ namespace DopeEngine
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
 	private:
-		ID3D12GraphicsCommandList* CommandList;
+		DXPTR<ID3D12CommandAllocator> Allocator;
+		DXPTR<ID3D12GraphicsCommandList> CommandList;
 	};
 
 

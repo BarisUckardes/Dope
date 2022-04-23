@@ -56,7 +56,7 @@ namespace DopeEngine
 			/*
 			* Create input element desc
 			*/
-			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, 0, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0};
+			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, i, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0};
 			
 			/*
 			* Register input element
@@ -68,7 +68,7 @@ namespace DopeEngine
 			*/
 			offset += VertexUtils::get_data_type_size(elementDesc.DataType);
 		}
-		
+
 		/*
 		* Get vertex shader
 		*/
