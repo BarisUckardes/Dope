@@ -107,6 +107,10 @@ namespace DopeEngine
 		backBuffer->Release();
 	}
 
+	void DX11GraphicsDevice::wait_for_finish_impl()
+	{
+	}
+
 	void DX11GraphicsDevice::swap_swapchain_buffers_impl()
 	{
 		SwapChain->Present(1u, 0);

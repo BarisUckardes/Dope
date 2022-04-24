@@ -50,5 +50,8 @@ namespace DopeEngine
 
 		// Inherited via GraphicsDevice
 		virtual void swap_swapchain_buffers_impl() override;
+
+		// Inherited via GraphicsDevice
+		virtual void wait_for_finish_impl() override;
 	};
 }

@@ -100,7 +100,7 @@ namespace DopeEngine
 		const Window* window = get_owner_window();
 
 		/*
-		* Create command queue just for swapchain
+		* Create command queue
 		*/
 		D3D12_COMMAND_QUEUE_DESC cqDesc = {};
 		HRESULT cqCreateHR = Device->CreateCommandQueue(&cqDesc,IID_PPV_ARGS(&CommandQueue));
@@ -164,7 +164,7 @@ namespace DopeEngine
 		rtvHeapDesc.NumDescriptors = 3;
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-		HRESULT createRtvDescriptorHeapHR = Device->CreateDescriptorHeap(&rtvHeapDesc,IID_PPV_ARGS(&RtvHeapDescriptor));
+		HRESULT createRtvDescriptorHeapHR = Device->CreateDescriptorHeap(&rtvHeapDesc,IID_PPV_ARGS(RtvHeapDescriptor.GetAddressOf()));
 
 		/*
 		* Validate rtv descriptior heap creation
@@ -174,7 +174,7 @@ namespace DopeEngine
 		/*
 		* Collect descriptor size in rtv heap descriptor
 		*/
-		const unsigned int rtvIncrementSize = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+		const unsigned int rtvDescriptorSize = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		/*
 		* Get handle of the first descriptor
@@ -203,9 +203,9 @@ namespace DopeEngine
 			Device->CreateRenderTargetView(rtv.Get(), nullptr, rtvStartHandle);
 
 			/*
-			* Increment TODO: cannot call a function with D3D12_CPU_DESCRIPTOR_HANDLE use D3DX12_CPU_DESCRIPTOR_HANDLE instead
+			* Increment rtv offset
 			*/
-			DX12Helper::offset_rtv_handle(1, rtvIncrementSize, rtvStartHandle);
+			rtvStartHandle.ptr += rtvDescriptorSize;
 
 			/*
 			* Register
@@ -216,7 +216,7 @@ namespace DopeEngine
 		/*
 		* Create command allocator
 		*/
-		HRESULT createCommandAllocatedHR = Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&CommandAlocator));
+		HRESULT createCommandAllocatedHR = Device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(CommandAllocator.GetAddressOf()));
 
 		/*
 		* Validate creation of the command allocator
@@ -226,8 +226,7 @@ namespace DopeEngine
 		/*
 		* Create command list
 		*/
-		ID3D12GraphicsCommandList* commandList;
-		HRESULT createCommandListHR = Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, CommandAlocator.Get(), NULL, IID_PPV_ARGS(&commandList));
+		HRESULT createCommandListHR = Device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, CommandAllocator.Get(), NULL, IID_PPV_ARGS(GraphicsCommandList.ReleaseAndGetAddressOf()));
 
 		/*
 		* Validate command list creation
@@ -235,17 +234,75 @@ namespace DopeEngine
 		ASSERT(SUCCEEDED(createCommandListHR), "DX12GraphicsDevice","Command list creation failed!");
 
 		/*
-		* Close the command list because lists are created in recording state by default
+		* Close command list because the default state is the recording state
 		*/
-		commandList->Close();
+		HRESULT commandListCloseHR = GraphicsCommandList->Close();
+
+		/*
+		* Validate close
+		*/
+		ASSERT(SUCCEEDED(commandListCloseHR), "DX12CommandBuffer", "Command list couldnt be closed");
+
+		/*
+		* Create graphics device fence
+		*/
+		Device->CreateFence(1, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(Fence.GetAddressOf()));
+
+		/*
+		* Creat fence event
+		*/
+		FenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 	}
+	void DX12GraphicsDevice::wait_for_finish_impl()
+	{
+		/*
+		* Signal command queue about the fence
+		*/
+		const unsigned int fValue = FenceValue;
+		CommandQueue->Signal(Fence.Get(), fValue);
+
+		/*
+		* Increment the fende
+		*/
+		FenceValue++;
+
+		/*
+		* Wait until the command queue is finished
+		*/
+		if (Fence->GetCompletedValue() < fValue)
+		{
+			/*
+			* Set fence event
+			*/
+			Fence->SetEventOnCompletion(fValue, FenceEvent);
+
+			/*
+			* Wait until the fence event finishes
+			*/
+			WaitForSingleObject(FenceEvent, INFINITE);
+		}
+		
+		/*
+		* Resets the allocator
+		*/
+		CommandAllocator->Reset();
+	}
+
 	void DX12GraphicsDevice::swap_swapchain_buffers_impl()
 	{
+		/*
+		* Present backbuffer
+		*/
+		HRESULT presentHR = Swapchain->Present(1, 0);
+
+		/*
+		* Validate presentation
+		*/
+		ASSERT(SUCCEEDED(presentHR), "DX12GraphicsDevice", "Failed to present");
 	}
 	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		LOG("DX12GraphicsDevice", "Create swapchain");
-		return new DX12SwapchainFramebuffer(width,height,(DX12GraphicsDevice*)this,(Window*)get_owner_window());
+		return new DX12SwapchainFramebuffer(width, height, (DX12GraphicsDevice*)this, (Window*)get_owner_window());
 	}
 	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
@@ -285,13 +342,20 @@ namespace DopeEngine
 	}
 	void DX12GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
-		DXPTR<ID3D12CommandList> cmdList = ((DX12CommandBuffer*)commandBuffer)->get_dx12_command_list();
-		CommandQueue->ExecuteCommandLists(1, &cmdList);
+		/*
+		* Get dx command buffer
+		*/
+		DX12CommandBuffer* dxCommandBuffer = (DX12CommandBuffer*)commandBuffer;
+		DXPTR<ID3D12CommandList> cmdList = dxCommandBuffer->get_dx12_command_list();
+		CommandQueue->ExecuteCommandLists(1, cmdList.GetAddressOf());
+		//LOG("DX12GraphicsDevice", "Execute");
 	}
+
 	void DX12GraphicsDevice::delete_device_object_impl(DeviceObject* object)
 	{
 
 	}
+
 	Buffer* DX12GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
 		/*
@@ -319,6 +383,7 @@ namespace DopeEngine
 
 		return buffer;
 	}
+
 	Framebuffer* DX12GraphicsDevice::create_framebuffer_impl(const FramebufferDescription& description)
 	{
 		/*
@@ -328,6 +393,7 @@ namespace DopeEngine
 
 		return framebuffer;
 	}
+
 	Pipeline* DX12GraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
 	{
 		/*
@@ -337,6 +403,7 @@ namespace DopeEngine
 
 		return pipeline;
 	}
+
 	Shader* DX12GraphicsDevice::create_shader_impl(const ShaderDescription& description)
 	{
 		/*
@@ -346,6 +413,7 @@ namespace DopeEngine
 
 		return shader;
 	}
+
 	ShaderSet* DX12GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
 	{
 		/*
@@ -355,6 +423,7 @@ namespace DopeEngine
 
 		return shaderSet;
 	}
+
 	Texture* DX12GraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{
 		/*
@@ -364,30 +433,46 @@ namespace DopeEngine
 
 		return texture;
 	}
+
 	DXPTR<ID3D12Device> DX12GraphicsDevice::get_dx12_device() const
 	{
 		return Device;
 	}
+
 	DXPTR<ID3D12CommandAllocator> DX12GraphicsDevice::get_dx12_command_allocator() const
 	{
-		return CommandAlocator;
+		return CommandAllocator;
 	}
 	DXPTR<IDXGISwapChain3> DX12GraphicsDevice::get_dx12_swapchain() const
 	{
 		return Swapchain;
 	}
+
 	Array<DXPTR<ID3D12Resource>> DX12GraphicsDevice::get_dx12_swapchain_rtvs() const
 	{
 		return RenderTargets;
 	}
+
+	DXPTR<ID3D12DescriptorHeap> DX12GraphicsDevice::get_dx12_rtv_heap_descriptor() const
+	{
+		return RtvHeapDescriptor;
+	}
+
+	DXPTR<ID3D12GraphicsCommandList> DX12GraphicsDevice::get_dx12_available_graphics_command_list() const
+	{
+		return GraphicsCommandList;
+	}
+
 	GraphicsAPIType DX12GraphicsDevice::get_api_type() const
 	{
 		return GraphicsAPIType::Directx12;
 	}
+
 	String DX12GraphicsDevice::get_version() const
 	{
 		return String();
 	}
+
 	void DX12GraphicsDevice::make_current_impl()
 	{
 

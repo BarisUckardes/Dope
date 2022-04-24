@@ -200,7 +200,10 @@ namespace DopeEngine
 		buffer->indexed_draw_call(6);*/
 		buffer->unlock();
 		device->submit_command_buffer(buffer);
+		device->swap_swapchain_buffers();
+		device->wait_for_finish();
 		device->delete_device_object(buffer);
+		//LOG("TestRenderingModule", "Rendered a frame");
 	}
 	void TestRenderingModule::finalize()
 	{

@@ -5,6 +5,7 @@
 #include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
 namespace DopeEngine
 {
+
 	DX12CommandBuffer::DX12CommandBuffer(DX12GraphicsDevice* device)
 	{
 		/*
@@ -13,19 +14,19 @@ namespace DopeEngine
 		Allocator = device->get_dx12_command_allocator();
 
 		/*
-		* Create command list
+		* Get rtv descriptor heap
 		*/
-		HRESULT createCommandListHR = device->get_dx12_device()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, Allocator.Get(), NULL, IID_PPV_ARGS(&CommandList));
+		RtvHeap = device->get_dx12_rtv_heap_descriptor();
 
 		/*
-		* Validate command list creation
+		* Get rtv descriptor size
 		*/
-		ASSERT(SUCCEEDED(createCommandListHR), "DX12CommandBuffer", "Command list creation failed");
+		RtvDescriptorSize = device->get_dx12_device()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 
 		/*
-		* Close command list because the default state is the recording state
+		* Get command list
 		*/
-		CommandList->Close();
+		CommandList = device->get_dx12_available_graphics_command_list();
 	}
 	DX12CommandBuffer::~DX12CommandBuffer()
 	{
@@ -37,15 +38,54 @@ namespace DopeEngine
 	}
 	void DX12CommandBuffer::unlock_impl()
 	{
+		/*
+		* Validate if there is a framebuffer bound
+		*/
+		if (CurrentFramebuffer != nullptr)
+		{
+			/*
+			* Validate if the framebuffer is a swapchain framebuffer
+			*/
+			if (CurrentFramebuffer->is_swapchain_framebuffer())
+			{
+				/*
+				* Unlock the barrier
+				*/
+				D3D12_RESOURCE_BARRIER barrier = {};
+				barrier.Transition.pResource = ((const DX12SwapchainFramebuffer*)CurrentFramebuffer)->get_dx12_current_rtv().Get();
+				barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
+				barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
+				barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+				barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+				barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+
+				/*
+				* Set barrier
+				*/
+				CommandList->ResourceBarrier(1, &barrier);
+			}
+		}
+		
+		/*
+		* Close command list
+		*/
 		CommandList->Close();
 	}
 	void DX12CommandBuffer::lock_impl()
 	{
-		CommandList->Reset(Allocator.Get(), nullptr);
+		/*
+		* Reset
+		*/
+		HRESULT resetCmdListHR = CommandList->Reset(Allocator.Get(), nullptr);
+
+		/*
+		* Validate reset
+		*/
+		ASSERT(SUCCEEDED(resetCmdListHR), "DX12CommandBuffer", "Cannot reset the command list");
 	}
 	void DX12CommandBuffer::clear_cached_state_impl()
 	{
-
+		CurrentFramebuffer = nullptr;
 	}
 	void DX12CommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
 	{
@@ -62,12 +102,6 @@ namespace DopeEngine
 	void DX12CommandBuffer::set_framebuffer_impl(const Framebuffer& framebuffer)
 	{
 
-		/*
-		* Validate if there was a alread ybound framebuffer
-		*/
-	/*	auto barrier = CD3DX12_RESOURCE_BARRIER::Transition(m_renderTargets[m_frameIndex].Get(), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
-		m_commandList->ResourceBarrier(1, &barrier);*/
-		
 		/*
 		* Validate if this framebuffer is a swapchain framebuffer
 		*/
@@ -95,13 +129,25 @@ namespace DopeEngine
 			CommandList->ResourceBarrier(1, &barrier);
 
 			/*
+			* Get heap descriptor
+			*/
+			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = RtvHeap->GetCPUDescriptorHandleForHeapStart();
+
+			/*
+			* Get rtv handle
+			*/
+			rtvHandle.ptr += swapFramebuffer.get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
+
+			/*
 			* Set targets
 			*/
-		/*	D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = {};
-			DX12Helper::offset_rtv_handle(0,1,rtvHandle);
-			CommandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);*/
+			CommandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
 		}
 		
+		/*
+		* Set as current framebuffer
+		*/
+		CurrentFramebuffer = &framebuffer;
 	}
 	void DX12CommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
 	{
@@ -125,33 +171,42 @@ namespace DopeEngine
 		*/
 		//CommandList->RSSetViewports(1,&dxPipeline.get_dx12_viewport());
 	}
+
 	void DX12CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{
-		const float clearColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+		const float clearColor[] = { 0.6f, 0.2f, 0.4f, 1.0f };
 
 		/*
 		* Create cpu descriptor handle
 		*/
-		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = {};
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = RtvHeap->GetCPUDescriptorHandleForHeapStart();
+
+		/*
+		* Get dx12 framebuffer
+		*/
+		const DX12SwapchainFramebuffer* swapFramebuffer = (const DX12SwapchainFramebuffer*)CurrentFramebuffer;
 
 		/*
 		* Offset the handle
 		*/
-		DX12Helper::offset_rtv_handle(0, 1, rtvHandle);
+		rtvHandle.ptr += swapFramebuffer->get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
 
 		/*
 		* Clear target view
 		*/
 		CommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 	}
+
 	void DX12CommandBuffer::clear_depth_impl(const float depth)
 	{
 
 	}
+
 	void DX12CommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
 	{
 
 	}
+
 	void DX12CommandBuffer::indexed_draw_call_impl(const unsigned int count)
 	{
 

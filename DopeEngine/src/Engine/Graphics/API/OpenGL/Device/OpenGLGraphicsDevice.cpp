@@ -196,6 +196,9 @@ namespace DopeEngine
 		SwapBuffers(WindowDeviceContext);
 #endif
 	}
+	void OpenGLGraphicsDevice::wait_for_finish_impl()
+	{
+	}
 	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
 		/*

@@ -52,6 +52,9 @@ namespace DopeEngine
 		DXPTR<ID3D11DeviceContext> DeferredContext;
 		DXPTR<ID3D11RenderTargetView> SwapchainRenderTargetView;
 		unsigned int ShaderModel;
+
+		// Inherited via GraphicsDevice
+		virtual void wait_for_finish_impl() override;
 	};
 
 

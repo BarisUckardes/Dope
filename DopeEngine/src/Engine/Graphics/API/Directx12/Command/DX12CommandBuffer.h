@@ -27,6 +27,9 @@ namespace DopeEngine
 	private:
 		DXPTR<ID3D12CommandAllocator> Allocator;
 		DXPTR<ID3D12GraphicsCommandList> CommandList;
+		DXPTR<ID3D12DescriptorHeap> RtvHeap;
+		const Framebuffer* CurrentFramebuffer;
+		unsigned int RtvDescriptorSize;
 	};
 
 

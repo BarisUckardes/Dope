@@ -125,11 +125,6 @@ namespace DopeEngine
 			}
 
 			/*
-			* Swapbuffers
-			*/
-			ApplicationWindow->get_graphics_device()->swap_swapchain_buffers();
-
-			/*
 			* Validate window should close
 			*/
 			if (ApplicationWindow->has_close_request())

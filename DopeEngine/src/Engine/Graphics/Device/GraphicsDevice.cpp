@@ -111,6 +111,11 @@ namespace DopeEngine
 		swap_swapchain_buffers_impl();
 	}
 
+	void GraphicsDevice::wait_for_finish()
+	{
+		wait_for_finish_impl();
+	}
+
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
 	{
 		OwnerWindow = ownerWindow;

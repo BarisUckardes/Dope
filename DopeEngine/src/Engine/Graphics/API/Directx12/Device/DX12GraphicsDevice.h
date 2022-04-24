@@ -3,6 +3,7 @@
 #include <Engine/Graphics/API/Directx12/Core/DX12Core.h>
 namespace DopeEngine
 {
+	class DX12SwapchainFramebuffer;
 	class DOPE_ENGINE_API DX12GraphicsDevice : public GraphicsDevice
 	{
 	public:
@@ -33,6 +34,18 @@ namespace DopeEngine
 		/// <returns></returns>
 		Array<DXPTR<ID3D12Resource>> get_dx12_swapchain_rtvs() const;
 
+		/// <summary>
+		/// Returns the heap descriptor for swapchain rtv
+		/// </summary>
+		/// <returns></returns>
+		DXPTR<ID3D12DescriptorHeap> get_dx12_rtv_heap_descriptor() const;
+
+		/// <summary>
+		/// Returns an avaiable command list
+		/// </summary>
+		/// <returns></returns>
+		DXPTR<ID3D12GraphicsCommandList> get_dx12_available_graphics_command_list() const;
+
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
@@ -54,6 +67,7 @@ namespace DopeEngine
 		virtual void update_buffer_impl(Buffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 		virtual void swap_swapchain_buffers_impl() override;
+		virtual void wait_for_finish_impl() override;
 	private:
 		void _create_directx12_device();
 		void _create_win32_directx12_device();
@@ -62,10 +76,15 @@ namespace DopeEngine
 		DXPTR<ID3D12Device> Device;
 		DXPTR<ID3D12DescriptorHeap> RtvHeapDescriptor;
 		DXPTR<ID3D12CommandQueue> CommandQueue;
-		DXPTR<ID3D12CommandAllocator> CommandAlocator;
+		DXPTR<ID3D12CommandAllocator> CommandAllocator;
+		DXPTR<ID3D12GraphicsCommandList> GraphicsCommandList;
 		Array<DXPTR<ID3D12Resource>> RenderTargets;
-		
+		DXPTR<ID3D12Fence> Fence;
+		HANDLE FenceEvent;
+		unsigned int FenceValue;
 
+
+	
 
 	};
 

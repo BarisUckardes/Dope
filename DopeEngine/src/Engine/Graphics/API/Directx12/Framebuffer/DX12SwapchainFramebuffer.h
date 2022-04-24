@@ -12,11 +12,18 @@ namespace DopeEngine
 
 		const Array<DXPTR<ID3D12Resource>>& get_dx12_swapchain_rtvs() const;
 		DXPTR<ID3D12Resource> get_dx12_current_rtv() const;
+		unsigned int get_dx12_swapchain_current_rtv_index() const;
+
+		/// <summary>
+		/// Increments the current backbuffer index
+		/// </summary>
+		void _increment_backbuffer_index();
 	private:
 		void create(DX12GraphicsDevice* device);
 	private:
 		DXPTR<IDXGISwapChain3> Swapchain;
 		Array<DXPTR<ID3D12Resource>> RenderTargetViews;
+		unsigned int CurrentBackbufferIndex;
 	};
 
 
