@@ -11,6 +11,8 @@
 #include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Application/Window/Window.h>
+#include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
+#include <Engine/Graphics/Device/DeviceObjects.h>
 #include <Engine/Core/Assert.h>
 
 namespace DopeEngine
@@ -59,8 +61,6 @@ namespace DopeEngine
 		return create_command_buffer_impl();
 	}
 
-
-
 	ResourceLayout* GraphicsDevice::create_resource_layout(const ResourceDescription& description)
 	{
 		/*
@@ -106,9 +106,17 @@ namespace DopeEngine
 		update_buffer_impl(buffer, data);
 	}
 
-	void GraphicsDevice::swap_swapchain_buffers()
+	void GraphicsDevice::swap_swapchain_buffers(const SwapchainFramebuffer* framebuffer)
 	{
-		swap_swapchain_buffers_impl();
+		/*
+		* Validate if target framebuffer is an swapchain framebuffer
+		*/
+		ASSERT(framebuffer->is_swapchain_framebuffer(), "GraphicsDevice", "Given framebuffer is not a swapchain framebuffer");
+
+		/*
+		* Call swapbuffer impls
+		*/
+		swap_swapchain_buffers_impl(framebuffer);
 	}
 
 	void GraphicsDevice::wait_for_finish()
@@ -122,8 +130,6 @@ namespace DopeEngine
 		OwnerWindow->assing_graphics_device(this);
 	}
 	
-	
-
 	bool GraphicsDevice::is_current() const
 	{
 		return Current;
@@ -133,9 +139,9 @@ namespace DopeEngine
 	{
 		return OwnerWindow;
 	}
-	Framebuffer* GraphicsDevice::get_swapchain_framebuffer() const
+	SwapchainFramebuffer* GraphicsDevice::get_swapchain_framebuffer() const
 	{
-		return SwapchainFramebuffer;
+		return SWCHNFramebuffer;
 	}
 	void GraphicsDevice::make_current()
 	{
@@ -252,7 +258,7 @@ namespace DopeEngine
 	}
 	void GraphicsDevice::create_swapchain_framebuffer()
 	{
-		SwapchainFramebuffer = create_window_swapchain_framebuffer_impl(OwnerWindow->get_width(),OwnerWindow->get_height());
+		SWCHNFramebuffer = (SwapchainFramebuffer*)create_window_swapchain_framebuffer_impl(OwnerWindow->get_width(),OwnerWindow->get_height());
 	}
 	void GraphicsDevice::register_device_object(DeviceObject* object)
 	{

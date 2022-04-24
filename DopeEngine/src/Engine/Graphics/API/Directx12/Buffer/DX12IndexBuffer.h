@@ -10,7 +10,10 @@ namespace DopeEngine
 		DX12IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DX12GraphicsDevice* device);
 		virtual ~DX12IndexBuffer() final override;
 
-
+	private:
+		void create(DX12GraphicsDevice* device);
+	private:
+		DXPTR<ID3D12Resource> Buffer;
 	};
 
 }

@@ -18,6 +18,7 @@ namespace DopeEngine
 	class VertexBuffer;
 	class Texture;
 	class Framebuffer;
+	
 	class Pipeline;
 	class Shader;
 	class ShaderSet;
@@ -26,6 +27,8 @@ namespace DopeEngine
 	class CommandBuffer;
 	class ResourceView;
 	class ResourceLayout;
+
+	class SwapchainFramebuffer;
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>
@@ -44,19 +47,19 @@ namespace DopeEngine
 		/// Returns whether this device is the current device
 		/// </summary>
 		/// <returns></returns>
-		 bool is_current() const;
+		bool is_current() const;
 
 		/// <summary>
 		/// Returns the owner window of this device (if any)
 		/// </summary>
 		/// <returns></returns>
-		 const Window* get_owner_window() const;
+		const Window* get_owner_window() const;
 
 		/// <summary>
 		/// Returns the swapchain framebuffer
 		/// </summary>
 		/// <returns></returns>
-		 Framebuffer* get_swapchain_framebuffer() const;
+		SwapchainFramebuffer* get_swapchain_framebuffer() const;
 
 		/// <summary>
 		/// Makes this device current for this process
@@ -165,7 +168,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Swaps the buffers of the swapchain
 		/// </summary>
-		void swap_swapchain_buffers();
+		void swap_swapchain_buffers(const SwapchainFramebuffer* framebuffer);
 
 		/// <summary>
 		/// Awaits the graphics device commands to finish
@@ -190,17 +193,17 @@ namespace DopeEngine
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
-		virtual void swap_swapchain_buffers_impl() = 0;
+		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer * framebuffer) = 0;
 		virtual void wait_for_finish_impl() = 0;
 
 	private:
 		void create_swapchain_framebuffer();
-		 void register_device_object(DeviceObject* object);
-		 void remove_device_object(DeviceObject* object);
+		void register_device_object(DeviceObject* object);
+		void remove_device_object(DeviceObject* object);
 	private:
 		Array<DeviceObject*> ChildObjects;
 		Window* OwnerWindow;
-		Framebuffer* SwapchainFramebuffer;
+		SwapchainFramebuffer* SWCHNFramebuffer;
 		bool Current;
 	};
 

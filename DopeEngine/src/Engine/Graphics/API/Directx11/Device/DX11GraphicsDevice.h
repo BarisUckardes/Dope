@@ -41,7 +41,7 @@ namespace DopeEngine
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
-		virtual void swap_swapchain_buffers_impl() override;
+		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;
 	private:
 		void _create_directx11_device();
 		void _create_win32_directx11_device();

@@ -47,8 +47,7 @@ namespace DopeEngine
 		/*
 		* Create dxgi factory for enumarating existing gpus
 		*/
-		IDXGIFactory4* dxgiFactory;
-		CreateDXGIFactory2(factoryFlags,IID_PPV_ARGS(&dxgiFactory));
+		CreateDXGIFactory2(factoryFlags,IID_PPV_ARGS(Factory.GetAddressOf()));
 
 		/*
 		* Iterate existing gpus
@@ -56,7 +55,7 @@ namespace DopeEngine
 		IDXGIAdapter1* adapter;
 		int adapterIndex = 0;
 		bool adapterFound = false;
-		while (dxgiFactory->EnumAdapters1(adapterIndex, &adapter) != DXGI_ERROR_NOT_FOUND)
+		while (Factory->EnumAdapters1(adapterIndex, &adapter) != DXGI_ERROR_NOT_FOUND)
 		{
 			/*
 			* Get adapter desc
@@ -109,109 +108,6 @@ namespace DopeEngine
 		* Validate cq create
 		*/
 		ASSERT(SUCCEEDED(cqCreateHR), "DX12GraphicsDevice", "Creating command queue for swapchain creation failed!");
-
-		/*
-		* Create swapchain buffer desc
-		*/
-		DXGI_MODE_DESC bufferDesc = {};
-		bufferDesc.Width = window->get_width();
-		bufferDesc.Height = window->get_height();
-		bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-
-		/*
-		* Create sample desc
-		*/
-		DXGI_SAMPLE_DESC sampleDesc = {};
-		sampleDesc.Count = 1;
-
-		/*
-		* Create swapchain desc
-		*/
-		DXGI_SWAP_CHAIN_DESC swapchainDesc = {  };
-		ZeroMemory(&swapchainDesc,sizeof(DXGI_SWAP_CHAIN_DESC));
-		swapchainDesc.BufferCount = 3; // tripple buffering
-		swapchainDesc.BufferDesc = bufferDesc;
-		swapchainDesc.Windowed = true;
-		swapchainDesc.SampleDesc = sampleDesc;
-		swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-		swapchainDesc.OutputWindow = get_owner_window()->get_win32_window_handle();
-
-		/*
-		* Create temp swapchain
-		*/
-		HRESULT tempSwapchainCreateHR = dxgiFactory->CreateSwapChain(CommandQueue.Get(), &swapchainDesc, (IDXGISwapChain**)Swapchain.GetAddressOf());
-
-		/*
-		* Validate temp swapchain creation
-		*/
-		ASSERT(SUCCEEDED(tempSwapchainCreateHR), "DX12GraphicsDevice", "Temp swapchain creation failed!!");
-
-		/*
-		* Make window association
-		*/
-		dxgiFactory->MakeWindowAssociation(window->get_win32_window_handle(), DXGI_MWA_NO_ALT_ENTER);
-
-		/*
-		* Get backbuffer index
-		*/
-		const unsigned int bacbufferIndex = Swapchain->GetCurrentBackBufferIndex();
-
-		/*
-		* Create render target view heap descriptors
-		*/
-		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {  };
-		rtvHeapDesc.NumDescriptors = 3;
-		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
-		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
-		HRESULT createRtvDescriptorHeapHR = Device->CreateDescriptorHeap(&rtvHeapDesc,IID_PPV_ARGS(RtvHeapDescriptor.GetAddressOf()));
-
-		/*
-		* Validate rtv descriptior heap creation
-		*/
-		ASSERT(SUCCEEDED(createRtvDescriptorHeapHR), "DX12GraphicsDevice", "Rtv descriptor creation failed!");
-
-		/*
-		* Collect descriptor size in rtv heap descriptor
-		*/
-		const unsigned int rtvDescriptorSize = Device->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
-
-		/*
-		* Get handle of the first descriptor
-		*/
-		D3D12_CPU_DESCRIPTOR_HANDLE rtvStartHandle = RtvHeapDescriptor->GetCPUDescriptorHandleForHeapStart();
-
-		/*
-		* ITerate and create rtv for each buffer
-		*/
-		for (unsigned int i = 0; i < 3; i++)
-		{
-			/*
-			* Get swapchain buffer
-			*/
-			DXPTR<ID3D12Resource> rtv;
-			HRESULT rtvGetHR = Swapchain->GetBuffer(i, IID_PPV_ARGS(rtv.GetAddressOf()));
-
-			/*
-			* Validate get
-			*/
-			ASSERT(SUCCEEDED(rtvGetHR), "DX12GraphicsDevice", "Get swapchain buffer failed!");
-
-			/*
-			* Create render target view
-			*/
-			Device->CreateRenderTargetView(rtv.Get(), nullptr, rtvStartHandle);
-
-			/*
-			* Increment rtv offset
-			*/
-			rtvStartHandle.ptr += rtvDescriptorSize;
-
-			/*
-			* Register
-			*/
-			RenderTargets.add(rtv);
-		}
 
 		/*
 		* Create command allocator
@@ -288,12 +184,17 @@ namespace DopeEngine
 		CommandAllocator->Reset();
 	}
 
-	void DX12GraphicsDevice::swap_swapchain_buffers_impl()
+	void DX12GraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
+		/*
+		* Get dx12 swapchainframebuffer
+		*/
+		const DX12SwapchainFramebuffer* swapchainFramebuffer = (const DX12SwapchainFramebuffer*)framebuffer;
+
 		/*
 		* Present backbuffer
 		*/
-		HRESULT presentHR = Swapchain->Present(1, 0);
+		HRESULT presentHR = swapchainFramebuffer->get_dx12_swapchain()->Present(1, 0);
 
 		/*
 		* Validate presentation
@@ -443,24 +344,20 @@ namespace DopeEngine
 	{
 		return CommandAllocator;
 	}
-	DXPTR<IDXGISwapChain3> DX12GraphicsDevice::get_dx12_swapchain() const
-	{
-		return Swapchain;
-	}
 
-	Array<DXPTR<ID3D12Resource>> DX12GraphicsDevice::get_dx12_swapchain_rtvs() const
+	DXPTR<ID3D12CommandQueue> DX12GraphicsDevice::get_dx12_command_queue() const
 	{
-		return RenderTargets;
+		return CommandQueue;
 	}
-
-	DXPTR<ID3D12DescriptorHeap> DX12GraphicsDevice::get_dx12_rtv_heap_descriptor() const
-	{
-		return RtvHeapDescriptor;
-	}
-
+	
 	DXPTR<ID3D12GraphicsCommandList> DX12GraphicsDevice::get_dx12_available_graphics_command_list() const
 	{
 		return GraphicsCommandList;
+	}
+
+	DXPTR<IDXGIFactory4> DX12GraphicsDevice::get_dx12_factory() const
+	{
+		return Factory;
 	}
 
 	GraphicsAPIType DX12GraphicsDevice::get_api_type() const

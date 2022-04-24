@@ -3,6 +3,7 @@
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Graphics/Command/CommandBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
+#include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Math/ColorRgbaByte.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Math/Vector2f.h>
@@ -191,7 +192,7 @@ namespace DopeEngine
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
 		buffer->set_pipeline(*pipeline);
-		buffer->set_framebuffer(*device->get_swapchain_framebuffer());
+		buffer->set_framebuffer((const Framebuffer&)*device->get_swapchain_framebuffer());
 		buffer->clear_color({ 0u,0u,1u,1u });
 		/*buffer->set_vertex_buffer(*vBuffer);
 		buffer->set_index_buffer(*iBuffer);
@@ -200,7 +201,7 @@ namespace DopeEngine
 		buffer->indexed_draw_call(6);*/
 		buffer->unlock();
 		device->submit_command_buffer(buffer);
-		device->swap_swapchain_buffers();
+		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());
 		device->wait_for_finish();
 		device->delete_device_object(buffer);
 		//LOG("TestRenderingModule", "Rendered a frame");

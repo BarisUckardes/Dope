@@ -13,6 +13,7 @@ namespace DopeEngine
 		*/
 		World* world = get_owner_session()->create_world("Dope engine test world");
 
+
 		/*
 		* Register logic resolver
 		*/

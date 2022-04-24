@@ -14,11 +14,6 @@ namespace DopeEngine
 		Allocator = device->get_dx12_command_allocator();
 
 		/*
-		* Get rtv descriptor heap
-		*/
-		RtvHeap = device->get_dx12_rtv_heap_descriptor();
-
-		/*
 		* Get rtv descriptor size
 		*/
 		RtvDescriptorSize = device->get_dx12_device()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
@@ -131,7 +126,7 @@ namespace DopeEngine
 			/*
 			* Get heap descriptor
 			*/
-			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = RtvHeap->GetCPUDescriptorHandleForHeapStart();
+			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer.get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
 
 			/*
 			* Get rtv handle
@@ -174,17 +169,20 @@ namespace DopeEngine
 
 	void DX12CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{
-		const float clearColor[] = { 0.6f, 0.2f, 0.4f, 1.0f };
-
 		/*
-		* Create cpu descriptor handle
+		* Construct color
 		*/
-		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = RtvHeap->GetCPUDescriptorHandleForHeapStart();
+		const float clearColor[] = { color.Red,color.Green,color.Blue,color.Alpha };
 
 		/*
 		* Get dx12 framebuffer
 		*/
 		const DX12SwapchainFramebuffer* swapFramebuffer = (const DX12SwapchainFramebuffer*)CurrentFramebuffer;
+
+		/*
+		* Create cpu descriptor handle
+		*/
+		D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer->get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
 
 		/*
 		* Offset the handle

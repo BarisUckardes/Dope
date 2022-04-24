@@ -49,7 +49,7 @@ namespace DopeEngine
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 
 		// Inherited via GraphicsDevice
-		virtual void swap_swapchain_buffers_impl() override;
+		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;
 
 		// Inherited via GraphicsDevice
 		virtual void wait_for_finish_impl() override;

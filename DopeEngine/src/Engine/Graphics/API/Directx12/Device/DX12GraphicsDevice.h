@@ -23,28 +23,22 @@ namespace DopeEngine
 		DXPTR<ID3D12CommandAllocator> get_dx12_command_allocator() const;
 
 		/// <summary>
-		/// Returns this device's swachain (if any)
+		/// Returns the defaul command queue
 		/// </summary>
 		/// <returns></returns>
-		DXPTR<IDXGISwapChain3> get_dx12_swapchain() const;
-
-		/// <summary>
-		/// Returns the swapchain backbuffer render target views
-		/// </summary>
-		/// <returns></returns>
-		Array<DXPTR<ID3D12Resource>> get_dx12_swapchain_rtvs() const;
-
-		/// <summary>
-		/// Returns the heap descriptor for swapchain rtv
-		/// </summary>
-		/// <returns></returns>
-		DXPTR<ID3D12DescriptorHeap> get_dx12_rtv_heap_descriptor() const;
+		DXPTR<ID3D12CommandQueue> get_dx12_command_queue() const;
 
 		/// <summary>
 		/// Returns an avaiable command list
 		/// </summary>
 		/// <returns></returns>
 		DXPTR<ID3D12GraphicsCommandList> get_dx12_available_graphics_command_list() const;
+
+		/// <summary>
+		/// Returns the dx12 factory
+		/// </summary>
+		/// <returns></returns>
+		DXPTR<IDXGIFactory4> get_dx12_factory() const;
 
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
@@ -66,26 +60,20 @@ namespace DopeEngine
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
 		virtual void update_buffer_impl(Buffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
-		virtual void swap_swapchain_buffers_impl() override;
+		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;
 		virtual void wait_for_finish_impl() override;
 	private:
 		void _create_directx12_device();
 		void _create_win32_directx12_device();
 	private:
-		DXPTR<IDXGISwapChain3> Swapchain;
+		DXPTR<IDXGIFactory4> Factory;
 		DXPTR<ID3D12Device> Device;
-		DXPTR<ID3D12DescriptorHeap> RtvHeapDescriptor;
 		DXPTR<ID3D12CommandQueue> CommandQueue;
 		DXPTR<ID3D12CommandAllocator> CommandAllocator;
 		DXPTR<ID3D12GraphicsCommandList> GraphicsCommandList;
-		Array<DXPTR<ID3D12Resource>> RenderTargets;
 		DXPTR<ID3D12Fence> Fence;
 		HANDLE FenceEvent;
 		unsigned int FenceValue;
-
-
-	
-
 	};
 
 

@@ -190,7 +190,7 @@ namespace DopeEngine
 		glTextureSubImage2D(handle, 0, 0, 0, glTexture->get_width(), glTexture->get_height(), OpenGLTextureUtils::get_format(format), OpenGLTextureUtils::get_data_type(format), data);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-	void OpenGLGraphicsDevice::swap_swapchain_buffers_impl()
+	void OpenGLGraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
 #ifdef DOPE_OS_WINDOWS
 		SwapBuffers(WindowDeviceContext);
@@ -198,6 +198,7 @@ namespace DopeEngine
 	}
 	void OpenGLGraphicsDevice::wait_for_finish_impl()
 	{
+
 	}
 	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{

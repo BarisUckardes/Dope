@@ -111,7 +111,7 @@ namespace DopeEngine
 	{
 	}
 
-	void DX11GraphicsDevice::swap_swapchain_buffers_impl()
+	void DX11GraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
 		SwapChain->Present(1u, 0);
 	}
