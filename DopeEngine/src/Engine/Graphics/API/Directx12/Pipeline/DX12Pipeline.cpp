@@ -195,6 +195,7 @@ namespace DopeEngine
         for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
         {
             rtvFormats.add(DX11TextureUtils::get_format(desc.OutputDesc.OutputFormats[i]));
+            LOG("DX12Pipeline", "new rtv");
         }
         for (unsigned int i = 0; i < rtvFormats.get_cursor(); i++)
         {

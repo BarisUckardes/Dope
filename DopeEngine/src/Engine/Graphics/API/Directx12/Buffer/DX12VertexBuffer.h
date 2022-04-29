@@ -9,6 +9,7 @@ namespace DopeEngine
 		DX12VertexBuffer(const unsigned long allocatedSize, const unsigned int perVertexSize, DX12GraphicsDevice* device);
 		virtual ~DX12VertexBuffer() final override;
 
+		DXPTR<ID3D12Resource> get_dx12_vertex_buffer() const;
 	private:
 		void create(DX12GraphicsDevice* device);
 	private:

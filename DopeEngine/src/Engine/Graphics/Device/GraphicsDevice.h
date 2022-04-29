@@ -29,6 +29,7 @@ namespace DopeEngine
 	class ResourceLayout;
 
 	class SwapchainFramebuffer;
+
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>

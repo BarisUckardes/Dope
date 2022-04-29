@@ -2,7 +2,7 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 namespace DopeEngine
 {
-	DX11SwapchainFramebuffer::DX11SwapchainFramebuffer(const unsigned int initialWidth, const unsigned int initialHeight, DX11GraphicsDevice* device, Window* window) : SwapchainFramebuffer(initialWidth,initialHeight,(GraphicsDevice*)device,window)
+	DX11SwapchainFramebuffer::DX11SwapchainFramebuffer(const FramebufferDescription& desc, DX11GraphicsDevice* device, Window* window) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
 	{
 		/*
 		* Initialize
@@ -21,6 +21,9 @@ namespace DopeEngine
 	DXPTR<ID3D11RenderTargetView> DX11SwapchainFramebuffer::get_dx11_swapchain_rtv() const
 	{
 		return Rtv;
+	}
+	void DX11SwapchainFramebuffer::on_swapchain_resize_impl()
+	{
 	}
 	void DX11SwapchainFramebuffer::create(DX11GraphicsDevice* device)
 	{

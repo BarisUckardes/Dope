@@ -3,6 +3,7 @@
 #include <Engine/Graphics/API/Directx12/Device/DX12DeviceObjects.h>
 #include <Engine/Platform/Windows/Structures/WindowString.h>
 #include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
+#include <Engine/Memory/Memory.h>
 #include <iostream>
 
 namespace DopeEngine
@@ -203,7 +204,23 @@ namespace DopeEngine
 	}
 	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		return new DX12SwapchainFramebuffer(width, height, (DX12GraphicsDevice*)this, (Window*)get_owner_window());
+		/*
+		* Create desc
+		*/
+		FramebufferDescription desc = {};
+		desc.Width = width;
+		desc.Height = height;
+		desc.CreateDepthAttachment = false;
+		desc.DepthAttachmentFormat = TextureFormat::Red;
+
+		/*
+		* Create tripple buffering
+		*/
+		desc.AttachmentDescriptions.add(TextureFormat::Red);
+		desc.AttachmentDescriptions.add(TextureFormat::Red);
+		desc.AttachmentDescriptions.add(TextureFormat::Red);
+
+		return new DX12SwapchainFramebuffer(desc, (DX12GraphicsDevice*)this, (Window*)get_owner_window());
 	}
 	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{
@@ -225,7 +242,47 @@ namespace DopeEngine
 	}
 	void DX12GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{
+		/*
+		* Get buffer type
+		*/
+		BufferType bufferType = buffer->get_buffer_type();
 
+		/*
+		* Catch buffer
+		*/
+		DXPTR<ID3D12Resource> bufferResource;
+		switch (bufferType)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				bufferResource = ((DX12VertexBuffer*)buffer)->get_dx12_vertex_buffer();
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				bufferResource = ((DX12IndexBuffer*)buffer)->get_dx12_index_buffer();
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				bufferResource = ((DX12ConstantBuffer*)buffer)->get_dx12_constant_buffer();
+				break;
+			case DopeEngine::BufferType::Undefined:
+				ASSERT(false, "DX12GraphicsDevice", "Undefined buffer type, cannot update the buffer data");
+				break;
+			default:
+				break;
+		}
+
+		/*
+		* Create read range data
+		*/
+		D3D12_RANGE readRange = {};
+		readRange.Begin = 0;
+		readRange.End = buffer->get_allocated_size();
+
+		/*
+		* Update buffer data
+		*/
+		void* dataPtr;
+		bufferResource->Map(0, &readRange, &dataPtr);
+		Memory::memory_copy(dataPtr,data,buffer->get_allocated_size());
+		bufferResource->Unmap(0, nullptr);
 	}
 	void DX12GraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
 	{

@@ -10,6 +10,7 @@ namespace DopeEngine
 		DX12ConstantBuffer(const BufferDescription& desc, DX12GraphicsDevice* device);
 		virtual ~DX12ConstantBuffer() final override;
 
+		DXPTR<ID3D12Resource> get_dx12_constant_buffer() const;
 	private:
 		void create(DX12GraphicsDevice* device);
 	private:

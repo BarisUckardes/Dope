@@ -7,7 +7,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX12SwapchainFramebuffer : public SwapchainFramebuffer
 	{
 	public:
-		DX12SwapchainFramebuffer(const unsigned int initialWidth,const unsigned int initialHeight,DX12GraphicsDevice* device, Window* targetWindow);
+		DX12SwapchainFramebuffer(const FramebufferDescription& desc,DX12GraphicsDevice* device, Window* targetWindow);
 		virtual ~DX12SwapchainFramebuffer() final override;
 
 		const Array<DXPTR<ID3D12Resource>>& get_dx12_swapchain_rtvs() const;
@@ -20,6 +20,8 @@ namespace DopeEngine
 		/// Increments the current backbuffer index
 		/// </summary>
 		void _increment_backbuffer_index();
+	protected:
+		virtual void on_swapchain_resize_impl() override;
 	private:
 		void create(DX12GraphicsDevice* device,Window* window);
 	private:

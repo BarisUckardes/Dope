@@ -4,8 +4,8 @@
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
-    DX12SwapchainFramebuffer::DX12SwapchainFramebuffer(const unsigned int initialWidth, const unsigned int initialHeight, DX12GraphicsDevice* device, Window* targetWindow)
-		: SwapchainFramebuffer(initialWidth,initialHeight,(GraphicsDevice*)device,targetWindow)
+    DX12SwapchainFramebuffer::DX12SwapchainFramebuffer(const FramebufferDescription& desc, DX12GraphicsDevice* device, Window* targetWindow)
+		: SwapchainFramebuffer(desc,(GraphicsDevice*)device,targetWindow)
     {
         /*
         * Initialize
@@ -30,7 +30,6 @@ namespace DopeEngine
 
     DXPTR<ID3D12Resource> DX12SwapchainFramebuffer::get_dx12_current_rtv() const
     {
-       // LOG("DX12SwapchainFramebuffer", "Current index: %d", Swapchain->GetCurrentBackBufferIndex());
         return RenderTargetViews[Swapchain->GetCurrentBackBufferIndex()];
     }
 
@@ -53,6 +52,11 @@ namespace DopeEngine
     {
 
     }
+
+	void DX12SwapchainFramebuffer::on_swapchain_resize_impl()
+	{
+
+	}
 
     void DX12SwapchainFramebuffer::create(DX12GraphicsDevice* device,Window* window)
     {

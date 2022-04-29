@@ -7,9 +7,11 @@ namespace DopeEngine
 	class DOPE_ENGINE_API OpenGLSwapchainFramebuffer : public SwapchainFramebuffer
 	{
 	public:
-		OpenGLSwapchainFramebuffer(const unsigned int width, unsigned int height, DEVICE device,Window* window);
+		OpenGLSwapchainFramebuffer(const FramebufferDescription& desc, DEVICE device,Window* window);
 		~OpenGLSwapchainFramebuffer();
 
+	protected:
+		virtual void on_swapchain_resize_impl() override;
 	private:
 	};
 

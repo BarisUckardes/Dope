@@ -11,6 +11,10 @@ namespace DopeEngine
     {
 
     }
+    DXPTR<ID3D12Resource> DX12ConstantBuffer::get_dx12_constant_buffer() const
+    {
+        return Buffer;
+    }
     void DX12ConstantBuffer::create(DX12GraphicsDevice* device)
     {
         /*
