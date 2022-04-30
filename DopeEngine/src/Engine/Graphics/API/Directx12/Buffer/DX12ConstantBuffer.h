@@ -15,6 +15,7 @@ namespace DopeEngine
 		void create(DX12GraphicsDevice* device);
 	private:
 		DXPTR<ID3D12Resource> Buffer;
+		D3D12_CONSTANT_BUFFER_VIEW_DESC BufferView;
 	};
 
 

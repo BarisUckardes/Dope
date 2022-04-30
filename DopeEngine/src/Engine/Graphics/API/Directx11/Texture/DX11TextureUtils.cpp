@@ -42,7 +42,7 @@ namespace DopeEngine
 	{
 		switch (format)
 		{
-			case DopeEngine::TextureFormat::Red:
+			case DopeEngine::TextureFormat::R8unorm:
 				return DXGI_FORMAT_R8_UNORM;
 				break;
 			case DopeEngine::TextureFormat::RGB8f:
@@ -55,6 +55,9 @@ namespace DopeEngine
 				return DXGI_FORMAT_R32G32B32_FLOAT;
 				break;
 			case DopeEngine::TextureFormat::RGBA8f:
+				return DXGI_FORMAT_R8G8B8A8_UNORM;
+				break;
+			case DopeEngine::TextureFormat::RGBA8unorm:
 				return DXGI_FORMAT_R8G8B8A8_UNORM;
 				break;
 			case DopeEngine::TextureFormat::RGBA16f:

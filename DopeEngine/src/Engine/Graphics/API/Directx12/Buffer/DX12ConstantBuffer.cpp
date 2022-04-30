@@ -53,5 +53,12 @@ namespace DopeEngine
             nullptr,
             IID_PPV_ARGS(Buffer.GetAddressOf())
         );
+
+        /*
+        * Create buffer view
+        */
+        BufferView = {};
+        BufferView.BufferLocation = Buffer->GetGPUVirtualAddress();
+        BufferView.SizeInBytes = get_allocated_size();
     }
 }

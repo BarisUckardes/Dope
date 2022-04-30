@@ -31,11 +31,11 @@ namespace DopeEngine
     }
     D3D12_VIEWPORT DX12Pipeline::get_dx12_viewport() const
     {
-        return D3D12_VIEWPORT();
+        return Viewport;
     }
     D3D12_RECT DX12Pipeline::get_dx12_scissors() const
     {
-        return D3D12_RECT();
+        return ScissorRect;
     }
     void DX12Pipeline::_create_pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device)
     {
@@ -159,11 +159,11 @@ namespace DopeEngine
         D3D12_RASTERIZER_DESC rasterizerDesc = {};
         rasterizerDesc.AntialiasedLineEnable = false;
         rasterizerDesc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
-        rasterizerDesc.CullMode = DX12PipelineUtils::get_dx12_cull_mode(desc.CullFace);
         rasterizerDesc.DepthBias = 0;
         rasterizerDesc.DepthBiasClamp = 0;
         rasterizerDesc.DepthClipEnable = desc.DepthClip;
         rasterizerDesc.FillMode = DX12PipelineUtils::get_dx12_fill_mode(desc.FillMode);
+        rasterizerDesc.CullMode = DX12PipelineUtils::get_dx12_cull_mode(desc.CullFace);
         rasterizerDesc.ForcedSampleCount = 0;
         rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
         rasterizerDesc.MultisampleEnable = false;
@@ -176,26 +176,37 @@ namespace DopeEngine
         D3D12_BLEND_DESC blendDesc = {}; // TODO: implement this
         blendDesc.AlphaToCoverageEnable = false;
         blendDesc.IndependentBlendEnable = false;
+        constexpr D3D12_RENDER_TARGET_BLEND_DESC defaultRenderTargetBlendDesc =
+        {
+            FALSE,FALSE,
+            D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
+            D3D12_BLEND_ONE, D3D12_BLEND_ZERO, D3D12_BLEND_OP_ADD,
+            D3D12_LOGIC_OP_NOOP,
+            D3D12_COLOR_WRITE_ENABLE_ALL,
+        };
+        for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
+        {
+            blendDesc.RenderTarget[i] = defaultRenderTargetBlendDesc;
+        }
         psoDesc.BlendState = blendDesc;
 
 
         /*
         * Create depth stencil state
         */
-        psoDesc.DepthStencilState.DepthEnable = desc.DepthTest;
+        psoDesc.DepthStencilState.DepthEnable = false;
         psoDesc.DepthStencilState.StencilEnable = false;
         psoDesc.SampleMask = UINT_MAX;
 
         /*
         * Create output state
         */
-        psoDesc.PrimitiveTopologyType = DX12PipelineUtils::get_dx12_primitives(desc.Primitives);
+        psoDesc.PrimitiveTopologyType = DX12PipelineUtils::get_dx12_primitive_type(desc.Primitives);
 
         Array<DXGI_FORMAT> rtvFormats;
         for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
         {
             rtvFormats.add(DX11TextureUtils::get_format(desc.OutputDesc.OutputFormats[i]));
-            LOG("DX12Pipeline", "new rtv");
         }
         for (unsigned int i = 0; i < rtvFormats.get_cursor(); i++)
         {
@@ -229,8 +240,8 @@ namespace DopeEngine
         * Create scissors
         */
         ScissorRect.left = 0;
-        ScissorRect.right = 0;
-        ScissorRect.bottom = 0;
+        ScissorRect.right = desc.OutputDesc.Width;
+        ScissorRect.bottom = desc.OutputDesc.Height;
         ScissorRect.top = 0;
     }
 }

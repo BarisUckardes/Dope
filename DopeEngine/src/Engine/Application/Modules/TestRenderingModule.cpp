@@ -191,14 +191,14 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
-		buffer->set_pipeline(*pipeline);
-		buffer->set_framebuffer((const Framebuffer&)*device->get_swapchain_framebuffer());
+		buffer->set_pipeline(pipeline);
+		buffer->set_framebuffer(device->get_swapchain_framebuffer());
 		buffer->clear_color({ 0u,0u,1u,1u });
-		/*buffer->set_vertex_buffer(*vBuffer);
-		buffer->set_index_buffer(*iBuffer);
-		buffer->set_resource_view(0, colorResourceView);
-		buffer->set_resource_view(1, textureView);
-		buffer->indexed_draw_call(6);*/
+		buffer->set_vertex_buffer(vBuffer);
+		buffer->set_index_buffer(iBuffer);
+		//buffer->set_resource_view(0, colorResourceView);
+		//buffer->set_resource_view(1, textureView);
+		buffer->indexed_draw_call(6);
 		buffer->unlock();
 		device->submit_command_buffer(buffer);
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());

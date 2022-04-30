@@ -259,6 +259,7 @@ namespace DopeEngine
 	void GraphicsDevice::create_swapchain_framebuffer()
 	{
 		SWCHNFramebuffer = (SwapchainFramebuffer*)create_window_swapchain_framebuffer_impl(OwnerWindow->get_width(),OwnerWindow->get_height());
+		LOG("GraphicsDevice", "Created swapchainFramebuffer");
 	}
 	void GraphicsDevice::register_device_object(DeviceObject* object)
 	{

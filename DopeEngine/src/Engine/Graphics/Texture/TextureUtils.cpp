@@ -8,7 +8,7 @@ namespace DopeEngine
 	{
 		switch (format)
 		{
-			case DopeEngine::TextureFormat::Red:
+			case DopeEngine::TextureFormat::R8unorm:
 				return 1;
 				break;
 			case DopeEngine::TextureFormat::RGB8f:

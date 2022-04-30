@@ -60,6 +60,7 @@ namespace DopeEngine
 
     void DX12SwapchainFramebuffer::create(DX12GraphicsDevice* device,Window* window)
     {
+		LOG("DX12SwapchainFramebuffer", "Created swapchain");
 		/*
 		* Get factory
 		*/

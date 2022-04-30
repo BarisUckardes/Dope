@@ -26,29 +26,29 @@ namespace DopeEngine
 		*/
 		unlock_impl();
 	}
-	void CommandBuffer::set_vertex_buffer(const VertexBuffer& vertexBuffer)
+	void CommandBuffer::set_vertex_buffer(const VertexBuffer* vertexBuffer)
 	{
 		set_vertex_buffer_impl(vertexBuffer);
 	}
 
-	void CommandBuffer::set_index_buffer(const IndexBuffer& indexBuffer)
+	void CommandBuffer::set_index_buffer(const IndexBuffer* indexBuffer)
 	{
 		set_index_buffer_impl(indexBuffer);
 	}
-	void CommandBuffer::set_uniform_buffer(const UniformBuffer& buffer)
+	void CommandBuffer::set_uniform_buffer(const UniformBuffer* buffer)
 	{
 		set_uniform_buffer_impl(buffer);
 	}
 
-	void CommandBuffer::set_framebuffer(const Framebuffer& framebuffer)
+	void CommandBuffer::set_framebuffer(const Framebuffer* framebuffer)
 	{
 		set_framebuffer_impl(framebuffer);
 	}
 
-	void CommandBuffer::set_pipeline(const Pipeline& pipeline)
+	void CommandBuffer::set_pipeline(const Pipeline* pipeline)
 	{
 		set_pipeline_impl(pipeline);
-		CurrentBoundPipeline = &pipeline;
+		CurrentBoundPipeline = pipeline;
 	}
 
 	void CommandBuffer::clear_color(const ColorRgbaByte& color)

@@ -7,7 +7,7 @@ namespace DopeEngine
 	{
 		switch (format)
 		{
-			case DopeEngine::TextureFormat::Red:
+			case DopeEngine::TextureFormat::R8unorm:
 				return GL_RED;
 				break;
 			case DopeEngine::TextureFormat::RGB8f:
@@ -37,7 +37,7 @@ namespace DopeEngine
 	{
 		switch (format)
 		{
-			case DopeEngine::TextureFormat::Red:
+		case DopeEngine::TextureFormat::R8unorm:
 				return GL_RED;
 				break;
 			case DopeEngine::TextureFormat::RGB8f:
@@ -66,7 +66,7 @@ namespace DopeEngine
 	{
 		switch (format)
 		{
-			case DopeEngine::TextureFormat::Red:
+			case DopeEngine::TextureFormat::R8unorm:
 				return GL_UNSIGNED_BYTE;
 				break;
 			case DopeEngine::TextureFormat::RGB8f:

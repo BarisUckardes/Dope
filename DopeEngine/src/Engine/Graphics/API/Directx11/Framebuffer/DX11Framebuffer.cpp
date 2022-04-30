@@ -90,7 +90,7 @@ namespace DopeEngine
 			textureDesc.Width = desc.Width;
 			textureDesc.Height = desc.Height;
 			textureDesc.Depth = 0;
-			textureDesc.Format = TextureFormat::Red;
+			textureDesc.Format = TextureFormat::R8unorm;
 			textureDesc.Type = TextureType::Texture2D;
 			textureDesc.Usage = (TextureUsage::FramebufferAttachment | TextureUsage::DepthStencil);
 

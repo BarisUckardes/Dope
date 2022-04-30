@@ -220,7 +220,7 @@ namespace DopeEngine
 	}
 	Framebuffer* OpenGLGraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		return new OpenGLSwapchainFramebuffer(FramebufferDescription(width,height,false,TextureFormat::Red,Array<FramebufferAttachmentDescription>()), (DEVICE)this, (Window*)get_owner_window());
+		return new OpenGLSwapchainFramebuffer(FramebufferDescription(width,height,false,TextureFormat::R8unorm,Array<FramebufferAttachmentDescription>()), (DEVICE)this, (Window*)get_owner_window());
 	}
 	CommandBuffer* OpenGLGraphicsDevice::create_command_buffer_impl()
 	{

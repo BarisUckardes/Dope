@@ -11,10 +11,12 @@ namespace DopeEngine
 		virtual ~DX12IndexBuffer() final override;
 
 		FORCEINLINE DXPTR<ID3D12Resource> get_dx12_index_buffer() const;
+		FORCEINLINE const D3D12_INDEX_BUFFER_VIEW& get_dx12_index_buffer_view() const;
 	private:
 		void create(DX12GraphicsDevice* device);
 	private:
 		DXPTR<ID3D12Resource> Buffer;
+		D3D12_INDEX_BUFFER_VIEW BufferView;
 	};
 
 }

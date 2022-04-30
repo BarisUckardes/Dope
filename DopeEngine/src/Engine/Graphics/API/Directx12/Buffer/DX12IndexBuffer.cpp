@@ -14,6 +14,10 @@ namespace DopeEngine
     {
         return Buffer;
     }
+    const D3D12_INDEX_BUFFER_VIEW& DX12IndexBuffer::get_dx12_index_buffer_view() const
+    {
+        return BufferView;
+    }
     void DX12IndexBuffer::create(DX12GraphicsDevice* device)
     {
         /*
@@ -57,5 +61,13 @@ namespace DopeEngine
         * Validate 
         */
         ASSERT(SUCCEEDED(createResourceHR), "DX12IndexBuffer", "Index buffer creation failed!");
+
+        /*
+        * Create buffer view
+        */
+        BufferView = {};
+        BufferView.BufferLocation = Buffer->GetGPUVirtualAddress();
+        BufferView.SizeInBytes = get_allocated_size();
+        BufferView.Format = DXGI_FORMAT_R32_UINT;
     }
 }

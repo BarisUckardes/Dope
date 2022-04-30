@@ -43,7 +43,28 @@ namespace DopeEngine
 				break;
 		}
 	}
-	D3D12_PRIMITIVE_TOPOLOGY_TYPE DX12PipelineUtils::get_dx12_primitives(const PrimitiveTopology primitives)
+	D3D12_PRIMITIVE_TOPOLOGY DX12PipelineUtils::get_dx12_primitives(const PrimitiveTopology primitives)
+	{
+		switch (primitives)
+		{
+			case DopeEngine::PrimitiveTopology::Points:
+				return D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
+				break;
+			case DopeEngine::PrimitiveTopology::Lines:
+				return D3D_PRIMITIVE_TOPOLOGY_LINELIST;
+				break;
+			case DopeEngine::PrimitiveTopology::Triangles:
+				return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+				break;
+			case DopeEngine::PrimitiveTopology::Patches:
+				return D3D_PRIMITIVE_TOPOLOGY_1_CONTROL_POINT_PATCHLIST;
+				break;
+			default:
+				ASSERT(false, "DX12PipelineUtils", "Invalid PrimitiveTopology, cannot create D3D12_PRIMITIVE_TOPOLOGY");
+				break;
+		}
+	}
+	D3D12_PRIMITIVE_TOPOLOGY_TYPE DX12PipelineUtils::get_dx12_primitive_type(const PrimitiveTopology primitives)
 	{
 		switch (primitives)
 		{
@@ -60,7 +81,7 @@ namespace DopeEngine
 				return D3D12_PRIMITIVE_TOPOLOGY_TYPE_PATCH;
 				break;
 			default:
-				ASSERT(false, "DX12PipelineUtils", "Invalid PrimitiveTopology, cannot create D3D12_PRIMITIVE_TOPOLOGY_TYPE");
+				ASSERT(false, "DX12PipelineUtils", "Invalid PrimitiveTopologyType, cannot create D3D12_PRIMITIVE_TOPOLOGY_TYPE");
 				break;
 		}
 	}

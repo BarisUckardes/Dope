@@ -3,6 +3,7 @@
 #include <Engine/Graphics/API/Directx12/Device/DX12DeviceObjects.h>
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
+#include <Engine/Graphics/API/Directx12/Pipeline/DX12PipelineUtils.h>
 namespace DopeEngine
 {
 
@@ -82,36 +83,35 @@ namespace DopeEngine
 	{
 		CurrentFramebuffer = nullptr;
 	}
-	void DX12CommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
+	void DX12CommandBuffer::set_vertex_buffer_impl(const VertexBuffer* vertexBuffer)
+	{
+		CommandList->IASetVertexBuffers(0,1,&((const DX12VertexBuffer*)vertexBuffer)->get_dx12_vertex_buffer_view());
+	}
+	void DX12CommandBuffer::set_index_buffer_impl(const IndexBuffer* indexBuffer)
+	{
+		CommandList->IASetIndexBuffer(&((const DX12IndexBuffer*)indexBuffer)->get_dx12_index_buffer_view());
+	}
+	void DX12CommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
 	{
 
 	}
-	void DX12CommandBuffer::set_index_buffer_impl(const IndexBuffer& indexBuffer)
+	void DX12CommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
 	{
-
-	}
-	void DX12CommandBuffer::set_uniform_buffer_impl(const UniformBuffer& buffer)
-	{
-
-	}
-	void DX12CommandBuffer::set_framebuffer_impl(const Framebuffer& framebuffer)
-	{
-
 		/*
 		* Validate if this framebuffer is a swapchain framebuffer
 		*/
 		D3D12_RESOURCE_BARRIER barrier = {};
-		if (framebuffer.is_swapchain_framebuffer())
+		if (framebuffer->is_swapchain_framebuffer())
 		{
 			/*
 			* Get dx12 framebuffer
 			*/
-			const DX12SwapchainFramebuffer& swapFramebuffer = (const DX12SwapchainFramebuffer&)framebuffer;
+			const DX12SwapchainFramebuffer* swapFramebuffer = (const DX12SwapchainFramebuffer*)framebuffer;
 
 			/*
 			* Initialize barrier
 			*/
-			barrier.Transition.pResource = swapFramebuffer.get_dx12_current_rtv().Get();
+			barrier.Transition.pResource = swapFramebuffer->get_dx12_current_rtv().Get();
 			barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
 			barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
 			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
@@ -126,12 +126,12 @@ namespace DopeEngine
 			/*
 			* Get heap descriptor
 			*/
-			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer.get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
+			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer->get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
 
 			/*
 			* Get rtv handle
 			*/
-			rtvHandle.ptr += swapFramebuffer.get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
+			rtvHandle.ptr += swapFramebuffer->get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
 
 			/*
 			* Set targets
@@ -142,29 +142,41 @@ namespace DopeEngine
 		/*
 		* Set as current framebuffer
 		*/
-		CurrentFramebuffer = &framebuffer;
+		CurrentFramebuffer = framebuffer;
 	}
-	void DX12CommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
+	void DX12CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 		/*
 		* Get dx12 pipeline
 		*/
-		const DX12Pipeline& dxPipeline = (const DX12Pipeline&)pipeline;
+		const DX12Pipeline* dxPipeline = (const DX12Pipeline*)pipeline;
 
 		/*
 		* Set signature
 		*/
-		CommandList->SetGraphicsRootSignature(dxPipeline.get_dx12_root_signature().Get());
+		CommandList->SetGraphicsRootSignature(dxPipeline->get_dx12_root_signature().Get());
 
 		/*
 		* Set pso
 		*/
-		CommandList->SetPipelineState(dxPipeline.get_dx12_pso().Get());
+		CommandList->SetPipelineState(dxPipeline->get_dx12_pso().Get());
 
 		/*
 		* Set viewport
 		*/
-		//CommandList->RSSetViewports(1,&dxPipeline.get_dx12_viewport());
+		D3D12_VIEWPORT vp = dxPipeline->get_dx12_viewport();
+		CommandList->RSSetViewports(1,&vp);
+		
+		/*
+		* Set scissors
+		*/
+		D3D12_RECT scissors = dxPipeline->get_dx12_scissors();
+		CommandList->RSSetScissorRects(1,&scissors);
+
+		/*
+		* Set primitive topology
+		*/
+		CommandList->IASetPrimitiveTopology(DX12PipelineUtils::get_dx12_primitives(dxPipeline->get_primitives()));
 	}
 
 	void DX12CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
@@ -207,6 +219,6 @@ namespace DopeEngine
 
 	void DX12CommandBuffer::indexed_draw_call_impl(const unsigned int count)
 	{
-
+		CommandList->DrawInstanced(3, 1, 0, 0);
 	}
 }

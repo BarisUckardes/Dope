@@ -30,59 +30,59 @@ namespace DopeEngine
 		CurrentColorTargets.clear();
 		CurrentDepthTarget = nullptr;
 	}
-	void DX11CommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
+	void DX11CommandBuffer::set_vertex_buffer_impl(const VertexBuffer* vertexBuffer)
 	{
 		/*
 		* Get dx11 buffer
 		*/
-		const DX11VertexBuffer& dx11Buffer = (const DX11VertexBuffer&)vertexBuffer;
+		const DX11VertexBuffer* dx11Buffer = (const DX11VertexBuffer*)vertexBuffer;
 
 		/*
 		* Set buffer
 		*/
-		DXPTR<ID3D11Buffer> dx11VertexBuffer = dx11Buffer.get_dx11_buffer();
+		DXPTR<ID3D11Buffer> dx11VertexBuffer = dx11Buffer->get_dx11_buffer();
 		ID3D11Buffer* buffer = dx11VertexBuffer.Get();
-		const unsigned int stride = dx11Buffer.get_per_vertex_size();
+		const unsigned int stride = dx11Buffer->get_per_vertex_size();
 		const unsigned int offset = 0;
 		Device->get_dx11_immediate_context()->IASetVertexBuffers(0, 1, &buffer,&stride, &offset);
 	}
-	void DX11CommandBuffer::set_index_buffer_impl(const IndexBuffer& indexBuffer)
+	void DX11CommandBuffer::set_index_buffer_impl(const IndexBuffer* indexBuffer)
 	{
 		/*
 		* Get dx11 buffer
 		*/
-		const DX11IndexBuffer& dx11Buffer = (const DX11IndexBuffer&)indexBuffer;
+		const DX11IndexBuffer* dx11Buffer = (const DX11IndexBuffer*)indexBuffer;
 
 		/*
 		* Set buffer
 		*/
-		ID3D11Buffer* buffer = dx11Buffer.get_dx11_buffer().Get();
+		ID3D11Buffer* buffer = dx11Buffer->get_dx11_buffer().Get();
 		Device->get_dx11_immediate_context()->IASetIndexBuffer(buffer, DXGI_FORMAT_R32_UINT, 0);
 	}
-	void DX11CommandBuffer::set_uniform_buffer_impl(const UniformBuffer& buffer)
+	void DX11CommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
 	{
 		/*
 		* Get dx11 buffer
 		*/
-		const DX11ConstantBuffer& dx11Buffer = (const DX11ConstantBuffer&)buffer;
+		const DX11ConstantBuffer* dx11Buffer = (const DX11ConstantBuffer*)buffer;
 
 	}
-	void DX11CommandBuffer::set_framebuffer_impl(const Framebuffer& framebuffer)
+	void DX11CommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
 	{
 		/*
 		* Validate if this is a swapchain buffer
 		*/
-		if (framebuffer.is_swapchain_framebuffer())
+		if (framebuffer->is_swapchain_framebuffer())
 		{
 			/*
 			* Get dx11 swapchain framebuffer
 			*/
-			const DX11SwapchainFramebuffer& dx11SFarmebuffer = (const DX11SwapchainFramebuffer&)framebuffer;
+			const DX11SwapchainFramebuffer* dx11SFarmebuffer = (const DX11SwapchainFramebuffer*)framebuffer;
 
 			/*
 			* Get render target
 			*/
-			DXPTR<ID3D11RenderTargetView> rtv = dx11SFarmebuffer.get_dx11_swapchain_rtv();
+			DXPTR<ID3D11RenderTargetView> rtv = dx11SFarmebuffer->get_dx11_swapchain_rtv();
 
 			/*
 			* Set rtv
@@ -121,12 +121,12 @@ namespace DopeEngine
 
 
 	}
-	void DX11CommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
+	void DX11CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 		/*
 		* Get dx11 pipeline
 		*/
-		const DX11Pipeline* dx11Pipeline = (const DX11Pipeline*)&pipeline;
+		const DX11Pipeline* dx11Pipeline = (const DX11Pipeline*)pipeline;
 
 		/*
 		* Set rasterizer state
@@ -162,7 +162,7 @@ namespace DopeEngine
 		/*
 		* Set shaders
 		*/
-		const Array<Shader*> shaders = pipeline.get_shader_set()->get_shaders_slow();
+		const Array<Shader*> shaders = pipeline->get_shader_set()->get_shaders_slow();
 		for (unsigned int i = 0; i < shaders.get_cursor(); i++)
 		{
 			/*

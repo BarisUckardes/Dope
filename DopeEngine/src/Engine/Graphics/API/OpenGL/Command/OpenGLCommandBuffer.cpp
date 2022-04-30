@@ -9,50 +9,50 @@
 #include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
-	void OpenGLCommandBuffer::set_vertex_buffer_impl(const VertexBuffer& vertexBuffer)
+	void OpenGLCommandBuffer::set_vertex_buffer_impl(const VertexBuffer* vertexBuffer)
 	{
 		CurrentVertexBufferHandle = ((const OpenGLVertexBuffer&)vertexBuffer).get_handle();
 	}
 
-	void OpenGLCommandBuffer::set_index_buffer_impl(const IndexBuffer& indexBuffer)
+	void OpenGLCommandBuffer::set_index_buffer_impl(const IndexBuffer* indexBuffer)
 	{
 		CurrentIndexBufferHandle = ((const OpenGLIndexBuffer&)indexBuffer).get_handle();
 	}
 
-	void OpenGLCommandBuffer::set_uniform_buffer_impl(const UniformBuffer& buffer)
+	void OpenGLCommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
 	{
 		/*
 		* Get opengl unibuffer
 		*/
-		const OpenGLUniformBuffer& openglGLBuffer = (const OpenGLUniformBuffer&)buffer;
+		const OpenGLUniformBuffer* openglGLBuffer = (const OpenGLUniformBuffer*)buffer;
 
 		/*
 		* Get index
 		*/
-		const SHADER_UNIFORM_ID blockIndex = glGetUniformBlockIndex(openglGLBuffer.get_handle(), *openglGLBuffer.get_buffer_name());
+		const SHADER_UNIFORM_ID blockIndex = glGetUniformBlockIndex(openglGLBuffer->get_handle(), *openglGLBuffer->get_buffer_name());
 
 		/*
 		* Set buffer
 		*/
-		glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex,openglGLBuffer.get_handle());
+		glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex,openglGLBuffer->get_handle());
 	}
 
-	void OpenGLCommandBuffer::set_framebuffer_impl(const Framebuffer& framebuffer)
+	void OpenGLCommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
 	{
 		/*
 		* Check if its a swapchain
 		*/
-		if (framebuffer.is_swapchain_framebuffer())
+		if (framebuffer->is_swapchain_framebuffer())
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 		else
 		{
-			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer&)framebuffer).get_handle());
+			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer*)framebuffer)->get_handle());
 		}
 	}
 
-	void OpenGLCommandBuffer::set_pipeline_impl(const Pipeline& pipeline)
+	void OpenGLCommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 		/*
 		* Blending
@@ -92,23 +92,23 @@ namespace DopeEngine
 		/*
 		* Set primitive
 		*/
-		CurrentPrimitive = OpenGLPipelineUtils::get_primitive(pipeline.get_primitives());
+		CurrentPrimitive = OpenGLPipelineUtils::get_primitive(pipeline->get_primitives());
 
 		/*
 		* Set current program
 		*/
-		CurrentProgramHandle = ((const OpenGLShaderSet*)pipeline.get_shader_set())->get_handle();
+		CurrentProgramHandle = ((const OpenGLShaderSet*)pipeline->get_shader_set())->get_handle();
 
 		/*
 		* Set vertex layout
 		*/
-		CurrentVertexLayoutHandle = ((const OpenGLPipeline*)&pipeline)->get_vertex_layout_handle();
-		CurrentVertexLayoutDescription = pipeline.get_vertex_layout();
+		CurrentVertexLayoutHandle = ((const OpenGLPipeline*)pipeline)->get_vertex_layout_handle();
+		CurrentVertexLayoutDescription = pipeline->get_vertex_layout();
 
 		/*
 		* Set viewport
 		*/
-		const OutputDescription outputDesc = pipeline.get_output_desc();
+		const OutputDescription outputDesc = pipeline->get_output_desc();
 		glViewport(outputDesc.OffsetX, outputDesc.OffsetY, outputDesc.Width, outputDesc.Height);
 
 		/*

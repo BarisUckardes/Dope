@@ -211,14 +211,9 @@ namespace DopeEngine
 		desc.Width = width;
 		desc.Height = height;
 		desc.CreateDepthAttachment = false;
-		desc.DepthAttachmentFormat = TextureFormat::Red;
+		desc.DepthAttachmentFormat = TextureFormat::R8unorm;
+		desc.AttachmentDescriptions.add(TextureFormat::RGBA8unorm);
 
-		/*
-		* Create tripple buffering
-		*/
-		desc.AttachmentDescriptions.add(TextureFormat::Red);
-		desc.AttachmentDescriptions.add(TextureFormat::Red);
-		desc.AttachmentDescriptions.add(TextureFormat::Red);
 
 		return new DX12SwapchainFramebuffer(desc, (DX12GraphicsDevice*)this, (Window*)get_owner_window());
 	}

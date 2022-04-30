@@ -8,12 +8,13 @@ namespace DopeEngine
 	/// </summary>
 	enum class DOPE_ENGINE_API TextureFormat
 	{
-		Red = 0,
+		R8unorm = 0,
 		RGB8f = 1,
 		RGB16f = 2,
 		RGB32f = 3,
 		RGBA8f = 4,
-		RGBA16f = 5,
-		RGBA32F = 6
+		RGBA8unorm = 5,
+		RGBA16f = 6,
+		RGBA32F = 7
 	};
 }

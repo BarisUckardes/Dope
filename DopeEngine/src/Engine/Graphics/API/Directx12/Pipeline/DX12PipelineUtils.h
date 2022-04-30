@@ -12,7 +12,8 @@ namespace DopeEngine
 
 		static D3D12_CULL_MODE get_dx12_cull_mode(const FaceCullMode mode);
 		static D3D12_FILL_MODE get_dx12_fill_mode(const PolygonFillMode mode);
-		static D3D12_PRIMITIVE_TOPOLOGY_TYPE get_dx12_primitives(const PrimitiveTopology primitives);
+		static D3D12_PRIMITIVE_TOPOLOGY get_dx12_primitives(const PrimitiveTopology primitives);
+		static D3D12_PRIMITIVE_TOPOLOGY_TYPE get_dx12_primitive_type(const PrimitiveTopology primitives);
 	};
 
 

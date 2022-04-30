@@ -10,10 +10,12 @@ namespace DopeEngine
 		virtual ~DX12VertexBuffer() final override;
 
 		DXPTR<ID3D12Resource> get_dx12_vertex_buffer() const;
+		const D3D12_VERTEX_BUFFER_VIEW& get_dx12_vertex_buffer_view() const;
 	private:
 		void create(DX12GraphicsDevice* device);
 	private:
 		DXPTR<ID3D12Resource> Buffer;
+		D3D12_VERTEX_BUFFER_VIEW BufferView;
 	};
 
 

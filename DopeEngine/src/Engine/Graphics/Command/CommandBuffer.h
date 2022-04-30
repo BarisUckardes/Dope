@@ -39,31 +39,31 @@ namespace DopeEngine
 		/// Sets the target vertex buffer
 		/// </summary>
 		/// <param name="vertexBuffer"></param>
-		void set_vertex_buffer(const VertexBuffer& vertexBuffer);
+		void set_vertex_buffer(const VertexBuffer* vertexBuffer);
 
 		/// <summary>
 		/// Sets the target index buffer
 		/// </summary>
 		/// <param name="indexBuffer"></param>
-		void set_index_buffer(const IndexBuffer& indexBuffer);
+		void set_index_buffer(const IndexBuffer* indexBuffer);
 
 		/// <summary>
 		/// Sets a uniform buffer
 		/// </summary>
 		/// <param name="buffer"></param>
-		void set_uniform_buffer(const UniformBuffer& buffer);
+		void set_uniform_buffer(const UniformBuffer* buffer);
 
 		/// <summary>
 		/// Sets the target framebuffer
 		/// </summary>
 		/// <param name="framebuffer"></param>
-		void set_framebuffer(const Framebuffer& framebuffer);
+		void set_framebuffer(const Framebuffer* framebuffer);
 
 		/// <summary>
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		void set_pipeline(const Pipeline& pipeline);
+		void set_pipeline(const Pipeline* pipeline);
 
 		/// <summary>
 		/// Clears the color
@@ -92,45 +92,46 @@ namespace DopeEngine
 		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundPipeline(nullptr),CurrentBoundUniformBuffers(0) {}
 		virtual ~CommandBuffer() = 0 {}
 
+
+		unsigned int get_bound_texture_count() const;
+		const Pipeline* get_bound_pipeline() const;
+		unsigned int get_bound_uniformbuffer_count() const;
+		void increment_texture_bound_count();
+		void increment_uniformbuffer_bound_count();
+
 		virtual void lock_impl() = 0;
 		virtual void unlock_impl() = 0;
 		virtual void clear_cached_state_impl() = 0;
-
-		 unsigned int get_bound_texture_count() const;
-		 const Pipeline* get_bound_pipeline() const;
-		 unsigned int get_bound_uniformbuffer_count() const;
-		 void increment_texture_bound_count();
-		 void increment_uniformbuffer_bound_count();
 
 		/// <summary>
 		/// Sets the target vertex buffer
 		/// </summary>
 		/// <param name="vertexBuffer"></param>
-		virtual void set_vertex_buffer_impl(const VertexBuffer& vertexBuffer) = 0;
+		virtual void set_vertex_buffer_impl(const VertexBuffer* vertexBuffer) = 0;
 
 		/// <summary>
 		/// Sets the target index buffer
 		/// </summary>
 		/// <param name="indexBuffer"></param>
-		virtual void set_index_buffer_impl(const IndexBuffer& indexBuffer) = 0;
+		virtual void set_index_buffer_impl(const IndexBuffer* indexBuffer) = 0;
 
 		/// <summary>
 		/// Sets a uniform buffer
 		/// </summary>
 		/// <param name="buffer"></param>
-		virtual void set_uniform_buffer_impl(const UniformBuffer& buffer) = 0;
+		virtual void set_uniform_buffer_impl(const UniformBuffer* buffer) = 0;
 
 		/// <summary>
 		/// Sets the target framebuffer
 		/// </summary>
 		/// <param name="framebuffer"></param>
-		virtual void set_framebuffer_impl(const Framebuffer& framebuffer) = 0;
+		virtual void set_framebuffer_impl(const Framebuffer* framebuffer) = 0;
 
 		/// <summary>
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		virtual void set_pipeline_impl(const Pipeline& pipeline) = 0;
+		virtual void set_pipeline_impl(const Pipeline* pipeline) = 0;
 
 		/// <summary>
 		/// Clears the color
@@ -144,16 +145,20 @@ namespace DopeEngine
 		/// <param name="depth"></param>
 		virtual void clear_depth_impl(const float depth) = 0;
 
-
+		/// <summary>
+		/// Set resource view api impl
+		/// </summary>
+		/// <param name="slot"></param>
+		/// <param name="view"></param>
 		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) = 0;
 
 		/// <summary>
 		/// Draw call
 		/// </summary>
 		virtual void indexed_draw_call_impl(const unsigned int count) = 0;
-
 	private:
 		void clear_cached_state();
+	private:
 		const Pipeline* CurrentBoundPipeline;
 		unsigned int CurrentBoundTextures;
 		unsigned int CurrentBoundUniformBuffers;
