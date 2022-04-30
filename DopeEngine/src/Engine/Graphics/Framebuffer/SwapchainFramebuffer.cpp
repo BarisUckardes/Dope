@@ -7,14 +7,17 @@
 
 namespace DopeEngine
 {
-	SwapchainFramebuffer::SwapchainFramebuffer(const FramebufferDescription& desc,GraphicsDevice* device,Window* window) : Framebuffer(desc)
+	SwapchainFramebuffer::SwapchainFramebuffer(const SwapchainFramebufferDesc& desc,GraphicsDevice* device,Window* window) :
+		Framebuffer(FramebufferDescription(desc.Width,desc.Height,desc.GenerateDepth,desc.DepthFormat,Array<FramebufferAttachmentDescription>()))
 	{
 		/*
 		* Intialize
 		*/
 		OwnerDevice = device;
 		OwnerWindow = window;
-		CreateDesc = desc;
+		BufferCount = desc.Count;
+		BufferFormat = desc.Format;
+		DepthFormat = desc.DepthFormat;
 
 		/*
 		* Set event feed listener
@@ -24,14 +27,20 @@ namespace DopeEngine
 		/*
 		* Set initial size
 		*/
-		_set_width(this, desc.Width);
-		_set_height(this, desc.Height);
 		_mark_swapchain(this);
 	}
 	SwapchainFramebuffer::~SwapchainFramebuffer()
 	{
 		OwnerDevice = nullptr;
 		OwnerWindow = nullptr;
+	}
+	unsigned int SwapchainFramebuffer::get_swapchain_buffer_count() const
+	{
+		return BufferCount;
+	}
+	TextureFormat SwapchainFramebuffer::get_swapchain_buffer_format() const
+	{
+		return BufferFormat;
 	}
 	GraphicsDevice* SwapchainFramebuffer::get_owner_device() const
 	{
@@ -65,19 +74,25 @@ namespace DopeEngine
 			on_swapchain_resize_impl();
 		}
 	}
+	
+	TextureFormat SwapchainFramebuffer::get_swapchain_depth_buffer_format() const
+	{
+		return DepthFormat;
+	}
+
 	OutputDescription SwapchainFramebuffer::get_output_desc() const
 	{
 		/*
 		* Collect texture formats
 		*/
 		Array<TextureFormat> formats;
-		for (unsigned int i = 0; i < CreateDesc.AttachmentDescriptions.get_cursor(); i++)
+		for (unsigned int i = 0; i < BufferCount; i++)
 		{
 
 			/*
 			* Register format
 			*/
-			formats.add(CreateDesc.AttachmentDescriptions[i].Format);
+			formats.add(BufferFormat);
 		}
 
 		return { 0,0,Width,Height,formats };

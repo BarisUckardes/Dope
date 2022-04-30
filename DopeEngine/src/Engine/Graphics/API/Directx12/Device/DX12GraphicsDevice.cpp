@@ -204,18 +204,11 @@ namespace DopeEngine
 	}
 	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		/*
-		* Create desc
-		*/
-		FramebufferDescription desc = {};
-		desc.Width = width;
-		desc.Height = height;
-		desc.CreateDepthAttachment = false;
-		desc.DepthAttachmentFormat = TextureFormat::R8unorm;
-		desc.AttachmentDescriptions.add(TextureFormat::RGBA8unorm);
 
 
-		return new DX12SwapchainFramebuffer(desc, (DX12GraphicsDevice*)this, (Window*)get_owner_window());
+		return new DX12SwapchainFramebuffer(SwapchainFramebufferDesc(width, height, 3, TextureFormat::RGBA8unorm, TextureFormat::R8unorm, false),
+			(DX12GraphicsDevice*)this,
+			(Window*)get_owner_window());
 	}
 	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{

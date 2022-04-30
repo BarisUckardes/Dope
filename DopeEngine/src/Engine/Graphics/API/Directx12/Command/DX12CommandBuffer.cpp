@@ -93,7 +93,7 @@ namespace DopeEngine
 	}
 	void DX12CommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
 	{
-
+		//CommandList->SetResource
 	}
 	void DX12CommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
 	{

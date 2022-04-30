@@ -2,9 +2,10 @@
 #include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Core/Assert.h>
+#include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
 namespace DopeEngine
 {
-    DX12SwapchainFramebuffer::DX12SwapchainFramebuffer(const FramebufferDescription& desc, DX12GraphicsDevice* device, Window* targetWindow)
+    DX12SwapchainFramebuffer::DX12SwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DX12GraphicsDevice* device, Window* targetWindow)
 		: SwapchainFramebuffer(desc,(GraphicsDevice*)device,targetWindow)
     {
         /*
@@ -61,6 +62,7 @@ namespace DopeEngine
     void DX12SwapchainFramebuffer::create(DX12GraphicsDevice* device,Window* window)
     {
 		LOG("DX12SwapchainFramebuffer", "Created swapchain");
+
 		/*
 		* Get factory
 		*/
@@ -82,7 +84,7 @@ namespace DopeEngine
 		DXGI_MODE_DESC bufferDesc = {};
 		bufferDesc.Width = window->get_width();
 		bufferDesc.Height = window->get_height();
-		bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		bufferDesc.Format = DX11TextureUtils::get_format(get_swapchain_buffer_format());
 
 		/*
 		* Create sample desc
@@ -93,9 +95,10 @@ namespace DopeEngine
 		/*
 		* Create swapchain desc
 		*/
+		const unsigned int bufferCount = get_swapchain_buffer_count();
 		DXGI_SWAP_CHAIN_DESC swapchainDesc = {  };
 		ZeroMemory(&swapchainDesc, sizeof(DXGI_SWAP_CHAIN_DESC));
-		swapchainDesc.BufferCount = 3; // tripple buffering
+		swapchainDesc.BufferCount = bufferCount;
 		swapchainDesc.BufferDesc = bufferDesc;
 		swapchainDesc.Windowed = true;
 		swapchainDesc.SampleDesc = sampleDesc;
@@ -127,7 +130,7 @@ namespace DopeEngine
 		* Create render target view heap descriptors
 		*/
 		D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc = {  };
-		rtvHeapDesc.NumDescriptors = 3;
+		rtvHeapDesc.NumDescriptors = bufferCount;
 		rtvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
 		rtvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
 		HRESULT createRtvDescriptorHeapHR = dx12Device->CreateDescriptorHeap(&rtvHeapDesc, IID_PPV_ARGS(RtvHeap.GetAddressOf()));
@@ -150,7 +153,7 @@ namespace DopeEngine
 		/*
 		* ITerate and create rtv for each buffer
 		*/
-		for (unsigned int i = 0; i < 3; i++)
+		for (unsigned int i = 0; i < bufferCount; i++)
 		{
 			/*
 			* Get swapchain buffer

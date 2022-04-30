@@ -210,6 +210,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjects.h" />
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />

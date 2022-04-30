@@ -2,7 +2,7 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 namespace DopeEngine
 {
-	DX11SwapchainFramebuffer::DX11SwapchainFramebuffer(const FramebufferDescription& desc, DX11GraphicsDevice* device, Window* window) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
+	DX11SwapchainFramebuffer::DX11SwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DX11GraphicsDevice* device, Window* window) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
 	{
 		/*
 		* Initialize

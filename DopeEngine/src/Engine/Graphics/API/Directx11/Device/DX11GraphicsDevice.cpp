@@ -118,7 +118,7 @@ namespace DopeEngine
 
 	Framebuffer* DX11GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
 	{
-		return new DX11SwapchainFramebuffer(FramebufferDescription(width,height,false,TextureFormat::R8unorm,Array<FramebufferAttachmentDescription>()), (DX11GraphicsDevice*)this, (Window*)get_owner_window());
+		return new DX11SwapchainFramebuffer(SwapchainFramebufferDesc(width,height,3,TextureFormat::RGBA8unorm, TextureFormat::R8unorm,false), (DX11GraphicsDevice*)this, (Window*)get_owner_window());
 	}
 
 	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)

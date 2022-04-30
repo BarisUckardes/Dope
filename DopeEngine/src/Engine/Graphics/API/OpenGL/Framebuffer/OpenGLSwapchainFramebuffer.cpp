@@ -2,7 +2,8 @@
 
 namespace DopeEngine
 {
-	OpenGLSwapchainFramebuffer::OpenGLSwapchainFramebuffer(const FramebufferDescription& desc, DEVICE device,Window* window) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
+	OpenGLSwapchainFramebuffer::OpenGLSwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DEVICE device,Window* window) :
+		SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
 	{
 
 	}

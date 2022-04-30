@@ -6,7 +6,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX11SwapchainFramebuffer : public SwapchainFramebuffer
 	{
 	public:
-		DX11SwapchainFramebuffer(const FramebufferDescription& desc, DX11GraphicsDevice* device, Window* window);
+		DX11SwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DX11GraphicsDevice* device, Window* window);
 		virtual ~DX11SwapchainFramebuffer() final override;
 
 		 DXPTR<ID3D11RenderTargetView> get_dx11_swapchain_rtv() const;

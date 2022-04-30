@@ -537,6 +537,9 @@
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">

@@ -46,9 +46,9 @@ namespace DopeEngine
         rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
         rootSignatureDesc.NumParameters = 0;
         rootSignatureDesc.NumStaticSamplers = 0;
-        rootSignatureDesc.pParameters = nullptr;
-        rootSignatureDesc.pStaticSamplers = nullptr;
-
+        rootSignatureDesc.pParameters = nullptr; // implement parameters
+        rootSignatureDesc.pStaticSamplers = nullptr; // implement samplers
+        
         /*
         * Serialize root signature
         */

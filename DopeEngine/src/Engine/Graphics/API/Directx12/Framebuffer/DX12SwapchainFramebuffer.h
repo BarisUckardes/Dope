@@ -7,7 +7,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX12SwapchainFramebuffer : public SwapchainFramebuffer
 	{
 	public:
-		DX12SwapchainFramebuffer(const FramebufferDescription& desc,DX12GraphicsDevice* device, Window* targetWindow);
+		DX12SwapchainFramebuffer(const SwapchainFramebufferDesc& desc,DX12GraphicsDevice* device, Window* targetWindow);
 		virtual ~DX12SwapchainFramebuffer() final override;
 
 		const Array<DXPTR<ID3D12Resource>>& get_dx12_swapchain_rtvs() const;
