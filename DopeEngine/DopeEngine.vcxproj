@@ -175,6 +175,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayoutUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.h" />
@@ -352,6 +354,8 @@
     <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayoutUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.cpp" />

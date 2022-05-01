@@ -7,6 +7,8 @@
 #include <Engine/Graphics/API/Directx12/Pipeline/DX12PipelineUtils.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
 #include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
+#include <Engine/Graphics/API/Directx12/Resource/DX12ResourceLayoutUtils.h>
+#include <Engine/Graphics/API/Directx12/Shader/DX12ShaderUtils.h>
 #include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
@@ -46,9 +48,44 @@ namespace DopeEngine
         rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
         rootSignatureDesc.NumParameters = 0;
         rootSignatureDesc.NumStaticSamplers = 0;
-        rootSignatureDesc.pParameters = nullptr; // implement parameters
-        rootSignatureDesc.pStaticSamplers = nullptr; // implement samplers
-        
+
+        /*
+        * Create root parameters
+        */
+        Array<D3D12_ROOT_PARAMETER> rootParameters;
+        Array<D3D12_STATIC_SAMPLER_DESC> samplerDescs;
+        for (unsigned int i = 0; i < desc.ResourceLayouts.get_cursor();i++)
+        {
+            /*
+            * Get resource layout
+            */
+            const ResourceLayout* resourceLayout = desc.ResourceLayouts[i];
+
+            /*
+            * Get and catch resource type
+            */
+            const ResourceDescription& resourceDesc = resourceLayout->get_description();
+            const ResourceType resourceType = resourceDesc.Type;
+            const ShaderType shaderStage = resourceDesc.ShaderStage;
+            D3D12_ROOT_PARAMETER rootParameter = {};
+            switch (resourceType)
+            {
+                case DopeEngine::ResourceType::UniformBuffer:
+                    break;
+                case DopeEngine::ResourceType::Texture:
+                    break;
+                case DopeEngine::ResourceType::Undefined:
+                    break;
+                default:
+                    break;
+            }
+            rootParameter.ParameterType = DX12ResourceLayoutUtils::get_dx12_root_parameter_type(resourceType);
+            rootParameter.ShaderVisibility = DX12ShaderUtils::get_dx12_shader_visibility(shaderStage);
+            rootParameter.Descriptor = {};
+        }
+        rootSignatureDesc.pParameters = rootParameters.get_data(); // implement parameters
+        rootSignatureDesc.pStaticSamplers = samplerDescs.get_data(); // implement samplers
+
         /*
         * Serialize root signature
         */

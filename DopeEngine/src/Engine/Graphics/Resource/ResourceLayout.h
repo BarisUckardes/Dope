@@ -1,7 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Resource/ResourceDescription.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
-
 namespace DopeEngine
 {
 	/// <summary>
@@ -16,7 +15,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Returns the description
 		/// </summary>
-		 ResourceDescription get_description() const;
+		const ResourceDescription& get_description() const;
 	private:
 		ResourceDescription Description;
 	};

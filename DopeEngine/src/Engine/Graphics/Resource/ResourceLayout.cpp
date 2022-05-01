@@ -7,7 +7,7 @@ namespace DopeEngine
 		Description = description;
 	}
 
-	ResourceDescription ResourceLayout::get_description() const
+	const ResourceDescription& ResourceLayout::get_description() const
 	{
 		return Description;
 	}
