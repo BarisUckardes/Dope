@@ -25,14 +25,14 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="rads"></param>
 		/// <returns></returns>
-		static  float sin(const float rads);
+		static float sin(const float rads);
 
 		/// <summary>
 		/// Returns the cos of the given rads
 		/// </summary>
 		/// <param name="rads"></param>
 		/// <returns></returns>
-		static  float cos(const float rads);
+		static float cos(const float rads);
 
 		/// <summary>
 		/// Returns the tan of the given rads

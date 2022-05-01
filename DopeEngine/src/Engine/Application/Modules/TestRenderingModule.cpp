@@ -80,6 +80,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::initialize()
 	{
+		return;
 		/*
 		* Get graphics device
 		*/
@@ -188,6 +189,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::update()
 	{
+		return;
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();

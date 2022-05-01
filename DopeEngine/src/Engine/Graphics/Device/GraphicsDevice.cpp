@@ -2,7 +2,7 @@
 #include <Engine/Graphics/API/OpenGL/Device/OpenGLGraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
-#include <Engine/Graphics/API/Vulkan/Device/VulkanGraphicsDevice.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevice.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Buffer/Buffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
@@ -38,8 +38,7 @@ namespace DopeEngine
 				device = new DX12GraphicsDevice(ownerWindow);
 				break;
 			case DopeEngine::GraphicsAPIType::Vulkan:
-				//device = new VulkanGraphicsDevice(ownerWindow);
-				ASSERT(false, "GraphicsDevice", "Vulkan not supported yet!");
+				device = new VKGraphicsDevice(ownerWindow);
 				break;
 			default:
 				ASSERT(false, "GraphicsDevice", "Specified graphics api type is not valid!");

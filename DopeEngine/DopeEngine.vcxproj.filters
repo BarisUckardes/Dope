@@ -132,7 +132,7 @@
     <ClInclude Include="src\Engine\Application\Window\WindowCreateDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.h">
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.h">
@@ -546,6 +546,9 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Core\VKCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -626,7 +629,7 @@
     <ClCompile Include="src\Engine\Platform\Windows\Devices\Drivers\WindowsDriverEnumarator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VulkanGraphicsDevice.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.cpp">
