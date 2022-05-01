@@ -195,7 +195,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="features"></param>
 		/// <returns></returns>
-		virtual bool does_support_features(const GraphicsDeviceFeatures* features,Array<String>& messages) = 0;
+		virtual bool does_support_features(const GraphicsDeviceFeatures* features,Array<String>& messages);
 	protected:
 		GraphicsDevice(Window* window);
 		virtual ~GraphicsDevice() = default;

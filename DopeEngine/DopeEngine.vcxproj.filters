@@ -558,6 +558,15 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevicePropertiesUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeatures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeaturesDesc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -951,6 +960,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevicePropertiesUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeatures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

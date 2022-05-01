@@ -231,14 +231,15 @@ namespace DopeEngine
 	void Application::create_graphics_device(GraphicsAPIType requestedApiType)
 	{
 		/*
-		* Create graphics device
+		* Create requested graphics device features
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(nullptr,requestedApiType, ApplicationWindow);
+		GraphicsDeviceFeaturesDesc requestedFeaturesDesc = {};
+		GraphicsDeviceFeatures requestedFeatures(requestedFeaturesDesc);
 
 		/*
-		* Create swapchain buffer
+		* Create graphics device
 		*/
-
+		GraphicsDevice* device = GraphicsDevice::create(&requestedFeatures,requestedApiType, ApplicationWindow);
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

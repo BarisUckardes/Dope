@@ -6,6 +6,9 @@
 typedef DopeEngine::WindowsWindow WindowAbstraction;
 #endif
 #include <Engine/Core/Assert.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevicePropertiesUtils.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeaturesDesc.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 
 namespace DopeEngine
 {
@@ -88,22 +91,27 @@ namespace DopeEngine
 
 	void VKGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
+
 	}
 
 	void VKGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{
+
 	}
 
 	void VKGraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
 	{
+
 	}
 
 	void VKGraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
+
 	}
 
 	void VKGraphicsDevice::wait_for_finish_impl()
 	{
+
 	}
 
 	void VKGraphicsDevice::_create_vulkan_device()
@@ -141,7 +149,6 @@ namespace DopeEngine
 		*/
 		LOG("VKGraphicsDevice", "Total %d extensions found!", extensionPropertyCount);
 
-		
 		/*
 		* Check extension support
 		*/
@@ -292,12 +299,77 @@ namespace DopeEngine
 			VkPhysicalDeviceFeatures physicalDeviceFeatures = { 0 };
 			vkGetPhysicalDeviceProperties(physicalDevice, &physicalDeviceProperties);
 			vkGetPhysicalDeviceFeatures(physicalDevice, &physicalDeviceFeatures);
+
+			/*
+			* Validate physical device
+			*/
+
+			/*
+			* Set as target physical device
+			*/
+			PhysicalDevice = physicalDevice;
+
+			/*
+			* Create graphics device properties
+			*/
+			const String vendor = VKGraphicsDevicePropertiesUtils::get_vk_vendor_name(physicalDeviceProperties.vendorID);
+			const String model = physicalDeviceProperties.deviceName;
+			const GraphicsDeviceProperties properties(vendor, model);
+
+			/*
+			* Set graphics device properties
+			*/
+			set_properties(properties);
+
+			/*
+			* Create graphics device features
+			*/
+			GraphicsDeviceFeaturesDesc baseFeaturesDesc = {};
+			baseFeaturesDesc.ComputeShader = physicalDeviceProperties.limits.timestampComputeAndGraphics;
+			baseFeaturesDesc.GeometryShader = physicalDeviceFeatures.geometryShader;
+			baseFeaturesDesc.TesellationShader = physicalDeviceFeatures.tessellationShader;
+			baseFeaturesDesc.MaxColorAttachments = physicalDeviceProperties.limits.maxColorAttachments;
+			baseFeaturesDesc.MaxComputeWorkGroupCount.X = physicalDeviceProperties.limits.maxComputeWorkGroupCount[0];
+			baseFeaturesDesc.MaxComputeWorkGroupCount.Y = physicalDeviceProperties.limits.maxComputeWorkGroupCount[1];
+			baseFeaturesDesc.MaxComputeWorkGroupCount.Z = physicalDeviceProperties.limits.maxComputeWorkGroupCount[2];
+			baseFeaturesDesc.MaxComputeWorkGroupInvocations = physicalDeviceProperties.limits.maxComputeWorkGroupInvocations;
+			baseFeaturesDesc.MaxComputeWorkGroupSize.X = physicalDeviceProperties.limits.maxComputeWorkGroupSize[0];
+			baseFeaturesDesc.MaxComputeWorkGroupSize.Y = physicalDeviceProperties.limits.maxComputeWorkGroupSize[1];
+			baseFeaturesDesc.MaxComputeWorkGroupSize.Z = physicalDeviceProperties.limits.maxComputeWorkGroupSize[2];
+			baseFeaturesDesc.MaxCubeTextureDimension = physicalDeviceProperties.limits.maxImageDimensionCube;
+			baseFeaturesDesc.MaxDrawCallIndexCount = physicalDeviceProperties.limits.maxDrawIndexedIndexValue;
+			baseFeaturesDesc.MaxFramebufferHeight = physicalDeviceProperties.limits.maxFramebufferHeight;
+			baseFeaturesDesc.MaxFramebufferWidth = physicalDeviceProperties.limits.maxFramebufferWidth;
+			baseFeaturesDesc.MaxPerShaderStageResources = physicalDeviceProperties.limits.maxPerStageResources;
+			baseFeaturesDesc.MaxTexture1DDimension = physicalDeviceProperties.limits.maxImageDimension1D;
+			baseFeaturesDesc.MaxTexture2DDimension = physicalDeviceProperties.limits.maxImageDimension2D;
+			baseFeaturesDesc.MaxTexture3DDimension = physicalDeviceProperties.limits.maxImageDimension3D;
+			baseFeaturesDesc.MultipleViewports = physicalDeviceFeatures.multiViewport;
+			baseFeaturesDesc.ShadingRate = physicalDeviceFeatures.sampleRateShading;
+			baseFeaturesDesc.debug_log_desc(baseFeaturesDesc);
+			VKGraphicsDeviceFeaturesDesc vkFeaturesDesc = {};
+			
+			/*
+			* Set graphics features
+			*/
+			VKGraphicsDeviceFeatures* vkDeviceFeatures = new VKGraphicsDeviceFeatures(vkFeaturesDesc, baseFeaturesDesc);
+			set_features(vkDeviceFeatures);
 		}
 	}
 
 	bool VKGraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
 	{
-		return true;
+		/*
+		* Check base desc support
+		*/
+		const bool baseFeaturesSupported = GraphicsDevice::does_support_features(features, messages);
+
+		/*
+		* Check VK features supported
+		*/
+		const bool vkFeaturesSupported = true;
+
+		return baseFeaturesSupported && vkFeaturesSupported;
 	}
 
 }

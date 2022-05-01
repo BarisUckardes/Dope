@@ -144,6 +144,36 @@ namespace DopeEngine
 		wait_for_finish_impl();
 	}
 
+	bool GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
+	{
+		/*
+		* Check features
+		*/
+		unsigned char result = 1;
+		result *= Features->has_compute_shader_support() == true ? 1 : 0;
+		result *= Features->has_geometry_shader_support() == true ? 1 : 0;
+		result *= Features->has_tesellation_shader_support() == true ? 1 : 0;
+		result *= Features->has_shading_rate_support() == true ? 1 : 0;
+		result *= Features->get_max_texture1D_dimension() >= features->get_max_texture1D_dimension() ? 1 : 0;
+		result *= Features->get_max_texture2D_dimension() >= features->get_max_texture2D_dimension() ? 1 : 0;
+		result *= Features->get_max_texture3D_dimension() >= features->get_max_texture3D_dimension() ? 1 : 0;
+		result *= Features->get_max_cubeTexture_dimension() >= features->get_max_cubeTexture_dimension() ? 1 : 0;
+		result *= Features->get_max_color_attachments() >= features->get_max_color_attachments() ? 1 : 0;
+		result *= Features->get_max_per_shader_stage_resources() >= features->get_max_per_shader_stage_resources() ? 1 : 0;
+		result *= Features->get_compute_work_group_count().X >= features->get_compute_work_group_count().X ? 1 : 0;
+		result *= Features->get_compute_work_group_count().Y >= features->get_compute_work_group_count().Y ? 1 : 0;
+		result *= Features->get_compute_work_group_count().Z >= features->get_compute_work_group_count().Z ? 1 : 0;
+		result *= Features->get_compute_work_group_invocations() >= features->get_compute_work_group_invocations() ? 1 : 0;
+		result *= Features->get_compute_work_group_size().X >= features->get_compute_work_group_size().X ? 1 : 0;
+		result *= Features->get_compute_work_group_size().Y >= features->get_compute_work_group_size().Y ? 1 : 0;
+		result *= Features->get_compute_work_group_size().Z >= features->get_compute_work_group_size().Z ? 1 : 0;
+		result *= Features->get_max_draw_call_index_count() >= features->get_max_draw_call_index_count() ? 1 : 0;
+		result *= Features->get_max_framebuffer_width() >= features->get_max_framebuffer_width() ? 1 : 0;
+		result *= Features->get_max_framebuffer_height() >= features->get_max_framebuffer_height() ? 1 : 0;
+
+		return result == 1;
+	}
+
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
 	{
 		OwnerWindow = ownerWindow;
