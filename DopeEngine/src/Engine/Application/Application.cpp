@@ -233,7 +233,7 @@ namespace DopeEngine
 		/*
 		* Create graphics device
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(requestedApiType, ApplicationWindow);
+		GraphicsDevice* device = GraphicsDevice::create(nullptr,requestedApiType, ApplicationWindow);
 
 		/*
 		* Create swapchain buffer

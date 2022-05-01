@@ -74,6 +74,9 @@ namespace DopeEngine
 		DXPTR<ID3D12Fence> Fence;
 		HANDLE FenceEvent;
 		unsigned int FenceValue;
+
+		// Inherited via GraphicsDevice
+		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;
 	};
 
 

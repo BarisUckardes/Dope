@@ -55,6 +55,9 @@ namespace DopeEngine
 
 		// Inherited via GraphicsDevice
 		virtual void wait_for_finish_impl() override;
+
+		// Inherited via GraphicsDevice
+		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;
 	};
 
 

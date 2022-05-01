@@ -111,6 +111,11 @@ namespace DopeEngine
 	{
 	}
 
+	bool DX11GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
+	{
+		return true;
+	}
+
 	void DX11GraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
 		SwapChain->Present(1u, 0);

@@ -63,6 +63,25 @@ namespace DopeEngine
 		, nullptr);
 #endif
 	
+		/*
+		* Collect features
+		*/
+
+		/*
+		* Set features
+		*/
+
+		/*
+		* Collect properties
+		*/
+		const String vendor((const char*)glGetString(GL_VENDOR));
+		const String model((const char*)glGetString(GL_RENDERER));
+		GraphicsDeviceProperties properties(vendor, model);
+
+		/*
+		* Set properties
+		*/
+		set_properties(properties);
 	}
 	void OpenGLGraphicsDevice::_create_opengl_win32_device()
 	{
@@ -199,6 +218,10 @@ namespace DopeEngine
 	void OpenGLGraphicsDevice::wait_for_finish_impl()
 	{
 
+	}
+	bool OpenGLGraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
+	{
+		return true;
 	}
 	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
 	{

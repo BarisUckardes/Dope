@@ -213,6 +213,8 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Core\VKCore.h" />
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjects.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
@@ -353,6 +355,7 @@
     <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoader.h" />
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUtils.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowString.h" />
+    <ClInclude Include="src\Engine\Math\Vector3i.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
@@ -389,6 +392,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Buffer\DX11VertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11Shader.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.cpp" />
     <ClCompile Include="src\Engine\Graphics\Resource\ResourceTypeUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.cpp" />
@@ -484,6 +488,7 @@
     <ClCompile Include="src\Engine\Utils\TextureLoader\TextureLoader.cpp" />
     <ClCompile Include="src\Engine\Graphics\Texture\TextureUtils.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowString.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector3i.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

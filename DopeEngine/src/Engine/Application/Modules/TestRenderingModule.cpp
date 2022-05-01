@@ -80,12 +80,14 @@ namespace DopeEngine
 
 	void TestRenderingModule::initialize()
 	{
-		return;
+		
 		/*
 		* Get graphics device
 		*/
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
-
+		GraphicsDeviceProperties props = device->get_properties();
+		LOG("TestRenderingModule", "Vendor: %s, Model: %s", *props.get_vendor(), *props.get_model());
+		return;
 		/*
 		* Create vertex buffer
 		*/

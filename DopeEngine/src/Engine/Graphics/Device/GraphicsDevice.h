@@ -11,6 +11,8 @@
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
 #include <Engine/Graphics/Resource/ResourceView.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
+#include <Engine/Graphics/Device/GraphicsDeviceProperties.h>
 
 namespace DopeEngine
 {
@@ -42,7 +44,7 @@ namespace DopeEngine
 		/// <param name="api"></param>
 		/// <param name="ownerWindow"></param>
 		/// <returns></returns>
-		static GraphicsDevice* create(GraphicsAPIType api,Window* ownerWindow);
+		static GraphicsDevice* create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api,Window* ownerWindow);
 
 		/// <summary>
 		/// Returns whether this device is the current device
@@ -63,9 +65,21 @@ namespace DopeEngine
 		SwapchainFramebuffer* get_swapchain_framebuffer() const;
 
 		/// <summary>
+		/// Returns the graphics device supported features for this device
+		/// </summary>
+		/// <returns></returns>
+		const GraphicsDeviceFeatures* get_supported_features() const;
+
+		/// <summary>
+		/// Returns the graphics device properties
+		/// </summary>
+		/// <returns></returns>
+		GraphicsDeviceProperties get_properties() const;
+
+		/// <summary>
 		/// Makes this device current for this process
 		/// </summary>
-		 void make_current();
+		void make_current();
 
 		/// <summary>
 		/// Deletes the target device object
@@ -73,18 +87,6 @@ namespace DopeEngine
 		/// <param name="object"></param>
 		void delete_device_object(DeviceObject* object);
 
-		/// <summary>
-		/// Returns the graphics api type
-		/// </summary>
-		/// <returns></returns>
-		virtual GraphicsAPIType get_api_type() const = 0;
-
-		/// <summary>
-		/// Returns the graphics api version string
-		/// </summary>
-		/// <returns></returns>
-		virtual String get_version() const = 0;
-		
 		/// <summary>
 		/// Creates a buffer
 		/// </summary>
@@ -175,9 +177,31 @@ namespace DopeEngine
 		/// Awaits the graphics device commands to finish
 		/// </summary>
 		void wait_for_finish();
+
+		/// <summary>
+		/// Returns the graphics api type
+		/// </summary>
+		/// <returns></returns>
+		virtual GraphicsAPIType get_api_type() const = 0;
+
+		/// <summary>
+		/// Returns the graphics api version string
+		/// </summary>
+		/// <returns></returns>
+		virtual String get_version() const = 0;
+
+		/// <summary>
+		/// Returns whether this graphics device supports the target features
+		/// </summary>
+		/// <param name="features"></param>
+		/// <returns></returns>
+		virtual bool does_support_features(const GraphicsDeviceFeatures* features,Array<String>& messages) = 0;
 	protected:
 		GraphicsDevice(Window* window);
 		virtual ~GraphicsDevice() = default;
+
+		void set_properties(const GraphicsDeviceProperties& properties);
+		void set_features(const GraphicsDeviceFeatures* features);
 
 		virtual void make_current_impl() = 0;
 		virtual void delete_device_object_impl(DeviceObject* object) = 0;
@@ -196,7 +220,6 @@ namespace DopeEngine
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
 		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer * framebuffer) = 0;
 		virtual void wait_for_finish_impl() = 0;
-
 	private:
 		void create_swapchain_framebuffer();
 		void register_device_object(DeviceObject* object);
@@ -205,6 +228,8 @@ namespace DopeEngine
 		Array<DeviceObject*> ChildObjects;
 		Window* OwnerWindow;
 		SwapchainFramebuffer* SWCHNFramebuffer;
+		GraphicsDeviceFeatures* Features;
+		GraphicsDeviceProperties Properties;
 		bool Current;
 	};
 

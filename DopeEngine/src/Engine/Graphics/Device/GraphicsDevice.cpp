@@ -17,7 +17,7 @@
 
 namespace DopeEngine
 {
-	GraphicsDevice* GraphicsDevice::create(GraphicsAPIType api, Window* ownerWindow)
+	GraphicsDevice* GraphicsDevice::create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api, Window* ownerWindow)
 	{
 		/*
 		* Create graphics device
@@ -45,6 +45,27 @@ namespace DopeEngine
 				break;
 		}
 		
+		/*
+		* Validate
+		*/
+		Array<String> messages;
+		ASSERT(device->does_support_features(requestedFeatures, messages),"GraphicsDevice","Cannot create the device with the requested features.One or more features does not supported on this device");
+
+		/*
+		* Log unsupported features
+		*/
+		for (unsigned int i = 0; i < messages.get_cursor(); i++)
+		{
+			/*
+			* Get string
+			*/
+			const String message = messages[i];
+
+			/*
+			* Log
+			*/
+			LOG("GraphicsDevice", "Feature %s not supported on this device",*message);
+		}
 		/*
 		* Create swapchainbuffer
 		*/
@@ -128,6 +149,16 @@ namespace DopeEngine
 		OwnerWindow = ownerWindow;
 		OwnerWindow->assing_graphics_device(this);
 	}
+
+	void GraphicsDevice::set_properties(const GraphicsDeviceProperties& properties)
+	{
+		Properties = properties;
+	}
+
+	void GraphicsDevice::set_features(const GraphicsDeviceFeatures* features)
+	{
+		Features = (GraphicsDeviceFeatures*)features;
+	}
 	
 	bool GraphicsDevice::is_current() const
 	{
@@ -141,6 +172,14 @@ namespace DopeEngine
 	SwapchainFramebuffer* GraphicsDevice::get_swapchain_framebuffer() const
 	{
 		return SWCHNFramebuffer;
+	}
+	const GraphicsDeviceFeatures* GraphicsDevice::get_supported_features() const
+	{
+		return Features;
+	}
+	GraphicsDeviceProperties GraphicsDevice::get_properties() const
+	{
+		return Properties;
 	}
 	void GraphicsDevice::make_current()
 	{

@@ -150,6 +150,10 @@ namespace DopeEngine
 		*/
 		FenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
 	}
+	bool DX12GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
+	{
+		return true;
+	}
 	void DX12GraphicsDevice::wait_for_finish_impl()
 	{
 		/*
