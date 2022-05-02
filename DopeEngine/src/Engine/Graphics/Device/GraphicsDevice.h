@@ -31,6 +31,7 @@ namespace DopeEngine
 	class ResourceLayout;
 
 	class SwapchainFramebuffer;
+	struct SwapchainFramebufferDesc;
 
 	/// <summary>
 	/// Graphics device abstraction class
@@ -44,7 +45,8 @@ namespace DopeEngine
 		/// <param name="api"></param>
 		/// <param name="ownerWindow"></param>
 		/// <returns></returns>
-		static GraphicsDevice* create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api,Window* ownerWindow);
+		static GraphicsDevice* create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api,Window* ownerWindow = nullptr,const SwapchainFramebufferDesc* swapchainDesc = nullptr);
+
 
 		/// <summary>
 		/// Returns whether this device is the current device
@@ -213,7 +215,7 @@ namespace DopeEngine
 		virtual void delete_device_object_impl(DeviceObject* object) = 0;
 		virtual Buffer* create_buffer_impl(const BufferDescription& description) = 0;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) = 0;
-		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const = 0;
+		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc * desc) const = 0;
 		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) = 0;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) = 0;
@@ -227,7 +229,7 @@ namespace DopeEngine
 		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer * framebuffer) = 0;
 		virtual void wait_for_finish_impl() = 0;
 	private:
-		void create_swapchain_framebuffer();
+		void create_swapchain_framebuffer(const SwapchainFramebufferDesc* desc);
 		void register_device_object(DeviceObject* object);
 		void remove_device_object(DeviceObject* object);
 	private:

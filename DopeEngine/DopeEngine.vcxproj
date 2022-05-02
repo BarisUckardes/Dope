@@ -360,6 +360,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevicePropertiesUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeatures.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
@@ -497,6 +498,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDevicePropertiesUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeatures.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

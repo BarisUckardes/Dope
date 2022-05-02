@@ -62,20 +62,9 @@ namespace DopeEngine
 		return nullptr;
 	}
 
-	Framebuffer* VKGraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
+	Framebuffer* VKGraphicsDevice::create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const
 	{
-		/*
-		* Create swapchain framebuffer desc
-		*/
-		SwapchainFramebufferDesc desc = {};
-		desc.Count = 3;
-		desc.DepthFormat = TextureFormat::R8unorm;
-		desc.Format = TextureFormat::RGBA8unorm;
-		desc.GenerateDepth = false;
-		desc.Width = width;
-		desc.Height = height;
-
-		return new VKSwapchainFramebuffer(desc,(VKGraphicsDevice*)this,(Window*)get_owner_window());
+		return new VKSwapchainFramebuffer(*desc,(VKGraphicsDevice*)this,(Window*)get_owner_window());
 	}
 
 	Pipeline* VKGraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
@@ -197,7 +186,7 @@ namespace DopeEngine
 			/*
 			* Display log
 			*/
-			LOG("VKGraphicsDevice", "Support vulkan extension found: %s", extensionProperty.extensionName);
+			LOG("VKGraphicsDevice", "Supports vulkan extension found: %s", extensionProperty.extensionName);
 		}
 
 		/*
@@ -237,7 +226,7 @@ namespace DopeEngine
 			/*
 			* Display log
 			*/
-			LOG("VKGraphicsDevice", "Supported vulkan layer found: %s", layerNames[i]);
+			LOG("VKGraphicsDevice", "Supports vulkan layer found: %s", layerNames[i]);
 		}
 
 		/*
@@ -257,21 +246,26 @@ namespace DopeEngine
 		VkInstanceCreateInfo instanceCreateInfo = {};
 		instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		instanceCreateInfo.pApplicationInfo = &appInfo;
-		Array<const char*> instanceExtensionNames = Array<const char*>
-		{
-			VK_KHR_SURFACE_EXTENSION_NAME,
-			VK_KHR_WIN32_SURFACE_EXTENSION_NAME
-		};
+		Array<const char*> instanceExtensionNames = Array<const char*>();
+		instanceExtensionNames.add(VK_KHR_SURFACE_EXTENSION_NAME);
+		instanceExtensionNames.add(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
+
+		/*
+		* Add VK_EXT_DEBUG_UTILS_EXTENSION_NAME if its debug mode
+		*/
+#if _DEBUG
+		instanceExtensionNames.add(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+		instanceExtensionNames.add(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+#endif
 		instanceCreateInfo.ppEnabledExtensionNames = instanceExtensionNames.get_data();
 		instanceCreateInfo.enabledExtensionCount = instanceExtensionNames.get_cursor();
 
-#if _DEBUG
 		/*
-		* Enable validation layers
+		* Set layers
 		*/
-		instanceCreateInfo.enabledLayerCount = instanceLayerPropertyCount;
+		instanceCreateInfo.enabledLayerCount = layerNames.get_cursor();
 		instanceCreateInfo.ppEnabledLayerNames = layerNames.get_data();
-#endif
+
 		/*
 		* Create instance
 		*/
@@ -356,6 +350,7 @@ namespace DopeEngine
 			baseFeaturesDesc.ComputeShader = physicalDeviceProperties.limits.timestampComputeAndGraphics;
 			baseFeaturesDesc.GeometryShader = physicalDeviceFeatures.geometryShader;
 			baseFeaturesDesc.TesellationShader = physicalDeviceFeatures.tessellationShader;
+			baseFeaturesDesc.CanDisplay = instanceExtensionNames.has(VK_KHR_SURFACE_EXTENSION_NAME);
 			baseFeaturesDesc.MaxColorAttachments = physicalDeviceProperties.limits.maxColorAttachments;
 			baseFeaturesDesc.MaxComputeWorkGroupCount.X = physicalDeviceProperties.limits.maxComputeWorkGroupCount[0];
 			baseFeaturesDesc.MaxComputeWorkGroupCount.Y = physicalDeviceProperties.limits.maxComputeWorkGroupCount[1];
@@ -495,6 +490,13 @@ namespace DopeEngine
 			*/
 			Queues.add(queue);
 		}
+
+		/*
+		* Clean-up heap memory
+		*/
+		delete[] vkExtensionProperties;
+		delete[] layerProperties;
+		delete[] physicalDevices;
 	}
 
 	bool VKGraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)

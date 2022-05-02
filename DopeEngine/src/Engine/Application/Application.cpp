@@ -10,6 +10,7 @@
 #include <Engine/Application/Session/GameSession.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeaturesDesc.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
+#include <Engine/Graphics/Framebuffer/SwapchainFramebufferDesc.h>
 
 namespace DopeEngine
 {
@@ -262,11 +263,21 @@ namespace DopeEngine
 				break;
 		}
 		
+		/*
+		* Create swapchain desc
+		*/
+		SwapchainFramebufferDesc swapchainDesc = {};
+		swapchainDesc.Width = ApplicationWindow->get_width();
+		swapchainDesc.Height = ApplicationWindow->get_height();
+		swapchainDesc.Count = 3;
+		swapchainDesc.Format = TextureFormat::RGBA8unorm;
+		swapchainDesc.GenerateDepth = false;
+		swapchainDesc.DepthFormat = TextureFormat::R8unorm;
 
 		/*
 		* Create graphics device
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(requestedFeatures,requestedApiType, ApplicationWindow);
+		GraphicsDevice* device = GraphicsDevice::create(requestedFeatures,requestedApiType, ApplicationWindow,&swapchainDesc);
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

@@ -17,7 +17,7 @@
 
 namespace DopeEngine
 {
-	GraphicsDevice* GraphicsDevice::create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api, Window* ownerWindow)
+	GraphicsDevice* GraphicsDevice::create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api, Window* ownerWindow,const SwapchainFramebufferDesc* swapchainDesc)
 	{
 		/*
 		* Create graphics device
@@ -68,10 +68,31 @@ namespace DopeEngine
 		}
 
 		/*
-		* Create swapchainbuffer (IF REQUESTED)
+		* Validate owner window
 		*/
-		if(ownerWindow != nullptr)
-			device->create_swapchain_framebuffer();
+		if (ownerWindow != nullptr && swapchainDesc != nullptr)
+		{
+			/*
+			* Validate display support
+			*/
+			const GraphicsDeviceFeatures* supportedFeatures = device->get_supported_features();
+			ASSERT(supportedFeatures->can_display(), "GraphicsDevice", "Swapchain requsted but this device cant display!");
+
+			/*
+			* Validate dimensions
+			*/
+			ASSERT(swapchainDesc->Width <= supportedFeatures->get_max_framebuffer_width() && swapchainDesc->Height <= supportedFeatures->get_max_framebuffer_height(),
+				"GraphicsDevice", "This device doesnt support the requester framebuffer size!. Requested size %d,%d but device supports only %d,%d",
+				swapchainDesc->Width, swapchainDesc->Height, supportedFeatures->get_max_framebuffer_width(), supportedFeatures->get_max_framebuffer_height());
+
+			/*
+			* Create swapchainbuffer
+			*/
+			device->create_swapchain_framebuffer(swapchainDesc);
+
+			LOG("GraphicsDevice", "Creation of swapchain requested!");
+		}
+			
 		
 		return device;
 	}
@@ -354,9 +375,9 @@ namespace DopeEngine
 
 		return texture;
 	}
-	void GraphicsDevice::create_swapchain_framebuffer()
+	void GraphicsDevice::create_swapchain_framebuffer(const SwapchainFramebufferDesc* desc)
 	{
-		SWCHNFramebuffer = (SwapchainFramebuffer*)create_window_swapchain_framebuffer_impl(OwnerWindow->get_width(),OwnerWindow->get_height());
+		SWCHNFramebuffer = (SwapchainFramebuffer*)create_window_swapchain_framebuffer_impl(desc);
 		LOG("GraphicsDevice", "Created swapchainFramebuffer");
 	}
 	void GraphicsDevice::register_device_object(DeviceObject* object)

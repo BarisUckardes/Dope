@@ -64,7 +64,7 @@ namespace DopeEngine
 		/// <param name="min"></param>
 		/// <param name="max"></param>
 		/// <returns></returns>
-		static  float clamp(const float value, const float min, const float max);
+		static float clamp(const float value, const float min, const float max);
 
 		/// <summary>
 		/// Returns the min value between two values
@@ -72,7 +72,7 @@ namespace DopeEngine
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		static  float min(const float a, const float b);
+		static float minn(const float a, const float b);
 
 		/// <summary>
 		/// Returns the max value between two values
@@ -80,7 +80,7 @@ namespace DopeEngine
 		/// <param name="a"></param>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		static  float max(const float a, const float b);
+		static float maxx(const float a, const float b);
 	};
 
 

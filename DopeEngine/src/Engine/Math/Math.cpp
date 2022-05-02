@@ -32,11 +32,11 @@ namespace DopeEngine
 	{
 		return value > max ? max : value < min ? min : value;
 	}
-	float Math::min(float a, float b)
+	float Math::minn(float a, float b)
 	{
 		return a > b ? b : a;
 	}
-	float Math::max(float a, float b)
+	float Math::maxx(float a, float b)
 	{
 		return a > b ? a : b;
 	}

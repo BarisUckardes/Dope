@@ -570,6 +570,9 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -975,6 +978,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

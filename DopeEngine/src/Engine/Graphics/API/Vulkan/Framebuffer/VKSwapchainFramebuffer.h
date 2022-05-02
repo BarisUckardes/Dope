@@ -18,6 +18,7 @@ namespace DopeEngine
 		void create_win32(VKGraphicsDevice* device, Window* window);
 	private:
 		VkSurfaceKHR Surface;
+		VkSwapchainKHR Swapchain;
 	};
 
 

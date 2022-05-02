@@ -149,6 +149,27 @@ namespace DopeEngine
 		* Creat fence event
 		*/
 		FenceEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+
+		/*
+		* Get device properties
+		*/
+		GraphicsDeviceProperties deviceProperties = {};
+
+		/*
+		* Set device properties
+		*/
+		set_properties(deviceProperties);
+
+		/*
+		* Get device features
+		*/
+		GraphicsDeviceFeaturesDesc supportedFeaturesDesc = {};
+		supportedFeaturesDesc.CanDisplay = true;
+
+		/*
+		* Set supported features 
+		*/
+		set_features(new GraphicsDeviceFeatures(supportedFeaturesDesc));
 	}
 	bool DX12GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
 	{
@@ -206,11 +227,9 @@ namespace DopeEngine
 		*/
 		ASSERT(SUCCEEDED(presentHR), "DX12GraphicsDevice", "Failed to present");
 	}
-	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const unsigned int width, const unsigned int height) const
+	Framebuffer* DX12GraphicsDevice::create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const
 	{
-
-
-		return new DX12SwapchainFramebuffer(SwapchainFramebufferDesc(width, height, 3, TextureFormat::RGBA8unorm, TextureFormat::R8unorm, false),
+		return new DX12SwapchainFramebuffer(*desc,
 			(DX12GraphicsDevice*)this,
 			(Window*)get_owner_window());
 	}
