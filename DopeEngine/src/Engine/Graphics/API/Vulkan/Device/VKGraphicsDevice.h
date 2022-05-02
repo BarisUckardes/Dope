@@ -10,6 +10,9 @@ namespace DopeEngine
 		VKGraphicsDevice(Window* ownerWindow);
 		~VKGraphicsDevice() = default;
 
+		FORCEINLINE VkInstance get_vk_instance() const;
+		FORCEINLINE VkPhysicalDevice get_vk_physicalDevice() const;
+		FORCEINLINE VkDevice get_vk_logical_device() const;
 	protected:
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
@@ -35,8 +38,10 @@ namespace DopeEngine
 		void _create_vulkan_device();
 		void _create_win32_vulkan_device();
 	private:
+		Array<VkQueue> Queues;
 		VkInstance Instance;
 		VkPhysicalDevice PhysicalDevice;
+		VkDevice LogicalDevice;
 
 		// Inherited via GraphicsDevice
 		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;

@@ -6,6 +6,7 @@
 
 #ifdef DOPE_OS_WINDOWS
 #include <Engine/Platform/Windows/Window/WindowsWindow.h>
+#include <Engine/Memory/Memory.h>
 typedef DopeEngine::WindowsWindow WindowAbstraction;
 typedef HGLRC(WINAPI* PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int* attribList);
 typedef const char* (WINAPI* PFNWGLGETEXTENSIONSSTRINGEXTPROC)(void);
@@ -64,11 +65,24 @@ namespace DopeEngine
 #endif
 	
 		/*
-		* Collect features
+		* Collect base graphics device features
 		*/
+		GraphicsDeviceFeaturesDesc baseFeaturesDesc = {};
+		Memory::memory_set(&baseFeaturesDesc, 0, sizeof(GraphicsDeviceFeaturesDesc));
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
+		glGetBooleanv(GL_COMPUTE_SHADER, (GLboolean*)&baseFeaturesDesc.ComputeShader);
+		glGetBooleanv(GL_GEOMETRY_SHADER, (GLboolean*)&baseFeaturesDesc.GeometryShader);
+		glGetBooleanv(GL_TESS_CONTROL_SHADER, (GLboolean*)&baseFeaturesDesc.TesellationShader);
+		//glGetBooleanv(GL_MAX_VIEWPORTS, (GLboolean*)&baseFeaturesDesc.MultipleViewports);
+		glGetBooleanv(GL_COMPUTE_SHADER, (GLboolean*)&baseFeaturesDesc.ShadingRate);
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
+		glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, (GLint*)&baseFeaturesDesc.MaxColorAttachments);
 
 		/*
-		* Set features
+		* Set base graphics device features
 		*/
 
 		/*
@@ -172,6 +186,8 @@ namespace DopeEngine
 		*/
 		WindowDeviceContext = windowDeviceContext;
 		WindowOpenGLContext = gladHglrc;
+
+		
 	}
 	void OpenGLGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
 	{

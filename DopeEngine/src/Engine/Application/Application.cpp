@@ -8,6 +8,8 @@
 #include <Engine/Application/ApplicationModule.h>
 #include <Engine/Application/Events/ApplicationEvent.h>
 #include <Engine/Application/Session/GameSession.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeaturesDesc.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 
 namespace DopeEngine
 {
@@ -234,12 +236,37 @@ namespace DopeEngine
 		* Create requested graphics device features
 		*/
 		GraphicsDeviceFeaturesDesc requestedFeaturesDesc = {};
-		GraphicsDeviceFeatures requestedFeatures(requestedFeaturesDesc);
+		GraphicsDeviceFeatures* requestedFeatures = nullptr;
+
+		/*
+		* Catch api type and request default features
+		*/
+		switch (requestedApiType)
+		{
+			case DopeEngine::GraphicsAPIType::Undefined:
+				break;
+			case DopeEngine::GraphicsAPIType::OpenGL:
+				break;
+			case DopeEngine::GraphicsAPIType::Directx11:
+				break;
+			case DopeEngine::GraphicsAPIType::Directx12:
+				break;
+			case DopeEngine::GraphicsAPIType::Vulkan:
+			{
+				VKGraphicsDeviceFeaturesDesc vkFeatures = {};
+				vkFeatures.Queues = VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT;
+				requestedFeatures = new VKGraphicsDeviceFeatures(vkFeatures, GraphicsDeviceFeaturesDesc());
+				break;
+			}
+			default:
+				break;
+		}
+		
 
 		/*
 		* Create graphics device
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(&requestedFeatures,requestedApiType, ApplicationWindow);
+		GraphicsDevice* device = GraphicsDevice::create(requestedFeatures,requestedApiType, ApplicationWindow);
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

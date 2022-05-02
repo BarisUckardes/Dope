@@ -124,6 +124,13 @@ namespace DopeEngine
 		bool has(const TValue& element) const;
 
 		/// <summary>
+		/// Returns whether this array contains all the target array elements
+		/// </summary>
+		/// <param name="other"></param>
+		/// <returns></returns>
+		bool hasAll(const Array<TValue>& other);
+
+		/// <summary>
 		/// Returns the index of the element
 		/// </summary>
 		/// <param name="element"></param>
@@ -144,6 +151,11 @@ namespace DopeEngine
 		unsigned int Cursor;
 		unsigned int AllocateMultiplier;
 	};
+
+	template<typename TValue>
+	static bool operator==(const Array<TValue>& a, const Array<TValue>& b);
+	template<typename TValue>
+	static bool operator!=(const Array<TValue>& a, const Array<TValue>& b);
 
 	/*
 	* Implementation
@@ -604,6 +616,21 @@ namespace DopeEngine
 	}
 
 	template<typename TValue>
+	inline bool Array<TValue>::hasAll(const Array<TValue>& other)
+	{
+		/*
+		* Iterate and check
+		*/
+		for (unsigned int i = 0; i < other.get_cursor(); i++)
+		{
+			if (!has(other[i]))
+				return false;
+		}
+
+		return true;
+	}
+
+	template<typename TValue>
 	int Array<TValue>::find_index(const TValue& element) const
 	{
 		int index = -1;
@@ -647,4 +674,47 @@ namespace DopeEngine
 			m_Source[i] = targetSource.m_Source[i];
 		}
 	}
+	template<typename TValue>
+	bool operator==(const Array<TValue>& a, const Array<TValue>& b)
+	{
+		/*
+		* First check sizes
+		*/
+		if (a.get_cursor() != b.get_cursor())
+			return false;
+
+		/*
+		* Iterate and check
+		*/
+		for (unsigned int i = 0; i < a.get_cursor(); i++)
+		{
+			if (a[i] != b[i])
+				return false;
+		}
+
+		return true;
+	}
+
+	template<typename TValue>
+	bool operator!=(const Array<TValue>& a, const Array<TValue>& b)
+	{
+		/*
+		* First check sizes
+		*/
+		if (a.get_cursor() != b.get_cursor())
+			return true;
+
+
+		/*
+		* Iterate and check
+		*/
+		for (unsigned int i = 0; i < a.get_cursor(); i++)
+		{
+			if (a[i] != b[i])
+				return true;
+		}
+
+		return false;
+	}
+
 }

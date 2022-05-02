@@ -53,6 +53,12 @@ namespace DopeEngine
 		bool is_current() const;
 
 		/// <summary>
+		/// Returns whether this graphics device has a target window or not
+		/// </summary>
+		/// <returns></returns>
+		bool is_offscreen_device() const;
+
+		/// <summary>
 		/// Returns the owner window of this device (if any)
 		/// </summary>
 		/// <returns></returns>
@@ -231,6 +237,7 @@ namespace DopeEngine
 		GraphicsDeviceFeatures* Features;
 		GraphicsDeviceProperties Properties;
 		bool Current;
+		bool OffscreenGraphicsDevice;
 	};
 
 

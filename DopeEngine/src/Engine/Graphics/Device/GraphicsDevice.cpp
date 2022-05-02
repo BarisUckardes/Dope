@@ -66,10 +66,12 @@ namespace DopeEngine
 			*/
 			LOG("GraphicsDevice", "Feature %s not supported on this device",*message);
 		}
+
 		/*
-		* Create swapchainbuffer
+		* Create swapchainbuffer (IF REQUESTED)
 		*/
-		device->create_swapchain_framebuffer();
+		if(ownerWindow != nullptr)
+			device->create_swapchain_framebuffer();
 		
 		return device;
 	}
@@ -154,6 +156,7 @@ namespace DopeEngine
 		result *= Features->has_geometry_shader_support() == true ? 1 : 0;
 		result *= Features->has_tesellation_shader_support() == true ? 1 : 0;
 		result *= Features->has_shading_rate_support() == true ? 1 : 0;
+		result *= Features->can_display() == true ? 1 : 0;
 		result *= Features->get_max_texture1D_dimension() >= features->get_max_texture1D_dimension() ? 1 : 0;
 		result *= Features->get_max_texture2D_dimension() >= features->get_max_texture2D_dimension() ? 1 : 0;
 		result *= Features->get_max_texture3D_dimension() >= features->get_max_texture3D_dimension() ? 1 : 0;
@@ -176,8 +179,30 @@ namespace DopeEngine
 
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
 	{
+		/*
+		* Validate and set offscreen state
+		*/
+		if (ownerWindow != nullptr)
+		{
+			ownerWindow->assing_graphics_device(this);
+			OffscreenGraphicsDevice = false;
+		}
+		else
+		{
+			OffscreenGraphicsDevice = true;
+		}
+
+		/*
+		* Set target window even if its a nullptr value
+		*/
 		OwnerWindow = ownerWindow;
-		OwnerWindow->assing_graphics_device(this);
+
+		/*
+		* Initialize
+		*/
+		Current = false;
+		Features = {};
+		SWCHNFramebuffer = nullptr;
 	}
 
 	void GraphicsDevice::set_properties(const GraphicsDeviceProperties& properties)
@@ -193,6 +218,11 @@ namespace DopeEngine
 	bool GraphicsDevice::is_current() const
 	{
 		return Current;
+	}
+
+	bool GraphicsDevice::is_offscreen_device() const
+	{
+		return OffscreenGraphicsDevice;
 	}
 
 	const Window* GraphicsDevice::get_owner_window() const

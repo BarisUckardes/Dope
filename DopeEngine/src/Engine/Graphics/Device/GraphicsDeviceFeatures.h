@@ -43,6 +43,8 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE bool has_shading_rate_support() const;
 
+		FORCEINLINE bool can_display() const;
+
 		FORCEINLINE unsigned int get_max_texture1D_dimension() const;
 		FORCEINLINE unsigned int get_max_texture2D_dimension() const;
 		FORCEINLINE unsigned int get_max_texture3D_dimension() const;
@@ -61,6 +63,7 @@ namespace DopeEngine
         bool		 TesellationShader;
         bool		 MultipleViewports;
 		bool		 ShadingRate;
+		bool		 CanDisplay;
 		unsigned int MaxTexture1DDimension;
 		unsigned int MaxTexture2DDimension;
 		unsigned int MaxTexture3DDimension;

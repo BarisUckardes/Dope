@@ -12,6 +12,7 @@ namespace DopeEngine
 		TesellationShader = desc.TesellationShader;
 		MultipleViewports = desc.MultipleViewports;
 		ShadingRate = desc.ShadingRate;
+		CanDisplay = desc.CanDisplay;
 		MaxTexture1DDimension = desc.MaxTexture1DDimension;
 		MaxTexture2DDimension = desc.MaxTexture2DDimension;
 		MaxTexture3DDimension = desc.MaxTexture3DDimension;
@@ -44,6 +45,10 @@ namespace DopeEngine
 	bool GraphicsDeviceFeatures::has_shading_rate_support() const
 	{
 		return ShadingRate;
+	}
+	bool GraphicsDeviceFeatures::can_display() const
+	{
+		return CanDisplay;
 	}
 	unsigned int GraphicsDeviceFeatures::get_max_texture1D_dimension() const
 	{
