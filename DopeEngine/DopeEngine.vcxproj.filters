@@ -570,7 +570,10 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.h">
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKQueueFamilyProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -980,7 +983,10 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureFormatUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKQueueFamilyProperties.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

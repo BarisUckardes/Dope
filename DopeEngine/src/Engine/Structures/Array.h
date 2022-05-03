@@ -26,6 +26,13 @@ namespace DopeEngine
 		void reserve(unsigned int capacity);
 
 		/// <summary>
+		/// Allocates a fixed sized capacity and sets default values
+		/// </summary>
+		/// <param name="capacity"></param>
+		/// <param name="defaultValue"></param>
+		void reserve(unsigned int capacity, const TValue& defaultValue);
+
+		/// <summary>
 		/// Returns a slice of this array(does not copy the contents)
 		/// </summary>
 		/// <typeparam name="TValue"></typeparam>
@@ -266,6 +273,37 @@ namespace DopeEngine
 		* Reset the cursor
 		*/
 		Cursor = 0;
+	}
+	template<typename TValue>
+	inline void Array<TValue>::reserve(unsigned int capacity, const TValue& defaultValue)
+	{
+		/*
+		* Delete format source
+		*/
+		clear_memory();
+
+		/*
+		* Allocate new source
+		*/
+		m_Source = new TValue[capacity];
+
+		/*
+		* Set new capacity
+		*/
+		Capacity = capacity;
+
+		/*
+		* Set cursor
+		*/
+		Cursor = capacity - 1;
+
+		/*
+		* Initialize default values
+		*/
+		for (unsigned int i = 0; i < Cursor; i++)
+		{
+			m_Source[i] = defaultValue;
+		}
 	}
 	template<typename TValue>
 	inline void Array<TValue>::copy(const TValue* data, unsigned int count)

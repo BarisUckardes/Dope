@@ -13,6 +13,11 @@ typedef DopeEngine::WindowsWindow WindowAbstraction;
 
 namespace DopeEngine
 {
+	static VKAPI_ATTR VkBool32 VKAPI_CALL validation_debug_callback(
+		VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
+		VkDebugUtilsMessageTypeFlagsEXT messageType,
+		const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData,
+		void* pUserData);
 	VKGraphicsDevice::VKGraphicsDevice(Window* ownerWindow) : GraphicsDevice(ownerWindow)
 	{
 		/*
@@ -157,10 +162,6 @@ namespace DopeEngine
 		*/
 		ASSERT(extensionPropertyCount > 0, "VKGraphicsDevice", "Instance extension properties must be not be zero!");
 
-		/*
-		* Log
-		*/
-		LOG("VKGraphicsDevice", "Total %d extensions found!", extensionPropertyCount);
 
 		/*
 		* Check extension support
@@ -174,7 +175,7 @@ namespace DopeEngine
 		ASSERT(instanceExtensionEnumarationVkResult2 == VK_SUCCESS, "VKGraphicsDevice", "Instance extension enumaration failed!");
 
 		/*
-		* Log extensions
+		* Iterate extensions
 		*/
 		for (unsigned char i = 0; i < extensionPropertyCount; i++)
 		{
@@ -183,10 +184,6 @@ namespace DopeEngine
 			*/
 			const VkExtensionProperties extensionProperty = vkExtensionProperties[i];
 
-			/*
-			* Display log
-			*/
-			LOG("VKGraphicsDevice", "Supports vulkan extension found: %s", extensionProperty.extensionName);
 		}
 
 		/*
@@ -201,16 +198,12 @@ namespace DopeEngine
 		ASSERT(enumarateLayerPropertiesVkR == VK_SUCCESS, "VKGraphicsDevice", "Instance layer enumaration failed!");
 
 		/*
-		* Log
-		*/
-		LOG("VKGraphicsDevice", "Total %d layers found", instanceLayerPropertyCount);
-
-		/*
 		* Enumarate instance layer names
 		*/
 		VkLayerProperties* layerProperties = new VkLayerProperties[instanceLayerPropertyCount];
 		Array<const char*> layerNames(instanceLayerPropertyCount);
 		const VkResult enumarateLayerPropertiesVkR2 = vkEnumerateInstanceLayerProperties(&instanceLayerPropertyCount, layerProperties);
+#ifdef _DEBUG
 		for (unsigned char i = 0; i < instanceLayerPropertyCount; i++)
 		{
 			/*
@@ -222,12 +215,8 @@ namespace DopeEngine
 			* Register name
 			*/
 			layerNames.add(layerProperty.layerName);
-
-			/*
-			* Display log
-			*/
-			LOG("VKGraphicsDevice", "Supports vulkan layer found: %s", layerNames[i]);
 		}
+#endif
 
 		/*
 		* Create application info
@@ -246,6 +235,10 @@ namespace DopeEngine
 		VkInstanceCreateInfo instanceCreateInfo = {};
 		instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		instanceCreateInfo.pApplicationInfo = &appInfo;
+
+		/*
+		* Create default instance extension names for win32
+		*/
 		Array<const char*> instanceExtensionNames = Array<const char*>();
 		instanceExtensionNames.add(VK_KHR_SURFACE_EXTENSION_NAME);
 		instanceExtensionNames.add(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
@@ -266,6 +259,22 @@ namespace DopeEngine
 		instanceCreateInfo.enabledLayerCount = layerNames.get_cursor();
 		instanceCreateInfo.ppEnabledLayerNames = layerNames.get_data();
 
+		/*
+		* Create debug messager
+		*/
+#ifdef _DEBUG
+		VkDebugUtilsMessengerCreateInfoEXT debugMessengerCreateInfo{};
+		debugMessengerCreateInfo.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_MESSENGER_CREATE_INFO_EXT;
+		debugMessengerCreateInfo.messageSeverity = VK_DEBUG_UTILS_MESSAGE_SEVERITY_VERBOSE_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT;
+		debugMessengerCreateInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT | VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+		debugMessengerCreateInfo.pfnUserCallback = validation_debug_callback;
+		debugMessengerCreateInfo.pUserData = nullptr; // Optional
+
+		/*
+		* Create the messanger
+		*/
+		instanceCreateInfo.pNext = (VkDebugUtilsMessengerCreateInfoEXT*)&debugMessengerCreateInfo; //WTF is this?? some sort of chain creation i guess
+#endif
 		/*
 		* Create instance
 		*/
@@ -369,7 +378,6 @@ namespace DopeEngine
 			baseFeaturesDesc.MaxTexture3DDimension = physicalDeviceProperties.limits.maxImageDimension3D;
 			baseFeaturesDesc.MultipleViewports = physicalDeviceFeatures.multiViewport;
 			baseFeaturesDesc.ShadingRate = physicalDeviceFeatures.sampleRateShading;
-			baseFeaturesDesc.debug_log_desc(baseFeaturesDesc);
 
 			/*
 			* Create vk graphics device features desc
@@ -387,7 +395,7 @@ namespace DopeEngine
 			/*
 			* Collect queue family flags
 			*/
-			Array<VkQueueFlags> foundQueueFamilies;
+			Array<VKQueueFamilyProperties> foundQueueFamilies;
 			for (unsigned int p = 0; p < queueFamilyCount; p++)
 			{
 				/*
@@ -396,11 +404,26 @@ namespace DopeEngine
 				const VkQueueFamilyProperties queueFamilyProperty = queueFamilyProperties[p];
 
 				/*
+				* Catch queue
+				*/
+				VkQueueFlags flag = 0;
+				if (queueFamilyProperty.queueFlags & VK_QUEUE_GRAPHICS_BIT)
+				{
+					GraphicsQueueFamilyIndex = p;
+					flag = VK_QUEUE_GRAPHICS_BIT;
+				}
+				else if (queueFamilyProperty.queueFlags & VK_QUEUE_COMPUTE_BIT)
+				{
+					ComputeQueueFamilyIndex = p;
+					flag = VK_QUEUE_COMPUTE_BIT;
+				}
+
+				/*
 				* Register supported queue family
 				*/
-				foundQueueFamilies.add(queueFamilyProperty.queueFlags);
+				foundQueueFamilies.add({flag,queueFamilyProperty.queueCount,p});
 			}
-			vkFeaturesDesc.Queues = foundQueueFamilies;
+			vkFeaturesDesc.QueueFamilies = foundQueueFamilies;
 
 			/*
 			* Set graphics features
@@ -415,47 +438,53 @@ namespace DopeEngine
 		ASSERT(minimalPhysicalDeviceFound, "VKGraphicsDevice", "Minimal physical device couldnt be found!");
 
 		/*
-		* Get supported queues
+		* Create queues for the logical device
 		*/
-		const Array<VkQueueFlags> supportedQueues = ((const VKGraphicsDeviceFeatures*)get_supported_features())->get_vk_queues();
+		const VKGraphicsDeviceFeatures* vkSupportedDeviceFeatures = (const VKGraphicsDeviceFeatures*)get_supported_features();
+		const Array<VKQueueFamilyProperties> supportedQueueFamilies = vkSupportedDeviceFeatures->get_vk_queues();
 
-		/*
-		* Iterate and create vk queue creation infos
-		*/
 		Array<VkDeviceQueueCreateInfo> queueCreateInfos;
-		queueCreateInfos.reserve(supportedQueues.get_cursor());
-		constexpr float queuePriority = 1.0f;
-		for (unsigned int i = 0; i < queueCreateInfos.get_cursor(); i++)
+		queueCreateInfos.reserve(supportedQueueFamilies.get_cursor());
+
+		const float defaultQueuePriority = 1.0f;
+
+		for (unsigned int i = 0; i < supportedQueueFamilies.get_cursor(); i++)
 		{
 			/*
-			* Get vk queue flag
+			* Get queue family propert
 			*/
-			const VkQueueFlags queueFlag = supportedQueues[i];
+			const VKQueueFamilyProperties familyProperty = supportedQueueFamilies[i];
 
 			/*
 			* Create queue create info
 			*/
-			VkDeviceQueueCreateInfo queueCreateInfo{};
+			VkDeviceQueueCreateInfo queueCreateInfo = {};
 			queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-			queueCreateInfo.queueFamilyIndex = queueFlag;
-			queueCreateInfo.queueCount = 1;
-			queueCreateInfo.pQueuePriorities = &queuePriority;
+			queueCreateInfo.queueCount = 1; // its always 1 for DopeEngine
+			queueCreateInfo.pQueuePriorities = &defaultQueuePriority;
+			queueCreateInfo.queueFamilyIndex = familyProperty.get_family_index();
 
 			/*
-			* Register create info
+			* Register queue create info
 			*/
 			queueCreateInfos.add(queueCreateInfo);
 		}
+		
+		/*
+		* Log device create
+		*/
+		LOG("VKGraphicsDevice", "Will create logical device with the following properties.");
 
 		/*
 		* Create logical device
 		*/
+		const char* deviceExtensions = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
 		VkDeviceCreateInfo logicalDeviceCreateInfo{};
 		logicalDeviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
 		logicalDeviceCreateInfo.pQueueCreateInfos = queueCreateInfos.get_data();
 		logicalDeviceCreateInfo.queueCreateInfoCount = queueCreateInfos.get_cursor();
-		logicalDeviceCreateInfo.enabledExtensionCount = 0;
-		logicalDeviceCreateInfo.ppEnabledExtensionNames = nullptr;
+		logicalDeviceCreateInfo.enabledExtensionCount = 1;
+		logicalDeviceCreateInfo.ppEnabledExtensionNames = &deviceExtensions;
 		logicalDeviceCreateInfo.enabledLayerCount = layerNames.get_cursor();
 		logicalDeviceCreateInfo.ppEnabledLayerNames = layerNames.get_data();
 		
@@ -468,28 +497,6 @@ namespace DopeEngine
 		* Validate logical device creation
 		*/
 		ASSERT(createLogicalDeviceVkR == VK_SUCCESS, "VKGraphicsDevice", "Creating logical device failed!");
-
-		/*
-		* Collect logical device queues
-		*/
-		for (unsigned int i = 0; i < supportedQueues.get_cursor(); i++)
-		{
-			/*
-			* Get queue family index
-			*/
-			const VkQueueFlags familyIndex = supportedQueues[i];
-
-			/*
-			* Get queue
-			*/
-			VkQueue queue;
-			vkGetDeviceQueue(LogicalDevice, familyIndex, i, &queue);
-			
-			/*
-			* Register queue
-			*/
-			Queues.add(queue);
-		}
 
 		/*
 		* Clean-up heap memory
@@ -525,5 +532,14 @@ namespace DopeEngine
 
 		return baseFeaturesSupported && vkFeaturesSupported;
 	}
+
+	VKAPI_ATTR VkBool32 VKAPI_CALL validation_debug_callback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData)
+	{
+		if (messageSeverity >= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) {
+			LOG("VKGraphicsDevice", "%s", pCallbackData->pMessage);
+		}
+		return VK_FALSE;
+	}
+
 
 }

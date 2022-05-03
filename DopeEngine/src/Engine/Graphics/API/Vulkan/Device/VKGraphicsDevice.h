@@ -42,7 +42,11 @@ namespace DopeEngine
 		VkInstance Instance;
 		VkPhysicalDevice PhysicalDevice;
 		VkDevice LogicalDevice;
-
+		unsigned int GraphicsQueueFamilyIndex;
+		unsigned int ComputeQueueFamilyIndex;
+#ifdef _DEBUG
+		VkDebugUtilsMessengerEXT Messenger;
+#endif
 		// Inherited via GraphicsDevice
 		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;
 	};

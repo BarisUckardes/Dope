@@ -9,6 +9,6 @@ namespace DopeEngine
 		VKGraphicsDevicePropertiesUtils() = delete;
 		~VKGraphicsDevicePropertiesUtils() = delete;
 
-		FORCEINLINE static String get_vk_vendor_name(const unsigned int vendorID);
+		static String get_vk_vendor_name(const unsigned int vendorID);
 	};
 }

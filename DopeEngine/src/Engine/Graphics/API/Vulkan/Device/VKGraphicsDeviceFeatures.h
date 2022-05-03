@@ -9,9 +9,9 @@ namespace DopeEngine
 		VKGraphicsDeviceFeatures(const VKGraphicsDeviceFeaturesDesc& vkDesc, const GraphicsDeviceFeaturesDesc& baseDesc);
 		~VKGraphicsDeviceFeatures() = default;
 
-		FORCEINLINE Array<VkQueueFlags> get_vk_queues() const;
+		FORCEINLINE Array<VKQueueFamilyProperties> get_vk_queues() const;
 	private:
-		Array<VkQueueFlags> Queues;
+		Array<VKQueueFamilyProperties> Queues;
 	};
 
 

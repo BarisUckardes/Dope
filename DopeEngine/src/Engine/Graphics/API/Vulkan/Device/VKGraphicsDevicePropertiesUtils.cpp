@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-	inline String VKGraphicsDevicePropertiesUtils::get_vk_vendor_name(const unsigned int vendorID)
+	String VKGraphicsDevicePropertiesUtils::get_vk_vendor_name(const unsigned int vendorID)
 	{
 		switch (vendorID)
 		{

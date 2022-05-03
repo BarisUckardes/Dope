@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/API/Vulkan/Core/VKCore.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKQueueFamilyProperties.h>
 #include <Engine/Structures/Array.h>
 namespace DopeEngine
 {
@@ -9,6 +9,6 @@ namespace DopeEngine
 		VKGraphicsDeviceFeaturesDesc() = default;
 		~VKGraphicsDeviceFeaturesDesc() = default;
 
-		Array<VkQueueFlags> Queues;
+		Array<VKQueueFamilyProperties> QueueFamilies;
 	};
 }

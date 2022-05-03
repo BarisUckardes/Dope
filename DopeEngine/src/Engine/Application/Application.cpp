@@ -255,7 +255,8 @@ namespace DopeEngine
 			case DopeEngine::GraphicsAPIType::Vulkan:
 			{
 				VKGraphicsDeviceFeaturesDesc vkFeatures = {};
-				vkFeatures.Queues = VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT;
+				vkFeatures.QueueFamilies.add({ VK_QUEUE_GRAPHICS_BIT,1,99 });
+				vkFeatures.QueueFamilies.add({ VK_QUEUE_COMPUTE_BIT,1,999 });
 				requestedFeatures = new VKGraphicsDeviceFeatures(vkFeatures, GraphicsDeviceFeaturesDesc());
 				break;
 			}
