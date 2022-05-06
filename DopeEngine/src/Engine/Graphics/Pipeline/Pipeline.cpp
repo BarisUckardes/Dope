@@ -69,4 +69,8 @@ namespace DopeEngine
 	{
 		return OutputDesc;
 	}
+	PipelineType Pipeline::get_type() const
+	{
+		return Type;
+	}
 }

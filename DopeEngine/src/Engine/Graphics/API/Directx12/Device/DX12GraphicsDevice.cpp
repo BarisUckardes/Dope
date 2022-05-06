@@ -5,6 +5,7 @@
 #include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
 #include <Engine/Memory/Memory.h>
 #include <iostream>
+#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 
 namespace DopeEngine
 {
@@ -335,10 +336,10 @@ namespace DopeEngine
 		switch (bufferType)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
-				buffer = new DX12VertexBuffer(description.AllocatedSize, description.PerItemSize, this);
+				buffer = new DX12VertexBuffer(description, this);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				buffer = new DX12IndexBuffer(4,description.AllocatedSize,this);
+				buffer = new DX12IndexBuffer(description, this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
 				buffer = new DX12ConstantBuffer(description,this);

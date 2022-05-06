@@ -3,7 +3,7 @@
 #include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
-	DX11IndexBuffer::DX11IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DX11GraphicsDevice* device) : IndexBuffer(elementSize,allocatedSize)
+	DX11IndexBuffer::DX11IndexBuffer(const BufferDescription& desc, DX11GraphicsDevice* device) : IndexBuffer(desc)
 	{
 		create(device);
 	}

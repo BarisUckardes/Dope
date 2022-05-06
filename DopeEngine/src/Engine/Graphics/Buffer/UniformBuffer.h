@@ -2,6 +2,7 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Buffer/Buffer.h>
 #include <Engine/Core/Definitions.h>
+#include <Engine/Graphics/Buffer/BufferDescription.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -10,7 +11,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API UniformBuffer : public Buffer
 	{
 	public:
-		UniformBuffer(const String& name,const unsigned long allocatedSize);
+		UniformBuffer(const BufferDescription& desc);
 		virtual ~UniformBuffer() = default;
 	};
 

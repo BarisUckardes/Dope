@@ -232,10 +232,10 @@ namespace DopeEngine
 		switch (type)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
-				return new DX11VertexBuffer(this, description.AllocatedSize, description.PerItemSize);
+				return new DX11VertexBuffer(description,this);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new DX11IndexBuffer(description.PerItemSize, description.AllocatedSize, this);
+				return new DX11IndexBuffer(description, this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
 				return new DX11ConstantBuffer(description, this);

@@ -4,10 +4,10 @@
 namespace DopeEngine
 {
 	
-	VertexBuffer::VertexBuffer(const unsigned int perVertexSize, const unsigned long allocatedSize) : Buffer(BufferDescription("Vertex buffer", BufferType::VertexBuffer, allocatedSize,perVertexSize))
+	VertexBuffer::VertexBuffer(const BufferDescription& desc) : Buffer(desc)
 	{
-		PerVertexSize = perVertexSize;
-		VertexCapacity = allocatedSize / perVertexSize;
+		PerVertexSize = desc.PerItemSize;
+		VertexCapacity = desc.AllocatedSize / desc.PerItemSize;
 	}
 
 	unsigned long VertexBuffer::get_vertex_capacity() const

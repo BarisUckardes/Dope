@@ -6,7 +6,7 @@
 namespace DopeEngine
 {
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DEVICE device) : IndexBuffer(elementSize,allocatedSize)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const BufferDescription& desc, DEVICE device) : IndexBuffer(desc)
 	{
 		/*
 		* Initialize

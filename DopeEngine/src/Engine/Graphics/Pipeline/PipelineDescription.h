@@ -9,7 +9,7 @@
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
 #include <Engine/Graphics/Pipeline/OutputDescription.h>
-
+#include <Engine/Graphics/Pipeline/PipelineType.h>
 namespace DopeEngine
 {
 	class ShaderSet;
@@ -22,15 +22,18 @@ namespace DopeEngine
 			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
 			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
 			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives,const ShaderSet* shaderSet,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,const OutputDescription& outputDesc) : BlendingState(blending),
+			const PrimitiveTopology primitives,const ShaderSet* shaderSet,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,const OutputDescription& outputDesc,
+			const PipelineType type) : BlendingState(blending),
 			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
 			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
 			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives),ShaderSet(shaderSet),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts),OutputDesc(outputDesc) {}
+			Primitives(primitives),ShaderSet(shaderSet),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts),OutputDesc(outputDesc),
+			Type(type)
+		{}
 
 		PipelineDescription() : BlendingState(BlendState::SingleOverride), DepthComparision(DepthComparisionKind::Always),DepthTest(false),DepthWrite(false),
 		FrontFace(FrontFaceMode::CounterClockwise),CullFace(FaceCullMode::DontCull),FillMode(PolygonFillMode::Fill),DepthClip(false),ScissorTest(false),Primitives(PrimitiveTopology::Triangles),
-		ShaderSet(nullptr),OutputDesc(0,0,0,0,Array<TextureFormat>()),LayoutDescription(VertexLayoutDescription()) {};
+		ShaderSet(nullptr),OutputDesc(0,0,0,0,Array<TextureFormat>(),false),LayoutDescription(VertexLayoutDescription()) {};
 		~PipelineDescription() = default;
 
 		/// <summary>
@@ -102,5 +105,10 @@ namespace DopeEngine
 		/// Resource layouts
 		/// </summary>
 		Array<ResourceLayout*> ResourceLayouts;
+
+		/// <summary>
+		/// Type of the pipeline
+		/// </summary>
+		PipelineType Type;
 	};
 }

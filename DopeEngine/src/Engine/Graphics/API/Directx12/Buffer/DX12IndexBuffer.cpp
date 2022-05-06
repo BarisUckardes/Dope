@@ -3,7 +3,7 @@
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
-    DX12IndexBuffer::DX12IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize, DX12GraphicsDevice* device) : IndexBuffer(elementSize,allocatedSize)
+    DX12IndexBuffer::DX12IndexBuffer(const BufferDescription& desc, DX12GraphicsDevice* device) : IndexBuffer(desc)
     {
         create(device);
     }

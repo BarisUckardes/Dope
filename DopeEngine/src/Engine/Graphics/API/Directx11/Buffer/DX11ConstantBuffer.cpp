@@ -2,7 +2,7 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 namespace DopeEngine
 {
-	DX11ConstantBuffer::DX11ConstantBuffer(const BufferDescription& desc, DX11GraphicsDevice* device) : UniformBuffer(desc.Name,desc.AllocatedSize)
+	DX11ConstantBuffer::DX11ConstantBuffer(const BufferDescription& desc, DX11GraphicsDevice* device) : UniformBuffer(desc)
 	{
 		create(device);
 	}

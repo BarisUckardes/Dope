@@ -14,5 +14,7 @@ namespace DopeEngine
 		void create(VKGraphicsDevice* device);
 	private:
 		VkPipelineLayout Layout;
+		VkRenderPass RenderPass;
+		VkPipeline BasePipeline;
 	};
 }

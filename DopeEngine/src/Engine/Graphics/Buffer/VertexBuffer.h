@@ -9,20 +9,20 @@ namespace DopeEngine
 	class DOPE_ENGINE_API VertexBuffer : public Buffer
 	{
 	public:
-		VertexBuffer(const unsigned int perVertexSize,const unsigned long allocatedSize);
+		VertexBuffer(const BufferDescription& desc);
 		virtual ~VertexBuffer() = default;
 
 		/// <summary>
 		/// Returns the index buffer
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_vertex_capacity() const;
+		unsigned long get_vertex_capacity() const;
 
 		/// <summary>
 		/// Returns the single vertex size in bytes
 		/// </summary>
 		/// <returns></returns>
-		 unsigned int get_per_vertex_size() const;
+		unsigned int get_per_vertex_size() const;
 	private:
 		unsigned long VertexCapacity;
 		unsigned int PerVertexSize;

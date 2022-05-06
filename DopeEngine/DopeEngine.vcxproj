@@ -212,12 +212,14 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Device\DX11DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Device\DX12DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Core\VKCore.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKDeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeaturesDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h" />
+    <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineType.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.h" />
@@ -362,6 +364,11 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKQueueFamilyProperties.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Shader\VKShader.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipeline.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKIndexBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
@@ -501,6 +508,11 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Framebuffer\VKSwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Texture\VKTextureUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Device\VKQueueFamilyProperties.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Shader\VKShader.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipeline.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKIndexBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

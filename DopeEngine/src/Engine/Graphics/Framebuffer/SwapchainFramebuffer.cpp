@@ -86,15 +86,8 @@ namespace DopeEngine
 		* Collect texture formats
 		*/
 		Array<TextureFormat> formats;
-		for (unsigned int i = 0; i < BufferCount; i++)
-		{
+		formats.add(BufferFormat);
 
-			/*
-			* Register format
-			*/
-			formats.add(BufferFormat);
-		}
-
-		return { 0,0,Width,Height,formats };
+		return { 0,0,Width,Height,formats,true};
 	}
 }

@@ -3,16 +3,8 @@
 #include <Engine/Graphics/Device/GraphicsAPIType.h>
 #include <Engine/Structures/String.h>
 #include <Engine/Application/Window/Window.h>
-#include <Engine/Graphics/Buffer/BufferDescription.h>
-#include <Engine/Graphics/Framebuffer/FramebufferDescription.h>
-#include <Engine/Graphics/Pipeline/PipelineDescription.h>
-#include <Engine/Graphics/Shader/ShaderDescription.h>
-#include <Engine/Graphics/Texture/TextureDescription.h>
-#include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
-#include <Engine/Graphics/Resource/ResourceLayout.h>
-#include <Engine/Graphics/Resource/ResourceView.h>
-#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 #include <Engine/Graphics/Device/GraphicsDeviceProperties.h>
+
 
 namespace DopeEngine
 {
@@ -32,7 +24,15 @@ namespace DopeEngine
 
 	class SwapchainFramebuffer;
 	struct SwapchainFramebufferDesc;
-
+	struct BufferDescription;
+	struct FramebufferDescription;
+	struct PipelineDescription;
+	struct ShaderDescription;
+	struct TextureDescription;
+	struct VertexLayoutDescription;
+	struct ResourceDescription;
+	struct ResourceViewDescription;
+	class GraphicsDeviceFeatures;
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>

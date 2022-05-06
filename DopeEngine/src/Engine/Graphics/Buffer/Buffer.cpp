@@ -9,7 +9,6 @@ namespace DopeEngine
 		AllocatedSize = description.AllocatedSize;
 		ItemSize = description.PerItemSize;
 		Name = description.Name;
-
 	}
 	BufferType Buffer::get_buffer_type() const
 	{

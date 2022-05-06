@@ -4,17 +4,13 @@
 namespace DopeEngine
 {
 
-	IndexBuffer::IndexBuffer(const unsigned int elementSize, const unsigned long allocatedSize) : Buffer(BufferDescription("IndexBuffer", BufferType::IndexBuffer, allocatedSize,elementSize))
+	IndexBuffer::IndexBuffer(const BufferDescription& desc) : Buffer(desc)
 	{
-		ElementSize = elementSize;
-		IndexCapacity = allocatedSize / elementSize;
+		ElementSize = desc.PerItemSize;
+		IndexCapacity = desc.AllocatedSize / desc.PerItemSize;
 	}
 	unsigned long IndexBuffer::get_index_capacity() const
 	{
 		return IndexCapacity;
-	}
-	unsigned int IndexBuffer::get_element_size() const
-	{
-		return ElementSize;
 	}
 }

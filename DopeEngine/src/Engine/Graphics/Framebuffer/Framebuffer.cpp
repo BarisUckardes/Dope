@@ -63,7 +63,7 @@ namespace DopeEngine
 			formats.add(attachment->get_format());
 		}
 
-		return {0,0,Width,Height,formats};
+		return {0,0,Width,Height,formats,false};
 	}
 	void Framebuffer::_set_width(Framebuffer* buffer, const unsigned int width)
 	{

@@ -4,11 +4,13 @@
 #include <Engine/Graphics/Command/CommandBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
+#include <Engine/Graphics/Shader/ShaderDescription.h>
 #include <Engine/Math/ColorRgbaByte.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Math/Vector2f.h>
 #include <Engine/Graphics/Buffer/VertexBuffer.h>
 #include <Engine/Graphics/Buffer/IndexBuffer.h>
+#include <Engine/Graphics/Pipeline/Pipeline.h>
 #include <Glad/glad.h>
 #include <stdexcept>
 #include <Engine/Math/Vector3f.h>
@@ -87,7 +89,7 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		GraphicsDeviceProperties props = device->get_properties();
 		LOG("TestRenderingModule", "Vendor: %s, Model: %s", *props.get_vendor(), *props.get_model());
-		return;
+
 		/*
 		* Create vertex buffer
 		*/
@@ -191,7 +193,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::update()
 	{
-		return;
+
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();

@@ -10,20 +10,15 @@ namespace DopeEngine
 	class DOPE_ENGINE_API IndexBuffer : public Buffer
 	{
 	public:
-		IndexBuffer(const unsigned int elementSize,const unsigned long allocatedSize);
+		IndexBuffer(const BufferDescription& desc);
 		virtual ~IndexBuffer() = default;
 
 		/// <summary>
 		/// Returns the index count
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_index_capacity() const;
+		unsigned long get_index_capacity() const;
 
-		/// <summary>
-		/// Returns the single element size
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_element_size() const;
 	private:
 		unsigned int ElementSize;
 		unsigned long IndexCapacity;

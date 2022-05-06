@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-	OpenGLUniformBuffer::OpenGLUniformBuffer(const String& name,const unsigned long allocatedSize, DEVICE device) : UniformBuffer(name,allocatedSize)
+	OpenGLUniformBuffer::OpenGLUniformBuffer(const BufferDescription& desc, DEVICE device) : UniformBuffer(desc)
 	{
 		/*
 		* Initialize

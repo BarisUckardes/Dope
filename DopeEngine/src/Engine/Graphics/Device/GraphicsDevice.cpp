@@ -13,6 +13,7 @@
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/Device/DeviceObjects.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 #include <Engine/Core/Assert.h>
 
 namespace DopeEngine

@@ -5,7 +5,7 @@
 
 namespace DopeEngine
 {
-	DX11VertexBuffer::DX11VertexBuffer(DX11GraphicsDevice* device,const unsigned long allocatedSize, const unsigned int perVertexSize) : VertexBuffer(perVertexSize, allocatedSize)
+	DX11VertexBuffer::DX11VertexBuffer(const BufferDescription& desc,DX11GraphicsDevice* device) : VertexBuffer(desc)
 	{
 		create(device);
 	}

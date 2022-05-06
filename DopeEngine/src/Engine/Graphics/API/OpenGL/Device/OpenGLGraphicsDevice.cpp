@@ -7,6 +7,7 @@
 #ifdef DOPE_OS_WINDOWS
 #include <Engine/Platform/Windows/Window/WindowsWindow.h>
 #include <Engine/Memory/Memory.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeaturesDesc.h>
 typedef DopeEngine::WindowsWindow WindowAbstraction;
 typedef HGLRC(WINAPI* PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int* attribList);
 typedef const char* (WINAPI* PFNWGLGETEXTENSIONSSTRINGEXTPROC)(void);
@@ -284,13 +285,13 @@ namespace DopeEngine
 		switch (type)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
-				return new OpenGLVertexBuffer(description.AllocatedSize,1u,(DEVICE)this);
+				return new OpenGLVertexBuffer(description, (DEVICE)this);
 				break;
 			case DopeEngine::BufferType::IndexBuffer:
-				return new OpenGLIndexBuffer(1u,description.AllocatedSize,(DEVICE)this);
+				return new OpenGLIndexBuffer(description, (DEVICE)this);
 				break;
 			case DopeEngine::BufferType::UniformBuffer:
-				return new OpenGLUniformBuffer(description.Name,description.AllocatedSize, (DEVICE)this);
+				return new OpenGLUniformBuffer(description, (DEVICE)this);
 				break;
 			default:
 				ASSERT(false,"OpenGLGraphicsDevice", "Invalid buffer type.Cannot create buffer");

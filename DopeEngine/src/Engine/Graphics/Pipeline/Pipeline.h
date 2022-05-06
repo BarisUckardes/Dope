@@ -2,6 +2,7 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Pipeline/PipelineDescription.h>
+#include <Engine/Graphics/Pipeline/PipelineType.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -90,6 +91,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		OutputDescription get_output_desc() const;
+
+		/// <summary>
+		/// Returns the type of this pipeline
+		/// </summary>
+		/// <returns></returns>
+		PipelineType get_type() const;
 	private:
 		BlendState Blending;
 		DepthComparisionKind DepthFunction;
@@ -103,6 +110,7 @@ namespace DopeEngine
 		VertexLayoutDescription VertexLayout;
 		Array<ResourceLayout*> ResourceLayouts;
 		OutputDescription OutputDesc;
+		PipelineType Type;
 	};
 
 

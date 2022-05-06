@@ -10,8 +10,8 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API OutputDescription
 	{
 		OutputDescription(const unsigned int offsetX,const unsigned int offsetY,const unsigned int width,const unsigned int height,
-			const Array<TextureFormat>& outputFormats) :
-			OffsetX(offsetX),OffsetY(offsetY),Width(width),Height(height),OutputFormats(outputFormats) {}
+			const Array<TextureFormat>& outputFormats,const bool swapchain) :
+			OffsetX(offsetX),OffsetY(offsetY),Width(width),Height(height),OutputFormats(outputFormats),Swapchain(swapchain) {}
 		OutputDescription() = default;
 		~OutputDescription() = default;
 
@@ -36,8 +36,13 @@ namespace DopeEngine
 		unsigned int Height;
 
 		/// <summary>
+		/// Whether its a swapchain or not
+		/// </summary>
+		bool Swapchain;
+		/// <summary>
 		/// Attachment formats
 		/// </summary>
 		Array<TextureFormat> OutputFormats;
+
 	};
 }

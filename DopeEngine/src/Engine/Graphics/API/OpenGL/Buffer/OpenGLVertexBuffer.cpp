@@ -4,7 +4,7 @@
 namespace DopeEngine
 {
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(const unsigned long allocatedSize, const unsigned int perVertexSize, DEVICE device) : VertexBuffer(perVertexSize,allocatedSize)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const BufferDescription& desc, DEVICE device) : VertexBuffer(desc)
 	{
 		/*
 		* Initialize
