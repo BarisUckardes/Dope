@@ -13,6 +13,7 @@ namespace DopeEngine
 		FORCEINLINE VkInstance get_vk_instance() const;
 		FORCEINLINE VkPhysicalDevice get_vk_physicalDevice() const;
 		FORCEINLINE VkDevice get_vk_logical_device() const;
+		FORCEINLINE VkCommandPool get_vk_command_pool() const;
 	protected:
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
@@ -24,7 +25,6 @@ namespace DopeEngine
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
 		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
-		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
 		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) override;
@@ -42,6 +42,7 @@ namespace DopeEngine
 		VkInstance Instance;
 		VkPhysicalDevice PhysicalDevice;
 		VkDevice LogicalDevice;
+		VkCommandPool GraphicsCommandPool;
 		unsigned int GraphicsQueueFamilyIndex;
 		unsigned int ComputeQueueFamilyIndex;
 #ifdef _DEBUG

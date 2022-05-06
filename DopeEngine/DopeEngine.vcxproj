@@ -181,7 +181,6 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.h" />
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.h" />
@@ -196,7 +195,6 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.h" />
-    <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.h" />
@@ -240,7 +238,6 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTextureUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture.h" />
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShader.h" />
@@ -259,7 +256,6 @@
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderDescription.h" />
-    <ClInclude Include="src\Engine\Graphics\Shader\ShaderSet.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\Shader.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\IndexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\BufferType.h" />
@@ -369,6 +365,8 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKIndexBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipelineUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
@@ -377,7 +375,6 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Helper\DX12Helper.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12Shader.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.cpp" />
@@ -393,7 +390,6 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11Framebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.cpp" />
@@ -425,12 +421,10 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTextureUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Texture\OpenGLTexture.cpp" />
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShaderUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Shader\OpenGLShader.cpp" />
     <ClCompile Include="src\Engine\Graphics\Framebuffer\Framebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Pipeline\Pipeline.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Shader\ShaderSet.cpp" />
     <ClCompile Include="src\Engine\Graphics\Shader\Shader.cpp" />
     <ClCompile Include="src\Engine\Graphics\Buffer\IndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\DeviceObject.cpp" />
@@ -513,6 +507,8 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKIndexBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipelineUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

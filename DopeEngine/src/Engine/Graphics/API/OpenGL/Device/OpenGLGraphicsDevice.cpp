@@ -326,15 +326,6 @@ namespace DopeEngine
 
 		return shader;
 	}
-	ShaderSet* OpenGLGraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
-	{
-		/*
-		* Create OpenGL shader set
-		*/
-		OpenGLShaderSet* shaderSet = new OpenGLShaderSet(shaders, (DEVICE)this);
-
-		return shaderSet;
-	}
 	Texture* OpenGLGraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{
 		/*

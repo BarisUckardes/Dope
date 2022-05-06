@@ -3,32 +3,32 @@
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
-	DEPTH_FUNCTION OpenGLPipelineUtils::get_depth_function( DepthComparisionKind function)
+	DEPTH_FUNCTION OpenGLPipelineUtils::get_depth_function(const DepthComparisionKind function)
 	{
 		switch (function)
 		{
-			case DopeEngine::DepthComparisionKind::Never:
+			case DepthComparisionKind::Never:
 				return  GL_NEVER;
 				break;
-			case DopeEngine::DepthComparisionKind::Less:
+			case DepthComparisionKind::Less:
 				return GL_LESS;
 				break;
-			case DopeEngine::DepthComparisionKind::Equal:
+			case DepthComparisionKind::Equal:
 				return GL_EQUAL;
 				break;
-			case DopeEngine::DepthComparisionKind::LessEqual:
+			case DepthComparisionKind::LessEqual:
 				return GL_LEQUAL;
 				break;
-			case DopeEngine::DepthComparisionKind::Greater:
+			case DepthComparisionKind::Greater:
 				return GL_GREATER;
 				break;
-			case DopeEngine::DepthComparisionKind::NotEqual:
+			case DepthComparisionKind::NotEqual:
 				return GL_NOTEQUAL;
 				break;
-			case DopeEngine::DepthComparisionKind::GreaterOrEqual:
+			case DepthComparisionKind::GreaterOrEqual:
 				return GL_GEQUAL;
 				break;
-			case DopeEngine::DepthComparisionKind::Always:
+			case DepthComparisionKind::Always:
 				return GL_ALWAYS;
 				break;
 			default:

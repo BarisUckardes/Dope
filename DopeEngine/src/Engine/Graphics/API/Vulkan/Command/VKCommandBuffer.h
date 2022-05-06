@@ -9,7 +9,6 @@ namespace DopeEngine
 		VKCommandBuffer(VKGraphicsDevice* device);
 		virtual ~VKCommandBuffer() override;
 
-
 	protected:
 		// Inherited via CommandBuffer
 		virtual void lock_impl() override;

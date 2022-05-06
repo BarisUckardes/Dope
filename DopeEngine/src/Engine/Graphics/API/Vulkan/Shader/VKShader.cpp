@@ -45,4 +45,8 @@ namespace DopeEngine
 		ASSERT(shaderModuleCreateVkR == VK_SUCCESS, "VKShader", "Cannot create shader module!");
 	}
 
+	void VKShader::compile()
+	{
+	}
+
 }

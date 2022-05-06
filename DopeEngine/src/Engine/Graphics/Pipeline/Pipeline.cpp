@@ -12,7 +12,7 @@ namespace DopeEngine
 		CullingMode = description.CullFace;
 		FillMode = description.FillMode;
 		Primitives = description.Primitives;
-		ShaderSet = description.ShaderSet;
+		Shaders = description.ShaderSet;
 		VertexLayout = description.LayoutDescription;
 		ResourceLayouts = description.ResourceLayouts;
 		OutputDesc = description.OutputDesc;
@@ -49,9 +49,9 @@ namespace DopeEngine
 	{
 		return Primitives;
 	}
-	const ShaderSet* Pipeline::get_shader_set() const
+	Array<Shader*> Pipeline::get_shader_set() const
 	{
-		return ShaderSet;
+		return Shaders;
 	}
 	VertexLayoutDescription Pipeline::get_vertex_layout() const
 	{

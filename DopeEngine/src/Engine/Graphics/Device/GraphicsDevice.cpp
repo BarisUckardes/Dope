@@ -8,7 +8,6 @@
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Pipeline/Pipeline.h>
 #include <Engine/Graphics/Shader/Shader.h>
-#include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
@@ -347,20 +346,6 @@ namespace DopeEngine
 		register_device_object(shader);
 
 		return shader;
-	}
-	ShaderSet* GraphicsDevice::create_shader_set(const Array<Shader*>& shaders)
-	{
-		/*
-		* Create shader set
-		*/
-		ShaderSet* shaderSet = create_shader_set_impl(shaders);
-
-		/*
-		* Register it to this device
-		*/
-		register_device_object(shaderSet);
-
-		return shaderSet;
 	}
 	Texture* GraphicsDevice::create_texture(const TextureDescription& description)
 	{

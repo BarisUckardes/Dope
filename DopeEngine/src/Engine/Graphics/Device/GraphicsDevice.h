@@ -124,13 +124,6 @@ namespace DopeEngine
 		Shader* create_shader(const ShaderDescription& description);
 
 		/// <summary>
-		/// Creates a shader set
-		/// </summary>
-		/// <param name="shaders"></param>
-		/// <returns></returns>
-		ShaderSet* create_shader_set(const Array<Shader*>& shaders);
-
-		/// <summary>
 		/// Creates a texture
 		/// </summary>
 		/// <param name="description"></param>
@@ -218,7 +211,6 @@ namespace DopeEngine
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc * desc) const = 0;
 		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) = 0;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
-		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
 		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) = 0;

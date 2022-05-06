@@ -28,7 +28,6 @@ namespace DopeEngine
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
 		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
-		virtual ShaderSet* create_shader_set_impl(const Array<Shader*>& shaders) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
 		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) override;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;

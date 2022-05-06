@@ -29,8 +29,6 @@ namespace DopeEngine
 				break;
 			case DopeEngine::DeviceObjectType::Shader:
 				break;
-			case DopeEngine::DeviceObjectType::ShaderSet:
-				break;
 			case DopeEngine::DeviceObjectType::Framebuffer:
 				break;
 			case DopeEngine::DeviceObjectType::ResourceLayout:

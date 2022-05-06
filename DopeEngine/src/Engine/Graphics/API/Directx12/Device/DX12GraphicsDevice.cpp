@@ -274,10 +274,8 @@ namespace DopeEngine
 			case DopeEngine::BufferType::UniformBuffer:
 				bufferResource = ((DX12ConstantBuffer*)buffer)->get_dx12_constant_buffer();
 				break;
-			case DopeEngine::BufferType::Undefined:
-				ASSERT(false, "DX12GraphicsDevice", "Undefined buffer type, cannot update the buffer data");
-				break;
 			default:
+				ASSERT(false, "DX12GraphicsDevice", "Undefined buffer type, cannot update the buffer data");
 				break;
 		}
 
@@ -344,10 +342,8 @@ namespace DopeEngine
 			case DopeEngine::BufferType::UniformBuffer:
 				buffer = new DX12ConstantBuffer(description,this);
 				break;
-			case DopeEngine::BufferType::Undefined:
-				ASSERT(false, "DX12GraphicsDevice", "Invalid BufferType, cannot create a buffer!");
-				break;
 			default:
+				ASSERT(false, "DX12GraphicsDevice", "Invalid BufferType, cannot create a buffer!");
 				break;
 		}
 
@@ -382,16 +378,6 @@ namespace DopeEngine
 		DX12Shader* shader = new DX12Shader(description, this);
 
 		return shader;
-	}
-
-	ShaderSet* DX12GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
-	{
-		/*
-		* Create directx12 shader set
-		*/
-		DX12ShaderSet* shaderSet = new DX12ShaderSet(shaders,this);
-
-		return shaderSet;
 	}
 
 	Texture* DX12GraphicsDevice::create_texture_impl(const TextureDescription& description)

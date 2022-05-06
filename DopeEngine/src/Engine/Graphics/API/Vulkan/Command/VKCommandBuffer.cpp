@@ -15,6 +15,23 @@ namespace DopeEngine
 	}
 	void VKCommandBuffer::lock_impl()
 	{
+		/*
+		* Create begin info
+		*/
+		VkCommandBufferBeginInfo beginInfo = {};
+		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		beginInfo.pInheritanceInfo = nullptr; // may change in the future
+		beginInfo.flags = 0;
+
+		/*
+		* Begin command buffer
+		*/
+		const VkResult beginVkR = vkBeginCommandBuffer(BaseCommandBuffer, &beginInfo);
+
+		/*
+		* Validate begin
+		*/
+		ASSERT(beginVkR == VK_SUCCESS, "VKCommandBuffer", "Couldnt start the command buffer!");
 	}
 
 	void VKCommandBuffer::unlock_impl()

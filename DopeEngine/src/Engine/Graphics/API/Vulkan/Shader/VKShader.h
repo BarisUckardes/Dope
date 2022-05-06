@@ -15,6 +15,9 @@ namespace DopeEngine
 		void create(VKGraphicsDevice* device);
 	private:
 		VkShaderModule ShaderModule;
+
+		// Inherited via Shader
+		virtual void compile() override;
 	};
 
 

@@ -1,4 +1,5 @@
 #include "OpenGLPipeline.h"
+#include <Engine/Graphics/API/OpenGL/Shader/OpenGLShader.h>
 #include <GLAD/glad.h>
 namespace DopeEngine
 {
@@ -28,5 +29,26 @@ namespace DopeEngine
 		* Create vertex array
 		*/
 		glGenVertexArrays(1, &VertexLayoutHandle);
+
+		/*
+		* Create shader program
+		*/
+		const Array<Shader*> shaders = get_shader_set();
+		ProgramHandle = glCreateProgram();
+		for (unsigned int i = 0; i < shaders.get_cursor(); i++)
+		{
+			/*
+			* Get shader
+			*/
+			const OpenGLShader* shader = (const OpenGLShader*)shaders[i];
+			const SHADER_HANDLE shaderHandle = shader->get_handle();
+
+			/*
+			* Attach shader
+			*/
+			glAttachShader(ProgramHandle, shaderHandle);
+		}
+		glLinkProgram(ProgramHandle);
+
 	}
 }

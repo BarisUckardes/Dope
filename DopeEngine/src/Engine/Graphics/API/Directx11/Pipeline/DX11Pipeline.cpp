@@ -3,7 +3,6 @@
 #include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
 #include <Engine/Graphics/API/Directx11/Shader/DX11Shader.h>
 #include <Engine/Graphics/API/Directx11/Pipeline/DX11PipelineUtils.h>
-#include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
@@ -72,7 +71,7 @@ namespace DopeEngine
 		/*
 		* Get vertex shader
 		*/
-		const DX11Shader* dx11Shader = (const DX11Shader*)desc.ShaderSet->get_shaders_fast()[0];
+		const DX11Shader* dx11Shader = (const DX11Shader*)desc.ShaderSet[0]; // default vertex shader [0]
 		const ID3D11VertexShader* vertexShader =  dx11Shader->get_dx11_vertex_shader().Get();
 		ID3DBlob* vertexShaderBlob = dx11Shader->get_dx11_blob().Get();
 

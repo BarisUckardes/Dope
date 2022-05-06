@@ -5,6 +5,7 @@
 #include <Engine/Graphics/Pipeline/PipelineType.h>
 namespace DopeEngine
 {
+	class Shader;
 	/// <summary>
 	/// Graphics api agnostic pipeline abstraction class
 	/// </summary>
@@ -66,7 +67,7 @@ namespace DopeEngine
 		/// Returns the shader set
 		/// </summary>
 		/// <returns></returns>
-		const ShaderSet* get_shader_set() const;
+		Array<Shader*> get_shader_set() const;
 
 		/// <summary>
 		/// Returns the layout of the vertex
@@ -106,7 +107,7 @@ namespace DopeEngine
 		FaceCullMode CullingMode;
 		PolygonFillMode FillMode;
 		PrimitiveTopology Primitives;
-		const ShaderSet* ShaderSet;
+		Array<Shader*> Shaders;
 		VertexLayoutDescription VertexLayout;
 		Array<ResourceLayout*> ResourceLayouts;
 		OutputDescription OutputDesc;

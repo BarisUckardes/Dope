@@ -3,7 +3,6 @@
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx12/Shader/DX12Shader.h>
-#include <Engine/Graphics/API/Directx12/Shader/DX12ShaderSet.h>
 #include <Engine/Graphics/API/Directx12/Pipeline/DX12PipelineUtils.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
 #include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
@@ -141,7 +140,7 @@ namespace DopeEngine
         /*
         * Create dx12 graphics pipeline state
         */
-        const Array<Shader*> shaderSetShaders = desc.ShaderSet->get_shaders_fast();
+        const Array<Shader*> shaderSetShaders = desc.ShaderSet;
         D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = { };
         psoDesc.InputLayout.pInputElementDescs = inputElements.get_data();
         psoDesc.InputLayout.NumElements = inputElements.get_cursor();

@@ -14,6 +14,4 @@ namespace DopeEngine
 		FORCEINLINE static VkFormat get_vk_format(const TextureFormat format);
 		FORCEINLINE static VkImageViewType get_vk_image_view_type(const TextureType usage);
 	};
-
-
 }

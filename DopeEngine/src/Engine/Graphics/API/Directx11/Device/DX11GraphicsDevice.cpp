@@ -261,10 +261,7 @@ namespace DopeEngine
 		return new DX11Shader(description,this);
 	}
 
-	ShaderSet* DX11GraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
-	{
-		return new DX11ShaderSet(shaders);
-	}
+
 
 	Texture* DX11GraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{

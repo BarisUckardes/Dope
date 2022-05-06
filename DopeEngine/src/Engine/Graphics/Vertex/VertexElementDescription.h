@@ -26,6 +26,7 @@ namespace DopeEngine
 		/// </summary>
 		bool Normalized;
 
+		
 		/// <summary>
 		/// Attribute data type
 		/// </summary>

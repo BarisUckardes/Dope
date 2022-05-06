@@ -1,7 +1,6 @@
 #include "DX11CommandBuffer.h"
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11DeviceObjects.h>
-#include <Engine/Graphics/Shader/ShaderSet.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Math/Vector2f.h>
 #include <Engine/Core/Assert.h>
@@ -162,7 +161,7 @@ namespace DopeEngine
 		/*
 		* Set shaders
 		*/
-		const Array<Shader*> shaders = pipeline->get_shader_set()->get_shaders_slow();
+		const Array<Shader*> shaders = pipeline->get_shader_set();
 		for (unsigned int i = 0; i < shaders.get_cursor(); i++)
 		{
 			/*

@@ -5,11 +5,15 @@
 #include <VULKAN/vulkan_win32.h>
 typedef DopeEngine::WindowsWindow WindowAbstraction;
 #endif
+
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevicePropertiesUtils.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeaturesDesc.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 #include <Engine/Graphics/API/Vulkan/Framebuffer/VKSwapchainFramebuffer.h>
+#include <Engine/Graphics/Buffer/BufferType.h>
+#include <Engine/Graphics/Buffer/Buffer.h>
+#include <Engine/Graphics/API/Vulkan/Device/VKDeviceObjects.h>
 
 namespace DopeEngine
 {
@@ -37,6 +41,10 @@ namespace DopeEngine
 	{
 		return LogicalDevice;
 	}
+	VkCommandPool VKGraphicsDevice::get_vk_command_pool() const
+	{
+		return GraphicsCommandPool;
+	}
 	GraphicsAPIType VKGraphicsDevice::get_api_type() const
 	{
 		return GraphicsAPIType::Vulkan;
@@ -59,7 +67,32 @@ namespace DopeEngine
 
 	Buffer* VKGraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
-		return nullptr;
+		/*
+		* Get buffer type
+		*/
+		BufferType bufferType = description.Type;
+
+		/*
+		* Catch type
+		*/
+		Buffer* buffer = nullptr;
+		switch (bufferType)
+		{
+			case DopeEngine::BufferType::VertexBuffer:
+				buffer = new VKVertexBuffer(description, this);
+				break;
+			case DopeEngine::BufferType::IndexBuffer:
+				buffer = new VKIndexBuffer(description, this);
+				break;
+			case DopeEngine::BufferType::UniformBuffer:
+				buffer = new VKConstantBuffer(description, this);
+				break;
+			default:
+				ASSERT(false, "VKGraphicsDevice", "Invalid BufferType, cannot produce a buffer");
+				break;
+		}
+
+		return buffer;
 	}
 
 	Framebuffer* VKGraphicsDevice::create_framebuffer_impl(const FramebufferDescription& description)
@@ -74,18 +107,14 @@ namespace DopeEngine
 
 	Pipeline* VKGraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
 	{
-		return nullptr;
+		return new VKPipeline(description,this);
 	}
 
 	Shader* VKGraphicsDevice::create_shader_impl(const ShaderDescription& description)
 	{
-		return nullptr;
+		return new VKShader(description,this);
 	}
 
-	ShaderSet* VKGraphicsDevice::create_shader_set_impl(const Array<Shader*>& shaders)
-	{
-		return nullptr;
-	}
 
 	Texture* VKGraphicsDevice::create_texture_impl(const TextureDescription& description)
 	{
@@ -94,7 +123,7 @@ namespace DopeEngine
 
 	CommandBuffer* VKGraphicsDevice::create_command_buffer_impl()
 	{
-		return nullptr;
+		return new VKCommandBuffer(this);
 	}
 
 	ResourceLayout* VKGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
@@ -137,6 +166,7 @@ namespace DopeEngine
 #ifdef DOPE_OS_WINDOWS
 		_create_win32_vulkan_device();
 #endif
+
 	}
 
 	void VKGraphicsDevice::_create_win32_vulkan_device()
@@ -497,6 +527,24 @@ namespace DopeEngine
 		* Validate logical device creation
 		*/
 		ASSERT(createLogicalDeviceVkR == VK_SUCCESS, "VKGraphicsDevice", "Creating logical device failed!");
+
+		/*
+		* Create command pool create info
+		*/
+		VkCommandPoolCreateInfo commandPoolCreateInfo = {};
+		commandPoolCreateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+		commandPoolCreateInfo.queueFamilyIndex = GraphicsQueueFamilyIndex;
+		commandPoolCreateInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT; // default for Dope
+
+		/*
+		* Create command pool
+		*/
+		const VkResult createCommandPoolVkR = vkCreateCommandPool(LogicalDevice, &commandPoolCreateInfo, nullptr, &GraphicsCommandPool);
+
+		/*
+		* Validate command pool creation
+		*/
+		ASSERT(createCommandPoolVkR == VK_SUCCESS, "VKGraphicsDevice", "Creating command pool failed!");
 
 		/*
 		* Clean-up heap memory

@@ -90,6 +90,11 @@ namespace DopeEngine
 		//glPolygonMode(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()), OpenGLPipelineUtils::get_fill_mode(pipeline.get_fill_mode()));
 
 		/*
+		* Get gl pipeline
+		*/
+		const OpenGLPipeline* glPipeline = (const OpenGLPipeline*)pipeline;
+
+		/*
 		* Set primitive
 		*/
 		CurrentPrimitive = OpenGLPipelineUtils::get_primitive(pipeline->get_primitives());
@@ -97,7 +102,7 @@ namespace DopeEngine
 		/*
 		* Set current program
 		*/
-		CurrentProgramHandle = ((const OpenGLShaderSet*)pipeline->get_shader_set())->get_handle();
+		CurrentProgramHandle = glPipeline->get_program_handle();
 
 		/*
 		* Set vertex layout

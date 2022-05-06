@@ -11,6 +11,5 @@ namespace DopeEngine
 		VertexBuffer = 0,
 		IndexBuffer = 1,
 		UniformBuffer = 2,
-		Undefined = 3
 	};
 }

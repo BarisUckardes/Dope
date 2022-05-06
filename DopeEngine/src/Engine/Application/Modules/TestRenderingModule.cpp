@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <Engine/Math/Vector3f.h>
 #include <Engine/Utils/TextureLoader/TextureLoader.h>
+#include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
@@ -102,7 +103,7 @@ namespace DopeEngine
 		//vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
-		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
+		//device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
 		/*
 		* Create index buffer
@@ -116,7 +117,7 @@ namespace DopeEngine
 		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription("MyColor", BufferType::IndexBuffer, indexes.get_cursor() * sizeof(int),sizeof(int)));
 		iBuffer->set_debug_name("My index buffer");
-		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
+		//device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
 		/*
 		* Create vertex layout
@@ -132,10 +133,6 @@ namespace DopeEngine
 		vShader = device->create_shader(ShaderDescription(ShaderType::Vertex,vs));
 		fShader = device->create_shader(ShaderDescription(ShaderType::Fragment, fs));
 
-		/*
-		* Create shader set
-		*/
-		shaderSet = device->create_shader_set({vShader,fShader});
 
 		///*
 		//* Create color buffer
@@ -185,7 +182,7 @@ namespace DopeEngine
 		pipelineDescription.LayoutDescription = vertexLayoutDescription;
 		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
 		pipelineDescription.ScissorTest = false;
-		pipelineDescription.ShaderSet = shaderSet;
+		pipelineDescription.ShaderSet = {vShader,fShader};
 		pipelineDescription.ResourceLayouts = {};
 		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
 		pipeline = device->create_pipeline(pipelineDescription);
@@ -193,7 +190,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::update()
 	{
-
+		return;
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
