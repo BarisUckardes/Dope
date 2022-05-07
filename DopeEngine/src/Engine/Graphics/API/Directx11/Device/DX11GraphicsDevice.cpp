@@ -251,9 +251,9 @@ namespace DopeEngine
 		return new DX11Framebuffer(description,this);
 	}
 
-	Pipeline* DX11GraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	RenderPass* DX11GraphicsDevice::create_render_pass_impl(const RenderPassDesc& desc)
 	{
-		return new DX11Pipeline(description,this);
+		return new DX11RenderPass(desc,this);
 	}
 
 	Shader* DX11GraphicsDevice::create_shader_impl(const ShaderDescription& description)

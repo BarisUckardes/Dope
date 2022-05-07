@@ -1,9 +1,9 @@
-#include "OpenGLPipelineUtils.h"
+#include "OpenGLRenderPassUtils.h"
 #include <GLAD/glad.h>
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
-	DEPTH_FUNCTION OpenGLPipelineUtils::get_depth_function(const DepthComparisionKind function)
+	DEPTH_FUNCTION OpenGLRenderPassUtils::get_depth_function(const DepthComparisionKind function)
 	{
 		switch (function)
 		{
@@ -37,7 +37,7 @@ namespace DopeEngine
 				break;
 		}
 	}
-	FRONT_FACE OpenGLPipelineUtils::get_front_face(const FrontFaceMode frontFace)
+	FRONT_FACE OpenGLRenderPassUtils::get_front_face(const FrontFaceMode frontFace)
 	{
 		switch (frontFace)
 		{
@@ -53,7 +53,7 @@ namespace DopeEngine
 				break;
 		}
 	}
-	CULL_MODE OpenGLPipelineUtils::get_cull_mode(const FaceCullMode face)
+	CULL_MODE OpenGLRenderPassUtils::get_cull_mode(const FaceCullMode face)
 	{
 		switch (face)
 		{
@@ -75,7 +75,7 @@ namespace DopeEngine
 				break;
 		}
 	}
-	FILL_MODE OpenGLPipelineUtils::get_fill_mode(const PolygonFillMode fillMode)
+	FILL_MODE OpenGLRenderPassUtils::get_fill_mode(const PolygonFillMode fillMode)
 	{
 		switch (fillMode)
 		{
@@ -94,7 +94,7 @@ namespace DopeEngine
 				break;
 		}
 	}
-	PRIMITIVE OpenGLPipelineUtils::get_primitive(const PrimitiveTopology primitive)
+	PRIMITIVE OpenGLRenderPassUtils::get_primitive(const PrimitiveTopology primitive)
 	{
 		switch (primitive)
 		{

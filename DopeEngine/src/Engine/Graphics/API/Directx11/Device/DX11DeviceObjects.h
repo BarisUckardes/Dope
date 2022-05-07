@@ -3,7 +3,7 @@
 #include <Engine/Graphics/API/Directx11/Buffer/DX11ConstantBuffer.h>
 #include <Engine/Graphics/API/Directx11/Buffer/DX11IndexBuffer.h>
 #include <Engine/Graphics/API/Directx11/Buffer/DX11VertexBuffer.h>
-#include <Engine/Graphics/API/Directx11/Pipeline/DX11Pipeline.h>
+#include <Engine/Graphics/API/Directx11/RenderPass/DX11RenderPass.h>
 #include <Engine/Graphics/API/Directx11/Shader/DX11Shader.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11Texture.h>
 #include <Engine/Graphics/API/Directx11/Framebuffer/DX11Framebuffer.h>

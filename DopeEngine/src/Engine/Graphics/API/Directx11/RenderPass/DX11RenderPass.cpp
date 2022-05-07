@@ -1,41 +1,41 @@
-#include "DX11Pipeline.h"
+#include "DX11RenderPass.h"
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Vertex/DX11VertexUtils.h>
 #include <Engine/Graphics/API/Directx11/Shader/DX11Shader.h>
-#include <Engine/Graphics/API/Directx11/Pipeline/DX11PipelineUtils.h>
+#include <Engine/Graphics/API/Directx11/RenderPAss/DX11RenderPassUtils.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
-	DX11Pipeline::DX11Pipeline(const PipelineDescription& desc, DX11GraphicsDevice* device) : Pipeline(desc)
+	DX11RenderPass::DX11RenderPass(const RenderPassDesc& desc, DX11GraphicsDevice* device) : RenderPass(desc)
 	{
 		create(desc,device);
 	}
-	DX11Pipeline::~DX11Pipeline()
+	DX11RenderPass::~DX11RenderPass()
 	{
 
 	}
-	DXPTR<ID3D11InputLayout> DX11Pipeline::get_dx11_input_layout() const
+	DXPTR<ID3D11InputLayout> DX11RenderPass::get_dx11_input_layout() const
 	{
 		return InputLayout;
 	}
-	DXPTR<ID3D11RasterizerState> DX11Pipeline::get_dx11_rasterizer_state() const
+	DXPTR<ID3D11RasterizerState> DX11RenderPass::get_dx11_rasterizer_state() const
 	{
 		return RasterizerState;
 	}
-	DXPTR<ID3D11DepthStencilState> DX11Pipeline::get_dx11_depth_stencil_state() const
+	DXPTR<ID3D11DepthStencilState> DX11RenderPass::get_dx11_depth_stencil_state() const
 	{
 		return DepthStencilState;
 	}
-	DXPTR<ID3D11BlendState> DX11Pipeline::get_dx1_get_blend_state() const
+	DXPTR<ID3D11BlendState> DX11RenderPass::get_dx1_get_blend_state() const
 	{
 		return BlendState;
 	}
-	D3D11_VIEWPORT DX11Pipeline::get_dx11_viewport() const
+	D3D11_VIEWPORT DX11RenderPass::get_dx11_viewport() const
 	{
 		return Viewport;
 	}
-	void DX11Pipeline::create(const PipelineDescription& desc, DX11GraphicsDevice* device)
+	void DX11RenderPass::create(const RenderPassDesc& desc, DX11GraphicsDevice* device)
 	{
 		/*
 		* Create input layout
@@ -93,8 +93,8 @@ namespace DopeEngine
 		rasterizerDesc.DepthClipEnable = desc.DepthClip;
 		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		rasterizerDesc.ScissorEnable = desc.ScissorTest;
-		rasterizerDesc.FillMode = DX11PipelineUtils::get_fill_mode(desc.FillMode);
-		rasterizerDesc.CullMode = DX11PipelineUtils::get_cull_mode(desc.CullFace);
+		rasterizerDesc.FillMode = DX11RenderPassUtils::get_fill_mode(desc.FillMode);
+		rasterizerDesc.CullMode = DX11RenderPassUtils::get_cull_mode(desc.CullFace);
 		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		rasterizerDesc.DepthBias = 0;
 		rasterizerDesc.DepthBiasClamp = 0;

@@ -10,7 +10,7 @@ namespace DopeEngine
 	class UniformBuffer;
 	class Texture;
 	class Framebuffer;
-	class Pipeline;
+	class RenderPass;
 	class Shader;
 	class ShaderSet;
 	class VertexLayout;
@@ -53,12 +53,11 @@ namespace DopeEngine
 		/// <param name="buffer"></param>
 		void set_uniform_buffer(const UniformBuffer* buffer);
 
-
 		/// <summary>
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		void set_pipeline(const Pipeline* pipeline);
+		void set_render_pass(const RenderPass* renderPass);
 
 		/// <summary>
 		/// Clears the color
@@ -84,12 +83,12 @@ namespace DopeEngine
 		/// </summary>
 		void indexed_draw_call(const unsigned int count);
 	protected:
-		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundPipeline(nullptr),CurrentBoundUniformBuffers(0) {}
+		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
 		virtual ~CommandBuffer() = 0 {}
 
 
 		unsigned int get_bound_texture_count() const;
-		const Pipeline* get_bound_pipeline() const;
+		const RenderPass* get_bound_render_pass() const;
 		unsigned int get_bound_uniformbuffer_count() const;
 		void increment_texture_bound_count();
 		void increment_uniformbuffer_bound_count();
@@ -120,7 +119,7 @@ namespace DopeEngine
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		virtual void set_pipeline_impl(const Pipeline* pipeline) = 0;
+		virtual void set_render_pass_impl(const RenderPass* renderPass) = 0;
 
 		/// <summary>
 		/// Clears the color
@@ -148,7 +147,7 @@ namespace DopeEngine
 	private:
 		void clear_cached_state();
 	private:
-		const Pipeline* CurrentBoundPipeline;
+		const RenderPass* CurrentBoundRenderPass;
 		unsigned int CurrentBoundTextures;
 		unsigned int CurrentBoundUniformBuffers;
 	};

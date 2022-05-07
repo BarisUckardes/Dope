@@ -1,7 +1,7 @@
 #include "OpenGLCommandBuffer.h"
 #include <Engine/Graphics/API/OpenGL/Device/OpenGLDeviceObjects.h>
 #include <Glad/glad.h>
-#include <Engine/Graphics/API/OpenGL/Pipeline/OpenGLPipelineUtils.h>
+#include <Engine/Graphics/API/OpenGL/RenderPass/OpenGLRenderPassUtils.h>
 #include <Engine/Graphics/API/OpenGL/Vertex/OpenGLVertexUtils.h>
 #include <Engine/Graphics/Resource/ResourceTypeUtils.h>
 #include <Engine/Core/ConsoleLog.h>
@@ -39,7 +39,7 @@ namespace DopeEngine
 
 	
 
-	void OpenGLCommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
+	void OpenGLCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
 		* Blending
@@ -79,28 +79,28 @@ namespace DopeEngine
 		/*
 		* Get gl pipeline
 		*/
-		const OpenGLPipeline* glPipeline = (const OpenGLPipeline*)pipeline;
+		const OpenGLRenderPass* glRenderPass = (const OpenGLRenderPass*)renderPass;
 
 		/*
 		* Set primitive
 		*/
-		CurrentPrimitive = OpenGLPipelineUtils::get_primitive(pipeline->get_primitives());
+		CurrentPrimitive = OpenGLRenderPassUtils::get_primitive(glRenderPass->get_primitives());
 
 		/*
 		* Set current program
 		*/
-		CurrentProgramHandle = glPipeline->get_program_handle();
+		CurrentProgramHandle = glRenderPass->get_program_handle();
 
 		/*
 		* Set vertex layout
 		*/
-		CurrentVertexLayoutHandle = ((const OpenGLPipeline*)pipeline)->get_vertex_layout_handle();
-		CurrentVertexLayoutDescription = pipeline->get_vertex_layout();
+		CurrentVertexLayoutHandle = glRenderPass->get_vertex_layout_handle();
+		CurrentVertexLayoutDescription = glRenderPass->get_vertex_layout();
 
 		/*
 		* Set viewport
 		*/
-		const Framebuffer* targetFramebuffer = glPipeline->get_target_framebuffer();
+		const Framebuffer* targetFramebuffer = glRenderPass->get_target_framebuffer();
 		glViewport(0,0, targetFramebuffer->get_width(),targetFramebuffer->get_height());
 
 		/*
@@ -190,7 +190,7 @@ namespace DopeEngine
 		* Set resource
 		*/
 		const DeviceObject* resource = view->get_resource();
-		const Array<ResourceLayout*>& resourceLayouts = get_bound_pipeline()->get_resource_layouts_fast();
+		const Array<ResourceLayout*>& resourceLayouts = get_bound_render_pass()->get_resource_layouts_fast();
 		const ResourceLayout* targetLayout = resourceLayouts[slot];
 		const ResourceDescription targetDescription = targetLayout->get_description();
 		/*

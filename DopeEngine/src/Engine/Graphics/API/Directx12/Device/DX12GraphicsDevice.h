@@ -48,7 +48,7 @@ namespace DopeEngine
 		virtual void delete_device_object_impl(DeviceObject* object) override;
 		virtual Buffer* create_buffer_impl(const BufferDescription& description) override;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) override;
-		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) override;
+		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;

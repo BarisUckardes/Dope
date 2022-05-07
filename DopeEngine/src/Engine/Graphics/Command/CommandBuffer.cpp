@@ -1,6 +1,6 @@
 #include "CommandBuffer.h"
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/Resource/ResourceTypeUtils.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
 #include <Engine/Graphics/Resource/ResourceView.h>
@@ -40,10 +40,10 @@ namespace DopeEngine
 		set_uniform_buffer_impl(buffer);
 	}
 
-	void CommandBuffer::set_pipeline(const Pipeline* pipeline)
+	void CommandBuffer::set_render_pass(const RenderPass* renderPass)
 	{
-		set_pipeline_impl(pipeline);
-		CurrentBoundPipeline = pipeline;
+		set_render_pass_impl(renderPass);
+		CurrentBoundRenderPass = renderPass;
 	}
 
 	void CommandBuffer::clear_color(const ColorRgbaByte& color)
@@ -60,14 +60,14 @@ namespace DopeEngine
 		/*
 		* Validate pipeline
 		*/
-		ASSERT(get_bound_pipeline(), "CommandBuffer", "You must first set a pipeline in order to set resource views! ");
+		ASSERT(get_bound_render_pass(), "CommandBuffer", "You must first set a RenderPass in order to set resource views! ");
 
 		/*
 		* Validate slot length and resources
 		*/
-		const Array<ResourceLayout*> layouts = CurrentBoundPipeline->get_resource_layouts_fast();
+		const Array<ResourceLayout*> layouts = CurrentBoundRenderPass->get_resource_layouts_fast();
 		const unsigned int resourceSlotCount = layouts.get_cursor();
-		ASSERT(slot < CurrentBoundPipeline->get_resource_layouts_fast().get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
+		ASSERT(slot < CurrentBoundRenderPass->get_resource_layouts_fast().get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
 		/*
 		* Get layout variables
@@ -95,16 +95,16 @@ namespace DopeEngine
 	}
 	void CommandBuffer::indexed_draw_call(const unsigned int count)
 	{
-		ASSERT(get_bound_pipeline(), "CommandBuffer", "You must first set a pipeline in order to issue a draw call! ");
+		ASSERT(get_bound_render_pass(), "CommandBuffer", "You must first set a pipeline in order to issue a draw call! ");
 		indexed_draw_call_impl(count);
 	}
 	unsigned int CommandBuffer::get_bound_texture_count() const
 	{
 		return CurrentBoundTextures;
 	}
-	const Pipeline* CommandBuffer::get_bound_pipeline() const
+	const RenderPass* CommandBuffer::get_bound_render_pass() const
 	{
-		return CurrentBoundPipeline;
+		return CurrentBoundRenderPass;
 	}
 	unsigned int CommandBuffer::get_bound_uniformbuffer_count() const
 	{
@@ -121,7 +121,7 @@ namespace DopeEngine
 	void CommandBuffer::clear_cached_state()
 	{
 		CurrentBoundTextures = 0;
-		CurrentBoundPipeline = nullptr;
+		CurrentBoundRenderPass = nullptr;
 		CurrentBoundUniformBuffers = 0;
 		clear_cached_state_impl();
 	}

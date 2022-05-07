@@ -10,7 +10,7 @@
 #include <Engine/Math/Vector2f.h>
 #include <Engine/Graphics/Buffer/VertexBuffer.h>
 #include <Engine/Graphics/Buffer/IndexBuffer.h>
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Glad/glad.h>
 #include <stdexcept>
 #include <Engine/Math/Vector3f.h>
@@ -24,7 +24,7 @@ namespace DopeEngine
 	Shader* vShader = nullptr;
 	Shader* fShader = nullptr;
 	ShaderSet* shaderSet = nullptr;
-	Pipeline* pipeline = nullptr;
+	RenderPass* renderPass = nullptr;
 	Buffer* colorBuffer = nullptr;
 	ResourceView* colorResourceView = nullptr;
 	Texture* texture = nullptr;
@@ -170,22 +170,22 @@ namespace DopeEngine
 		/*
 		* Create pipeline
 		*/
-		PipelineDescription pipelineDescription;
-		pipelineDescription.BlendingState = BlendState::SingleOverride;
-		pipelineDescription.CullFace = FaceCullMode::DontCull;
-		pipelineDescription.DepthClip = false;
-		pipelineDescription.DepthComparision = DepthComparisionKind::Always;
-		pipelineDescription.DepthTest = false;
-		pipelineDescription.DepthWrite = false;
-		pipelineDescription.FillMode = PolygonFillMode::Fill;
-		pipelineDescription.FrontFace = FrontFaceMode::CounterClockwise;
-		pipelineDescription.LayoutDescription = vertexLayoutDescription;
-		pipelineDescription.Primitives = PrimitiveTopology::Triangles;
-		pipelineDescription.ScissorTest = false;
-		pipelineDescription.ShaderSet = {vShader,fShader};
-		pipelineDescription.ResourceLayouts = {};
-		pipelineDescription.TargetFramebuffer = device->get_swapchain_framebuffer();
-		pipeline = device->create_pipeline(pipelineDescription);
+		RenderPassDesc renderPassDesc;
+		renderPassDesc.BlendingState = BlendState::SingleOverride;
+		renderPassDesc.CullFace = FaceCullMode::DontCull;
+		renderPassDesc.DepthClip = false;
+		renderPassDesc.DepthComparision = DepthComparisionKind::Always;
+		renderPassDesc.DepthTest = false;
+		renderPassDesc.DepthWrite = false;
+		renderPassDesc.FillMode = PolygonFillMode::Fill;
+		renderPassDesc.FrontFace = FrontFaceMode::CounterClockwise;
+		renderPassDesc.LayoutDescription = vertexLayoutDescription;
+		renderPassDesc.Primitives = PrimitiveTopology::Triangles;
+		renderPassDesc.ScissorTest = false;
+		renderPassDesc.ShaderSet = { vShader,fShader };
+		renderPassDesc.ResourceLayouts = {};
+		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
+		renderPass = device->create_render_pass(renderPassDesc);
 	}
 
 	void TestRenderingModule::update()
@@ -193,7 +193,7 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
-		buffer->set_pipeline(pipeline);
+		buffer->set_render_pass(renderPass);
 		buffer->clear_color({ 0u,0u,1u,1u });
 		buffer->set_vertex_buffer(vBuffer);
 		buffer->set_index_buffer(iBuffer);

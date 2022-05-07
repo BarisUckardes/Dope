@@ -3,7 +3,7 @@
 #include <Engine/Graphics/API/Directx12/Device/DX12DeviceObjects.h>
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx12/Helper/DX12Helper.h>
-#include <Engine/Graphics/API/Directx12/Pipeline/DX12PipelineUtils.h>
+#include <Engine/Graphics/API/Directx12/RenderPass/DX12RenderPassUtils.h>
 namespace DopeEngine
 {
 
@@ -95,44 +95,44 @@ namespace DopeEngine
 	{
 		//CommandList->SetResource
 	}
-	void DX12CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
+	void DX12CommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
-		* Get dx12 pipeline
+		* Get dx12 render pass
 		*/
-		const DX12Pipeline* dxPipeline = (const DX12Pipeline*)pipeline;
+		const DX12RenderPass* dx12RenderPass = (const DX12RenderPass*)renderPass;
 
 		/*
 		* Set signature
 		*/
-		CommandList->SetGraphicsRootSignature(dxPipeline->get_dx12_root_signature().Get());
+		CommandList->SetGraphicsRootSignature(dx12RenderPass->get_dx12_root_signature().Get());
 
 		/*
 		* Set pso
 		*/
-		CommandList->SetPipelineState(dxPipeline->get_dx12_pso().Get());
+		CommandList->SetPipelineState(dx12RenderPass->get_dx12_pso().Get());
 
 		/*
 		* Set viewport
 		*/
-		D3D12_VIEWPORT vp = dxPipeline->get_dx12_viewport();
+		D3D12_VIEWPORT vp = dx12RenderPass->get_dx12_viewport();
 		CommandList->RSSetViewports(1,&vp);
 		
 		/*
 		* Set scissors
 		*/
-		D3D12_RECT scissors = dxPipeline->get_dx12_scissors();
+		D3D12_RECT scissors = dx12RenderPass->get_dx12_scissors();
 		CommandList->RSSetScissorRects(1,&scissors);
 
 		/*
 		* Set primitive topology
 		*/
-		CommandList->IASetPrimitiveTopology(DX12PipelineUtils::get_dx12_primitives(dxPipeline->get_primitives()));
+		CommandList->IASetPrimitiveTopology(DX12RenderPassUtils::get_dx12_primitives(dx12RenderPass->get_primitives()));
 
 		/*
 		* Validate if this framebuffer is a swapchain framebuffer
 		*/
-		const Framebuffer* targetFramebuffer = pipeline->get_target_framebuffer();
+		const Framebuffer* targetFramebuffer = renderPass->get_target_framebuffer();
 		D3D12_RESOURCE_BARRIER barrier = {};
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{

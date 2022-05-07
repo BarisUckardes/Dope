@@ -270,28 +270,28 @@
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\Pipeline.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineDescription.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPassDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\BlendState.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\BlendState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\DepthComparisionKind.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\DepthComparisionKind.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\FaceCullMode.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\FaceCullMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\FronFaceMode.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\FronFaceMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\PolygonFillMode.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\PolygonFillMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\PrimitiveTopology.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\PrimitiveTopology.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Texture\TextureFormat.h">
@@ -348,7 +348,7 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipeline.h">
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Buffer\BufferDescription.h">
@@ -369,7 +369,7 @@
     <ClInclude Include="src\Engine\Application\Modules\TestRenderingModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.h">
+    <ClInclude Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebuffer.h">
@@ -432,7 +432,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Texture\DX11TextureUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.h">
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\RenderPass\DX11RenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.h">
@@ -444,7 +444,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Shader\DX11ShaderUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.h">
+    <ClInclude Include="src\Engine\Graphics\API\Directx11\RenderPass\DX11RenderPassUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.h">
@@ -489,7 +489,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12Framebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12Pipeline.h">
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.h">
@@ -504,7 +504,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.h">
+    <ClInclude Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPassUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Platform\PlatformString.h">
@@ -564,10 +564,10 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Shader\VKShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipeline.h">
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineType.h">
+    <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPassType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.h">
@@ -582,7 +582,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKDeviceObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipelineUtils.h">
+    <ClInclude Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.h">
@@ -782,7 +782,7 @@
     <ClCompile Include="src\Engine\Graphics\Shader\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Pipeline\Pipeline.cpp">
+    <ClCompile Include="src\Engine\Graphics\RenderPass\RenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Texture\Texture.cpp">
@@ -818,7 +818,7 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipeline.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Command\CommandBuffer.cpp">
@@ -830,7 +830,7 @@
     <ClCompile Include="src\Engine\Application\Modules\TestRenderingModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Pipeline\OpenGLPipelineUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp">
@@ -878,7 +878,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Texture\DX11TextureUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11Pipeline.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\RenderPass\DX11RenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Vertex\DX11VertexUtils.cpp">
@@ -893,7 +893,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Core\DX11Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx11\Pipeline\DX11PipelineUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Directx11\RenderPass\DX11RenderPassUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.cpp">
@@ -932,7 +932,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12Framebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12Pipeline.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.cpp">
@@ -947,7 +947,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Texture\DX12Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Pipeline\DX12PipelineUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPassUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowString.cpp">
@@ -992,7 +992,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Shader\VKShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipeline.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKVertexBuffer.cpp">
@@ -1004,7 +1004,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Vulkan\Pipeline\VKPipelineUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.cpp">

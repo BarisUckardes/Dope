@@ -16,7 +16,7 @@ namespace DopeEngine
 		D3D12_VIEWPORT get_dx12_viewport() const;
 		D3D12_RECT get_dx12_scissors() const;
 	private:
-		void _create_pipeline(const RenderPassDesc& desc, DX12GraphicsDevice* device);
+		void create(const RenderPassDesc& desc, DX12GraphicsDevice* device);
 	private:
 		DXPTR<ID3D12RootSignature> RootSignature;
 		DXPTR<ID3D12PipelineState> Pso;

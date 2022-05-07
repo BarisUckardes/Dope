@@ -13,7 +13,6 @@ namespace DopeEngine
 	class Texture;
 	class Framebuffer;
 	
-	class Pipeline;
 	class Shader;
 	class ShaderSet;
 	class VertexLayout;
@@ -21,18 +20,20 @@ namespace DopeEngine
 	class CommandBuffer;
 	class ResourceView;
 	class ResourceLayout;
+	class RenderPass;
+	struct RenderPassDesc;
 
 	class SwapchainFramebuffer;
 	struct SwapchainFramebufferDesc;
 	struct BufferDescription;
 	struct FramebufferDescription;
-	struct PipelineDescription;
 	struct ShaderDescription;
 	struct TextureDescription;
 	struct VertexLayoutDescription;
 	struct ResourceDescription;
 	struct ResourceViewDescription;
 	class GraphicsDeviceFeatures;
+
 	/// <summary>
 	/// Graphics device abstraction class
 	/// </summary>
@@ -114,7 +115,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="description"></param>
 		/// <returns></returns>
-		Pipeline* create_pipeline(const PipelineDescription& description);
+		RenderPass* create_render_pass(const RenderPassDesc& desc);
 
 		/// <summary>
 		/// Creates a shader
@@ -209,7 +210,7 @@ namespace DopeEngine
 		virtual Buffer* create_buffer_impl(const BufferDescription& description) = 0;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) = 0;
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc * desc) const = 0;
-		virtual Pipeline* create_pipeline_impl(const PipelineDescription& description) = 0;
+		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) = 0;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;

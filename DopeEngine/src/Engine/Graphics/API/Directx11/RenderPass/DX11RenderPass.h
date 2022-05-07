@@ -1,14 +1,14 @@
 #pragma once
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/API/Directx11/Core/DX11Core.h>
 namespace DopeEngine
 {
 	class DX11GraphicsDevice;
-	class DOPE_ENGINE_API DX11Pipeline : public Pipeline
+	class DOPE_ENGINE_API DX11RenderPass : public RenderPass
 	{
 	public:
-		DX11Pipeline(const PipelineDescription& desc, DX11GraphicsDevice* device);
-		virtual ~DX11Pipeline() final override;
+		DX11RenderPass(const RenderPassDesc& desc, DX11GraphicsDevice* device);
+		virtual ~DX11RenderPass() final override;
 
 		 DXPTR<ID3D11InputLayout> get_dx11_input_layout() const;
 		 DXPTR<ID3D11RasterizerState> get_dx11_rasterizer_state() const;
@@ -16,7 +16,7 @@ namespace DopeEngine
 		 DXPTR<ID3D11BlendState> get_dx1_get_blend_state() const;
 		 D3D11_VIEWPORT get_dx11_viewport() const;
 	private:
-		void create(const PipelineDescription& desc, DX11GraphicsDevice* device);
+		void create(const RenderPassDesc& desc, DX11GraphicsDevice* device);
 	private:
 		DXPTR<ID3D11InputLayout> InputLayout;
 		DXPTR<ID3D11RasterizerState> RasterizerState;

@@ -5,7 +5,7 @@
 #include <Engine/Graphics/Command/CommandBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
 #include <Engine/Graphics/Resource/ResourceView.h>
 #include <Engine/Graphics/Shader/Shader.h>

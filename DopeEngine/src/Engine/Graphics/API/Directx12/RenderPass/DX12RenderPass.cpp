@@ -11,34 +11,31 @@
 #include <Engine/Graphics/Vertex/VertexUtils.h>
 namespace DopeEngine
 {
-    DX12Pipeline::DX12Pipeline(const RenderPassDesc& desc, DX12GraphicsDevice* device) : Pipeline(desc)
+    DX12RenderPass::DX12RenderPass(const RenderPassDesc& desc, DX12GraphicsDevice* device) : RenderPass(desc)
     {
-        /*
-        * Create pipeline
-        */
-        _create_pipeline(desc, device);
+        create(desc, device);
     }
-    DX12Pipeline::~DX12Pipeline()
+    DX12RenderPass::~DX12RenderPass()
     {
 
     }
-    DXPTR<ID3D12RootSignature> DX12Pipeline::get_dx12_root_signature() const
+    DXPTR<ID3D12RootSignature> DX12RenderPass::get_dx12_root_signature() const
     {
         return RootSignature;
     }
-    DXPTR<ID3D12PipelineState> DX12Pipeline::get_dx12_pso() const
+    DXPTR<ID3D12PipelineState> DX12RenderPass::get_dx12_pso() const
     {
         return Pso;
     }
-    D3D12_VIEWPORT DX12Pipeline::get_dx12_viewport() const
+    D3D12_VIEWPORT DX12RenderPass::get_dx12_viewport() const
     {
         return Viewport;
     }
-    D3D12_RECT DX12Pipeline::get_dx12_scissors() const
+    D3D12_RECT DX12RenderPass::get_dx12_scissors() const
     {
         return ScissorRect;
     }
-    void DX12Pipeline::_create_pipeline(const PipelineDescription& desc, DX12GraphicsDevice* device)
+    void DX12RenderPass::create(const RenderPassDesc& desc, DX12GraphicsDevice* device)
     {
         /*
         * Create root signature
@@ -95,7 +92,7 @@ namespace DopeEngine
         /*
         * Validate root signature serialization
         */
-        ASSERT(SUCCEEDED(rootSignatureSerializationHR), "DX12Pipeline", "Root signature serialization failed with logs: %s", errorBlob->GetBufferPointer());
+        ASSERT(SUCCEEDED(rootSignatureSerializationHR), "DX12RenderPass", "Root signature serialization failed with logs: %s", errorBlob->GetBufferPointer());
 
         /*
         * Create root signature
@@ -105,7 +102,7 @@ namespace DopeEngine
         /*
         * Validate create root signature
         */
-        ASSERT(SUCCEEDED(createRootSignatureHR), "DX12Pipeline", "Root signature creation failed!");
+        ASSERT(SUCCEEDED(createRootSignatureHR), "DX12RenderPass", "Root signature creation failed!");
 
         /*
         * Create input signature
@@ -198,8 +195,8 @@ namespace DopeEngine
         rasterizerDesc.DepthBias = 0;
         rasterizerDesc.DepthBiasClamp = 0;
         rasterizerDesc.DepthClipEnable = desc.DepthClip;
-        rasterizerDesc.FillMode = DX12PipelineUtils::get_dx12_fill_mode(desc.FillMode);
-        rasterizerDesc.CullMode = DX12PipelineUtils::get_dx12_cull_mode(desc.CullFace);
+        rasterizerDesc.FillMode = DX12RenderPassUtils::get_dx12_fill_mode(desc.FillMode);
+        rasterizerDesc.CullMode = DX12RenderPassUtils::get_dx12_cull_mode(desc.CullFace);
         rasterizerDesc.ForcedSampleCount = 0;
         rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
         rasterizerDesc.MultisampleEnable = false;
@@ -252,7 +249,7 @@ namespace DopeEngine
         /*
         * Create output state
         */
-        psoDesc.PrimitiveTopologyType = DX12PipelineUtils::get_dx12_primitive_type(desc.Primitives);
+        psoDesc.PrimitiveTopologyType = DX12RenderPassUtils::get_dx12_primitive_type(desc.Primitives);
 
         Array<DXGI_FORMAT> rtvFormats;
         for (unsigned int i = 0; i < targetFramebufferFormats.get_cursor(); i++)
@@ -275,7 +272,7 @@ namespace DopeEngine
         /*
         * Validate pso
         */
-        ASSERT(SUCCEEDED(createPSOHR), "DX12Pipeline", "PSO creation failed");
+        ASSERT(SUCCEEDED(createPSOHR), "DX12RenderPass", "PSO creation failed");
 
         /*
         * Create viewport

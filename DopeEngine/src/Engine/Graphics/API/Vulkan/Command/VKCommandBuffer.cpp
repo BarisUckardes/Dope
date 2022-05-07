@@ -58,7 +58,7 @@ namespace DopeEngine
 	{
 
 	}
-	void VKCommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
+	void VKCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 
 	}

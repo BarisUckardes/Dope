@@ -6,7 +6,7 @@
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Buffer/Buffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/Shader/Shader.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Application/Window/Window.h>
@@ -319,19 +319,19 @@ namespace DopeEngine
 
 		return framebuffer;
 	}
-	Pipeline* GraphicsDevice::create_pipeline(const PipelineDescription& description)
+	RenderPass* GraphicsDevice::create_render_pass(const RenderPassDesc& desc)
 	{
 		/*
 		* Create pipeline impl
 		*/
-		Pipeline* pipeline = create_pipeline_impl(description);
+		RenderPass* renderPass = create_render_pass_impl(desc);
 
 		/*
 		* Register it to this device
 		*/
-		register_device_object(pipeline);
+		register_device_object(renderPass);
 
-		return pipeline;
+		return renderPass;
 	}
 	Shader* GraphicsDevice::create_shader(const ShaderDescription& description)
 	{

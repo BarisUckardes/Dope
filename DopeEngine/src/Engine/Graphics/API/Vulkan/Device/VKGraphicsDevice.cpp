@@ -105,9 +105,9 @@ namespace DopeEngine
 		return new VKSwapchainFramebuffer(*desc,(VKGraphicsDevice*)this,(Window*)get_owner_window());
 	}
 
-	Pipeline* VKGraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	RenderPass* VKGraphicsDevice::create_render_pass_impl(const RenderPassDesc& desc)
 	{
-		return new VKPipeline(description,this);
+		return new VKRenderPass(desc,this);
 	}
 
 	Shader* VKGraphicsDevice::create_shader_impl(const ShaderDescription& description)

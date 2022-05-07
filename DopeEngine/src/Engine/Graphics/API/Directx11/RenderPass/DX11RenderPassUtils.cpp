@@ -1,9 +1,9 @@
-#include "DX11PipelineUtils.h"
+#include "DX11RenderPassUtils.h"
 #include <Engine/Core/Assert.h>
 
 namespace DopeEngine
 {
-    D3D11_FILL_MODE DX11PipelineUtils::get_fill_mode(const PolygonFillMode mode)
+    D3D11_FILL_MODE DX11RenderPassUtils::get_fill_mode(const PolygonFillMode mode)
     {
 		switch (mode)
 		{
@@ -21,7 +21,7 @@ namespace DopeEngine
 				break;
 		}
     }
-	D3D11_CULL_MODE DX11PipelineUtils::get_cull_mode( FaceCullMode mode)
+	D3D11_CULL_MODE DX11RenderPassUtils::get_cull_mode( FaceCullMode mode)
 	{
 		switch (mode)
 		{

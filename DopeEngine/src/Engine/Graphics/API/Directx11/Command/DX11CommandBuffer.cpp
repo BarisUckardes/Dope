@@ -66,22 +66,22 @@ namespace DopeEngine
 		const DX11ConstantBuffer* dx11Buffer = (const DX11ConstantBuffer*)buffer;
 
 	}
-	void DX11CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
+	void DX11CommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
-		* Get dx11 pipeline
+		* Get dx11 render pass
 		*/
-		const DX11Pipeline* dx11Pipeline = (const DX11Pipeline*)pipeline;
+		const DX11RenderPass* dx11RenderPass = (const DX11RenderPass*)renderPass;
 
 		/*
 		* Set rasterizer state
 		*/
-		Device->get_dx11_immediate_context()->RSSetState(dx11Pipeline->get_dx11_rasterizer_state().Get());
+		Device->get_dx11_immediate_context()->RSSetState(dx11RenderPass->get_dx11_rasterizer_state().Get());
 
 		/*
 		* Set depth-stencil state
 		*/
-		Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11Pipeline->get_dx11_depth_stencil_state().Get(), 0);
+		Device->get_dx11_immediate_context()->OMSetDepthStencilState(dx11RenderPass->get_dx11_depth_stencil_state().Get(), 0);
 
 		/*
 		* Set blending state
@@ -96,18 +96,18 @@ namespace DopeEngine
 		/*
 		* Set input assembler
 		*/
-		Device->get_dx11_immediate_context()->IASetInputLayout(dx11Pipeline->get_dx11_input_layout().Get());
+		Device->get_dx11_immediate_context()->IASetInputLayout(dx11RenderPass->get_dx11_input_layout().Get());
 
 		/*
 		* Set viewports
 		*/
-		D3D11_VIEWPORT dx11Viewport = dx11Pipeline->get_dx11_viewport();
+		D3D11_VIEWPORT dx11Viewport = dx11RenderPass->get_dx11_viewport();
 		Device->get_dx11_immediate_context()->RSSetViewports(1, &dx11Viewport);
 
 		/*
 		* Set shaders
 		*/
-		const Array<Shader*> shaders = pipeline->get_shader_set();
+		const Array<Shader*> shaders = dx11RenderPass->get_shader_set();
 		for (unsigned int i = 0; i < shaders.get_cursor(); i++)
 		{
 			/*
@@ -143,7 +143,7 @@ namespace DopeEngine
 		/*
 		* Validate if this is a swapchain buffer
 		*/
-		const Framebuffer* targetFramebuffer = pipeline->get_target_framebuffer();
+		const Framebuffer* targetFramebuffer = dx11RenderPass->get_target_framebuffer();
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{
 			/*
@@ -219,7 +219,7 @@ namespace DopeEngine
 		/*
 		* Get slot resource layout
 		*/
-		const ResourceLayout* layout = get_bound_pipeline()->get_resource_layouts_fast()[slot];
+		const ResourceLayout* layout = get_bound_render_pass()->get_resource_layouts_fast()[slot];
 
 		/*
 		* Catch resource type

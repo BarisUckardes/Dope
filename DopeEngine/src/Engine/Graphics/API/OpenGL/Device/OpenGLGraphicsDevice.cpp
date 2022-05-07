@@ -308,14 +308,9 @@ namespace DopeEngine
 
 		return framebuffer;
 	}
-	Pipeline* OpenGLGraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	RenderPass* OpenGLGraphicsDevice::create_render_pass_impl(const RenderPassDesc& desc)
 	{
-		/*
-		* Create OpenGL pipeline
-		*/
-		OpenGLPipeline* pipeline = new OpenGLPipeline(description, (DEVICE)this);
-
-		return pipeline;
+		return new OpenGLRenderPass(desc, (DEVICE)this);;
 	}
 	Shader* OpenGLGraphicsDevice::create_shader_impl(const ShaderDescription& description)
 	{

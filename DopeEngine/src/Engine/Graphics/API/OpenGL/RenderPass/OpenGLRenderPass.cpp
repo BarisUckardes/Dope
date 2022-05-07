@@ -1,9 +1,9 @@
-#include "OpenGLPipeline.h"
+#include "OpenGLRenderPass.h"
 #include <Engine/Graphics/API/OpenGL/Shader/OpenGLShader.h>
 #include <GLAD/glad.h>
 namespace DopeEngine
 {
-	OpenGLPipeline::OpenGLPipeline(const PipelineDescription& description,DEVICE device) : Pipeline(description)
+	OpenGLRenderPass::OpenGLRenderPass(const RenderPassDesc& description,DEVICE device) : RenderPass(description)
 	{
 		/*
 		* Initialize
@@ -13,17 +13,17 @@ namespace DopeEngine
 		/*
 		* Create state
 		*/
-		create_pipeline_state();
+		create();
 	}
-	PROGRAM_HANDLE OpenGLPipeline::get_program_handle() const
+	PROGRAM_HANDLE OpenGLRenderPass::get_program_handle() const
 	{
 		return ProgramHandle;
 	}
-	VERTEX_LAYOUT_HANDLE OpenGLPipeline::get_vertex_layout_handle() const
+	VERTEX_LAYOUT_HANDLE OpenGLRenderPass::get_vertex_layout_handle() const
 	{
 		return VertexLayoutHandle;
 	}
-	void OpenGLPipeline::create_pipeline_state()
+	void OpenGLRenderPass::create()
 	{
 		/*
 		* Create vertex array

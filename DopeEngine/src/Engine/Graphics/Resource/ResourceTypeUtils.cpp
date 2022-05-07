@@ -37,7 +37,7 @@ namespace DopeEngine
 				break;
 			case DopeEngine::DeviceObjectType::CommandBuffer:
 				break;
-			case DopeEngine::DeviceObjectType::Pipeline:
+			case DopeEngine::DeviceObjectType::RenderPass:
 				break;
 			default:
 				break;

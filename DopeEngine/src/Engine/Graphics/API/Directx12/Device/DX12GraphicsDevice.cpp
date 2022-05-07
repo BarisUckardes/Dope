@@ -360,14 +360,9 @@ namespace DopeEngine
 		return framebuffer;
 	}
 
-	Pipeline* DX12GraphicsDevice::create_pipeline_impl(const PipelineDescription& description)
+	RenderPass* DX12GraphicsDevice::create_render_pass_impl(const RenderPassDesc& desc)
 	{
-		/*
-		* Create directx 12 pipeline
-		*/
-		DX12Pipeline* pipeline = new DX12Pipeline(description, this);
-
-		return pipeline;
+		return new DX12RenderPass(desc, this);
 	}
 
 	Shader* DX12GraphicsDevice::create_shader_impl(const ShaderDescription& description)

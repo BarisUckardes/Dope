@@ -1,15 +1,15 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/Pipeline/Pipeline.h>
+#include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
 
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API OpenGLPipelineUtils
+	class DOPE_ENGINE_API OpenGLRenderPassUtils
 	{
 	public:
-		OpenGLPipelineUtils() = delete;
-		~OpenGLPipelineUtils() = delete;
+		OpenGLRenderPassUtils() = delete;
+		~OpenGLRenderPassUtils() = delete;
 
 		 static DEPTH_FUNCTION get_depth_function(const DepthComparisionKind function);
 		 static FRONT_FACE get_front_face(const FrontFaceMode frontFace);
