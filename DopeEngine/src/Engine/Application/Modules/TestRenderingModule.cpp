@@ -16,6 +16,8 @@
 #include <Engine/Math/Vector3f.h>
 #include <Engine/Utils/TextureLoader/TextureLoader.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
+#include <Engine/Graphics/Resource/ResourceViewDescription.h>
+#include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
@@ -110,9 +112,6 @@ namespace DopeEngine
 		*/
 		Array<int> indexes;
 		indexes.add(0);
-		indexes.add(1);
-		indexes.add(2);
-		indexes.add(0);
 		indexes.add(2);
 		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription("MyColor", BufferType::IndexBuffer, indexes.get_cursor() * sizeof(int),sizeof(int)));
@@ -134,45 +133,45 @@ namespace DopeEngine
 		fShader = device->create_shader(ShaderDescription(ShaderType::Fragment, fs));
 
 
-		///*
-		//* Create color buffer
-		//*/
-		//colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
-		//const Vector3f color{ 1.0f,0.3f,0.80f };
-		//device->update_buffer(colorBuffer, (const Byte*)&color);
+		/*
+		* Create color buffer
+		*/
+		/*colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
+		const Vector3f color{ 1.0f,0.3f,0.80f };
+		device->update_buffer(colorBuffer, (const Byte*)&color);*/
 
-		///*
-		//* Create texture
-		//*/
-		//TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\orange.png");
-		//ASSERT(textureLoadResult.Data != nullptr, "TestRenderingModule", "Texture failed to load from path, error message: %s", *textureLoadResult.FailureMessage);
-		//texture = device->create_texture(
-		//	TextureDescription
-		//	{
-		//		textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA8f,TextureType::Texture2D,textureLoadResult.Data
-		//	});
-		//device->update_texture(texture, textureLoadResult.Data);
+		/*
+		* Create texture
+		*/
+		/*TextureLoadResult textureLoadResult = TextureLoader::load_texture_from_path("C:\\Users\\PC\\Desktop\\skybox\\smiley.png");
+		ASSERT(textureLoadResult.Data != nullptr, "TestRenderingModule", "Texture failed to load from path, error message: %s", *textureLoadResult.FailureMessage);
+		texture = device->create_texture(
+			TextureDescription
+			{
+				textureLoadResult.Width, textureLoadResult.Height,0,0,TextureUsage::ReadOnly,TextureFormat::RGBA8f,TextureType::Texture2D,textureLoadResult.Data
+			});
+		device->update_texture(texture, textureLoadResult.Data);*/
 
-		///*
-		//* Create resource layouts
-		//*/
-		//ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
-		//ResourceViewDescription colorResourceViewDesc{ colorBuffer };
-		//ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
-		//colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
+		/*
+		* Create color buffer resource layouts
+		*/
+		/*ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
+		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
+		ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
+		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));*/
 
-		///*
-		//* Create texture layout and view
-		//*/
-		//ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
-		//textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));
+		/*
+		* Create texture layout and view
+		*/
+		/*ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
+		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));*/
 
 		/*
 		* Create pipeline
 		*/
 		RenderPassDesc renderPassDesc;
 		renderPassDesc.BlendingState = BlendState::SingleOverride;
-		renderPassDesc.CullFace = FaceCullMode::DontCull;
+		renderPassDesc.CullFace = FaceCullMode::Back;
 		renderPassDesc.DepthClip = false;
 		renderPassDesc.DepthComparision = DepthComparisionKind::Always;
 		renderPassDesc.DepthTest = false;
@@ -190,6 +189,7 @@ namespace DopeEngine
 
 	void TestRenderingModule::update()
 	{
+		
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
@@ -198,8 +198,8 @@ namespace DopeEngine
 		buffer->set_vertex_buffer(vBuffer);
 		buffer->set_index_buffer(iBuffer);
 		//buffer->set_resource_view(0, colorResourceView);
-		//buffer->set_resource_view(1, textureView);
-		buffer->indexed_draw_call(6);
+		//buffer->set_resource_view(0, textureView);
+		buffer->indexed_draw_call(3);
 		buffer->unlock();
 		device->submit_command_buffer(buffer);
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());

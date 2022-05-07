@@ -4,6 +4,7 @@
 #include <Engine/Structures/String.h>
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Device/GraphicsDeviceProperties.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 
 
 namespace DopeEngine

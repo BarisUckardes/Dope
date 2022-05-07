@@ -11,12 +11,12 @@ namespace DopeEngine
 {
 	void OpenGLCommandBuffer::set_vertex_buffer_impl(const VertexBuffer* vertexBuffer)
 	{
-		CurrentVertexBufferHandle = ((const OpenGLVertexBuffer&)vertexBuffer).get_handle();
+		CurrentVertexBufferHandle = ((const OpenGLVertexBuffer*)vertexBuffer)->get_handle();
 	}
 
 	void OpenGLCommandBuffer::set_index_buffer_impl(const IndexBuffer* indexBuffer)
 	{
-		CurrentIndexBufferHandle = ((const OpenGLIndexBuffer&)indexBuffer).get_handle();
+		CurrentIndexBufferHandle = ((const OpenGLIndexBuffer*)indexBuffer)->get_handle();
 	}
 
 	void OpenGLCommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
@@ -42,6 +42,11 @@ namespace DopeEngine
 	void OpenGLCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
+		* Get gl pipeline
+		*/
+		const OpenGLRenderPass* glRenderPass = (const OpenGLRenderPass*)renderPass;
+
+		/*
 		* Blending
 		*/
 
@@ -60,26 +65,25 @@ namespace DopeEngine
 
 		////glDepthFunc(OpenGLPipelineUtils::get_depth_function(pipeline.get_depth_function()));
 
-		///*
-		//* Face culling
-		//*/
-		//if (pipeline.get_cull_mode() != FaceCullMode::DontCull)
-		//	glEnable(GL_CULL_FACE);
-		//else
-		//	glDisable(GL_CULL_FACE);
+		/*
+		* Face culling
+		*/
+		if (renderPass->get_cull_mode() != FaceCullMode::DontCull)
+		{
+			glEnable(GL_CULL_FACE);
+			glCullFace(OpenGLRenderPassUtils::get_cull_mode(renderPass->get_cull_mode()));
+		}
+		else
+		{
+			glDisable(GL_CULL_FACE);
+		}
 
-		//glFrontFace(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()));
-		//glCullFace(OpenGLPipelineUtils::get_cull_mode(pipeline.get_cull_mode()));
+		glFrontFace(OpenGLRenderPassUtils::get_front_face(renderPass->get_front_face()));
 
 		/*
 		* Polygon fill mode
 		*/
 		//glPolygonMode(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()), OpenGLPipelineUtils::get_fill_mode(pipeline.get_fill_mode()));
-
-		/*
-		* Get gl pipeline
-		*/
-		const OpenGLRenderPass* glRenderPass = (const OpenGLRenderPass*)renderPass;
 
 		/*
 		* Set primitive
@@ -146,7 +150,7 @@ namespace DopeEngine
 		*/
 		glBindBuffer(GL_ARRAY_BUFFER, CurrentVertexBufferHandle);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, CurrentIndexBufferHandle);
-
+	
 		/*
 		* Set current layout state
 		*/

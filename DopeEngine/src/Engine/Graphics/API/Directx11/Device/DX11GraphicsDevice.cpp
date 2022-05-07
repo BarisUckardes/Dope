@@ -2,6 +2,7 @@
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11DeviceObjects.h>
 #include <Engine/Graphics/Texture/TextureUtils.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeaturesDesc.h>
 
 namespace DopeEngine
 {
@@ -105,6 +106,19 @@ namespace DopeEngine
 		* Release backbuffer
 		*/
 		backBuffer->Release();
+
+		/*
+		* Create device properties
+		*/
+		GraphicsDeviceProperties properties = {"Null vendor","Null gpu"};
+		set_properties(properties);
+
+		/*
+		* Create device features
+		*/
+		GraphicsDeviceFeaturesDesc featuresDesc = {};
+		GraphicsDeviceFeatures* features = new GraphicsDeviceFeatures(featuresDesc);
+		set_features(features);
 	}
 
 	void DX11GraphicsDevice::wait_for_finish_impl()

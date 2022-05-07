@@ -47,6 +47,7 @@ namespace DopeEngine
 		*/
 		glGenBuffers(1, &Handle);
 
+		LOG("OpenGLVertexBuffer", "Buffer created with handle : %d", Handle);
 		/*
 		* Allocate buffer
 		*/

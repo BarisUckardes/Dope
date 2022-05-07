@@ -190,9 +190,6 @@ namespace DopeEngine
 			CurrentColorTargets = colorRenderTargets;
 			CurrentDepthTarget = depthStencilTarget;
 		}
-
-
-
 	}
 	void DX11CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{

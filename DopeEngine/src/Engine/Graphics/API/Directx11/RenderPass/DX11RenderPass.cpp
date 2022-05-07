@@ -91,11 +91,10 @@ namespace DopeEngine
 		D3D11_RASTERIZER_DESC rasterizerDesc;
 		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
 		rasterizerDesc.DepthClipEnable = desc.DepthClip;
-		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
+		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? false : true;
 		rasterizerDesc.ScissorEnable = desc.ScissorTest;
 		rasterizerDesc.FillMode = DX11RenderPassUtils::get_fill_mode(desc.FillMode);
 		rasterizerDesc.CullMode = DX11RenderPassUtils::get_cull_mode(desc.CullFace);
-		rasterizerDesc.FrontCounterClockwise = desc.FrontFace == FrontFaceMode::CounterClockwise ? true : false;
 		rasterizerDesc.DepthBias = 0;
 		rasterizerDesc.DepthBiasClamp = 0;
 		device->get_dx11_device()->CreateRasterizerState(&rasterizerDesc,&RasterizerState);

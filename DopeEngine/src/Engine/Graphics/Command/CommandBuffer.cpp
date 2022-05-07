@@ -95,7 +95,7 @@ namespace DopeEngine
 	}
 	void CommandBuffer::indexed_draw_call(const unsigned int count)
 	{
-		ASSERT(get_bound_render_pass(), "CommandBuffer", "You must first set a pipeline in order to issue a draw call! ");
+		ASSERT(get_bound_render_pass(), "CommandBuffer", "You must first set a RenderPass in order to issue a draw call! ");
 		indexed_draw_call_impl(count);
 	}
 	unsigned int CommandBuffer::get_bound_texture_count() const

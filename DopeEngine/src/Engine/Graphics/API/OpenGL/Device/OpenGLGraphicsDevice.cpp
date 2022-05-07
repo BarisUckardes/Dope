@@ -1,6 +1,7 @@
 #include "OpenGLGraphicsDevice.h"
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/OpenGL/Device/OpenGLDeviceObjects.h>
+#include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 #include <GLAD/glad.h>
 #include <gl/GL.h>
 
@@ -85,6 +86,10 @@ namespace DopeEngine
 		/*
 		* Set base graphics device features
 		*/
+		GraphicsDeviceFeaturesDesc featuresDesc = {};
+		GraphicsDeviceFeatures* features = new GraphicsDeviceFeatures(featuresDesc);
+
+		set_features(features);
 
 		/*
 		* Collect properties
@@ -97,6 +102,7 @@ namespace DopeEngine
 		* Set properties
 		*/
 		set_properties(properties);
+
 	}
 	void OpenGLGraphicsDevice::_create_opengl_win32_device()
 	{
