@@ -7,11 +7,12 @@
 #include <Engine/Graphics/RenderPass/PolygonFillMode.h>
 #include <Engine/Graphics/RenderPass/PrimitiveTopology.h>
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
-#include <Engine/Graphics/Resource/ResourceLayout.h>
 #include <Engine/Graphics/RenderPass/RenderPassType.h>
 #include <Engine/Graphics/Shader/Shader.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
+#include <Engine/Graphics/Device/GraphicsDevice.h>
+#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -23,12 +24,12 @@ namespace DopeEngine
 			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
 			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
 			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives,const Array<Shader*> shaders,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,Framebuffer* targetFramebuffer,
+			const PrimitiveTopology primitives,const Array<Shader*> shaders,const VertexLayoutDescription& layoutDescription,const Array<ResourceSlotDesc>& resourceSlots,Framebuffer* targetFramebuffer,
 			const RenderPassType type) : BlendingState(blending),
 			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
 			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
 			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives),ShaderSet(shaders),TargetFramebuffer(targetFramebuffer), LayoutDescription(layoutDescription), ResourceLayouts(resourceLayouts),
+			Primitives(primitives),ShaderSet(shaders),TargetFramebuffer(targetFramebuffer), LayoutDescription(layoutDescription), ResourceSlots(resourceSlots),
 			Type(type)
 		{}
 
@@ -105,7 +106,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Resource layouts
 		/// </summary>
-		Array<ResourceLayout*> ResourceLayouts;
+		Array<ResourceSlotDesc> ResourceSlots;
 
 		/// <summary>
 		/// Type of the render pass

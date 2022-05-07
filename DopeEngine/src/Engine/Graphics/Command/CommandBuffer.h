@@ -15,7 +15,6 @@ namespace DopeEngine
 	class ShaderSet;
 	class VertexLayout;
 	class DeviceObject;
-	class ResourceLayout;
 	class ResourceView;
 	struct ColorRgbaByte;
 

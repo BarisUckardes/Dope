@@ -234,15 +234,7 @@ namespace DopeEngine
 			(DX12GraphicsDevice*)this,
 			(Window*)get_owner_window());
 	}
-	ResourceLayout* DX12GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
-	{
-		/*
-		* Create directx12 resource layout
-		*/
-		DX12ResourceLayout* layout = new DX12ResourceLayout(description,this);
-
-		return layout;
-	}
+	
 	ResourceView* DX12GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
 		/*

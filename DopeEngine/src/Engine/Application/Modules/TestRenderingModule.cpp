@@ -31,7 +31,7 @@ namespace DopeEngine
 	ResourceView* colorResourceView = nullptr;
 	Texture* texture = nullptr;
 	ResourceView* textureView = nullptr;
-	/*const String vs =
+	const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
 		"layout(location = 1) in vec2 aUv;"
@@ -58,9 +58,9 @@ namespace DopeEngine
 		"void main()\n"
 		"{\n"
 		"FragColor = texture(MyTexture,fUv);\n"
-		"}\n";*/
+		"}\n";
 
-	const String vs = R"(
+	/*const String vs = R"(
 
 	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
@@ -81,7 +81,7 @@ namespace DopeEngine
 	{
 		return float4(1.0f,0,0,1.0f);
 	}
-)";
+)";*/
 
 	void TestRenderingModule::initialize()
 	{
@@ -98,11 +98,11 @@ namespace DopeEngine
 		*/
 		Array<Vector2f> vertexes;
 		vertexes.add(Vector2f(0.0f,0.0f));
-		//vertexes.add(Vector2f(0.0f, 0.0f));
+		vertexes.add(Vector2f(0.0f, 0.0f));
 		vertexes.add(Vector2f(1.0f, 0));
-		//vertexes.add(Vector2f(1.0f, 0.0f));
+		vertexes.add(Vector2f(1.0f, 0.0f));
 		vertexes.add(Vector2f(0.5f, 1.0f));
-		//vertexes.add(Vector2f(0.5f, 1.0f));
+		vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
@@ -123,7 +123,7 @@ namespace DopeEngine
 		*/
 		Array<VertexElementDescription> elements;
 		elements.add(VertexElementDescription("POSITION", VertexElementDataType::Float2, false));
-		//elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
+		elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -161,9 +161,9 @@ namespace DopeEngine
 		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));*/
 
 		/*
-		* Create texture layout and view
+		* Create texture resource slot and view
 		*/
-		/*ResourceLayout* textureLayout = device->create_resource_layout(ResourceDescription("MyTexture", ResourceType::Texture, ShaderType::Fragment));
+	/*	ResourceSlotDesc textureResourceSlotDesc("MyTexture", ResourceType::Texture, ShaderType::Fragment);
 		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));*/
 
 		/*
@@ -182,7 +182,7 @@ namespace DopeEngine
 		renderPassDesc.Primitives = PrimitiveTopology::Triangles;
 		renderPassDesc.ScissorTest = false;
 		renderPassDesc.ShaderSet = { vShader,fShader };
-		renderPassDesc.ResourceLayouts = {};
+		renderPassDesc.ResourceSlots = {};
 		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
 		renderPass = device->create_render_pass(renderPassDesc);
 	}

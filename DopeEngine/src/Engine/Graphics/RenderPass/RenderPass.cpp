@@ -14,7 +14,7 @@ namespace DopeEngine
 		Primitives = description.Primitives;
 		Shaders = description.ShaderSet;
 		VertexLayout = description.LayoutDescription;
-		ResourceLayouts = description.ResourceLayouts;
+		ResourceSlots = description.ResourceSlots;
 		TargetFramebuffer = description.TargetFramebuffer;
 	}
 	BlendState RenderPass::get_blending() const
@@ -57,17 +57,13 @@ namespace DopeEngine
 	{
 		return VertexLayout;
 	}
-	const Array<ResourceLayout*>& RenderPass::get_resource_layouts_fast() const
-	{
-		return ResourceLayouts;
-	}
 	Framebuffer* RenderPass::get_target_framebuffer() const
 	{
 		return TargetFramebuffer;
 	}
-	Array<ResourceLayout*> RenderPass::get_resource_layouts_slow() const
+	Array<ResourceSlotDesc> RenderPass::get_resource_slots() const
 	{
-		return ResourceLayouts;
+		return ResourceSlots;
 	}
 	RenderPassType RenderPass::get_type() const
 	{

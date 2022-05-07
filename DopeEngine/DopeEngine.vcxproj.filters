@@ -381,10 +381,7 @@
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceDescription.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceLayout.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\ResourceSlotDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h">
@@ -394,9 +391,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjectType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h">
@@ -453,9 +447,6 @@
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -490,9 +481,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.h">
@@ -842,13 +830,7 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Resource\ResourceLayout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Graphics\Resource\ResourceView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp">
@@ -902,9 +884,6 @@
     <ClCompile Include="src\Engine\Graphics\Vertex\VertexUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceLayout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Resource\DX11ResourceView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -933,9 +912,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\RenderPass\DX12RenderPass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceView.cpp">

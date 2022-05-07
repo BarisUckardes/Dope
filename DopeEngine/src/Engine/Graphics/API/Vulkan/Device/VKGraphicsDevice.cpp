@@ -126,11 +126,6 @@ namespace DopeEngine
 		return new VKCommandBuffer(this);
 	}
 
-	ResourceLayout* VKGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
-	{
-		return nullptr;
-	}
-
 	ResourceView* VKGraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
 		return nullptr;

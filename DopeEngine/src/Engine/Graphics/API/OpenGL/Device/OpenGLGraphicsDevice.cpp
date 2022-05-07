@@ -246,15 +246,6 @@ namespace DopeEngine
 	{
 		return true;
 	}
-	ResourceLayout* OpenGLGraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
-	{
-		/*
-		* Create new opengl resource layout
-		*/
-		OpenGLResourceLayout* layout = new OpenGLResourceLayout(description);
-
-		return layout;
-	}
 	ResourceView* OpenGLGraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
 		/*

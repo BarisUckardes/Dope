@@ -140,11 +140,6 @@ namespace DopeEngine
 		return new DX11SwapchainFramebuffer(*desc, (DX11GraphicsDevice*)this, (Window*)get_owner_window());
 	}
 
-	ResourceLayout* DX11GraphicsDevice::create_resource_layout_impl(const ResourceDescription& description)
-	{
-		return new DX11ResourceLayout(description,this);
-	}
-
 	ResourceView* DX11GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
 	{
 		return new DX11ResourceView(description,this);

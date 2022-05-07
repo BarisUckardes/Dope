@@ -8,5 +8,4 @@
 #include <Engine/Graphics/API/OpenGL/Shader/OpenGLShader.h>
 #include <Engine/Graphics/API/OpenGL/Texture/OpenGLTexture.h>
 #include <Engine/Graphics/API/OpenGL/Command/OpenGLCommandBuffer.h>
-#include <Engine/Graphics/API/OpenGL/Resource/OpenGLResourceLayout.h>
 #include <Engine/Graphics/API/OpenGL/Resource/OpenGLResourceView.h>

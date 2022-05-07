@@ -52,18 +52,18 @@ namespace DopeEngine
 
 		/*
 		* Depth
-		//*/
-		//if (pipeline.is_depth_test_enabled())
-		//	glEnable(GL_DEPTH_TEST);
-		//else
-		//	glDisable(GL_DEPTH_TEST);
+		*/
+		if (renderPass->is_depth_test_enabled())
+			glEnable(GL_DEPTH_TEST);
+		else
+			glDisable(GL_DEPTH_TEST);
 
-		//if (pipeline.is_depth_write_enabled())
-		//	glEnable(GL_DEPTH_WRITEMASK);
-		//else
-		//	glDisable(GL_DEPTH_WRITEMASK);
+		if (renderPass->is_depth_write_enabled())
+			glEnable(GL_DEPTH_WRITEMASK);
+		else
+			glDisable(GL_DEPTH_WRITEMASK);
 
-		////glDepthFunc(OpenGLPipelineUtils::get_depth_function(pipeline.get_depth_function()));
+		glDepthFunc(OpenGLRenderPassUtils::get_depth_function(renderPass->get_depth_function()));
 
 		/*
 		* Face culling
@@ -194,14 +194,14 @@ namespace DopeEngine
 		* Set resource
 		*/
 		const DeviceObject* resource = view->get_resource();
-		const Array<ResourceLayout*>& resourceLayouts = get_bound_render_pass()->get_resource_layouts_fast();
-		const ResourceLayout* targetLayout = resourceLayouts[slot];
-		const ResourceDescription targetDescription = targetLayout->get_description();
+		const Array<ResourceSlotDesc> resourceSlotDescs = get_bound_render_pass()->get_resource_slots();
+		const ResourceSlotDesc targetResourceSlotDesc = resourceSlotDescs[slot];
+
 		/*
 		* Get device object
 		*/
 		const DeviceObjectType resourceDeviceObjectType = resource->get_device_object_type();
-		ResourceType resourceType = targetDescription.Type;
+		ResourceType resourceType = targetResourceSlotDesc.Type;
 
 
 		switch (resourceType)
@@ -216,7 +216,7 @@ namespace DopeEngine
 				/*
 				* Get texture location
 				*/
-				const unsigned int uniformLocation = glGetUniformLocation(CurrentProgramHandle, *targetDescription.Name);
+				const unsigned int uniformLocation = glGetUniformLocation(CurrentProgramHandle, *targetResourceSlotDesc.Name);
 
 				/*
 				* Active and bind texture
@@ -246,7 +246,7 @@ namespace DopeEngine
 				/*
 				* Get uniform buffer program uniform location
 				*/
-				const UNIFORM_BUFFER_INDEX index = glGetUniformBlockIndex(CurrentProgramHandle, *targetDescription.Name);
+				const UNIFORM_BUFFER_INDEX index = glGetUniformBlockIndex(CurrentProgramHandle, *targetResourceSlotDesc.Name);
 
 				/*
 				* Bind uniform block location to binding location

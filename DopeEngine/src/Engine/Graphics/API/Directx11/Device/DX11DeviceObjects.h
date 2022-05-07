@@ -9,4 +9,3 @@
 #include <Engine/Graphics/API/Directx11/Framebuffer/DX11Framebuffer.h>
 #include <Engine/Graphics/API/Directx11/Framebuffer/DX11SwapchainFramebuffer.h>
 #include <Engine/Graphics/API/Directx11/Resource/DX11ResourceView.h>
-#include <Engine/Graphics/API/Directx11/Resource/DX11ResourceLayout.h>

@@ -20,7 +20,6 @@ namespace DopeEngine
 	class DeviceObject;
 	class CommandBuffer;
 	class ResourceView;
-	class ResourceLayout;
 	class RenderPass;
 	struct RenderPassDesc;
 
@@ -31,7 +30,7 @@ namespace DopeEngine
 	struct ShaderDescription;
 	struct TextureDescription;
 	struct VertexLayoutDescription;
-	struct ResourceDescription;
+	struct ResourceSlotDesc;
 	struct ResourceViewDescription;
 	class GraphicsDeviceFeatures;
 
@@ -139,13 +138,6 @@ namespace DopeEngine
 		CommandBuffer* create_command_buffer();
 
 		/// <summary>
-		/// Creates anew resource layout device object
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
-		ResourceLayout* create_resource_layout(const ResourceDescription& description);
-
-		/// <summary>
 		/// Creates anew resource view device object
 		/// </summary>
 		/// <param name="description"></param>
@@ -215,7 +207,6 @@ namespace DopeEngine
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
-		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) = 0;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;

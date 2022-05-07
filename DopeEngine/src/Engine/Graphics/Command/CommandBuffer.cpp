@@ -2,7 +2,7 @@
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/Resource/ResourceTypeUtils.h>
-#include <Engine/Graphics/Resource/ResourceLayout.h>
+#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
 #include <Engine/Graphics/Resource/ResourceView.h>
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
@@ -65,15 +65,14 @@ namespace DopeEngine
 		/*
 		* Validate slot length and resources
 		*/
-		const Array<ResourceLayout*> layouts = CurrentBoundRenderPass->get_resource_layouts_fast();
-		const unsigned int resourceSlotCount = layouts.get_cursor();
-		ASSERT(slot < CurrentBoundRenderPass->get_resource_layouts_fast().get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
+		const Array<ResourceSlotDesc> resourceSlotDesc = CurrentBoundRenderPass->get_resource_slots();
+		const unsigned int resourceSlotCount = resourceSlotDesc.get_cursor();
+		ASSERT(slot < resourceSlotDesc.get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
 		/*
 		* Get layout variables
 		*/
-		const ResourceLayout* targetLayout = layouts[slot];
-		const ResourceDescription targetResourceDescription = targetLayout->get_description();
+		const ResourceSlotDesc targetSlotDesc = resourceSlotDesc[slot];
 		const DeviceObject* resource = view->get_resource();
 
 		/*
@@ -84,7 +83,7 @@ namespace DopeEngine
 		/*
 		* Check resource layout
 		*/
-		const DeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetResourceDescription.Type);
+		const DeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
 		if (objectType != slotType)
 		{
 			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.Trying to bind resource type %d whereas slot accepts %d", slot,objectType, slotType);

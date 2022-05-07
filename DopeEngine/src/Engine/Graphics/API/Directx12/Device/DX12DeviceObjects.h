@@ -5,7 +5,6 @@
 #include <Engine/Graphics/API/Directx12/Framebuffer/DX12Framebuffer.h>
 #include <Engine/Graphics/API/Directx12/Framebuffer/DX12SwapchainFramebuffer.h>
 #include <Engine/Graphics/API/Directx12/RenderPass/DX12RenderPass.h>
-#include <Engine/Graphics/API/Directx12/Resource/DX12ResourceLayout.h>
 #include <Engine/Graphics/API/Directx12/Resource/DX12ResourceView.h>
 #include <Engine/Graphics/API/Directx12/Shader/DX12Shader.h>
 #include <Engine/Graphics/API/Directx12/Texture/DX12Texture.h>

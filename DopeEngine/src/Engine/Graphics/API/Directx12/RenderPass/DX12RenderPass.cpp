@@ -50,19 +50,18 @@ namespace DopeEngine
         */
         Array<D3D12_ROOT_PARAMETER> rootParameters;
         Array<D3D12_STATIC_SAMPLER_DESC> samplerDescs;
-        for (unsigned int i = 0; i < desc.ResourceLayouts.get_cursor();i++)
+        for (unsigned int i = 0; i < desc.ResourceSlots.get_cursor();i++)
         {
             /*
             * Get resource layout
             */
-            const ResourceLayout* resourceLayout = desc.ResourceLayouts[i];
+            const ResourceSlotDesc resourceSlotDesc = desc.ResourceSlots[i];
 
             /*
             * Get and catch resource type
             */
-            const ResourceDescription& resourceDesc = resourceLayout->get_description();
-            const ResourceType resourceType = resourceDesc.Type;
-            const ShaderType shaderStage = resourceDesc.ShaderStage;
+            const ResourceType resourceType = resourceSlotDesc.Type;
+            const ShaderType shaderStage = resourceSlotDesc.ShaderStage;
             D3D12_ROOT_PARAMETER rootParameter = {};
             switch (resourceType)
             {

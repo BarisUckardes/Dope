@@ -104,21 +104,6 @@ namespace DopeEngine
 		return create_command_buffer_impl();
 	}
 
-	ResourceLayout* GraphicsDevice::create_resource_layout(const ResourceDescription& description)
-	{
-		/*
-		* Create resource layout
-		*/
-		ResourceLayout* layout = create_resource_layout_impl(description);
-
-		/*
-		* Register
-		*/
-		register_device_object(layout);
-
-		return layout;
-	}
-
 	ResourceView* GraphicsDevice::create_resource_view(const ResourceViewDescription& description)
 	{
 		/*

@@ -29,7 +29,6 @@ namespace DopeEngine
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
-		virtual ResourceLayout* create_resource_layout_impl(const ResourceDescription& description) override;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;

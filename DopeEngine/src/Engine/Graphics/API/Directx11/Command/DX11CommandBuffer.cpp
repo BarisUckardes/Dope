@@ -216,13 +216,13 @@ namespace DopeEngine
 		/*
 		* Get slot resource layout
 		*/
-		const ResourceLayout* layout = get_bound_render_pass()->get_resource_layouts_fast()[slot];
+		const ResourceSlotDesc resourceSlotDesc = get_bound_render_pass()->get_resource_slots()[slot];
 
 		/*
 		* Catch resource type
 		*/
-		const ResourceType resourceType = layout->get_description().Type;
-		const ShaderType shaderStage = layout->get_description().ShaderStage;
+		const ResourceType resourceType = resourceSlotDesc.Type;
+		const ShaderType shaderStage = resourceSlotDesc.ShaderStage;
 		switch (resourceType)
 		{
 			case DopeEngine::ResourceType::UniformBuffer:

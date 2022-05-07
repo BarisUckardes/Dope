@@ -3,6 +3,7 @@
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 #include <Engine/Graphics/RenderPass/RenderPassType.h>
+#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
 namespace DopeEngine
 {
 	class Shader;
@@ -76,12 +77,6 @@ namespace DopeEngine
 		VertexLayoutDescription get_vertex_layout() const;
 
 		/// <summary>
-		/// Returns a reference to the resource layout list
-		/// </summary>
-		/// <returns></returns>
-		const Array<ResourceLayout*>& get_resource_layouts_fast() const;
-
-		/// <summary>
 		/// Returns the target framebuffer
 		/// </summary>
 		/// <returns></returns>
@@ -91,7 +86,7 @@ namespace DopeEngine
 		/// Returns a copy of the resource layouts
 		/// </summary>
 		/// <returns></returns>
-		Array<ResourceLayout*> get_resource_layouts_slow() const;
+		Array<ResourceSlotDesc> get_resource_slots() const;
 
 		/// <summary>
 		/// Returns the type of this pipeline
@@ -110,7 +105,7 @@ namespace DopeEngine
 		Array<Shader*> Shaders;
 		Framebuffer* TargetFramebuffer;
 		VertexLayoutDescription VertexLayout;
-		Array<ResourceLayout*> ResourceLayouts;
+		Array<ResourceSlotDesc> ResourceSlots;
 		RenderPassType Type;
 	};
 
