@@ -58,12 +58,6 @@ namespace DopeEngine
 	{
 
 	}
-
-	void VKCommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
-	{
-
-	}
-
 	void VKCommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 

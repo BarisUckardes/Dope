@@ -19,6 +19,7 @@ namespace DopeEngine
 	private:
 		VkSurfaceKHR Surface;
 		VkSwapchainKHR Swapchain;
+		Array<VkImageView> ImageViews;
 	};
 
 

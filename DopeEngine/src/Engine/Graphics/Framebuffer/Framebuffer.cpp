@@ -43,28 +43,6 @@ namespace DopeEngine
 	{
 		return DepthAttachment;
 	}
-	OutputDescription Framebuffer::get_output_desc() const
-	{
-		/*
-		* Collect texture formats
-		*/
-		Array<TextureFormat> formats;
-		formats.reserve(Attachments.get_cursor());
-		for (unsigned int i = 0; i < Attachments.get_cursor(); i++)
-		{
-			/*
-			* Get attachment
-			*/
-			const Texture* attachment = Attachments[i];
-
-			/*
-			* Register format
-			*/
-			formats.add(attachment->get_format());
-		}
-
-		return {0,0,Width,Height,formats,false};
-	}
 	void Framebuffer::_set_width(Framebuffer* buffer, const unsigned int width)
 	{
 		buffer->Width = width;

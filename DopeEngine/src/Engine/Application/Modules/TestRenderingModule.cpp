@@ -103,7 +103,7 @@ namespace DopeEngine
 		//vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
-		//device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
+		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
 
 		/*
 		* Create index buffer
@@ -117,7 +117,7 @@ namespace DopeEngine
 		indexes.add(1);
 		iBuffer = (IndexBuffer*)device->create_buffer(BufferDescription("MyColor", BufferType::IndexBuffer, indexes.get_cursor() * sizeof(int),sizeof(int)));
 		iBuffer->set_debug_name("My index buffer");
-		//device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
+		device->update_buffer(iBuffer, (const Byte*)indexes.get_data());
 
 		/*
 		* Create vertex layout
@@ -184,18 +184,16 @@ namespace DopeEngine
 		pipelineDescription.ScissorTest = false;
 		pipelineDescription.ShaderSet = {vShader,fShader};
 		pipelineDescription.ResourceLayouts = {};
-		pipelineDescription.OutputDesc = device->get_swapchain_framebuffer()->get_output_desc();
+		pipelineDescription.TargetFramebuffer = device->get_swapchain_framebuffer();
 		pipeline = device->create_pipeline(pipelineDescription);
 	}
 
 	void TestRenderingModule::update()
 	{
-		return;
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		CommandBuffer* buffer = device->create_command_buffer();
 		buffer->lock();
 		buffer->set_pipeline(pipeline);
-		buffer->set_framebuffer(device->get_swapchain_framebuffer());
 		buffer->clear_color({ 0u,0u,1u,1u });
 		buffer->set_vertex_buffer(vBuffer);
 		buffer->set_index_buffer(iBuffer);
@@ -207,7 +205,6 @@ namespace DopeEngine
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());
 		device->wait_for_finish();
 		device->delete_device_object(buffer);
-		//LOG("TestRenderingModule", "Rendered a frame");
 	}
 	void TestRenderingModule::finalize()
 	{

@@ -1,7 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Device/DeviceObject.h>
 #include <Engine/Graphics/Framebuffer/FramebufferDescription.h>
-#include <Engine/Graphics/Pipeline/OutputDescription.h>
 namespace DopeEngine
 {
 	class Texture;
@@ -57,12 +56,6 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		Texture* get_depth_attachment() const;
-
-		/// <summary>
-		/// Returns the output desc for this framebuffer
-		/// </summary>
-		/// <returns></returns>
-		virtual OutputDescription get_output_desc() const;
 	private:
 		static void _set_width(Framebuffer* buffer, const unsigned int width);
 		static void _set_height(Framebuffer* buffer, const unsigned int height);

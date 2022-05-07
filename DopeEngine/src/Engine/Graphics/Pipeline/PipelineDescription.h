@@ -8,9 +8,10 @@
 #include <Engine/Graphics/Pipeline/PrimitiveTopology.h>
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
 #include <Engine/Graphics/Resource/ResourceLayout.h>
-#include <Engine/Graphics/Pipeline/OutputDescription.h>
 #include <Engine/Graphics/Pipeline/PipelineType.h>
 #include <Engine/Graphics/Shader/Shader.h>
+#include <Engine/Graphics/Framebuffer/Framebuffer.h>
+#include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -22,18 +23,18 @@ namespace DopeEngine
 			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
 			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
 			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives,const Array<Shader*> shaders,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,const OutputDescription& outputDesc,
+			const PrimitiveTopology primitives,const Array<Shader*> shaders,const VertexLayoutDescription& layoutDescription,const Array<ResourceLayout*>& resourceLayouts,Framebuffer* targetFramebuffer,
 			const PipelineType type) : BlendingState(blending),
 			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
 			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
 			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives),ShaderSet(shaders),LayoutDescription(layoutDescription),ResourceLayouts(resourceLayouts),OutputDesc(outputDesc),
+			Primitives(primitives),ShaderSet(shaders),TargetFramebuffer(targetFramebuffer), LayoutDescription(layoutDescription), ResourceLayouts(resourceLayouts),
 			Type(type)
 		{}
 
 		PipelineDescription() : BlendingState(BlendState::SingleOverride), DepthComparision(DepthComparisionKind::Always),DepthTest(false),DepthWrite(false),
 		FrontFace(FrontFaceMode::CounterClockwise),CullFace(FaceCullMode::DontCull),FillMode(PolygonFillMode::Fill),DepthClip(false),ScissorTest(false),Primitives(PrimitiveTopology::Triangles),
-		ShaderSet(Array<Shader*>()),OutputDesc(0,0,0,0,Array<TextureFormat>(),false),LayoutDescription(VertexLayoutDescription()) {};
+		ShaderSet(Array<Shader*>()),LayoutDescription(VertexLayoutDescription()),TargetFramebuffer(nullptr) {};
 		~PipelineDescription() = default;
 
 		/// <summary>
@@ -92,9 +93,9 @@ namespace DopeEngine
 		Array<Shader*> ShaderSet;
 
 		/// <summary>
-		/// The output framebuffer description
+		/// Target framebuffer
 		/// </summary>
-		OutputDescription OutputDesc;
+		Framebuffer* TargetFramebuffer;
 
 		/// <summary>
 		/// Vertex layout

@@ -82,16 +82,16 @@ namespace DopeEngine
 		const Array<ResourceLayout*>& get_resource_layouts_fast() const;
 
 		/// <summary>
+		/// Returns the target framebuffer
+		/// </summary>
+		/// <returns></returns>
+		Framebuffer* get_target_framebuffer() const;
+
+		/// <summary>
 		/// Returns a copy of the resource layouts
 		/// </summary>
 		/// <returns></returns>
 		Array<ResourceLayout*> get_resource_layouts_slow() const;
-
-		/// <summary>
-		/// Returns the output description
-		/// </summary>
-		/// <returns></returns>
-		OutputDescription get_output_desc() const;
 
 		/// <summary>
 		/// Returns the type of this pipeline
@@ -108,9 +108,9 @@ namespace DopeEngine
 		PolygonFillMode FillMode;
 		PrimitiveTopology Primitives;
 		Array<Shader*> Shaders;
+		Framebuffer* TargetFramebuffer;
 		VertexLayoutDescription VertexLayout;
 		Array<ResourceLayout*> ResourceLayouts;
-		OutputDescription OutputDesc;
 		PipelineType Type;
 	};
 

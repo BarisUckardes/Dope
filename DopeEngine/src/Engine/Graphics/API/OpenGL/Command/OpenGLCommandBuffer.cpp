@@ -37,20 +37,7 @@ namespace DopeEngine
 		glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex,openglGLBuffer->get_handle());
 	}
 
-	void OpenGLCommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
-	{
-		/*
-		* Check if its a swapchain
-		*/
-		if (framebuffer->is_swapchain_framebuffer())
-		{
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		}
-		else
-		{
-			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer*)framebuffer)->get_handle());
-		}
-	}
+	
 
 	void OpenGLCommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
@@ -113,13 +100,25 @@ namespace DopeEngine
 		/*
 		* Set viewport
 		*/
-		const OutputDescription outputDesc = pipeline->get_output_desc();
-		glViewport(outputDesc.OffsetX, outputDesc.OffsetY, outputDesc.Width, outputDesc.Height);
+		const Framebuffer* targetFramebuffer = glPipeline->get_target_framebuffer();
+		glViewport(0,0, targetFramebuffer->get_width(),targetFramebuffer->get_height());
 
 		/*
 		* Start using current program
 		*/
 		glUseProgram(CurrentProgramHandle);
+
+		/*
+		* Set framebuffer
+		*/
+		if (targetFramebuffer->is_swapchain_framebuffer())
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		else
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer*)targetFramebuffer)->get_handle());
+		}
 
 	}
 

@@ -31,7 +31,6 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE TextureFormat get_swapchain_depth_buffer_format() const;
 
-		virtual OutputDescription get_output_desc() const override;
 	protected:
 		/// <summary>
 		/// Called when swapchain is resized

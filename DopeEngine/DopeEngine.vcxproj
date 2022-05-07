@@ -216,7 +216,6 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
-    <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Pipeline\PipelineType.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />

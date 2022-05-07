@@ -207,6 +207,20 @@ namespace DopeEngine
         psoDesc.RasterizerState = rasterizerDesc;
 
         /*
+        * Get target framebuffer properties
+        */
+        Array<TextureFormat> targetFramebufferFormats;
+        unsigned int framebufferWidth = 0;
+        unsigned int framebufferHeight = 0;
+        if (desc.TargetFramebuffer->is_swapchain_framebuffer())
+        {
+            const SwapchainFramebuffer* swapchainFramebuffer = (const SwapchainFramebuffer*)desc.TargetFramebuffer;
+            targetFramebufferFormats.add(swapchainFramebuffer->get_swapchain_buffer_format());
+            framebufferWidth = swapchainFramebuffer->get_width();
+            framebufferHeight = swapchainFramebuffer->get_height();
+        }
+
+        /*
         * Create blend state
         */
         D3D12_BLEND_DESC blendDesc = {}; // TODO: implement this
@@ -220,7 +234,8 @@ namespace DopeEngine
             D3D12_LOGIC_OP_NOOP,
             D3D12_COLOR_WRITE_ENABLE_ALL,
         };
-        for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
+        
+        for (unsigned int i = 0; i < targetFramebufferFormats.get_cursor(); i++)
         {
             blendDesc.RenderTarget[i] = defaultRenderTargetBlendDesc;
         }
@@ -240,9 +255,9 @@ namespace DopeEngine
         psoDesc.PrimitiveTopologyType = DX12PipelineUtils::get_dx12_primitive_type(desc.Primitives);
 
         Array<DXGI_FORMAT> rtvFormats;
-        for (unsigned int i = 0; i < desc.OutputDesc.OutputFormats.get_cursor(); i++)
+        for (unsigned int i = 0; i < targetFramebufferFormats.get_cursor(); i++)
         {
-            rtvFormats.add(DX11TextureUtils::get_format(desc.OutputDesc.OutputFormats[i]));
+            rtvFormats.add(DX11TextureUtils::get_format(targetFramebufferFormats[i]));
         }
         for (unsigned int i = 0; i < rtvFormats.get_cursor(); i++)
         {
@@ -265,10 +280,10 @@ namespace DopeEngine
         /*
         * Create viewport
         */
-        Viewport.Width = desc.OutputDesc.Width;
-        Viewport.Height = desc.OutputDesc.Height;
-        Viewport.TopLeftX = desc.OutputDesc.OffsetX;
-        Viewport.TopLeftY = desc.OutputDesc.OffsetY;
+        Viewport.Width =framebufferWidth;
+        Viewport.Height =framebufferHeight;
+        Viewport.TopLeftX = 0;
+        Viewport.TopLeftY = 0;
         Viewport.MinDepth = 0.0f;
         Viewport.MaxDepth = 1.0f;
 
@@ -276,8 +291,8 @@ namespace DopeEngine
         * Create scissors
         */
         ScissorRect.left = 0;
-        ScissorRect.right = desc.OutputDesc.Width;
-        ScissorRect.bottom = desc.OutputDesc.Height;
+        ScissorRect.right =framebufferWidth;
+        ScissorRect.bottom =framebufferHeight;
         ScissorRect.top = 0;
     }
 }

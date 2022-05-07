@@ -450,9 +450,6 @@
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Framebuffer\DX11SwapchainFramebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Pipeline\OutputDescription.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>

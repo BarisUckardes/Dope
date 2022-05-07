@@ -135,12 +135,12 @@ namespace DopeEngine
 		* Create viewport
 		*/
 		D3D11_VIEWPORT viewport = { 0 };
-		viewport.Width = (unsigned int)desc.OutputDesc.Width;
-		viewport.Height = (unsigned int)desc.OutputDesc.Height;
+		viewport.Width = desc.TargetFramebuffer->get_width();
+		viewport.Height = desc.TargetFramebuffer->get_height();
 		viewport.MinDepth = 0;
 		viewport.MaxDepth = 1.0f;
-		viewport.TopLeftX = desc.OutputDesc.OffsetX;
-		viewport.TopLeftY = desc.OutputDesc.OffsetY;
+		viewport.TopLeftX = 0;
+		viewport.TopLeftY = 0;
 		Viewport = viewport;
 	}
 }

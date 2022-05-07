@@ -15,7 +15,7 @@ namespace DopeEngine
 		Shaders = description.ShaderSet;
 		VertexLayout = description.LayoutDescription;
 		ResourceLayouts = description.ResourceLayouts;
-		OutputDesc = description.OutputDesc;
+		TargetFramebuffer = description.TargetFramebuffer;
 	}
 	BlendState Pipeline::get_blending() const
 	{
@@ -61,13 +61,13 @@ namespace DopeEngine
 	{
 		return ResourceLayouts;
 	}
+	Framebuffer* Pipeline::get_target_framebuffer() const
+	{
+		return TargetFramebuffer;
+	}
 	Array<ResourceLayout*> Pipeline::get_resource_layouts_slow() const
 	{
 		return ResourceLayouts;
-	}
-	OutputDescription Pipeline::get_output_desc() const
-	{
-		return OutputDesc;
 	}
 	PipelineType Pipeline::get_type() const
 	{

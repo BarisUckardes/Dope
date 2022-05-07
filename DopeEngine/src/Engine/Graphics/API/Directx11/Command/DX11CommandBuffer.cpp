@@ -66,60 +66,6 @@ namespace DopeEngine
 		const DX11ConstantBuffer* dx11Buffer = (const DX11ConstantBuffer*)buffer;
 
 	}
-	void DX11CommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
-	{
-		/*
-		* Validate if this is a swapchain buffer
-		*/
-		if (framebuffer->is_swapchain_framebuffer())
-		{
-			/*
-			* Get dx11 swapchain framebuffer
-			*/
-			const DX11SwapchainFramebuffer* dx11SFarmebuffer = (const DX11SwapchainFramebuffer*)framebuffer;
-
-			/*
-			* Get render target
-			*/
-			DXPTR<ID3D11RenderTargetView> rtv = dx11SFarmebuffer->get_dx11_swapchain_rtv();
-
-			/*
-			* Set rtv
-			*/
-			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, rtv.GetAddressOf(), nullptr);
-
-			CurrentColorTargets.add(rtv);
-			CurrentDepthTarget = nullptr;
-		}
-		else
-		{
-			/*
-			* Get dx11 framebuffer
-			*/
-			const DX11Framebuffer& dx11Framebuffer = (const DX11Framebuffer&)framebuffer;
-
-			/*
-			* Get render targets
-			*/
-			const Array<DXPTR<ID3D11RenderTargetView>> colorRenderTargets = dx11Framebuffer.get_dx11_rtvs_slow();
-			DXPTR<ID3D11DepthStencilView> depthStencilTarget = dx11Framebuffer.get_dx11_depth_rtv();
-
-			/*
-			* Set targets
-			*/
-			//ASSERT(colorRenderTargets.get_cursor() > 0, "DX11CommandBuffer", "You have set a Dx11Framebuffer with no render target views!");
-			//Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
-
-
-			/*
-			* Set currents
-			*/
-			CurrentColorTargets = colorRenderTargets;
-			CurrentDepthTarget = depthStencilTarget;
-		}
-
-
-	}
 	void DX11CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 		/*
@@ -193,6 +139,59 @@ namespace DopeEngine
 					break;
 			}
 		}
+
+		/*
+		* Validate if this is a swapchain buffer
+		*/
+		const Framebuffer* targetFramebuffer = pipeline->get_target_framebuffer();
+		if (targetFramebuffer->is_swapchain_framebuffer())
+		{
+			/*
+			* Get dx11 swapchain framebuffer
+			*/
+			const DX11SwapchainFramebuffer* dx11SFarmebuffer = (const DX11SwapchainFramebuffer*)targetFramebuffer;
+
+			/*
+			* Get render target
+			*/
+			DXPTR<ID3D11RenderTargetView> rtv = dx11SFarmebuffer->get_dx11_swapchain_rtv();
+
+			/*
+			* Set rtv
+			*/
+			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, rtv.GetAddressOf(), nullptr);
+
+			CurrentColorTargets.add(rtv);
+			CurrentDepthTarget = nullptr;
+		}
+		else
+		{
+			/*
+			* Get dx11 framebuffer
+			*/
+			const DX11Framebuffer* dx11Framebuffer = (const DX11Framebuffer*)targetFramebuffer;
+
+			/*
+			* Get render targets
+			*/
+			const Array<DXPTR<ID3D11RenderTargetView>> colorRenderTargets = dx11Framebuffer->get_dx11_rtvs_slow();
+			DXPTR<ID3D11DepthStencilView> depthStencilTarget = dx11Framebuffer->get_dx11_depth_rtv();
+
+			/*
+			* Set targets
+			*/
+			//ASSERT(colorRenderTargets.get_cursor() > 0, "DX11CommandBuffer", "You have set a Dx11Framebuffer with no render target views!");
+			//Device->get_dx11_immediate_context()->OMSetRenderTargets(colorRenderTargets.get_cursor(), colorRenderTargets.get_data(), depthStencilTarget);
+
+
+			/*
+			* Set currents
+			*/
+			CurrentColorTargets = colorRenderTargets;
+			CurrentDepthTarget = depthStencilTarget;
+		}
+
+
 
 	}
 	void DX11CommandBuffer::clear_color_impl(const ColorRgbaByte& color)

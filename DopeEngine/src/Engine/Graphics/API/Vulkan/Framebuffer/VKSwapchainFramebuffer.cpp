@@ -146,8 +146,7 @@ namespace DopeEngine
 		/*
 		* Create image views
 		*/
-		Array<VkImageView> swapchainImageViews;
-		swapchainImageViews.reserve(swapchainImageCount);
+		ImageViews.reserve(swapchainImageCount);
 		for (unsigned int i = 0; i < swapchainImageCount; i++)
 		{
 			/*
@@ -188,8 +187,10 @@ namespace DopeEngine
 			/*
 			* Register view
 			*/
-			swapchainImageViews.add(imageView);
+			ImageViews.add(imageView);
 		}
+
+	
 	}
 
 }

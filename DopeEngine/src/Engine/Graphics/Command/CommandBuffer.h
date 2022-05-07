@@ -53,11 +53,6 @@ namespace DopeEngine
 		/// <param name="buffer"></param>
 		void set_uniform_buffer(const UniformBuffer* buffer);
 
-		/// <summary>
-		/// Sets the target framebuffer
-		/// </summary>
-		/// <param name="framebuffer"></param>
-		void set_framebuffer(const Framebuffer* framebuffer);
 
 		/// <summary>
 		/// Sets the target pipeline
@@ -120,12 +115,6 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="buffer"></param>
 		virtual void set_uniform_buffer_impl(const UniformBuffer* buffer) = 0;
-
-		/// <summary>
-		/// Sets the target framebuffer
-		/// </summary>
-		/// <param name="framebuffer"></param>
-		virtual void set_framebuffer_impl(const Framebuffer* framebuffer) = 0;
 
 		/// <summary>
 		/// Sets the target pipeline

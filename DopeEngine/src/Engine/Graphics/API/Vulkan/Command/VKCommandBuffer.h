@@ -17,7 +17,6 @@ namespace DopeEngine
 		virtual void set_vertex_buffer_impl(const VertexBuffer* vertexBuffer) override;
 		virtual void set_index_buffer_impl(const IndexBuffer* indexBuffer) override;
 		virtual void set_uniform_buffer_impl(const UniformBuffer* buffer) override;
-		virtual void set_framebuffer_impl(const Framebuffer* framebuffer) override;
 		virtual void set_pipeline_impl(const Pipeline* pipeline) override;
 		virtual void clear_color_impl(const ColorRgbaByte& color) override;
 		virtual void clear_depth_impl(const float depth) override;

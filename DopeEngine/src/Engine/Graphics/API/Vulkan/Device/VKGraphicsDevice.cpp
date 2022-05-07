@@ -583,9 +583,9 @@ namespace DopeEngine
 
 	VKAPI_ATTR VkBool32 VKAPI_CALL validation_debug_callback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData)
 	{
-		if (messageSeverity >= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) {
+		//if (messageSeverity >= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) {
 			LOG("VKGraphicsDevice", "%s", pCallbackData->pMessage);
-		}
+		//}
 		return VK_FALSE;
 	}
 

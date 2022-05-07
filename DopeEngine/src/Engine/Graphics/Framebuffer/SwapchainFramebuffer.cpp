@@ -79,15 +79,4 @@ namespace DopeEngine
 	{
 		return DepthFormat;
 	}
-
-	OutputDescription SwapchainFramebuffer::get_output_desc() const
-	{
-		/*
-		* Collect texture formats
-		*/
-		Array<TextureFormat> formats;
-		formats.add(BufferFormat);
-
-		return { 0,0,Width,Height,formats,true};
-	}
 }

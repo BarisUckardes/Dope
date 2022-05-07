@@ -40,11 +40,6 @@ namespace DopeEngine
 		set_uniform_buffer_impl(buffer);
 	}
 
-	void CommandBuffer::set_framebuffer(const Framebuffer* framebuffer)
-	{
-		set_framebuffer_impl(framebuffer);
-	}
-
 	void CommandBuffer::set_pipeline(const Pipeline* pipeline)
 	{
 		set_pipeline_impl(pipeline);

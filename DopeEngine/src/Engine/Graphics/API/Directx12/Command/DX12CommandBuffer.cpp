@@ -95,55 +95,6 @@ namespace DopeEngine
 	{
 		//CommandList->SetResource
 	}
-	void DX12CommandBuffer::set_framebuffer_impl(const Framebuffer* framebuffer)
-	{
-		/*
-		* Validate if this framebuffer is a swapchain framebuffer
-		*/
-		D3D12_RESOURCE_BARRIER barrier = {};
-		if (framebuffer->is_swapchain_framebuffer())
-		{
-			/*
-			* Get dx12 framebuffer
-			*/
-			const DX12SwapchainFramebuffer* swapFramebuffer = (const DX12SwapchainFramebuffer*)framebuffer;
-
-			/*
-			* Initialize barrier
-			*/
-			barrier.Transition.pResource = swapFramebuffer->get_dx12_current_rtv().Get();
-			barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
-			barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
-			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
-			barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
-			barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
-
-			/*
-			* Set resource barrier
-			*/
-			CommandList->ResourceBarrier(1, &barrier);
-
-			/*
-			* Get heap descriptor
-			*/
-			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer->get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
-
-			/*
-			* Get rtv handle
-			*/
-			rtvHandle.ptr += swapFramebuffer->get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
-
-			/*
-			* Set targets
-			*/
-			CommandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
-		}
-		
-		/*
-		* Set as current framebuffer
-		*/
-		CurrentFramebuffer = framebuffer;
-	}
 	void DX12CommandBuffer::set_pipeline_impl(const Pipeline* pipeline)
 	{
 		/*
@@ -177,6 +128,54 @@ namespace DopeEngine
 		* Set primitive topology
 		*/
 		CommandList->IASetPrimitiveTopology(DX12PipelineUtils::get_dx12_primitives(dxPipeline->get_primitives()));
+
+		/*
+		* Validate if this framebuffer is a swapchain framebuffer
+		*/
+		const Framebuffer* targetFramebuffer = pipeline->get_target_framebuffer();
+		D3D12_RESOURCE_BARRIER barrier = {};
+		if (targetFramebuffer->is_swapchain_framebuffer())
+		{
+			/*
+			* Get dx12 framebuffer
+			*/
+			const DX12SwapchainFramebuffer* swapFramebuffer = (const DX12SwapchainFramebuffer*)targetFramebuffer;
+
+			/*
+			* Initialize barrier
+			*/
+			barrier.Transition.pResource = swapFramebuffer->get_dx12_current_rtv().Get();
+			barrier.Transition.StateBefore = D3D12_RESOURCE_STATE_PRESENT;
+			barrier.Transition.StateAfter = D3D12_RESOURCE_STATE_RENDER_TARGET;
+			barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
+			barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
+			barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
+
+			/*
+			* Set resource barrier
+			*/
+			CommandList->ResourceBarrier(1, &barrier);
+
+			/*
+			* Get heap descriptor
+			*/
+			D3D12_CPU_DESCRIPTOR_HANDLE rtvHandle = swapFramebuffer->get_dx12_rtv_heap()->GetCPUDescriptorHandleForHeapStart();
+
+			/*
+			* Get rtv handle
+			*/
+			rtvHandle.ptr += swapFramebuffer->get_dx12_swapchain_current_rtv_index() * RtvDescriptorSize;
+
+			/*
+			* Set targets
+			*/
+			CommandList->OMSetRenderTargets(1, &rtvHandle, false, nullptr);
+		}
+
+		/*
+		* Set as current framebuffer
+		*/
+		CurrentFramebuffer = targetFramebuffer;
 	}
 
 	void DX12CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
