@@ -179,18 +179,20 @@ namespace DopeEngine
 		/*
 		* Create viewport and scissors
 		*/
+		const ViewportDesc viewportDesc = get_viewport_desc();
 		VkViewport viewport{};
-		viewport.x = 0.0f;
-		viewport.y = 0.0f;
-		viewport.width = targetFramebuffer->get_width();
-		viewport.height = targetFramebuffer->get_height();
-		viewport.minDepth = 0.0f;
-		viewport.maxDepth = 1.0f;
+		viewport.x = viewportDesc.OffsetX;
+		viewport.y = viewportDesc.OffsetY;
+		viewport.width = viewportDesc.Width;
+		viewport.height = viewportDesc.Height;
+		viewport.minDepth = viewportDesc.MinDepth;
+		viewport.maxDepth = viewportDesc.MaxDepth;
 
 		VkRect2D scissor{};
-		scissor.offset = { 0, 0 };
-		scissor.extent.width = targetFramebuffer->get_width();
-		scissor.extent.height = targetFramebuffer->get_height();
+		const ScissorsDesc scissorsDesc = get_scissors_desc();
+		scissor.offset = { (int)scissorsDesc.OffsetX,(int)scissorsDesc.OffsetY};
+		scissor.extent.width = scissorsDesc.Width;
+		scissor.extent.height = scissorsDesc.Height;
 
 		VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
 		viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;

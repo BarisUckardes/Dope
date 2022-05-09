@@ -17,6 +17,11 @@ namespace DopeEngine
 
 	}
 
+	VkImageView VKSwapchainFramebuffer::get_vk_main_image_view() const
+	{
+		return ImageViews[0];
+	}
+
 	void VKSwapchainFramebuffer::on_swapchain_resize_impl()
 	{
 

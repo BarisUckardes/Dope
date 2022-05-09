@@ -49,6 +49,14 @@ namespace DopeEngine
 	{
 		return Primitives;
 	}
+	ViewportDesc RenderPass::get_viewport_desc() const
+	{
+		return Viewport;
+	}
+	ScissorsDesc RenderPass::get_scissors_desc() const
+	{
+		return Scissors;
+	}
 	Array<Shader*> RenderPass::get_shader_set() const
 	{
 		return Shaders;

@@ -32,6 +32,16 @@ namespace DopeEngine
 		* Validate begin
 		*/
 		ASSERT(beginVkR == VK_SUCCESS, "VKCommandBuffer", "Couldnt start the command buffer!");
+
+		/*
+		* Reset command buffer
+		*/
+		const VkResult resetVkR = vkResetCommandBuffer(BaseCommandBuffer, 0);
+
+		/*
+		* Validate reset
+		*/
+		ASSERT(resetVkR == VK_SUCCESS, "VKCommandBuffer", "Couldnt reset the command buffer");
 	}
 
 	void VKCommandBuffer::unlock_impl()
@@ -60,7 +70,25 @@ namespace DopeEngine
 	}
 	void VKCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
+		/*
+		* Get VK render pass
+		*/
+		const VKRenderPass* vkRenderPass = (const VKRenderPass*)renderPass;
+		
+		/*
+		* Get render pass framebuffer
+		*/
+		const Framebuffer* targetFramebuffer = vkRenderPass->get_target_framebuffer();
 
+		/*
+		* Create render pass begin info
+		*/
+		VkRenderPassBeginInfo renderPassBeginInfo = {};
+		renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		renderPassBeginInfo.renderPass = vkRenderPass->get_vk_render_pass();
+		renderPassBeginInfo.framebuffer = VK_NULL_HANDLE; // will be changed
+		renderPassBeginInfo.renderArea.offset = { 0,0 };
+		renderPassBeginInfo.renderArea.extent = { 512,512 }; // will be changed
 	}
 
 	void VKCommandBuffer::clear_color_impl(const ColorRgbaByte& color)

@@ -13,6 +13,8 @@
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Graphics/Resource/ResourceSlotDesc.h>
+#include <Engine/Graphics/RenderPass/ViewportDesc.h>
+#include <Engine/Graphics/RenderPass/ScissorsDesc.h>
 namespace DopeEngine
 {
 	/// <summary>
@@ -20,22 +22,9 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API RenderPassDesc
 	{
-		RenderPassDesc(const BlendState blending,
-			const DepthComparisionKind depthComparisionKind, const bool depthTest, const bool depthWrite,
-			const FrontFaceMode fronFace, const FaceCullMode cullFace, const PolygonFillMode fillMode,
-			const bool depthClip, const bool scissorTest,
-			const PrimitiveTopology primitives,const Array<Shader*> shaders,const VertexLayoutDescription& layoutDescription,const Array<ResourceSlotDesc>& resourceSlots,Framebuffer* targetFramebuffer,
-			const RenderPassType type) : BlendingState(blending),
-			DepthComparision(depthComparisionKind),DepthTest(depthTest),DepthWrite(depthWrite),
-			FrontFace(fronFace),CullFace(cullFace),FillMode(fillMode),
-			DepthClip(depthClip),ScissorTest(scissorTest),
-			Primitives(primitives),ShaderSet(shaders),TargetFramebuffer(targetFramebuffer), LayoutDescription(layoutDescription), ResourceSlots(resourceSlots),
-			Type(type)
-		{}
-
 		RenderPassDesc() : BlendingState(BlendState::SingleOverride), DepthComparision(DepthComparisionKind::Always),DepthTest(false),DepthWrite(false),
 		FrontFace(FrontFaceMode::CounterClockwise),CullFace(FaceCullMode::DontCull),FillMode(PolygonFillMode::Fill),DepthClip(false),ScissorTest(false),Primitives(PrimitiveTopology::Triangles),
-		ShaderSet(Array<Shader*>()),LayoutDescription(VertexLayoutDescription()),TargetFramebuffer(nullptr) {};
+		ShaderSet(Array<Shader*>()),LayoutDescription(VertexLayoutDescription()),TargetFramebuffer(nullptr),Type(RenderPassType::Graphics) {};
 		~RenderPassDesc() = default;
 
 		/// <summary>
@@ -87,6 +76,16 @@ namespace DopeEngine
 		/// Target primitive types
 		/// </summary>
 		PrimitiveTopology Primitives;
+
+		/// <summary>
+		/// Viewport description for the render pass
+		/// </summary>
+		ViewportDesc ViewportDesc;
+
+		/// <summary>
+		/// Scissors description
+		/// </summary>
+		ScissorsDesc ScissorsDesc;
 
 		/// <summary>
 		/// Target shader set

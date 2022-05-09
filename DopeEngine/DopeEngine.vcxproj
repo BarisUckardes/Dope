@@ -215,6 +215,8 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
     <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPassType.h" />
+    <ClInclude Include="src\Engine\Graphics\RenderPass\ScissorsDesc.h" />
+    <ClInclude Include="src\Engine\Graphics\RenderPass\ViewportDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\Device\DeviceObjectType.h" />

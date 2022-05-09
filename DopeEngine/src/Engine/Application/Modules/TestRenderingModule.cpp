@@ -31,7 +31,8 @@ namespace DopeEngine
 	ResourceView* colorResourceView = nullptr;
 	Texture* texture = nullptr;
 	ResourceView* textureView = nullptr;
-	const String vs =
+	CommandBuffer* cmdBuffer = nullptr;
+	/*const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
 		"layout(location = 1) in vec2 aUv;"
@@ -58,9 +59,9 @@ namespace DopeEngine
 		"void main()\n"
 		"{\n"
 		"FragColor = texture(MyTexture,fUv);\n"
-		"}\n";
+		"}\n";*/
 
-	/*const String vs = R"(
+	const String vs = R"(
 
 	float4 main(float2 pos : POSITION) : SV_POSITION
 	{
@@ -81,7 +82,7 @@ namespace DopeEngine
 	{
 		return float4(1.0f,0,0,1.0f);
 	}
-)";*/
+)";
 
 	void TestRenderingModule::initialize()
 	{
@@ -181,30 +182,50 @@ namespace DopeEngine
 		renderPassDesc.LayoutDescription = vertexLayoutDescription;
 		renderPassDesc.Primitives = PrimitiveTopology::Triangles;
 		renderPassDesc.ScissorTest = false;
+
+		ViewportDesc viewportDesc = {};
+		viewportDesc.OffsetX = 0;
+		viewportDesc.OffsetY = 0;
+		viewportDesc.Width = device->get_swapchain_framebuffer()->get_width();
+		viewportDesc.Height = device->get_swapchain_framebuffer()->get_height();
+		viewportDesc.MinDepth = 0.0f;
+		viewportDesc.MaxDepth = 1.0f;
+		renderPassDesc.ViewportDesc = viewportDesc;
+
+		ScissorsDesc scissorsDesc = {};
+		scissorsDesc.OffsetX = 0;
+		scissorsDesc.OffsetY = 0;
+		scissorsDesc.Width = device->get_swapchain_framebuffer()->get_width();
+		scissorsDesc.Height = device->get_swapchain_framebuffer()->get_height();
+		renderPassDesc.ScissorsDesc = scissorsDesc;
+		
 		renderPassDesc.ShaderSet = { vShader,fShader };
 		renderPassDesc.ResourceSlots = {};
 		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
 		renderPass = device->create_render_pass(renderPassDesc);
+
+		/*
+		* Create cmd buffer
+		*/
+		cmdBuffer = device->create_command_buffer();
 	}
 
 	void TestRenderingModule::update()
 	{
-		
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
-		CommandBuffer* buffer = device->create_command_buffer();
-		buffer->lock();
-		buffer->set_render_pass(renderPass);
-		buffer->clear_color({ 0u,0u,1u,1u });
-		buffer->set_vertex_buffer(vBuffer);
-		buffer->set_index_buffer(iBuffer);
+		cmdBuffer->lock();
+		cmdBuffer->set_render_pass(renderPass);
+		cmdBuffer->clear_color({ 0u,0u,1u,1u });
+		cmdBuffer->set_vertex_buffer(vBuffer);
+		cmdBuffer->set_index_buffer(iBuffer);
 		//buffer->set_resource_view(0, colorResourceView);
 		//buffer->set_resource_view(0, textureView);
-		buffer->indexed_draw_call(3);
-		buffer->unlock();
-		device->submit_command_buffer(buffer);
+		//buffer->indexed_draw_call(3);
+		cmdBuffer->unlock();
+		device->submit_command_buffer(cmdBuffer);
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());
 		device->wait_for_finish();
-		device->delete_device_object(buffer);
+		//device->delete_device_object(cmdBuffer);
 	}
 	void TestRenderingModule::finalize()
 	{

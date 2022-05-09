@@ -10,6 +10,8 @@ namespace DopeEngine
 		VKSwapchainFramebuffer(const SwapchainFramebufferDesc& desc, VKGraphicsDevice* device, Window* targetWindow);
 		virtual ~VKSwapchainFramebuffer() override;
 
+
+		FORCEINLINE VkImageView get_vk_main_image_view() const;
 	protected:
 		// Inherited via SwapchainFramebuffer
 		virtual void on_swapchain_resize_impl() override;

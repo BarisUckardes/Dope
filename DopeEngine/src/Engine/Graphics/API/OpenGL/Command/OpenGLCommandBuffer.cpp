@@ -104,8 +104,8 @@ namespace DopeEngine
 		/*
 		* Set viewport
 		*/
-		const Framebuffer* targetFramebuffer = glRenderPass->get_target_framebuffer();
-		glViewport(0,0, targetFramebuffer->get_width(),targetFramebuffer->get_height());
+		const ViewportDesc viewportDesc = glRenderPass->get_viewport_desc();
+		glViewport(viewportDesc.OffsetX, viewportDesc.OffsetY, viewportDesc.Width, viewportDesc.Height);
 
 		/*
 		* Start using current program
@@ -115,6 +115,7 @@ namespace DopeEngine
 		/*
 		* Set framebuffer
 		*/
+		const Framebuffer* targetFramebuffer = glRenderPass->get_target_framebuffer();
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);

@@ -276,19 +276,21 @@ namespace DopeEngine
         /*
         * Create viewport
         */
-        Viewport.Width =framebufferWidth;
-        Viewport.Height =framebufferHeight;
-        Viewport.TopLeftX = 0;
-        Viewport.TopLeftY = 0;
-        Viewport.MinDepth = 0.0f;
-        Viewport.MaxDepth = 1.0f;
+        const ViewportDesc viewportDesc = get_viewport_desc();
+        Viewport.Width = viewportDesc.Width;
+        Viewport.Height = viewportDesc.Height;
+        Viewport.TopLeftX = viewportDesc.OffsetX;
+        Viewport.TopLeftY = viewportDesc.OffsetY;
+        Viewport.MinDepth = viewportDesc.MinDepth;
+        Viewport.MaxDepth = viewportDesc.Height;
 
         /*
         * Create scissors
         */
-        ScissorRect.left = 0;
-        ScissorRect.right =framebufferWidth;
-        ScissorRect.bottom =framebufferHeight;
-        ScissorRect.top = 0;
+        const ScissorsDesc scissorsDesc = get_scissors_desc();
+        ScissorRect.left = scissorsDesc.OffsetX;
+        ScissorRect.right = scissorsDesc.Width;
+        ScissorRect.bottom = scissorsDesc.Height;
+        ScissorRect.top = scissorsDesc.OffsetY;
     }
 }
