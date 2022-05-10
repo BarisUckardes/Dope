@@ -32,6 +32,9 @@ namespace DopeEngine
 	Texture* texture = nullptr;
 	ResourceView* textureView = nullptr;
 	CommandBuffer* cmdBuffer = nullptr;
+	ViewportDesc viewportDesc;
+	ScissorsDesc scissorsDesc;
+
 	/*const String vs =
 		"#version 450 core\n"
 		"layout(location = 0) in vec2 aPosition;\n"
@@ -99,11 +102,11 @@ namespace DopeEngine
 		*/
 		Array<Vector2f> vertexes;
 		vertexes.add(Vector2f(0.0f,0.0f));
-		vertexes.add(Vector2f(0.0f, 0.0f));
+		//vertexes.add(Vector2f(0.0f, 0.0f));
 		vertexes.add(Vector2f(1.0f, 0));
-		vertexes.add(Vector2f(1.0f, 0.0f));
+		//vertexes.add(Vector2f(1.0f, 0.0f));
 		vertexes.add(Vector2f(0.5f, 1.0f));
-		vertexes.add(Vector2f(0.5f, 1.0f));
+		//vertexes.add(Vector2f(0.5f, 1.0f));
 		vBuffer = (VertexBuffer*)device->create_buffer(BufferDescription("VBuffer", BufferType::VertexBuffer, vertexes.get_cursor() * sizeof(Vector2f),sizeof(Vector2f)));
 		vBuffer->set_debug_name("My vertex buffer");
 		device->update_buffer(vBuffer, (const Byte*)vertexes.get_data());
@@ -124,7 +127,7 @@ namespace DopeEngine
 		*/
 		Array<VertexElementDescription> elements;
 		elements.add(VertexElementDescription("POSITION", VertexElementDataType::Float2, false));
-		elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
+		//elements.add(VertexElementDescription("UV", VertexElementDataType::Float2, false));
 		VertexLayoutDescription vertexLayoutDescription = VertexLayoutDescription(elements);
 
 		/*
@@ -137,9 +140,9 @@ namespace DopeEngine
 		/*
 		* Create color buffer
 		*/
-		/*colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
+		colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
 		const Vector3f color{ 1.0f,0.3f,0.80f };
-		device->update_buffer(colorBuffer, (const Byte*)&color);*/
+		device->update_buffer(colorBuffer, (const Byte*)&color);
 
 		/*
 		* Create texture
@@ -156,10 +159,9 @@ namespace DopeEngine
 		/*
 		* Create color buffer resource layouts
 		*/
-		/*ResourceDescription colorResourceLayoutDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
+		ResourceSlotDesc colorResourceSlotDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
 		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
-		ResourceLayout* colorBufferLayout = device->create_resource_layout(ResourceDescription("MyColor", ResourceType::UniformBuffer, ShaderType::Fragment));
-		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));*/
+		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
 
 		/*
 		* Create texture resource slot and view
@@ -168,7 +170,7 @@ namespace DopeEngine
 		textureView = device->create_resource_view(ResourceViewDescription((DeviceObject*)texture));*/
 
 		/*
-		* Create pipeline
+		* Create render pass
 		*/
 		RenderPassDesc renderPassDesc;
 		renderPassDesc.BlendingState = BlendState::SingleOverride;
@@ -182,27 +184,27 @@ namespace DopeEngine
 		renderPassDesc.LayoutDescription = vertexLayoutDescription;
 		renderPassDesc.Primitives = PrimitiveTopology::Triangles;
 		renderPassDesc.ScissorTest = false;
+		renderPassDesc.ShaderSet = { vShader,fShader };
+		renderPassDesc.ResourceSlots = { colorResourceSlotDesc };
+		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
+		renderPass = device->create_render_pass(renderPassDesc);
 
-		ViewportDesc viewportDesc = {};
+		/*
+		* Create viewport and scissors
+		*/
+		viewportDesc = {};
 		viewportDesc.OffsetX = 0;
 		viewportDesc.OffsetY = 0;
 		viewportDesc.Width = device->get_swapchain_framebuffer()->get_width();
 		viewportDesc.Height = device->get_swapchain_framebuffer()->get_height();
 		viewportDesc.MinDepth = 0.0f;
 		viewportDesc.MaxDepth = 1.0f;
-		renderPassDesc.ViewportDesc = viewportDesc;
 
-		ScissorsDesc scissorsDesc = {};
+		scissorsDesc = {};
 		scissorsDesc.OffsetX = 0;
 		scissorsDesc.OffsetY = 0;
 		scissorsDesc.Width = device->get_swapchain_framebuffer()->get_width();
 		scissorsDesc.Height = device->get_swapchain_framebuffer()->get_height();
-		renderPassDesc.ScissorsDesc = scissorsDesc;
-		
-		renderPassDesc.ShaderSet = { vShader,fShader };
-		renderPassDesc.ResourceSlots = {};
-		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
-		renderPass = device->create_render_pass(renderPassDesc);
 
 		/*
 		* Create cmd buffer
@@ -215,12 +217,14 @@ namespace DopeEngine
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		cmdBuffer->lock();
 		cmdBuffer->start_render_pass(renderPass);
+		cmdBuffer->set_viewport_desc(viewportDesc);
+		cmdBuffer->set_scissors_desc(scissorsDesc);
 		cmdBuffer->clear_color({ 0u,0u,1u,1u });
-		//cmdBuffer->set_vertex_buffer(vBuffer);
-		//cmdBuffer->set_index_buffer(iBuffer);
-		//buffer->set_resource_view(0, colorResourceView);
+		cmdBuffer->set_vertex_buffer(vBuffer);
+		cmdBuffer->set_index_buffer(iBuffer);
+		cmdBuffer->set_resource_view(0, colorResourceView);
 		//buffer->set_resource_view(0, textureView);
-		//buffer->indexed_draw_call(3);
+		cmdBuffer->indexed_draw_call(3);
 		cmdBuffer->unlock();
 		device->submit_command_buffer(cmdBuffer);
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());

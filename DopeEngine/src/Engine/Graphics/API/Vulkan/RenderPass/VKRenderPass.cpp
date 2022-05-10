@@ -175,10 +175,12 @@ namespace DopeEngine
 		/*
 		* Create dynamic state
 		*/
+		VkDynamicState vkDefaultDynamicStates[] =
+		{ VK_DYNAMIC_STATE_VIEWPORT,VK_DYNAMIC_STATE_SCISSOR };
 		VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
 		dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
-		dynamicStateCreateInfo.dynamicStateCount = 0;
-		dynamicStateCreateInfo.pDynamicStates = nullptr;
+		dynamicStateCreateInfo.dynamicStateCount = 2;
+		dynamicStateCreateInfo.pDynamicStates = vkDefaultDynamicStates; // default for Dope
 
 		/*
 		* Get target framebuffer properties
@@ -194,31 +196,6 @@ namespace DopeEngine
 		{
 			//framebufferAttachmentFormats = targetFramebuffer
 		}
-
-		/*
-		* Create viewport and scissors
-		*/
-		const ViewportDesc viewportDesc = get_viewport_desc();
-		VkViewport viewport{};
-		viewport.x = viewportDesc.OffsetX;
-		viewport.y = viewportDesc.OffsetY;
-		viewport.width = viewportDesc.Width;
-		viewport.height = viewportDesc.Height;
-		viewport.minDepth = viewportDesc.MinDepth;
-		viewport.maxDepth = viewportDesc.MaxDepth;
-
-		VkRect2D scissor{};
-		const ScissorsDesc scissorsDesc = get_scissors_desc();
-		scissor.offset = { (int)scissorsDesc.OffsetX,(int)scissorsDesc.OffsetY};
-		scissor.extent.width = scissorsDesc.Width;
-		scissor.extent.height = scissorsDesc.Height;
-
-		VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
-		viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-		viewportStateCreateInfo.viewportCount = 1;
-		viewportStateCreateInfo.pViewports = &viewport;
-		viewportStateCreateInfo.scissorCount = 1;
-		viewportStateCreateInfo.pScissors = &scissor;
 
 		/*
 		* Create pipeline layout
@@ -406,7 +383,7 @@ namespace DopeEngine
 				graphicsPipelineCreateInfo.pDepthStencilState = &depthStencilStateCreateInfo;
 				graphicsPipelineCreateInfo.pMultisampleState = &multisampleStateCreateInfo;
 				graphicsPipelineCreateInfo.pDynamicState = &dynamicStateCreateInfo;
-				graphicsPipelineCreateInfo.pViewportState = &viewportStateCreateInfo;
+				graphicsPipelineCreateInfo.pViewportState = VK_NULL_HANDLE; // viewport state is dynamic state as default in Dope
 				graphicsPipelineCreateInfo.renderPass = BaseRenderPass;
 				graphicsPipelineCreateInfo.subpass = 0;
 				graphicsPipelineCreateInfo.layout = Layout;

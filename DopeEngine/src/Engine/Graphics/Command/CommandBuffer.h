@@ -2,6 +2,7 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Math/ColorRgbaByte.h>
 #include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 namespace DopeEngine
 {
 	class Buffer;
@@ -59,6 +60,18 @@ namespace DopeEngine
 		void start_render_pass(const RenderPass* renderPass);
 
 		/// <summary>
+		/// Sets the viewport desc for the current command buffer
+		/// </summary>
+		/// <param name="desc"></param>
+		void set_viewport_desc(const ViewportDesc& desc);
+
+		/// <summary>
+		/// Sets the scissors desc for the current command buffer
+		/// </summary>
+		/// <param name="desc"></param>
+		void set_scissors_desc(const ScissorsDesc& desc);
+
+		/// <summary>
 		/// Clears the color
 		/// </summary>
 		/// <param name="color"></param>
@@ -96,6 +109,9 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		const RenderPass* get_bound_render_pass() const;
+
+		ViewportDesc get_bound_viewport_desc() const;
+		ScissorsDesc get_bound_scissors_desc() const;
 
 		/// <summary>
 		/// Returns the total number of bound uniform buffers
@@ -142,6 +158,18 @@ namespace DopeEngine
 		virtual void start_render_pass_impl(const RenderPass* renderPass) = 0;
 
 		/// <summary>
+		/// Set viewport desc impl
+		/// </summary>
+		/// <param name="desc"></param>
+		virtual void set_viewport_desc_impl(const ViewportDesc& desc) = 0;
+
+		/// <summary>
+		/// Set scissors desc impl
+		/// </summary>
+		/// <param name="desc"></param>
+		virtual void set_scissors_desc_impl(const ScissorsDesc& desc) = 0;
+
+		/// <summary>
 		/// Clears the color
 		/// </summary>
 		/// <param name="color"></param>
@@ -168,6 +196,8 @@ namespace DopeEngine
 		void clear_cached_state();
 	private:
 		const RenderPass* CurrentBoundRenderPass;
+		ViewportDesc CurrentBoundViewportDesc;
+		ScissorsDesc CurrentBoundScissorsDesc;
 		unsigned int CurrentBoundTextures;
 		unsigned int CurrentBoundUniformBuffers;
 	};

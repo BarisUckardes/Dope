@@ -78,16 +78,6 @@ namespace DopeEngine
 		PrimitiveTopology Primitives;
 
 		/// <summary>
-		/// Viewport description for the render pass
-		/// </summary>
-		ViewportDesc ViewportDesc;
-
-		/// <summary>
-		/// Scissors description
-		/// </summary>
-		ScissorsDesc ScissorsDesc;
-
-		/// <summary>
 		/// Target shader set
 		/// </summary>
 		Array<Shader*> ShaderSet;

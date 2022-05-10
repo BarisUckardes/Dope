@@ -113,18 +113,6 @@ namespace DopeEngine
 		CommandList->SetPipelineState(dx12RenderPass->get_dx12_pso().Get());
 
 		/*
-		* Set viewport
-		*/
-		D3D12_VIEWPORT vp = dx12RenderPass->get_dx12_viewport();
-		CommandList->RSSetViewports(1,&vp);
-		
-		/*
-		* Set scissors
-		*/
-		D3D12_RECT scissors = dx12RenderPass->get_dx12_scissors();
-		CommandList->RSSetScissorRects(1,&scissors);
-
-		/*
 		* Set primitive topology
 		*/
 		CommandList->IASetPrimitiveTopology(DX12RenderPassUtils::get_dx12_primitives(dx12RenderPass->get_primitives()));
@@ -176,6 +164,52 @@ namespace DopeEngine
 		* Set as current framebuffer
 		*/
 		CurrentFramebuffer = targetFramebuffer;
+	}
+
+	void DX12CommandBuffer::set_viewport_desc_impl(const ViewportDesc& desc)
+	{
+		/*
+		 * Create viewport
+		 */
+		D3D12_VIEWPORT viewport = {};
+		viewport.Width = desc.Width;
+		viewport.Height = desc.Height;
+		viewport.TopLeftX = desc.OffsetX;
+		viewport.TopLeftY = desc.OffsetY;
+		viewport.MinDepth = desc.MinDepth;
+		viewport.MaxDepth = desc.Height;
+
+		/*
+		* Set viewport as current
+		*/
+		CurrentDX12Viewport = viewport;
+
+		/*
+		* Set viewport
+		*/
+		CommandList->RSSetViewports(1, &CurrentDX12Viewport);
+	}
+
+	void DX12CommandBuffer::set_scissors_desc_impl(const ScissorsDesc& desc)
+	{
+		/*
+		* Create scissors
+		*/
+		D3D12_RECT scissorsRect = {};
+		scissorsRect.left = desc.OffsetX;
+		scissorsRect.right = desc.Width;
+		scissorsRect.bottom = desc.Height;
+		scissorsRect.top = desc.OffsetY;
+
+		/*
+		* Set scissors as current
+		*/
+		CurrentDX12Scissors = scissorsRect;
+
+		/*
+		* Set scissors
+		*/
+		CommandList->RSSetScissorRects(1, &CurrentDX12Scissors);
 	}
 
 	void DX12CommandBuffer::clear_color_impl(const ColorRgbaByte& color)

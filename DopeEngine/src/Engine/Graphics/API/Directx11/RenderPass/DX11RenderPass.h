@@ -14,7 +14,6 @@ namespace DopeEngine
 		 DXPTR<ID3D11RasterizerState> get_dx11_rasterizer_state() const;
 		 DXPTR<ID3D11DepthStencilState> get_dx11_depth_stencil_state() const;
 		 DXPTR<ID3D11BlendState> get_dx1_get_blend_state() const;
-		 D3D11_VIEWPORT get_dx11_viewport() const;
 	private:
 		void create(const RenderPassDesc& desc, DX11GraphicsDevice* device);
 	private:
@@ -22,7 +21,6 @@ namespace DopeEngine
 		DXPTR<ID3D11RasterizerState> RasterizerState;
 		DXPTR<ID3D11DepthStencilState> DepthStencilState;
 		DXPTR<ID3D11BlendState> BlendState;
-		D3D11_VIEWPORT Viewport;
 	};
 
 

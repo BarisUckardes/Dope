@@ -13,14 +13,10 @@ namespace DopeEngine
 
 		DXPTR<ID3D12RootSignature> get_dx12_root_signature() const;
 		DXPTR<ID3D12PipelineState> get_dx12_pso() const;
-		D3D12_VIEWPORT get_dx12_viewport() const;
-		D3D12_RECT get_dx12_scissors() const;
 	private:
 		void create(const RenderPassDesc& desc, DX12GraphicsDevice* device);
 	private:
 		DXPTR<ID3D12RootSignature> RootSignature;
 		DXPTR<ID3D12PipelineState> Pso;
-		D3D12_VIEWPORT Viewport;
-		D3D12_RECT ScissorRect;
 	};
 }

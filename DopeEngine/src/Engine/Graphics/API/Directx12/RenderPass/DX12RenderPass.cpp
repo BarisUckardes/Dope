@@ -27,14 +27,6 @@ namespace DopeEngine
     {
         return Pso;
     }
-    D3D12_VIEWPORT DX12RenderPass::get_dx12_viewport() const
-    {
-        return Viewport;
-    }
-    D3D12_RECT DX12RenderPass::get_dx12_scissors() const
-    {
-        return ScissorRect;
-    }
     void DX12RenderPass::create(const RenderPassDesc& desc, DX12GraphicsDevice* device)
     {
         /*
@@ -273,24 +265,6 @@ namespace DopeEngine
         */
         ASSERT(SUCCEEDED(createPSOHR), "DX12RenderPass", "PSO creation failed");
 
-        /*
-        * Create viewport
-        */
-        const ViewportDesc viewportDesc = get_viewport_desc();
-        Viewport.Width = viewportDesc.Width;
-        Viewport.Height = viewportDesc.Height;
-        Viewport.TopLeftX = viewportDesc.OffsetX;
-        Viewport.TopLeftY = viewportDesc.OffsetY;
-        Viewport.MinDepth = viewportDesc.MinDepth;
-        Viewport.MaxDepth = viewportDesc.Height;
-
-        /*
-        * Create scissors
-        */
-        const ScissorsDesc scissorsDesc = get_scissors_desc();
-        ScissorRect.left = scissorsDesc.OffsetX;
-        ScissorRect.right = scissorsDesc.Width;
-        ScissorRect.bottom = scissorsDesc.Height;
-        ScissorRect.top = scissorsDesc.OffsetY;
+      
     }
 }

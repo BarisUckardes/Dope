@@ -109,8 +109,8 @@ namespace DopeEngine
 		/*
 		* Get viewport&scissors desc
 		*/
-		const ViewportDesc viewportDesc = renderPass->get_viewport_desc();
-		const ScissorsDesc scissorsDesc = renderPass->get_scissors_desc();
+		const ViewportDesc viewportDesc = get_bound_viewport_desc();
+		const ScissorsDesc scissorsDesc = get_bound_scissors_desc();
 
 		/*
 		* Set render pass begin info
@@ -138,6 +138,41 @@ namespace DopeEngine
 		//vkCmdBindPipeline(BaseCommandBuffer, bindPoint, pipeline);
 	}
 
+	void VKCommandBuffer::set_viewport_desc_impl(const ViewportDesc& desc)
+	{
+		/*
+		* Create viewport
+		*/
+		VkViewport viewport{};
+		viewport.x = desc.OffsetX;
+		viewport.y = desc.OffsetY;
+		viewport.width = desc.Width;
+		viewport.height = desc.Height;
+		viewport.minDepth = desc.MinDepth;
+		viewport.maxDepth = desc.MaxDepth;
+
+		/*
+		* Set cmd command
+		*/
+		vkCmdSetViewport(BaseCommandBuffer, 1, 1, &viewport);
+	}
+
+	void VKCommandBuffer::set_scissors_desc_impl(const ScissorsDesc& desc)
+	{
+		/*
+		* Create scissors rect
+		*/
+		VkRect2D scissorRect{};
+		scissorRect.offset = { (int)desc.OffsetX,(int)desc.OffsetY };
+		scissorRect.extent.width = desc.Width;
+		scissorRect.extent.height = desc.Height;
+
+		/*
+		* Set cmd command
+		*/
+		vkCmdSetScissor(BaseCommandBuffer, 1, 1, &scissorRect);
+	}
+
 	void VKCommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{
 		/*
@@ -148,7 +183,7 @@ namespace DopeEngine
 		/*
 		* Create clear rect
 		*/
-		const ViewportDesc viewportDesc = get_bound_render_pass()->get_viewport_desc();
+		const ViewportDesc viewportDesc = get_bound_viewport_desc();
 		const VkClearRect vkClearRect = { {viewportDesc.OffsetX,viewportDesc.OffsetY},viewportDesc.Width,viewportDesc.Height };
 
 		/*

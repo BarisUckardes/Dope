@@ -102,12 +102,6 @@ namespace DopeEngine
 		CurrentVertexLayoutDescription = glRenderPass->get_vertex_layout();
 
 		/*
-		* Set viewport
-		*/
-		const ViewportDesc viewportDesc = glRenderPass->get_viewport_desc();
-		glViewport(viewportDesc.OffsetX, viewportDesc.OffsetY, viewportDesc.Width, viewportDesc.Height);
-
-		/*
 		* Start using current program
 		*/
 		glUseProgram(CurrentProgramHandle);
@@ -124,6 +118,16 @@ namespace DopeEngine
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer*)targetFramebuffer)->get_handle());
 		}
+
+	}
+
+	void OpenGLCommandBuffer::set_viewport_desc_impl(const ViewportDesc& desc)
+	{
+		glViewport(desc.OffsetX, desc.OffsetY, desc.Width, desc.Height);
+	}
+
+	void OpenGLCommandBuffer::set_scissors_desc_impl(const ScissorsDesc& desc)
+	{
 
 	}
 

@@ -99,12 +99,6 @@ namespace DopeEngine
 		Device->get_dx11_immediate_context()->IASetInputLayout(dx11RenderPass->get_dx11_input_layout().Get());
 
 		/*
-		* Set viewports
-		*/
-		D3D11_VIEWPORT dx11Viewport = dx11RenderPass->get_dx11_viewport();
-		Device->get_dx11_immediate_context()->RSSetViewports(1, &dx11Viewport);
-
-		/*
 		* Set shaders
 		*/
 		const Array<Shader*> shaders = dx11RenderPass->get_shader_set();
@@ -190,6 +184,33 @@ namespace DopeEngine
 			CurrentColorTargets = colorRenderTargets;
 			CurrentDepthTarget = depthStencilTarget;
 		}
+	}
+	void DX11CommandBuffer::set_viewport_desc_impl(const ViewportDesc& desc)
+	{
+		/*
+		* Create dx11 viewport
+		*/
+		D3D11_VIEWPORT viewport = { 0 };
+		viewport.Width = desc.Width;
+		viewport.Height = desc.Height;
+		viewport.MinDepth = desc.MinDepth;
+		viewport.MaxDepth = desc.MaxDepth;
+		viewport.TopLeftX = desc.OffsetX;
+		viewport.TopLeftY = desc.OffsetY;
+
+		/*
+		* Set current viewport
+		*/
+		CurrentDX11Viewport = viewport;
+
+		/*
+		* Set viewport state
+		*/
+		Device->get_dx11_immediate_context()->RSSetViewports(1, &CurrentDX11Viewport);
+	}
+	void DX11CommandBuffer::set_scissors_desc_impl(const ScissorsDesc& desc)
+	{
+
 	}
 	void DX11CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{

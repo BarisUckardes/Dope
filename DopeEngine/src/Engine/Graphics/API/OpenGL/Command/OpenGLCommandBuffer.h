@@ -20,6 +20,8 @@ namespace DopeEngine
 		virtual void set_index_buffer_impl(const IndexBuffer* indexBuffer) override final;
 		virtual void set_uniform_buffer_impl(const UniformBuffer* buffer) override final;
 		virtual void start_render_pass_impl(const RenderPass* renderPass) override final;
+		virtual void set_viewport_desc_impl(const ViewportDesc& desc) override final;
+		virtual void set_scissors_desc_impl(const ScissorsDesc& desc) override final;
 		virtual void clear_color_impl(const ColorRgbaByte& color) override final;
 		virtual void clear_depth_impl(const float depth) override final;
 		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) override final;

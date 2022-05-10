@@ -65,18 +65,6 @@ namespace DopeEngine
 		PrimitiveTopology get_primitives() const;
 
 		/// <summary>
-		/// Returns the viewport desc
-		/// </summary>
-		/// <returns></returns>
-		ViewportDesc get_viewport_desc() const;
-
-		/// <summary>
-		/// Returns the scissors desc
-		/// </summary>
-		/// <returns></returns>
-		ScissorsDesc get_scissors_desc() const;
-
-		/// <summary>
 		/// Returns the shader set
 		/// </summary>
 		/// <returns></returns>
@@ -114,8 +102,6 @@ namespace DopeEngine
 		FaceCullMode CullingMode;
 		PolygonFillMode FillMode;
 		PrimitiveTopology Primitives;
-		ViewportDesc Viewport;
-		ScissorsDesc Scissors;
 		Array<Shader*> Shaders;
 		Framebuffer* TargetFramebuffer;
 		VertexLayoutDescription VertexLayout;

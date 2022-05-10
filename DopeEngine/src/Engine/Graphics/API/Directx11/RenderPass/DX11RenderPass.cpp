@@ -31,10 +31,6 @@ namespace DopeEngine
 	{
 		return BlendState;
 	}
-	D3D11_VIEWPORT DX11RenderPass::get_dx11_viewport() const
-	{
-		return Viewport;
-	}
 	void DX11RenderPass::create(const RenderPassDesc& desc, DX11GraphicsDevice* device)
 	{
 		/*
@@ -129,19 +125,5 @@ namespace DopeEngine
 		blendDesc.RenderTarget->BlendEnable = true;
 		blendDesc.RenderTarget->BlendOp = D3D11_BLEND_OP_ADD;
 		device->get_dx11_device()->CreateBlendState(&blendDesc, &BlendState);
-
-		/*
-		* Create viewport
-		*/
-		const ViewportDesc viewportDesc = get_viewport_desc();
-		D3D11_VIEWPORT viewport = { 0 };
-		viewport.Width = viewportDesc.Width;
-		viewport.Height = viewportDesc.Height;
-		viewport.MinDepth = viewportDesc.MinDepth;
-		viewport.MaxDepth = viewportDesc.MaxDepth;
-		viewport.TopLeftX = viewportDesc.OffsetX;
-		viewport.TopLeftY = viewportDesc.OffsetY;
-		Viewport = viewport;
-
 	}
 }

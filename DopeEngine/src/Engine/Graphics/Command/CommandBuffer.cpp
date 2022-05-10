@@ -46,6 +46,32 @@ namespace DopeEngine
 		CurrentBoundRenderPass = renderPass;
 	}
 
+	void CommandBuffer::set_viewport_desc(const ViewportDesc& desc)
+	{
+		/*
+		* Set current viewport desc
+		*/
+		CurrentBoundViewportDesc = desc;
+
+		/*
+		* Call graphics api impl
+		*/
+		set_viewport_desc_impl(desc);
+	}
+
+	void CommandBuffer::set_scissors_desc(const ScissorsDesc& desc)
+	{
+		/*
+		* Set current scissors desc
+		*/
+		CurrentBoundScissorsDesc = desc;
+
+		/*
+		* Call graphics api impl
+		*/
+		set_scissors_desc_impl(desc);
+	}
+
 	void CommandBuffer::clear_color(const ColorRgbaByte& color)
 	{
 		clear_color_impl(color);
@@ -104,6 +130,14 @@ namespace DopeEngine
 	const RenderPass* CommandBuffer::get_bound_render_pass() const
 	{
 		return CurrentBoundRenderPass;
+	}
+	ViewportDesc CommandBuffer::get_bound_viewport_desc() const
+	{
+		return CurrentBoundViewportDesc;
+	}
+	ScissorsDesc CommandBuffer::get_bound_scissors_desc() const
+	{
+		return CurrentBoundScissorsDesc;
 	}
 	unsigned int CommandBuffer::get_bound_uniformbuffer_count() const
 	{
