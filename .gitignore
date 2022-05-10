@@ -31,6 +31,10 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+debug-binary/
+debug-intermediate/
+binary/
+intermediate/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -97,6 +101,9 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.tlog
+*.idb
+*.exe
 
 # Chutzpah Test files
 _Chutzpah*
