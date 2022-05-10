@@ -40,9 +40,9 @@ namespace DopeEngine
 		set_uniform_buffer_impl(buffer);
 	}
 
-	void CommandBuffer::set_render_pass(const RenderPass* renderPass)
+	void CommandBuffer::start_render_pass(const RenderPass* renderPass)
 	{
-		set_render_pass_impl(renderPass);
+		start_render_pass_impl(renderPass);
 		CurrentBoundRenderPass = renderPass;
 	}
 

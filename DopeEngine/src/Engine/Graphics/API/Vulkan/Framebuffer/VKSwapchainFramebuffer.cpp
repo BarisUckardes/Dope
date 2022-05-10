@@ -9,6 +9,14 @@ namespace DopeEngine
 {
 	VKSwapchainFramebuffer::VKSwapchainFramebuffer(const SwapchainFramebufferDesc& desc, VKGraphicsDevice* device, Window* targetWindow) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,targetWindow)
 	{
+		/*
+		* Initialize
+		*/
+		ImageIndex = 0;
+
+		/*
+		* Create
+		*/
 		create(device, targetWindow);
 	}
 
@@ -20,6 +28,21 @@ namespace DopeEngine
 	VkImageView VKSwapchainFramebuffer::get_vk_main_image_view() const
 	{
 		return ImageViews[0];
+	}
+
+	VkSwapchainKHR VKSwapchainFramebuffer::get_vk_swapchain() const
+	{
+		return Swapchain;
+	}
+
+	unsigned int VKSwapchainFramebuffer::get_vk_current_swapchain_image_index() const
+	{
+		return ImageIndex;
+	}
+
+	void VKSwapchainFramebuffer::increment_vk_swapchain_image_index()
+	{
+		ImageIndex = (ImageIndex+1) % get_swapchain_buffer_count();
 	}
 
 	void VKSwapchainFramebuffer::on_swapchain_resize_impl()

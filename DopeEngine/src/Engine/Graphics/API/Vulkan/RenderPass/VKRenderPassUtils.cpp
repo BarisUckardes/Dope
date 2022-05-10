@@ -110,4 +110,20 @@ namespace DopeEngine
 		}
 	}
 
+	VkPipelineBindPoint VKRenderPassUtils::get_vk_pipeline_type(const RenderPassType renderPassType)
+	{
+		switch (renderPassType)
+		{
+			case DopeEngine::RenderPassType::Graphics:
+				return VK_PIPELINE_BIND_POINT_GRAPHICS;
+				break;
+			case DopeEngine::RenderPassType::Compute:
+				break;
+				return VK_PIPELINE_BIND_POINT_COMPUTE;
+			default:
+				ASSERT(false,"VkRenderPassUtils", "Invalid RenderPassType, cannot produce VkPipelineBindPoint!");
+				break;
+		}
+	}
+
 }

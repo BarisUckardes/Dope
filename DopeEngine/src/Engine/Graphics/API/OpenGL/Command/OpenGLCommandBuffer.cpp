@@ -39,7 +39,7 @@ namespace DopeEngine
 
 	
 
-	void OpenGLCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
+	void OpenGLCommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
 		* Get gl pipeline

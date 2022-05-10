@@ -12,6 +12,9 @@ namespace DopeEngine
 
 
 		FORCEINLINE VkImageView get_vk_main_image_view() const;
+		FORCEINLINE VkSwapchainKHR get_vk_swapchain() const;
+		FORCEINLINE unsigned int get_vk_current_swapchain_image_index() const;
+		FORCEINLINE void increment_vk_swapchain_image_index();
 	protected:
 		// Inherited via SwapchainFramebuffer
 		virtual void on_swapchain_resize_impl() override;
@@ -22,6 +25,7 @@ namespace DopeEngine
 		VkSurfaceKHR Surface;
 		VkSwapchainKHR Swapchain;
 		Array<VkImageView> ImageViews;
+		unsigned int ImageIndex;
 	};
 
 

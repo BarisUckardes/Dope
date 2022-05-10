@@ -14,6 +14,7 @@ namespace DopeEngine
 		FORCEINLINE VkPhysicalDevice get_vk_physicalDevice() const;
 		FORCEINLINE VkDevice get_vk_logical_device() const;
 		FORCEINLINE VkCommandPool get_vk_command_pool() const;
+		FORCEINLINE VkQueue get_vk_graphics_queue() const;
 	protected:
 		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
@@ -38,6 +39,7 @@ namespace DopeEngine
 		void _create_win32_vulkan_device();
 	private:
 		Array<VkQueue> Queues;
+		VkQueue GraphicsQueue;
 		VkInstance Instance;
 		VkPhysicalDevice PhysicalDevice;
 		VkDevice LogicalDevice;

@@ -214,10 +214,10 @@ namespace DopeEngine
 	{
 		GraphicsDevice* device = get_owner_session()->get_window()->get_graphics_device();
 		cmdBuffer->lock();
-		cmdBuffer->set_render_pass(renderPass);
+		cmdBuffer->start_render_pass(renderPass);
 		cmdBuffer->clear_color({ 0u,0u,1u,1u });
-		cmdBuffer->set_vertex_buffer(vBuffer);
-		cmdBuffer->set_index_buffer(iBuffer);
+		//cmdBuffer->set_vertex_buffer(vBuffer);
+		//cmdBuffer->set_index_buffer(iBuffer);
 		//buffer->set_resource_view(0, colorResourceView);
 		//buffer->set_resource_view(0, textureView);
 		//buffer->indexed_draw_call(3);

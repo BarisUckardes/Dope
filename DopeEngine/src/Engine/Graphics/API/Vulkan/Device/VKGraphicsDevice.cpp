@@ -45,6 +45,10 @@ namespace DopeEngine
 	{
 		return GraphicsCommandPool;
 	}
+	VkQueue VKGraphicsDevice::get_vk_graphics_queue() const
+	{
+		return GraphicsQueue;
+	}
 	GraphicsAPIType VKGraphicsDevice::get_api_type() const
 	{
 		return GraphicsAPIType::Vulkan;
@@ -133,6 +137,32 @@ namespace DopeEngine
 
 	void VKGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
 	{
+		/*
+		* Get vk command buffer
+		*/
+		const VKCommandBuffer* vkCommandBuffer = (const VKCommandBuffer*)commandBuffer;
+
+
+		/*
+		* Create submit info
+		*/
+		VkCommandBuffer vkCmdBuffer = vkCommandBuffer->get_vk_command_buffer();
+		VkSubmitInfo submitInfo = {};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &vkCmdBuffer;
+		submitInfo.signalSemaphoreCount = 0;
+		submitInfo.waitSemaphoreCount = 0;
+
+		/*
+		* Submit
+		*/
+		const VkResult submitVkR = vkQueueSubmit(GraphicsQueue, 1, &submitInfo,VK_NULL_HANDLE);
+
+		/*
+		* Validate submit
+		*/
+		ASSERT(submitVkR == VK_SUCCESS, "VKGraphicsDevice", "Couldnt submit the queue");
 
 	}
 
@@ -148,7 +178,34 @@ namespace DopeEngine
 
 	void VKGraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
 	{
+		/*
+		* Get vk swapchain
+		*/
+		VKSwapchainFramebuffer* vkSwapchainFramebuffer = (VKSwapchainFramebuffer*)framebuffer;
 
+		/*
+		* Create present info
+		*/
+		const VkSwapchainKHR vkSwapchain = vkSwapchainFramebuffer->get_vk_swapchain();
+		const unsigned int imageIndex = vkSwapchainFramebuffer->get_vk_current_swapchain_image_index();
+		VkPresentInfoKHR presentInfo = {};
+		presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+		presentInfo.waitSemaphoreCount = 0;
+		presentInfo.pWaitSemaphores = VK_NULL_HANDLE;
+		presentInfo.swapchainCount = 1;
+		presentInfo.pSwapchains = &vkSwapchain;
+		presentInfo.pImageIndices = &imageIndex;
+		presentInfo.pResults = VK_NULL_HANDLE;
+
+		/*
+		* Present
+		*/
+		vkQueuePresentKHR(GraphicsQueue, &presentInfo);
+
+		/*
+		* Increment swapchain image
+		*/
+		vkSwapchainFramebuffer->increment_vk_swapchain_image_index();
 	}
 
 	void VKGraphicsDevice::wait_for_finish_impl()
@@ -496,11 +553,6 @@ namespace DopeEngine
 		}
 		
 		/*
-		* Log device create
-		*/
-		LOG("VKGraphicsDevice", "Will create logical device with the following properties.");
-
-		/*
 		* Create logical device
 		*/
 		const char* deviceExtensions = VK_KHR_SWAPCHAIN_EXTENSION_NAME;
@@ -522,6 +574,11 @@ namespace DopeEngine
 		* Validate logical device creation
 		*/
 		ASSERT(createLogicalDeviceVkR == VK_SUCCESS, "VKGraphicsDevice", "Creating logical device failed!");
+
+		/*
+		* Get default queues
+		*/
+		vkGetDeviceQueue(LogicalDevice, GraphicsQueueFamilyIndex, 0, &GraphicsQueue);
 
 		/*
 		* Create command pool create info

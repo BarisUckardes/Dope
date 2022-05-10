@@ -95,7 +95,7 @@ namespace DopeEngine
 	{
 		//CommandList->SetResource
 	}
-	void DX12CommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
+	void DX12CommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
 	{
 		/*
 		* Get dx12 render pass

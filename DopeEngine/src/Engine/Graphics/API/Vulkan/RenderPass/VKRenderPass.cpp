@@ -26,9 +26,29 @@ namespace DopeEngine
 		return Layout;
 	}
 
+	VkPipeline VKRenderPass::get_vk_pipeline() const
+	{
+		return BasePipeline;
+	}
+
 	VkRenderPass VKRenderPass::get_vk_render_pass() const
 	{
 		return BaseRenderPass;
+	}
+
+	VkFramebuffer VKRenderPass::get_vk_ext_framebuffer() const
+	{
+		return ExtFramebuffer;
+	}
+
+	Array<VkFramebuffer> VKRenderPass::get_vk_swapchain_framebuffers() const
+	{
+		return SwapchainFramebuffers;
+	}
+
+	VkFramebuffer VKRenderPass::get_vk_swapchain_framebuffer(const unsigned int index) const
+	{
+		return SwapchainFramebuffers[index];
 	}
 
 	void VKRenderPass::create(VKGraphicsDevice* device)
@@ -147,7 +167,6 @@ namespace DopeEngine
 		multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
 		multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE; // may be changed in the future
 		multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-		multisampleStateCreateInfo.minSampleShading = 1.0f; // may be changed in the future
 		multisampleStateCreateInfo.minSampleShading = 1.0f; // may be changed in the future
 		multisampleStateCreateInfo.pSampleMask = nullptr; // may be changed in the future
 		multisampleStateCreateInfo.alphaToCoverageEnable = VK_FALSE; // may be changed in the future
@@ -317,41 +336,56 @@ namespace DopeEngine
 		/*
 		* Get attachment views
 		*/
-		Array<VkImageView> attachmentViews;
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{
 			/*
 			* Get vk swapchain framebuffer
 			*/
-			const VKSwapchainFramebuffer* vkFramebuffer = (const VKSwapchainFramebuffer*)targetFramebuffer;
+			const VKSwapchainFramebuffer* vkSwapchainFramebuffer = (const VKSwapchainFramebuffer*)targetFramebuffer;
 
 			/*
 			* Set attachments
 			*/
-			attachmentViews.add(vkFramebuffer->get_vk_main_image_view());
+			const VkImageView swapchainMainImageView = vkSwapchainFramebuffer->get_vk_main_image_view();
+
+			/*
+			* Create framebuffer for each swapchain image
+			*/
+			for (unsigned int i = 0; i < vkSwapchainFramebuffer->get_swapchain_buffer_count(); i++)
+			{
+				/*
+				* Create framebuffer create info
+				*/
+				VkFramebufferCreateInfo framebufferCreateInfo = {};
+				framebufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+				framebufferCreateInfo.renderPass = BaseRenderPass;
+				framebufferCreateInfo.attachmentCount = 1;
+				framebufferCreateInfo.pAttachments = &swapchainMainImageView;
+				framebufferCreateInfo.width = targetFramebuffer->get_width();
+				framebufferCreateInfo.height = targetFramebuffer->get_height();
+				framebufferCreateInfo.layers = 1; // default for swapchains in Dope
+
+				/*
+				* Create framebuffer
+				*/
+				VkFramebuffer vkFramebuffer = VK_NULL_HANDLE;
+				const VkResult createFramebufferVkR = vkCreateFramebuffer(device->get_vk_logical_device(), &framebufferCreateInfo, nullptr, &vkFramebuffer);
+
+				/*
+				* Validate framebuffer creation
+				*/
+				ASSERT(createFramebufferVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Swapchainframebuffer creation failed!");
+
+				/*
+				* Register
+				*/
+				SwapchainFramebuffers.add(vkFramebuffer);
+				LOG("VKRenderPass", "Created 1 framebuffer for swapchain");
+			}
+			
 		}
 
-		/*
-		* Create framebuffer create info
-		*/
-		VkFramebufferCreateInfo framebufferCreateInfo = {};
-		framebufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-		framebufferCreateInfo.renderPass = BaseRenderPass;
-		framebufferCreateInfo.attachmentCount = attachmentViews.get_cursor();
-		framebufferCreateInfo.pAttachments = attachmentViews.get_data();
-		framebufferCreateInfo.width = targetFramebuffer->get_width();
-		framebufferCreateInfo.height = targetFramebuffer->get_height();
-		framebufferCreateInfo.layers = 1; // default for swapchains in Dope
-
-		/*
-		* Create framebuffer
-		*/
-		const VkResult createFramebufferVkR = vkCreateFramebuffer(device->get_vk_logical_device(), &framebufferCreateInfo, nullptr, &BaseFramebuffer);
-
-		/*
-		* Validate framebuffer creation
-		*/
-		ASSERT(createFramebufferVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Swapchainframebuffer creation failed!");
+		
 
 		/*
 		* Create pipeline create info
@@ -373,7 +407,7 @@ namespace DopeEngine
 				graphicsPipelineCreateInfo.pMultisampleState = &multisampleStateCreateInfo;
 				graphicsPipelineCreateInfo.pDynamicState = &dynamicStateCreateInfo;
 				graphicsPipelineCreateInfo.pViewportState = &viewportStateCreateInfo;
-				//graphicsPipelineCreateInfo.renderPass = RenderPass;
+				graphicsPipelineCreateInfo.renderPass = BaseRenderPass;
 				graphicsPipelineCreateInfo.subpass = 0;
 				graphicsPipelineCreateInfo.layout = Layout;
 				graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;

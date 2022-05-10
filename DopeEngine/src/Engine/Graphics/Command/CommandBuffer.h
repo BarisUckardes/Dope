@@ -56,7 +56,7 @@ namespace DopeEngine
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		void set_render_pass(const RenderPass* renderPass);
+		void start_render_pass(const RenderPass* renderPass);
 
 		/// <summary>
 		/// Clears the color
@@ -86,10 +86,31 @@ namespace DopeEngine
 		virtual ~CommandBuffer() = 0 {}
 
 
+		/// <summary>
+		/// Returns the total number of bound textures
+		/// </summary>
 		unsigned int get_bound_texture_count() const;
+
+		/// <summary>
+		/// Returns the bound render pass
+		/// </summary>
+		/// <returns></returns>
 		const RenderPass* get_bound_render_pass() const;
+
+		/// <summary>
+		/// Returns the total number of bound uniform buffers
+		/// </summary>
+		/// <returns></returns>
 		unsigned int get_bound_uniformbuffer_count() const;
+
+		/// <summary>
+		/// Increments the total number of bound textures
+		/// </summary>
 		void increment_texture_bound_count();
+
+		/// <summary>
+		/// Increments the total number of bound uniformbuffers
+		/// </summary>
 		void increment_uniformbuffer_bound_count();
 
 		virtual void lock_impl() = 0;
@@ -118,7 +139,7 @@ namespace DopeEngine
 		/// Sets the target pipeline
 		/// </summary>
 		/// <param name="pipeline"></param>
-		virtual void set_render_pass_impl(const RenderPass* renderPass) = 0;
+		virtual void start_render_pass_impl(const RenderPass* renderPass) = 0;
 
 		/// <summary>
 		/// Clears the color
