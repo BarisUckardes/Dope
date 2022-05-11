@@ -52,7 +52,7 @@ namespace DopeEngine
 		D3DCompile(*source,
 			source.get_cursor(),
 			nullptr, nullptr, nullptr,
-			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),Device->get_dx11_shader_model()),
+			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4,0), // will be changed
 			D3DCOMPILE_ENABLE_STRICTNESS,
 			0,
 			&ShaderBlob,

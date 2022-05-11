@@ -32,4 +32,9 @@ namespace DopeEngine
 		/// </summary>
 		Byte Alpha;
 	};
+
+	static ColorRgbaByte operator*(const ColorRgbaByte& a, const ColorRgbaByte& b)
+	{
+		return ColorRgbaByte(a.Red * b.Red, a.Green * b.Green, a.Blue * b.Blue, a.Alpha * b.Alpha);
+	}
 }

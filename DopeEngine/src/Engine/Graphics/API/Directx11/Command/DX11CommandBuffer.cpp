@@ -247,7 +247,7 @@ namespace DopeEngine
 		switch (resourceType)
 		{
 			case DopeEngine::ResourceType::UniformBuffer:
-				set_constant_buffer((const Buffer*)view->get_resource(), shaderStage);
+				set_constant_buffer((const GraphicsBuffer*)view->get_resource(), shaderStage);
 				break;
 			case DopeEngine::ResourceType::Texture:
 				set_shader_resource(view, shaderStage);
@@ -262,7 +262,7 @@ namespace DopeEngine
 		Device->get_dx11_immediate_context()->DrawIndexed(count, 0, 0);
 	}
 	
-	void DX11CommandBuffer::set_constant_buffer(const Buffer* buffer, ShaderType stage)
+	void DX11CommandBuffer::set_constant_buffer(const GraphicsBuffer* buffer, ShaderType stage)
 	{
 		switch (stage)
 		{

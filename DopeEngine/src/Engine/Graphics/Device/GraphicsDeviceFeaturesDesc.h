@@ -10,9 +10,9 @@ namespace DopeEngine
 
 		GraphicsDeviceFeaturesDesc() :
 		ComputeShader(true),GeometryShader(true),TesellationShader(true),MultipleViewports(false),ShadingRate(false),CanDisplay(true),
-		MaxTexture1DDimension(4096), MaxTexture2DDimension(4096), MaxTexture3DDimension(4096),MaxCubeTextureDimension(4096),
-		MaxColorAttachments(4),MaxPerShaderStageResources(-1),MaxComputeWorkGroupCount(Vector3i(-1,-1,-1)),MaxComputeWorkGroupInvocations(128),MaxComputeWorkGroupSize(Vector3i(-1,-1,-1)),
-		MaxDrawCallIndexCount(-1),MaxFramebufferWidth(4096),MaxFramebufferHeight(4096) {}
+		MaxTexture1DDimension(1024), MaxTexture2DDimension(1024), MaxTexture3DDimension(256),MaxCubeTextureDimension(1024),
+		MaxColorAttachments(4),MaxPerShaderStageResources(0),MaxComputeWorkGroupCount(Vector3i(0,0,0)),MaxComputeWorkGroupInvocations(4),MaxComputeWorkGroupSize(Vector3i(0,0,0)),
+		MaxDrawCallIndexCount(0),MaxFramebufferWidth(1024),MaxFramebufferHeight(1024) {}
 		~GraphicsDeviceFeaturesDesc() = default;
 
 		bool		 ComputeShader;

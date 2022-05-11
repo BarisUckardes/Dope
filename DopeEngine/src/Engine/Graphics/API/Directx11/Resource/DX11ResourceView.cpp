@@ -26,19 +26,19 @@ namespace DopeEngine
 		/*
 		* Get resource
 		*/
-		const DeviceObject* resource = desc.Resource;
-		DeviceObjectType deviceType = resource->get_device_object_type();
+		const GraphicsDeviceObject* resource = desc.Resource;
+		GraphicsDeviceObjectType deviceType = resource->get_device_object_type();
 
 		/*
 		* Get resource description
 		*/
 		switch (deviceType)
 		{
-		case DopeEngine::DeviceObjectType::Texture:
+		case DopeEngine::GraphicsDeviceObjectType::Texture:
 			create_as_texture(resource, device);
 			break;
-		case DopeEngine::DeviceObjectType::Buffer:
-			BufferType bufferType = ((const Buffer*)resource)->get_buffer_type();
+		case DopeEngine::GraphicsDeviceObjectType::Buffer:
+			BufferType bufferType = ((const GraphicsBuffer*)resource)->get_buffer_type();
 			switch (bufferType)
 			{
 			case DopeEngine::BufferType::UniformBuffer:
@@ -48,7 +48,7 @@ namespace DopeEngine
 			break;
 		}
 	}
-	void DX11ResourceView::create_as_texture(const DeviceObject* deviceObject, DX11GraphicsDevice* device)
+	void DX11ResourceView::create_as_texture(const GraphicsDeviceObject* deviceObject, DX11GraphicsDevice* device)
 	{
 		/*
 		* Get texture variables
@@ -93,7 +93,7 @@ namespace DopeEngine
 		device->get_dx11_device()->CreateShaderResourceView(textureAsResource, &srvDesc, &ShaderResourceView);
 
 	}
-	void DX11ResourceView::create_as_constant_Buffer(const DeviceObject* deviceObject, DX11GraphicsDevice* device)
+	void DX11ResourceView::create_as_constant_Buffer(const GraphicsDeviceObject* deviceObject, DX11GraphicsDevice* device)
 	{
 		/*
 		* Create srv desc

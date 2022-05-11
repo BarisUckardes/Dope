@@ -12,7 +12,7 @@ typedef DopeEngine::WindowsWindow WindowAbstraction;
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 #include <Engine/Graphics/API/Vulkan/Framebuffer/VKSwapchainFramebuffer.h>
 #include <Engine/Graphics/Buffer/BufferType.h>
-#include <Engine/Graphics/Buffer/Buffer.h>
+#include <Engine/Graphics/Buffer/GraphicsBuffer.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKDeviceObjects.h>
 
 namespace DopeEngine
@@ -64,12 +64,12 @@ namespace DopeEngine
 
 	}
 
-	void VKGraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	void VKGraphicsDevice::delete_device_object_impl(GraphicsDeviceObject* object)
 	{
 
 	}
 
-	Buffer* VKGraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	GraphicsBuffer* VKGraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
 		/*
 		* Get buffer type
@@ -79,7 +79,7 @@ namespace DopeEngine
 		/*
 		* Catch type
 		*/
-		Buffer* buffer = nullptr;
+		GraphicsBuffer* buffer = nullptr;
 		switch (bufferType)
 		{
 			case DopeEngine::BufferType::VertexBuffer:
@@ -166,7 +166,7 @@ namespace DopeEngine
 
 	}
 
-	void VKGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
+	void VKGraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)
 	{
 
 	}

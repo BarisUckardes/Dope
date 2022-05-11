@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/Shader/ShaderType.h>
 #include <Engine/Graphics/Shader/ShaderDescription.h>
 
@@ -9,7 +9,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics api agnostic shader abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API Shader : public DeviceObject
+	class DOPE_ENGINE_API Shader : public GraphicsDeviceObject
 	{
 	public:
 		Shader(const ShaderDescription& description);

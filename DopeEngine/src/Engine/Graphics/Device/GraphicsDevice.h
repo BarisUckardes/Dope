@@ -9,7 +9,7 @@
 
 namespace DopeEngine
 {
-	class Buffer;
+	class GraphicsBuffer;
 	class VertexBuffer;
 	class Texture;
 	class Framebuffer;
@@ -17,7 +17,7 @@ namespace DopeEngine
 	class Shader;
 	class ShaderSet;
 	class VertexLayout;
-	class DeviceObject;
+	class GraphicsDeviceObject;
 	class CommandBuffer;
 	class ResourceView;
 	class RenderPass;
@@ -94,14 +94,14 @@ namespace DopeEngine
 		/// Deletes the target device object
 		/// </summary>
 		/// <param name="object"></param>
-		void delete_device_object(DeviceObject* object);
+		void delete_device_object(GraphicsDeviceObject* object);
 
 		/// <summary>
 		/// Creates a buffer
 		/// </summary>
 		/// <param name="description"></param>
 		/// <returns></returns>
-		Buffer* create_buffer(const BufferDescription& description);
+		GraphicsBuffer* create_buffer(const BufferDescription& description);
 
 		/// <summary>
 		/// Creates a framebuffer
@@ -161,7 +161,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="buffer"></param>
 		/// <param name="data"></param>
-		void update_buffer(Buffer* buffer, const Byte* data);
+		void update_buffer(GraphicsBuffer* buffer, const Byte* data);
 
 		/// <summary>
 		/// Swaps the buffers of the swapchain
@@ -199,8 +199,8 @@ namespace DopeEngine
 		void set_features(const GraphicsDeviceFeatures* features);
 
 		virtual void make_current_impl() = 0;
-		virtual void delete_device_object_impl(DeviceObject* object) = 0;
-		virtual Buffer* create_buffer_impl(const BufferDescription& description) = 0;
+		virtual void delete_device_object_impl(GraphicsDeviceObject * object) = 0;
+		virtual GraphicsBuffer* create_buffer_impl(const BufferDescription& description) = 0;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) = 0;
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc * desc) const = 0;
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) = 0;
@@ -209,16 +209,16 @@ namespace DopeEngine
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
-		virtual void update_buffer_impl(Buffer * buffer, const Byte * data) = 0;
+		virtual void update_buffer_impl(GraphicsBuffer * buffer, const Byte * data) = 0;
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
 		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer * framebuffer) = 0;
 		virtual void wait_for_finish_impl() = 0;
 	private:
 		void create_swapchain_framebuffer(const SwapchainFramebufferDesc* desc);
-		void register_device_object(DeviceObject* object);
-		void remove_device_object(DeviceObject* object);
+		void register_device_object(GraphicsDeviceObject * object);
+		void remove_device_object(GraphicsDeviceObject * object);
 	private:
-		Array<DeviceObject*> ChildObjects;
+		Array<GraphicsDeviceObject*> ChildObjects;
 		Window* OwnerWindow;
 		SwapchainFramebuffer* SWCHNFramebuffer;
 		GraphicsDeviceFeatures* Features;

@@ -9,7 +9,7 @@ namespace DopeEngine
 		DX11ShaderUtils() = delete;
 		~DX11ShaderUtils() = delete;
 
-		 static String get_shader_target_string(const ShaderType type, const unsigned int shaderVer);
+		 static String get_shader_target_string(const ShaderType type, const unsigned int majorVersion,const unsigned int minorVersion);
 	};
 
 

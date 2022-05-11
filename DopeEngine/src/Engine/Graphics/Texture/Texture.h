@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/Texture/TextureDescription.h>
 #include <Engine/Core/Definitions.h>
 namespace DopeEngine
@@ -7,7 +7,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics api agnostic texture abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API Texture : public DeviceObject
+	class DOPE_ENGINE_API Texture : public GraphicsDeviceObject
 	{
 	public:
 		Texture(const TextureDescription& description);

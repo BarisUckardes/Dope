@@ -198,14 +198,14 @@ namespace DopeEngine
 		/*
 		* Set resource
 		*/
-		const DeviceObject* resource = view->get_resource();
+		const GraphicsDeviceObject* resource = view->get_resource();
 		const Array<ResourceSlotDesc> resourceSlotDescs = get_bound_render_pass()->get_resource_slots();
 		const ResourceSlotDesc targetResourceSlotDesc = resourceSlotDescs[slot];
 
 		/*
 		* Get device object
 		*/
-		const DeviceObjectType resourceDeviceObjectType = resource->get_device_object_type();
+		const GraphicsDeviceObjectType resourceDeviceObjectType = resource->get_device_object_type();
 		ResourceType resourceType = targetResourceSlotDesc.Type;
 
 

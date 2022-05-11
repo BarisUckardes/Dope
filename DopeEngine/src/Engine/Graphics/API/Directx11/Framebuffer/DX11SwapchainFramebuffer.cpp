@@ -1,5 +1,6 @@
 #include "DX11SwapchainFramebuffer.h"
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
+#include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
 	DX11SwapchainFramebuffer::DX11SwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DX11GraphicsDevice* device, Window* window) : SwapchainFramebuffer(desc,(GraphicsDevice*)device,window)
@@ -24,6 +25,7 @@ namespace DopeEngine
 	}
 	void DX11SwapchainFramebuffer::on_swapchain_resize_impl()
 	{
+		LOG("DX11SwapchainFramebuffer", "Swapchain resized to %d,%d", get_width(), get_height());
 	}
 	void DX11SwapchainFramebuffer::create(DX11GraphicsDevice* device)
 	{

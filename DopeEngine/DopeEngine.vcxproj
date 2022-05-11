@@ -96,14 +96,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)deps\VULKAN\lib;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\IMGUI\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\OPENAL\libs\Win32\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib;IMGUI;OpenAL32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -117,7 +117,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -125,8 +125,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\IMGUI\;%(AdditionalLibraryDirectories);$(SolutionDir)deps\OPENAL\libs\Win32\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib;IMGUI;OpenAL32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -138,14 +138,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib;$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\IMGUI\;%(AdditionalLibraryDirectories);$(SolutionDir)deps\OPENAL\libs\Win64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib;IMGUI.lib;OpenAL32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)debug-binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
@@ -159,7 +159,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS;_CRT_SECURE_NO_WARNINGS;DOPE_ENGINE_BUILD;DOPE_ENGINE_BUILD;DOPE_OS_WINDOWS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -167,14 +167,42 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)binary\$(Configuration)-$(Platform)\GLAD\;$(SolutionDir)binary\$(Configuration)-$(Platform)\STBI\;$(SolutionDir)deps\VULKAN\lib;$(SolutionDir)binary\$(Configuration)-$(Platform)\IMGUI\;%(AdditionalLibraryDirectories);$(SolutionDir)deps\OPENAL\libs\Win64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies);PortableDeviceGuids.lib;STBI.lib;GLAD.lib;opengl32.lib;d3d12.lib;dxgi.lib;vulkan-1.lib;IMGUI.lib;OpenAL32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y "$(OutDir)DopeEngine.dll" "$(SolutionDir)binary\$(Configuration)-$(Platform)\DopeEditorLauncher\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBuffer.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\Device\OpenALAudioDeviceObjects.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\State\OpenALSourceState.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\State\OpenALListenerState.h" />
+    <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferDesc.h" />
+    <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferFormat.h" />
+    <ClInclude Include="src\Engine\Audio\Device\AudioDeviceObjects.h" />
+    <ClInclude Include="src\Engine\Audio\State\AudioListenerStateDesc.h" />
+    <ClInclude Include="src\Engine\Audio\State\AudioSourceState.h" />
+    <ClInclude Include="src\Engine\Audio\State\AudioListenerState.h" />
+    <ClInclude Include="src\Engine\Audio\Device\AudioDeviceObject.h" />
+    <ClInclude Include="src\Engine\Audio\Buffer\AudioBuffer.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\Core\OpenALCore.h" />
+    <ClInclude Include="src\Engine\Audio\API\OpenAL\Device\OpenALAudioDevice.h" />
+    <ClInclude Include="src\Engine\Audio\Device\AudioDevice.h" />
+    <ClInclude Include="src\Engine\Audio\Device\AudioAPIType.h" />
+    <ClInclude Include="src\Engine\Audio\Device\AudioDeviceObjectType.h" />
+    <ClInclude Include="src\Engine\Audio\State\AudioSourceStateDesc.h" />
+    <ClInclude Include="src\Engine\Input\Keys.h" />
+    <ClInclude Include="src\Engine\Math\ColorRgbaFloat.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\API\Directx12\DX12GUIRenderer.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\API\Directx11\DX11GUIRenderer.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\API\OpenGL\OpenGLGUIRenderer.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererBackendFlags.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\GUIRenderer.h" />
+    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\Compilers\HLSLCompiler.h" />
+    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\IShaderCompiler.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayoutUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.h" />
@@ -210,7 +238,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Core\VKCore.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKDeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Device\VKGraphicsDeviceFeaturesDesc.h" />
-    <ClInclude Include="src\Engine\Graphics\Device\DeviceObjects.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.h" />
     <ClInclude Include="src\Engine\Graphics\Framebuffer\SwapchainFramebufferDesc.h" />
@@ -219,7 +247,7 @@
     <ClInclude Include="src\Engine\Graphics\RenderPass\ViewportDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
-    <ClInclude Include="src\Engine\Graphics\Device\DeviceObjectType.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObjectType.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceViewDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.h" />
@@ -252,6 +280,8 @@
     <ClInclude Include="src\Engine\Graphics\RenderPass\PrimitiveTopology.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceSlotDesc.h" />
     <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h" />
+    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilationResult.h" />
+    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilerType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderDescription.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\Shader.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\IndexBuffer.h" />
@@ -262,8 +292,8 @@
     <ClInclude Include="src\Engine\Graphics\Texture\TextureUsage.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDataType.h" />
     <ClInclude Include="src\Engine\Graphics\Vertex\VertexElementDescription.h" />
-    <ClInclude Include="src\Engine\Graphics\Device\DeviceObject.h" />
-    <ClInclude Include="src\Engine\Graphics\Buffer\Buffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObject.h" />
+    <ClInclude Include="src\Engine\Graphics\Buffer\GraphicsBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h" />
     <ClInclude Include="src\Engine\Platform\PlatformString.h" />
@@ -364,8 +394,27 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererConfigFlags.h" />
+    <ClInclude Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBuffer.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\State\OpenALSourceState.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\State\OpenALListenerState.cpp" />
+    <ClCompile Include="src\Engine\Audio\State\AudioSourceState.cpp" />
+    <ClCompile Include="src\Engine\Audio\State\AudioListenerState.cpp" />
+    <ClCompile Include="src\Engine\Audio\Device\AudioDeviceObject.cpp" />
+    <ClCompile Include="src\Engine\Audio\Buffer\AudioBuffer.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\Core\OpenALCore.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\OpenAL\Device\OpenALAudioDevice.cpp" />
+    <ClCompile Include="src\Engine\Audio\Device\AudioDevice.cpp" />
+    <ClCompile Include="src\Engine\GUI\Renderer\API\Directx12\DX12GUIRenderer.cpp" />
+    <ClCompile Include="src\Engine\GUI\Renderer\API\Directx11\DX11GUIRenderer.cpp" />
+    <ClCompile Include="src\Engine\GUI\Renderer\API\OpenGL\OpenGLGUIRenderer.cpp" />
+    <ClCompile Include="src\Engine\GUI\Renderer\GUIRenderer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Shader\Compiler\Compilers\HLSLCompiler.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Shader\Compiler\IShaderCompiler.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayoutUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Framebuffer\DX12SwapchainFramebuffer.cpp" />
@@ -420,8 +469,8 @@
     <ClCompile Include="src\Engine\Graphics\RenderPass\RenderPass.cpp" />
     <ClCompile Include="src\Engine\Graphics\Shader\Shader.cpp" />
     <ClCompile Include="src\Engine\Graphics\Buffer\IndexBuffer.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Device\DeviceObject.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Buffer\Buffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceObject.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Buffer\GraphicsBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.cpp" />
     <ClCompile Include="src\Engine\Threading\Mutex.cpp" />
     <ClCompile Include="src\Engine\Math\Math.cpp" />
@@ -438,7 +487,6 @@
     <ClCompile Include="src\Engine\World\Components\Spatial.cpp" />
     <ClCompile Include="src\Engine\World\Component.cpp" />
     <ClCompile Include="src\Engine\World\Entity.cpp" />
-    <ClCompile Include="src\Engine\Math\ColorRgbaByte.cpp" />
     <ClCompile Include="src\Engine\Memory\Memory.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx12\Device\DX12GraphicsDevice.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Device\DX11GraphicsDevice.cpp" />
@@ -502,6 +550,7 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.cpp" />
+    <ClCompile Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

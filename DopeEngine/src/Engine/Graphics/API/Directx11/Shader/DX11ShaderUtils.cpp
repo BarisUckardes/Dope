@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-	String DX11ShaderUtils::get_shader_target_string(ShaderType type, const unsigned int shaderVer)
+	String DX11ShaderUtils::get_shader_target_string(ShaderType type, const unsigned int majorVersion, const unsigned int minorVersion)
 	{
 		String text;
 
@@ -33,7 +33,7 @@ namespace DopeEngine
 		/*
 		* Embed shader ver
 		*/
-		text += String::get_from_integer(shaderVer) + "_0";
+		text += String::get_from_integer(majorVersion) + "_" + String::get_from_integer(minorVersion);
 		return text;
 	}
 }

@@ -27,7 +27,7 @@ namespace DopeEngine
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
 	private:
-		 void set_constant_buffer(const Buffer* buffer,const ShaderType stage);
+		 void set_constant_buffer(const GraphicsBuffer* buffer,const ShaderType stage);
 		 void set_shader_resource(const ResourceView* view, const ShaderType stage);
 	private:
 		DX11GraphicsDevice* Device;

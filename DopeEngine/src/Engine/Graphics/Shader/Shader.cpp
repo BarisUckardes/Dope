@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	Shader::Shader(const ShaderDescription& description) : DeviceObject(DeviceObjectType::Shader)
+	Shader::Shader(const ShaderDescription& description) : GraphicsDeviceObject(GraphicsDeviceObjectType::Shader)
 	{
 		Source = description.Source;
 		Type = description.Type;

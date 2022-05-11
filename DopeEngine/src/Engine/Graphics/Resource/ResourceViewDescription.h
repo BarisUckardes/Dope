@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 
 namespace DopeEngine
 {
@@ -8,13 +8,13 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API ResourceViewDescription
 	{
-		ResourceViewDescription(DeviceObject* deviceObjects) : Resource(deviceObjects) {}
+		ResourceViewDescription(GraphicsDeviceObject* deviceObjects) : Resource(deviceObjects) {}
 		ResourceViewDescription() = default;
 		~ResourceViewDescription() = default;
 
 		/// <summary>
 		/// The resource array which is bound
 		/// </summary>
-		DeviceObject* Resource;
+		GraphicsDeviceObject* Resource;
 	};
 }

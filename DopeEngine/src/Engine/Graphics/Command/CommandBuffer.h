@@ -1,11 +1,11 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Math/ColorRgbaByte.h>
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 namespace DopeEngine
 {
-	class Buffer;
+	class GraphicsBuffer;
 	class VertexBuffer;
 	class IndexBuffer;
 	class UniformBuffer;
@@ -22,7 +22,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics api agnostic commandbuffer abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API CommandBuffer : public DeviceObject
+	class DOPE_ENGINE_API CommandBuffer : public GraphicsDeviceObject
 	{
 	public:
 		/// <summary>
@@ -95,7 +95,7 @@ namespace DopeEngine
 		/// </summary>
 		void indexed_draw_call(const unsigned int count);
 	protected:
-		CommandBuffer() : DeviceObject(DeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
+		CommandBuffer() : GraphicsDeviceObject(GraphicsDeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
 		virtual ~CommandBuffer() = 0 {}
 
 

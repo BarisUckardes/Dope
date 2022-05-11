@@ -1,0 +1,108 @@
+#pragma once
+#include <Engine/Math/Vector2f.h>
+#include <Engine/Math/ColorRgbaFloat.h>
+namespace DopeEngine
+{
+	struct DOPE_ENGINE_API GUIRendererThemeDesc
+	{
+		GUIRendererThemeDesc();
+		~GUIRendererThemeDesc() = default;
+
+		float Alpha;
+		float DisabledAlpha;
+		Vector2f WindowPadding;
+		float WindowRounding;
+		float WindowBorderSize;
+		Vector2f WindowMinSize;
+		Vector2f WindowTitleAlign;
+		//ImGuiDir WÝndowMenuButtonPosition;
+		float ChildRounding;
+		float ChildBorderSize;
+		float PopupRounding;
+		float PopupSize;
+		float PopupBorderSize;
+		Vector2f FramePadding;
+		float FrameRounding;
+		float FrameBorderSize;
+		Vector2f ItemSpacing;
+		Vector2f ItemInnerSpacing;
+		Vector2f CellPadding;
+		Vector2f TouchExtraPadding;
+		float IndentSpacing;
+		float ColumnsMinSpacing;
+		float ScrollbarSize;
+		float ScrollbarRounding;
+		float GrabMinSize;
+		float GrabRounding;
+		float LogSliderDeadzone;
+		float TabRounding;
+		float TabBorderSize;
+		float TabMinWidthForCloseButton;
+		//ImGuiDir ColorButtonPosition;
+		Vector2f ButtonTextAlign;
+		Vector2f SelectableTextAlign;
+		Vector2f DisplayWindowPadding;
+		Vector2f DisplaySafeAreaPadding;
+		float MouseCursorScale;
+		bool EnableAntiAliasedLines;
+		bool EnableAntiAliasedLinesUseTex;
+		bool EnableAntiAliasedFill;
+		float CurveTessellationTol;
+		float CircleTessellationMaxError;
+		ColorRgbaFloat TextColor;
+		ColorRgbaFloat TextDisabledColor;
+		ColorRgbaFloat WindowBackgroundColor;
+		ColorRgbaFloat ChildBackgroundColor;
+		ColorRgbaFloat PopupBackgroundColor;
+		ColorRgbaFloat BorderColor;
+		ColorRgbaFloat BorderShadowColor;
+		ColorRgbaFloat FrameBackgroundColor;
+		ColorRgbaFloat FrameBackgroundHovoredColor;
+		ColorRgbaFloat FrameBackgroundActiveColor;
+		ColorRgbaFloat TitleBackgroundColor;
+		ColorRgbaFloat TitleBackgroundActiveColor;
+		ColorRgbaFloat TitleBackgroundCollapsedColor;
+		ColorRgbaFloat MenuBarBackgroundColor;
+		ColorRgbaFloat ScrollbarBackgroundColor;
+		ColorRgbaFloat ScrollbarGrabColor;
+		ColorRgbaFloat ScrollbarHovoredColor;
+		ColorRgbaFloat ScrollbarGrabActiveColor;
+		ColorRgbaFloat CheckMarkColor;
+		ColorRgbaFloat SliderGrabColor;
+		ColorRgbaFloat SliderGrabActiveColor;
+		ColorRgbaFloat ButtonColor;
+		ColorRgbaFloat ButtonHoveredColor;
+		ColorRgbaFloat ButtonActiveColor;
+		ColorRgbaFloat HeaderColor;
+		ColorRgbaFloat HeaderHoveredColor;
+		ColorRgbaFloat HeaderActiveColor;
+		ColorRgbaFloat SeparatorColor;
+		ColorRgbaFloat SeparatorHoveredColor;
+		ColorRgbaFloat SeparatorActiveColor;
+		ColorRgbaFloat ResizeGripColor;
+		ColorRgbaFloat ResizeGripHoveredColor;
+		ColorRgbaFloat ResizeGripActiveColor;
+		ColorRgbaFloat TabColor;
+		ColorRgbaFloat TabHoveredColor;
+		ColorRgbaFloat TabActiveColor;
+		ColorRgbaFloat TabUnfocusedColor;
+		ColorRgbaFloat TabUnfocusedActiveColor;
+		ColorRgbaFloat DockingPreviewColor;
+		ColorRgbaFloat DockingEmptyBackgroundColor;
+		ColorRgbaFloat PlotLinesColor;
+		ColorRgbaFloat PlotLinesHoveredColor;
+		ColorRgbaFloat PlotHistogramColor;
+		ColorRgbaFloat PlotHistogramHoveredColor;
+		ColorRgbaFloat TableHeaderBackgroundColor;
+		ColorRgbaFloat TableBorderStrongColor;
+		ColorRgbaFloat TableBorderLightColor;
+		ColorRgbaFloat TablewRowBackgroundColor;
+		ColorRgbaFloat TableRowBackgroundAltColor;
+		ColorRgbaFloat TextSelectedBackgroundColor;
+		ColorRgbaFloat DragDropTargetColor;
+		ColorRgbaFloat NavigationHighlightColor;
+		ColorRgbaFloat NavigationWindowingHightlightColor;
+		ColorRgbaFloat NavigationWindowingDimBackgroundColor;
+		ColorRgbaFloat ModalWindowDimBackgroundColor;
+	};
+}

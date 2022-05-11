@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	RenderPass::RenderPass(const RenderPassDesc& description) : DeviceObject(DeviceObjectType::RenderPass)
+	RenderPass::RenderPass(const RenderPassDesc& description) : GraphicsDeviceObject(GraphicsDeviceObjectType::RenderPass)
 	{
 		Blending = description.BlendingState;
 		DepthFunction = description.DepthComparision;

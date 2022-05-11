@@ -22,8 +22,8 @@ namespace DopeEngine
 		virtual String get_version() const override;
 	protected:
 		virtual void make_current_impl() override;
-		virtual void delete_device_object_impl(DeviceObject* object) override;
-		virtual Buffer* create_buffer_impl(const BufferDescription& description) override;
+		virtual void delete_device_object_impl(GraphicsDeviceObject* object) override;
+		virtual GraphicsBuffer* create_buffer_impl(const BufferDescription& description) override;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) override;
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) override;
@@ -43,7 +43,7 @@ namespace DopeEngine
 #endif
 
 		// Inherited via GraphicsDevice
-		virtual void update_buffer_impl(Buffer* buffer, const Byte* data) override;
+		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 
 		// Inherited via GraphicsDevice

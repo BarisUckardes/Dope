@@ -6,12 +6,8 @@
 
 namespace DopeEngine
 {
-	DX11GraphicsDevice::DX11GraphicsDevice(Window* ownerWindow,const unsigned int shaderModel) : GraphicsDevice(ownerWindow)
+	DX11GraphicsDevice::DX11GraphicsDevice(Window* ownerWindow) : GraphicsDevice(ownerWindow)
 	{
-		/*
-		* Initialize
-		*/
-		ShaderModel = shaderModel;
 
 		/*
 		* Create device
@@ -78,18 +74,27 @@ namespace DopeEngine
 		* Create swapchain,device and immediate context
 		*/
 #ifdef _DEBUG
-		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
+		const HRESULT createSwapchainHR = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
 			D3D11_SDK_VERSION, &swapchainDesc, &SwapChain, &Device, NULL, &ImmediateContext);
 #else
-		D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
+		const HRESULT createSwapchainHR = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
 			D3D11_SDK_VERSION, &swapchainDesc, &SwapChain, &Device, NULL, &ImmediateContext);
 #endif
 
+		/*
+		* Validate swapchain create
+		*/
+		ASSERT(SUCCEEDED(createSwapchainHR), "DX11GraphicsDevice", "Swapchain creation failed!");
 
 		/*
 		* Create deferred context
 		*/
-		Device->CreateDeferredContext(0, &DeferredContext);
+		const HRESULT createDeferredContextHR = Device->CreateDeferredContext(0, &DeferredContext);
+
+		/*
+		* Validate deferred context creation
+		*/
+		ASSERT(SUCCEEDED(createDeferredContextHR), "DX11GraphicsDevice", "Deferred context creation failed!");
 
 		/*
 		* Create backbuffer
@@ -111,23 +116,43 @@ namespace DopeEngine
 		* Create device properties
 		*/
 		GraphicsDeviceProperties properties = {"Null vendor","Null gpu"};
+
 		set_properties(properties);
 
 		/*
 		* Create device features
 		*/
 		GraphicsDeviceFeaturesDesc featuresDesc = {};
+		featuresDesc.CanDisplay = true;
+		featuresDesc.ComputeShader = true;
+		featuresDesc.GeometryShader = true;
+		featuresDesc.TesellationShader = true;
+		featuresDesc.MaxDrawCallIndexCount = 8192;
+		featuresDesc.MaxFramebufferWidth = 16384;
+		featuresDesc.MaxFramebufferHeight = 16384;
+		featuresDesc.MaxPerShaderStageResources = 128;
+		featuresDesc.MultipleViewports = true;
+		featuresDesc.ShadingRate = false;
+		featuresDesc.MaxColorAttachments = 4;
+		featuresDesc.MaxTexture1DDimension = 16384;
+		featuresDesc.MaxTexture2DDimension = 16384;
+		featuresDesc.MaxTexture3DDimension = 2048;
+		featuresDesc.MaxCubeTextureDimension = 16384;
+		featuresDesc.MaxComputeWorkGroupCount = 65535;
+		featuresDesc.MaxComputeWorkGroupSize = 1024;
+
 		GraphicsDeviceFeatures* features = new GraphicsDeviceFeatures(featuresDesc);
 		set_features(features);
 	}
 
 	void DX11GraphicsDevice::wait_for_finish_impl()
 	{
+
 	}
 
 	bool DX11GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
 	{
-		return true;
+		return GraphicsDevice::does_support_features(features,messages);
 	}
 
 	void DX11GraphicsDevice::swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer)
@@ -145,7 +170,7 @@ namespace DopeEngine
 		return new DX11ResourceView(description,this);
 	}
 
-	void DX11GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
+	void DX11GraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)
 	{
 		/*
 		* Get dx11 buffer
@@ -230,12 +255,12 @@ namespace DopeEngine
 
 	}
 
-	void DX11GraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	void DX11GraphicsDevice::delete_device_object_impl(GraphicsDeviceObject* object)
 	{
 
 	}
 
-	Buffer* DX11GraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	GraphicsBuffer* DX11GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
 		const BufferType type = description.Type;
 		switch (type)
@@ -277,10 +302,7 @@ namespace DopeEngine
 		return new DX11Texture(description,this);
 	}
 
-	unsigned int DX11GraphicsDevice::get_dx11_shader_model() const
-	{
-		return ShaderModel;
-	}
+
 
 	GraphicsAPIType DX11GraphicsDevice::get_api_type() const
 	{

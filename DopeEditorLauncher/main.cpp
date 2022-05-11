@@ -18,7 +18,7 @@ int main(int argumentCount, char** arguments)
 	/*
 	* Create application
 	*/
-	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::Directx11);
+	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::Directx11,DopeEngine::AudioAPIType::OpenAL);
 
 	/*
 	* Register modules
@@ -27,7 +27,7 @@ int main(int argumentCount, char** arguments)
 	app.register_pending_module<DopeEngine::TestingModule>();
 	app.register_pending_module<DopeEngine::TestRenderingModule>();
 
-	//Thread thread;
+	Thread thread;
 	//unsigned int a = 1;
 
 	//thread.give_new_task(DopeEngine::Delegate<void*, void*>(BIND_EVENT(test_thread)) ,&a);

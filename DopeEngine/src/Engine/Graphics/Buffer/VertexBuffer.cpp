@@ -4,7 +4,7 @@
 namespace DopeEngine
 {
 	
-	VertexBuffer::VertexBuffer(const BufferDescription& desc) : Buffer(desc)
+	VertexBuffer::VertexBuffer(const BufferDescription& desc) : GraphicsBuffer(desc)
 	{
 		PerVertexSize = desc.PerItemSize;
 		VertexCapacity = desc.AllocatedSize / desc.PerItemSize;

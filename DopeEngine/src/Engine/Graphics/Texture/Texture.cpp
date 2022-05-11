@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	Texture::Texture(const TextureDescription& description) : DeviceObject(DeviceObjectType::Texture)
+	Texture::Texture(const TextureDescription& description) : GraphicsDeviceObject(GraphicsDeviceObjectType::Texture)
 	{
 		Usage = description.Usage;
 		Format = description.Format;

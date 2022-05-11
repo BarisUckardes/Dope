@@ -4,7 +4,7 @@
 namespace DopeEngine
 {
 
-	IndexBuffer::IndexBuffer(const BufferDescription& desc) : Buffer(desc)
+	IndexBuffer::IndexBuffer(const BufferDescription& desc) : GraphicsBuffer(desc)
 	{
 		ElementSize = desc.PerItemSize;
 		IndexCapacity = desc.AllocatedSize / desc.PerItemSize;

@@ -12,8 +12,8 @@ namespace DopeEngine
 		 DXPTR<ID3D11ShaderResourceView> get_dx11_srv() const;
 	private:
 		void create(const ResourceViewDescription& desc,DX11GraphicsDevice* device);
-		void create_as_texture(const DeviceObject* deviceObject, DX11GraphicsDevice* device);
-		void create_as_constant_Buffer(const DeviceObject* deviceObject, DX11GraphicsDevice* device);
+		void create_as_texture(const GraphicsDeviceObject* deviceObject, DX11GraphicsDevice* device);
+		void create_as_constant_Buffer(const GraphicsDeviceObject* deviceObject, DX11GraphicsDevice* device);
 	private:
 		DXPTR<ID3D11ShaderResourceView> ShaderResourceView;
 	};

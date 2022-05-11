@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 #include <Engine/Graphics/RenderPass/RenderPassType.h>
 #include <Engine/Graphics/Resource/ResourceSlotDesc.h>
@@ -10,7 +10,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics api agnostic pipeline abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API RenderPass : public DeviceObject
+	class DOPE_ENGINE_API RenderPass : public GraphicsDeviceObject
 	{
 	public:
 		RenderPass(const RenderPassDesc& description);

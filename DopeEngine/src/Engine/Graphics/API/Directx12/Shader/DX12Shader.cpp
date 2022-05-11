@@ -33,9 +33,13 @@ namespace DopeEngine
 		/*
 		* Compile shader
 		*/
-		HRESULT compileHR = D3DCompile(*desc.Source,desc.Source.get_cursor(),
+		HRESULT compileHR = D3DCompile(
+			*desc.Source,desc.Source.get_cursor(),
 			nullptr,nullptr,nullptr,
-			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4),0,0,&ShaderBlob,&ErrorBlob);
+			"main",*DX11ShaderUtils::get_shader_target_string(get_type(),4,0),
+			D3DCOMPILE_ENABLE_STRICTNESS,
+			0,
+			&ShaderBlob,&ErrorBlob);
 
 		/*
 		* Validate shader compilation

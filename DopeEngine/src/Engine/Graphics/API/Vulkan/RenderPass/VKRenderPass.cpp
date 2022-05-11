@@ -2,7 +2,7 @@
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevice.h>
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Vulkan/Texture/VKTextureUtils.h>
-#include <Engine/Graphics/Device/DeviceObjects.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObjects.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKDeviceObjects.h>
 #include <Engine/Graphics/API/Vulkan/RenderPass/VKRenderPassUtils.h>
 #include <Engine/Graphics/Vertex/VertexUtils.h>

@@ -70,8 +70,8 @@ namespace DopeEngine
             rootParameter.ShaderVisibility = DX12ShaderUtils::get_dx12_shader_visibility(shaderStage);
             rootParameter.Descriptor = {};
         }
-        rootSignatureDesc.pParameters = rootParameters.get_data(); // implement parameters
-        rootSignatureDesc.pStaticSamplers = samplerDescs.get_data(); // implement samplers
+        rootSignatureDesc.pParameters = rootParameters.get_data(); // TODO: implement parameters
+        rootSignatureDesc.pStaticSamplers = samplerDescs.get_data(); // TODO: implement samplers
 
         /*
         * Serialize root signature

@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-	UniformBuffer::UniformBuffer(const BufferDescription& desc) : Buffer(desc)
+	UniformBuffer::UniformBuffer(const BufferDescription& desc) : GraphicsBuffer(desc)
 	{
 
 	}

@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Graphics/Resource/ResourceType.h>
-#include <Engine/Graphics/Device/DeviceObjectType.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObjectType.h>
 namespace DopeEngine
 {
 	class DOPE_ENGINE_API ResourceTypeUtils
@@ -14,8 +14,8 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="type"></param>
 		/// <returns></returns>
-		static  DeviceObjectType get_device_object_type(const ResourceType type);
-		static  ResourceType get_resource_type(const DeviceObjectType type);
+		static GraphicsDeviceObjectType get_device_object_type(const ResourceType type);
+		static ResourceType get_resource_type(const GraphicsDeviceObjectType type);
 	};
 
 

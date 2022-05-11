@@ -19,6 +19,7 @@
 #include <Engine/Graphics/Resource/ResourceViewDescription.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Core/Assert.h>
+
 namespace DopeEngine
 {
 	VertexBuffer* vBuffer = nullptr;
@@ -27,7 +28,7 @@ namespace DopeEngine
 	Shader* fShader = nullptr;
 	ShaderSet* shaderSet = nullptr;
 	RenderPass* renderPass = nullptr;
-	Buffer* colorBuffer = nullptr;
+	GraphicsBuffer* colorBuffer = nullptr;
 	ResourceView* colorResourceView = nullptr;
 	Texture* texture = nullptr;
 	ResourceView* textureView = nullptr;
@@ -140,9 +141,9 @@ namespace DopeEngine
 		/*
 		* Create color buffer
 		*/
-		colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
+		/*colorBuffer = device->create_buffer(BufferDescription("MyColor", BufferType::UniformBuffer, sizeof(Vector3f), 4));
 		const Vector3f color{ 1.0f,0.3f,0.80f };
-		device->update_buffer(colorBuffer, (const Byte*)&color);
+		device->update_buffer(colorBuffer, (const Byte*)&color);*/
 
 		/*
 		* Create texture
@@ -159,9 +160,9 @@ namespace DopeEngine
 		/*
 		* Create color buffer resource layouts
 		*/
-		ResourceSlotDesc colorResourceSlotDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
+		/*ResourceSlotDesc colorResourceSlotDesc{ "MyColor",ResourceType::UniformBuffer,ShaderType::Fragment };
 		ResourceViewDescription colorResourceViewDesc{ colorBuffer };
-		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));
+		colorResourceView = device->create_resource_view(ResourceViewDescription(colorBuffer));*/
 
 		/*
 		* Create texture resource slot and view
@@ -185,7 +186,7 @@ namespace DopeEngine
 		renderPassDesc.Primitives = PrimitiveTopology::Triangles;
 		renderPassDesc.ScissorTest = false;
 		renderPassDesc.ShaderSet = { vShader,fShader };
-		renderPassDesc.ResourceSlots = { colorResourceSlotDesc };
+		renderPassDesc.ResourceSlots = { };
 		renderPassDesc.TargetFramebuffer = device->get_swapchain_framebuffer();
 		renderPass = device->create_render_pass(renderPassDesc);
 
@@ -222,7 +223,7 @@ namespace DopeEngine
 		cmdBuffer->clear_color({ 0u,0u,1u,1u });
 		cmdBuffer->set_vertex_buffer(vBuffer);
 		cmdBuffer->set_index_buffer(iBuffer);
-		cmdBuffer->set_resource_view(0, colorResourceView);
+		//cmdBuffer->set_resource_view(0, colorResourceView);
 		//buffer->set_resource_view(0, textureView);
 		cmdBuffer->indexed_draw_call(3);
 		cmdBuffer->unlock();

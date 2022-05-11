@@ -5,13 +5,17 @@
 #include <Engine/Application/Devices/Drivers/DeviceDriverInformation.h>
 #include <Engine/Application/Window/WindowCreateDescription.h>
 #include <Engine/Graphics/Device/GraphicsAPIType.h>
+#include <Engine/Audio/Device/AudioAPIType.h>
 #include <Engine/Application/ApplicationModule.h>
 #include <Engine/Application/Window/Window.h>
+
 
 namespace DopeEngine
 {
 	class ApplicationEvent;
 	class ApplicationModule;
+	class GraphicsDevice;
+	class AudioDevice;
 
 	/// <summary>
 	/// Represents the whole application
@@ -19,14 +23,14 @@ namespace DopeEngine
 	class DOPE_ENGINE_API Application final
 	{
 	public:
-		Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestedGraphicsApiType);
+		Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestedGraphicsApiType,const AudioAPIType requestedAudioApiType);
 		~Application();
 
 		/// <summary>
 		/// Returns the window of this application
 		/// </summary>
 		/// <returns></returns>
-		 Window* get_app_window() const;
+		Window* get_app_window() const;
 
 		/// <summary>
 		/// Starts and runs the application loop
@@ -64,17 +68,25 @@ namespace DopeEngine
 		void create_graphics_device(GraphicsAPIType requestedApiType);
 
 		/// <summary>
+		/// Creates the requested audio api type
+		/// </summary>
+		/// <param name="requestedApiType"></param>
+		void create_audio_device(AudioAPIType requestedApiType);
+
+		/// <summary>
 		/// Called when window broadcasts a new event
 		/// </summary>
 		/// <param name="event"></param>
 		void on_receive_application_event(ApplicationEvent* event);
 	private:
-		Window* ApplicationWindow;
 		Array<ApplicationEvent*> BufferedEvents;
 		Array<ApplicationModule*> PendingModules;
 		Array<ApplicationModule*> ActiveModules;
 		Array<PortableDeviceInformation> PortableDeviceInformations;
 		Array<DeviceDriverInformation> DeviceDriverInformations;
+		Window* ApplicationWindow;
+		GraphicsDevice* ApplicationGraphicsDevice;
+		AudioDevice* ApplicationAudioDevice;
 	};
 
 

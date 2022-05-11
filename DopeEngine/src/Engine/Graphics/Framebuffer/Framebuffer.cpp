@@ -3,7 +3,7 @@
 #include <Engine/Graphics/Texture/Texture.h>
 namespace DopeEngine
 {
-	Framebuffer::Framebuffer(const FramebufferDescription& description) : DeviceObject(DeviceObjectType::Framebuffer)
+	Framebuffer::Framebuffer(const FramebufferDescription& description) : GraphicsDeviceObject(GraphicsDeviceObjectType::Framebuffer)
 	{
 		/*
 		* Initialize

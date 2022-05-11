@@ -244,7 +244,7 @@ namespace DopeEngine
 
 		return view;
 	}
-	void DX12GraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
+	void DX12GraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)
 	{
 		/*
 		* Get buffer type
@@ -311,18 +311,18 @@ namespace DopeEngine
 		//LOG("DX12GraphicsDevice", "Execute");
 	}
 
-	void DX12GraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	void DX12GraphicsDevice::delete_device_object_impl(GraphicsDeviceObject* object)
 	{
 
 	}
 
-	Buffer* DX12GraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	GraphicsBuffer* DX12GraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
 		/*
 		* Catch buffer type
 		*/
 		BufferType bufferType = description.Type;
-		Buffer* buffer = nullptr;
+		GraphicsBuffer* buffer = nullptr;
 		switch (bufferType)
 		{
 			case DopeEngine::BufferType::VertexBuffer:

@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Supported device object types
 	/// </summary>
-	enum class DOPE_ENGINE_API DeviceObjectType
+	enum class DOPE_ENGINE_API GraphicsDeviceObjectType
 	{
 		Texture = 0,
 		Buffer = 1,

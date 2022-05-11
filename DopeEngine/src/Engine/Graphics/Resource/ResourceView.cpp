@@ -2,12 +2,12 @@
 
 namespace DopeEngine
 {
-	ResourceView::ResourceView(const ResourceViewDescription& description) : DeviceObject(DeviceObjectType::ResourceView)
+	ResourceView::ResourceView(const ResourceViewDescription& description) : GraphicsDeviceObject(GraphicsDeviceObjectType::ResourceView)
 	{
 		Resource = description.Resource;
 	}
 
-	DeviceObject* ResourceView::get_resource() const
+	GraphicsDeviceObject* ResourceView::get_resource() const
 	{
 		return Resource;
 	}

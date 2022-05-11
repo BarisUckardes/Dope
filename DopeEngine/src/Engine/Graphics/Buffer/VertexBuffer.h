@@ -1,12 +1,12 @@
 #pragma once
-#include <Engine/Graphics/Buffer/Buffer.h>
+#include <Engine/Graphics/Buffer/GraphicsBuffer.h>
 #include <Engine/Core/Definitions.h>
 namespace DopeEngine
 {
 	/// <summary>
 	/// Graphics API agnostic vertex buffer abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API VertexBuffer : public Buffer
+	class DOPE_ENGINE_API VertexBuffer : public GraphicsBuffer
 	{
 	public:
 		VertexBuffer(const BufferDescription& desc);

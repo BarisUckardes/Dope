@@ -196,7 +196,7 @@ namespace DopeEngine
 
 		
 	}
-	void OpenGLGraphicsDevice::update_buffer_impl(Buffer* buffer, const Byte* data)
+	void OpenGLGraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)
 	{
 		const BufferType type = buffer->get_buffer_type();
 		switch (type)
@@ -269,11 +269,11 @@ namespace DopeEngine
 	{
 
 	}
-	void OpenGLGraphicsDevice::delete_device_object_impl(DeviceObject* object)
+	void OpenGLGraphicsDevice::delete_device_object_impl(GraphicsDeviceObject* object)
 	{
 
 	}
-	Buffer* OpenGLGraphicsDevice::create_buffer_impl(const BufferDescription& description)
+	GraphicsBuffer* OpenGLGraphicsDevice::create_buffer_impl(const BufferDescription& description)
 	{
 		/*
 		* Create OpenGLBuffer

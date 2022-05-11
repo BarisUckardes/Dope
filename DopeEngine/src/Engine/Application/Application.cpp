@@ -11,15 +11,17 @@
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeaturesDesc.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebufferDesc.h>
+#include <Engine/Audio/Device/AudioDevice.h>
 
 namespace DopeEngine
 {
-	Application::Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestGraphicsApi)
+	Application::Application(const WindowCreateDescription& windowDescription,GraphicsAPIType requestGraphicsApi,const AudioAPIType requestedAudioApiType)
 	{
 		collect_portable_devices();
 		collect_device_drivers();
 		create_application_window(windowDescription);
 		create_graphics_device(requestGraphicsApi);
+		create_audio_device(requestedAudioApiType);
 	}
 	Application::~Application()
 	{
@@ -249,7 +251,11 @@ namespace DopeEngine
 			case DopeEngine::GraphicsAPIType::OpenGL:
 				break;
 			case DopeEngine::GraphicsAPIType::Directx11:
+			{
+				GraphicsDeviceFeaturesDesc featuresDesc = {};
+				requestedFeatures = new GraphicsDeviceFeatures(featuresDesc);
 				break;
+			}
 			case DopeEngine::GraphicsAPIType::Directx12:
 				break;
 			case DopeEngine::GraphicsAPIType::Vulkan:
@@ -278,7 +284,15 @@ namespace DopeEngine
 		/*
 		* Create graphics device
 		*/
-		GraphicsDevice* device = GraphicsDevice::create(requestedFeatures,requestedApiType, ApplicationWindow,&swapchainDesc);
+		ApplicationGraphicsDevice = GraphicsDevice::create(requestedFeatures,requestedApiType, ApplicationWindow,&swapchainDesc);
+	}
+	void Application::create_audio_device(AudioAPIType requestedApiType)
+	{
+		/*
+		* Create audio device
+		*/
+		ApplicationAudioDevice = AudioDevice::create(requestedApiType);
+
 	}
 	void Application::on_receive_application_event(ApplicationEvent* event)
 	{

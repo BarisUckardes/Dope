@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Device/DeviceObject.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/Framebuffer/FramebufferDescription.h>
 namespace DopeEngine
 {
@@ -8,7 +8,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Graphics api agnostic framebuffer abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API Framebuffer : public DeviceObject
+	class DOPE_ENGINE_API Framebuffer : public GraphicsDeviceObject
 	{
 		friend class SwapchainFramebuffer;
 	public:

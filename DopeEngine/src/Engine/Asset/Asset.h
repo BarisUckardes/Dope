@@ -20,91 +20,91 @@ namespace DopeEngine
 		/// Returns the owner package of this asset
 		/// </summary>
 		/// <returns></returns>
-		 AssetPackage* get_owner_package() const;
+		AssetPackage* get_owner_package() const;
 
 		/// <summary>
 		/// Returns the child object of this asset
 		/// </summary>
 		/// <returns></returns>
-		 AssetObject* get_child_object() const;
+		AssetObject* get_child_object() const;
 
 		/// <summary>
 		/// Returns the source file absolute path
 		/// </summary>
 		/// <returns></returns>
-		 String get_source_file_absolute_path() const;
+		String get_source_file_absolute_path() const;
 
 		/// <summary>
 		/// Returns the header file absolute path
 		/// </summary>
 		/// <returns></returns>
-		 String get_header_file_absolute_path() const;
+		String get_header_file_absolute_path() const;
 
 		/// <summary>
 		/// Returns the name of the asset
 		/// </summary>
 		/// <returns></returns>
-		 String get_name() const;
+		String get_name() const;
 
 		/// <summary>
 		/// Returns the unique id of this asset
 		/// </summary>
 		/// <returns></returns>
-		 Guid get_id() const;
+		Guid get_id() const;
 
 		/// <summary>
 		/// Returns the asset type
 		/// </summary>
 		/// <returns></returns>
-		 AssetType get_type() const;
+		AssetType get_type() const;
 
 		/// <summary>
 		/// Returns the asset import type
 		/// </summary>
 		/// <returns></returns>
-		 AssetImportType get_import_type() const;
+		AssetImportType get_import_type() const;
 
 		/// <summary>
 		/// Returns the compressed physical file size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_compressed_physical_file_size() const;
+		unsigned long get_compressed_physical_file_size() const;
 
 		/// <summary>
 		/// Returns the uncompressed physical file size
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_uncompressed_physical_file_size() const;
+		unsigned long get_uncompressed_physical_file_size() const;
 
 		/// <summary>
 		/// Returns the size of the functional memory allocated on the cpu
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_allocated_functional_memory_size() const;
+		unsigned long get_cpu_allocated_functional_memory_size() const;
 
 		/// <summary>
 		/// Returns the size of the functional memory allocated on the gpu
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_gpu_allocated_functional_memory_size() const;
+		unsigned long get_gpu_allocated_functional_memory_size() const;
 
 		/// <summary>
 		/// Returns the size of the cached memory on the cpu
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_cached_memory_size() const;
+		unsigned long get_cpu_cached_memory_size() const;
 
 		/// <summary>
 		/// Returns the total allocated cpu memory size(Cpu + cache)
 		/// </summary>
 		/// <returns></returns>
-		 unsigned long get_cpu_total_allocated_memory_size() const;
+		unsigned long get_cpu_total_allocated_memory_size() const;
 
 		/// <summary>
 		/// Returns whether this asset has a cached memory on the cpu
 		/// </summary>
 		/// <returns></returns>
-		 bool has_cached_memory() const;
+		bool has_cached_memory() const;
 
 		/// <summary>
 		/// Loads the asset sync

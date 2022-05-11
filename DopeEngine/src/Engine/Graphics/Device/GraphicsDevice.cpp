@@ -3,15 +3,15 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx12/Device/DX12GraphicsDevice.h>
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevice.h>
-#include <Engine/Graphics/Device/DeviceObject.h>
-#include <Engine/Graphics/Buffer/Buffer.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObject.h>
+#include <Engine/Graphics/Buffer/GraphicsBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/RenderPass/RenderPass.h>
 #include <Engine/Graphics/Shader/Shader.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
-#include <Engine/Graphics/Device/DeviceObjects.h>
+#include <Engine/Graphics/Device/GraphicsDeviceObjects.h>
 #include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
 #include <Engine/Core/Assert.h>
 
@@ -129,7 +129,7 @@ namespace DopeEngine
 		update_texture_impl(texture, data);
 	}
 
-	void GraphicsDevice::update_buffer(Buffer* buffer, const Byte* data)
+	void GraphicsDevice::update_buffer(GraphicsBuffer* buffer, const Byte* data)
 	{
 		update_buffer_impl(buffer, data);
 	}
@@ -158,11 +158,16 @@ namespace DopeEngine
 		* Check features
 		*/
 		unsigned char result = 1;
-		result *= Features->has_compute_shader_support() == true ? 1 : 0;
-		result *= Features->has_geometry_shader_support() == true ? 1 : 0;
-		result *= Features->has_tesellation_shader_support() == true ? 1 : 0;
-		result *= Features->has_shading_rate_support() == true ? 1 : 0;
-		result *= Features->can_display() == true ? 1 : 0;
+		if(features->has_compute_shader_support())
+			result *= Features->has_compute_shader_support() == true ? 1 : 0;
+		if(features->has_geometry_shader_support())
+			result *= Features->has_geometry_shader_support() == true ? 1 : 0;
+		if(features->has_tesellation_shader_support())
+			result *= Features->has_tesellation_shader_support() == true ? 1 : 0;
+		if(features->has_shading_rate_support())
+			result *= Features->has_shading_rate_support() == true ? 1 : 0;
+		if(features->can_display())
+			result *= Features->can_display() == true ? 1 : 0;
 		result *= Features->get_max_texture1D_dimension() >= features->get_max_texture1D_dimension() ? 1 : 0;
 		result *= Features->get_max_texture2D_dimension() >= features->get_max_texture2D_dimension() ? 1 : 0;
 		result *= Features->get_max_texture3D_dimension() >= features->get_max_texture3D_dimension() ? 1 : 0;
@@ -180,7 +185,7 @@ namespace DopeEngine
 		result *= Features->get_max_framebuffer_width() >= features->get_max_framebuffer_width() ? 1 : 0;
 		result *= Features->get_max_framebuffer_height() >= features->get_max_framebuffer_height() ? 1 : 0;
 
-		return result == 1;
+		return result;
 	}
 
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
@@ -259,7 +264,7 @@ namespace DopeEngine
 		*/
 		Current = true;
 	}
-	void GraphicsDevice::delete_device_object(DeviceObject* object)
+	void GraphicsDevice::delete_device_object(GraphicsDeviceObject* object)
 	{
 		/*
 		* Remove it from this device
@@ -276,12 +281,12 @@ namespace DopeEngine
 		*/
 		delete object;
 	}
-	Buffer* GraphicsDevice::create_buffer(const BufferDescription& description)
+	GraphicsBuffer* GraphicsDevice::create_buffer(const BufferDescription& description)
 	{
 		/*
 		* Create buffer impl
 		*/
-		Buffer* buffer = create_buffer_impl(description);
+		GraphicsBuffer* buffer = create_buffer_impl(description);
 
 		/*
 		* Register it to this device
@@ -351,11 +356,11 @@ namespace DopeEngine
 		SWCHNFramebuffer = (SwapchainFramebuffer*)create_window_swapchain_framebuffer_impl(desc);
 		LOG("GraphicsDevice", "Created swapchainFramebuffer");
 	}
-	void GraphicsDevice::register_device_object(DeviceObject* object)
+	void GraphicsDevice::register_device_object(GraphicsDeviceObject* object)
 	{
 		ChildObjects.add(object);
 	}
-	void GraphicsDevice::remove_device_object(DeviceObject* object)
+	void GraphicsDevice::remove_device_object(GraphicsDeviceObject* object)
 	{
 		ChildObjects.remove(object);
 	}

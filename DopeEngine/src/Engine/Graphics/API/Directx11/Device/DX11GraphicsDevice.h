@@ -9,33 +9,27 @@ namespace DopeEngine
 	class DOPE_ENGINE_API DX11GraphicsDevice : public GraphicsDevice
 	{
 	public:
-		DX11GraphicsDevice(Window* ownerWindow,const unsigned int shaderModel = 4);
+		DX11GraphicsDevice(Window* ownerWindow);
 		~DX11GraphicsDevice() = default;
 		
-		 ComPtr<ID3D11Device> get_dx11_device() const;
-		 ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
-		 ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
+		ComPtr<ID3D11Device> get_dx11_device() const;
+		ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
+		ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
 
-		 /// <summary>
-		 /// Returns the supported shader model
-		 /// </summary>
-		 /// <returns></returns>
-		 unsigned int get_dx11_shader_model() const;
 
-		// Inherited via GraphicsDevice
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
 	protected:
 		virtual void make_current_impl() override;
-		virtual void delete_device_object_impl(DeviceObject* object) override;
-		virtual Buffer* create_buffer_impl(const BufferDescription& description) override;
+		virtual void delete_device_object_impl(GraphicsDeviceObject* object) override;
+		virtual GraphicsBuffer* create_buffer_impl(const BufferDescription& description) override;
 		virtual Framebuffer* create_framebuffer_impl(const FramebufferDescription& description) override;
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
-		virtual void update_buffer_impl(Buffer* buffer, const Byte* data) override;
+		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
@@ -49,7 +43,6 @@ namespace DopeEngine
 		DXPTR<ID3D11DeviceContext> ImmediateContext;
 		DXPTR<ID3D11DeviceContext> DeferredContext;
 		DXPTR<ID3D11RenderTargetView> SwapchainRenderTargetView;
-		unsigned int ShaderModel;
 
 		// Inherited via GraphicsDevice
 		virtual void wait_for_finish_impl() override;

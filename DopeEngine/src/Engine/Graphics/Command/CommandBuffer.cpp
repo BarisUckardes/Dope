@@ -99,17 +99,17 @@ namespace DopeEngine
 		* Get layout variables
 		*/
 		const ResourceSlotDesc targetSlotDesc = resourceSlotDesc[slot];
-		const DeviceObject* resource = view->get_resource();
+		const GraphicsDeviceObject* resource = view->get_resource();
 
 		/*
 		* Get object type
 		*/
-		const DeviceObjectType objectType = resource->get_device_object_type();
+		const GraphicsDeviceObjectType objectType = resource->get_device_object_type();
 
 		/*
 		* Check resource layout
 		*/
-		const DeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
+		const GraphicsDeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
 		if (objectType != slotType)
 		{
 			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.Trying to bind resource type %d whereas slot accepts %d", slot,objectType, slotType);

@@ -3,15 +3,15 @@
 
 namespace DopeEngine
 {
-	DeviceObjectType ResourceTypeUtils::get_device_object_type(const ResourceType type)
+	GraphicsDeviceObjectType ResourceTypeUtils::get_device_object_type(const ResourceType type)
 	{
 		switch (type)
 		{
 			case DopeEngine::ResourceType::UniformBuffer:
-				return DeviceObjectType::Buffer;
+				return GraphicsDeviceObjectType::Buffer;
 				break;
 			case DopeEngine::ResourceType::Texture:
-				return DeviceObjectType::Texture;
+				return GraphicsDeviceObjectType::Texture;
 				break;
 			default:
 				ASSERT(false, "ResourceTypeUtils", "Invalid ResourceType input!");
@@ -19,25 +19,25 @@ namespace DopeEngine
 		}
 
 	}
-	ResourceType ResourceTypeUtils::get_resource_type(const DeviceObjectType type)
+	ResourceType ResourceTypeUtils::get_resource_type(const GraphicsDeviceObjectType type)
 	{
 		switch (type)
 		{
-			case DopeEngine::DeviceObjectType::Texture:
+			case DopeEngine::GraphicsDeviceObjectType::Texture:
 				break;
-			case DopeEngine::DeviceObjectType::Buffer:
+			case DopeEngine::GraphicsDeviceObjectType::Buffer:
 				break;
-			case DopeEngine::DeviceObjectType::Shader:
+			case DopeEngine::GraphicsDeviceObjectType::Shader:
 				break;
-			case DopeEngine::DeviceObjectType::Framebuffer:
+			case DopeEngine::GraphicsDeviceObjectType::Framebuffer:
 				break;
-			case DopeEngine::DeviceObjectType::ResourceLayout:
+			case DopeEngine::GraphicsDeviceObjectType::ResourceLayout:
 				break;
-			case DopeEngine::DeviceObjectType::ResourceView:
+			case DopeEngine::GraphicsDeviceObjectType::ResourceView:
 				break;
-			case DopeEngine::DeviceObjectType::CommandBuffer:
+			case DopeEngine::GraphicsDeviceObjectType::CommandBuffer:
 				break;
-			case DopeEngine::DeviceObjectType::RenderPass:
+			case DopeEngine::GraphicsDeviceObjectType::RenderPass:
 				break;
 			default:
 				break;
