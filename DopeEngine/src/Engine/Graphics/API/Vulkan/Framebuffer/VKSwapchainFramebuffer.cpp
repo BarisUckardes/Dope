@@ -1,9 +1,10 @@
 #include "VKSwapchainFramebuffer.h"
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDevice.h>
-#include <VULKAN/vulkan_win32.h>
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Vulkan/Texture/VKTextureUtils.h>
 #include <Engine/Math/Math.h>
+#include <Engine/Platform/Windows/Window/WindowsWindow.h>
+#include <VULKAN/vulkan_win32.h>
 
 namespace DopeEngine
 {
@@ -60,6 +61,11 @@ namespace DopeEngine
 	void VKSwapchainFramebuffer::create_win32(VKGraphicsDevice* device, Window* window)
 	{
 		/*
+		* Get win32 window
+		*/
+		const WindowsWindow* win32Window = (const WindowsWindow*)window;
+
+		/*
 		* Get device features
 		*/
 		const GraphicsDeviceFeatures* supportedFeatures = device->get_supported_features();
@@ -69,7 +75,7 @@ namespace DopeEngine
 		*/
 		VkWin32SurfaceCreateInfoKHR surfaceCreateInfo = {};
 		surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-		surfaceCreateInfo.hwnd = window->get_win32_window_handle();
+		surfaceCreateInfo.hwnd = win32Window->get_win32_window_handle();
 		surfaceCreateInfo.hinstance = GetModuleHandleA(nullptr);
 
 		/*

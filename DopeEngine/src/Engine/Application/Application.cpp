@@ -74,7 +74,7 @@ namespace DopeEngine
 		/*
 		* Make window visible
 		*/
-		ApplicationWindow->set_window_visibility(true);
+		ApplicationWindow->set_visibility(true);
 
 		/*
 		* Run app loop
@@ -226,12 +226,12 @@ namespace DopeEngine
 		/*
 		* Create window
 		*/
-		ApplicationWindow = new Window(windowDescription);
+		ApplicationWindow = Window::create_window(windowDescription);
 
 		/*
 		* Set feed
 		*/
-		ApplicationWindow->set_event_feed_listener(Delegate<void, ApplicationEvent*>(BIND_TARGET_EVENT(this,Application::on_receive_application_event)));
+		ApplicationWindow->register_event_feed_listener(Delegate<void, ApplicationEvent*>(BIND_TARGET_EVENT(this,Application::on_receive_application_event)));
 	}
 	void Application::create_graphics_device(GraphicsAPIType requestedApiType)
 	{

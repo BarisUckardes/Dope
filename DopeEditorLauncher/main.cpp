@@ -18,7 +18,10 @@ int main(int argumentCount, char** arguments)
 	/*
 	* Create application
 	*/
-	DopeEngine::Application app({ "Dope Editor Launcher ",512,512,100,100 },DopeEngine::GraphicsAPIType::Directx11,DopeEngine::AudioAPIType::OpenAL);
+	DopeEngine::Application app(
+		{ "Dope Editor Launcher ",512,512,100,100 },
+		DopeEngine::GraphicsAPIType::Directx11,
+		DopeEngine::AudioAPIType::OpenAL);
 
 	/*
 	* Register modules

@@ -3,7 +3,6 @@
 #ifdef DOPE_OS_WINDOWS
 #include <Engine/Platform/Windows/Window/WindowsWindow.h>
 #include <VULKAN/vulkan_win32.h>
-typedef DopeEngine::WindowsWindow WindowAbstraction;
 #endif
 
 #include <Engine/Core/Assert.h>
@@ -226,7 +225,7 @@ namespace DopeEngine
 		/*
 		* Get window abstraction
 		*/
-		const WindowAbstraction* window = get_owner_window();
+		const WindowsWindow* win32Window = (const WindowsWindow*)get_owner_window();
 
 		/*
 		* Enumarate instance extension properties
@@ -305,7 +304,7 @@ namespace DopeEngine
 		*/
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-		appInfo.pApplicationName = *window->get_title();
+		appInfo.pApplicationName = *win32Window->get_title();
 		appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
 		appInfo.pEngineName = "Dope Engine";
 		appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);

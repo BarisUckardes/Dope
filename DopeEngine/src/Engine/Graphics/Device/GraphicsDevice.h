@@ -48,7 +48,6 @@ namespace DopeEngine
 		/// <returns></returns>
 		static GraphicsDevice* create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api,Window* ownerWindow = nullptr,const SwapchainFramebufferDesc* swapchainDesc = nullptr);
 
-
 		/// <summary>
 		/// Returns whether this device is the current device
 		/// </summary>

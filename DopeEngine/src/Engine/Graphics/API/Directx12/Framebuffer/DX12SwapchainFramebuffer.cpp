@@ -3,6 +3,7 @@
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Core/Assert.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
+#include <Engine/Platform/Windows/Window/WindowsWindow.h>
 namespace DopeEngine
 {
     DX12SwapchainFramebuffer::DX12SwapchainFramebuffer(const SwapchainFramebufferDesc& desc, DX12GraphicsDevice* device, Window* targetWindow)
@@ -61,7 +62,10 @@ namespace DopeEngine
 
     void DX12SwapchainFramebuffer::create(DX12GraphicsDevice* device,Window* window)
     {
-		LOG("DX12SwapchainFramebuffer", "Created swapchain");
+		/*
+		* Get win32 window
+		*/
+		WindowsWindow* win32Window = (WindowsWindow*)window;
 
 		/*
 		* Get factory
@@ -104,7 +108,7 @@ namespace DopeEngine
 		swapchainDesc.SampleDesc = sampleDesc;
 		swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-		swapchainDesc.OutputWindow = window->get_win32_window_handle();
+		swapchainDesc.OutputWindow = win32Window->get_win32_window_handle();
 
 		/*
 		* Create temp swapchain
@@ -119,7 +123,7 @@ namespace DopeEngine
 		/*
 		* Make window association
 		*/
-		factory->MakeWindowAssociation(window->get_win32_window_handle(), DXGI_MWA_NO_ALT_ENTER);
+		factory->MakeWindowAssociation(win32Window->get_win32_window_handle(), DXGI_MWA_NO_ALT_ENTER);
 
 		/*
 		* Get backbuffer index

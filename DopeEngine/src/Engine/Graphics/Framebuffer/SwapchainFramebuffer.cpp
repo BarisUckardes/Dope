@@ -22,7 +22,7 @@ namespace DopeEngine
 		/*
 		* Set event feed listener
 		*/
-		window->set_event_feed_listener(Delegate<void,ApplicationEvent*>(BIND_TARGET_EVENT(this, SwapchainFramebuffer::on_event_receive)));
+		//window->set_event_feed_listener(Delegate<void,ApplicationEvent*>(BIND_TARGET_EVENT(this, SwapchainFramebuffer::on_event_receive)));
 
 		/*
 		* Set initial size
@@ -50,29 +50,23 @@ namespace DopeEngine
 	{
 		return OwnerWindow;
 	}
-	void SwapchainFramebuffer::on_event_receive(ApplicationEvent* event)
+	void SwapchainFramebuffer::on_window_resize(WindowResizedEvent* event)
 	{
 		/*
-		* Validate if incoming event is a window resize event
+		* Get window resize evet
 		*/
-		if (event->get_type() == ApplicationEventType::WindowResized)
-		{
-			/*
-			* Get window resize evet
-			*/
-			WindowResizedEvent* wEvent = (WindowResizedEvent*)event;
+		WindowResizedEvent* wEvent = (WindowResizedEvent*)event;
 
-			/*
-			* Set framebuffer width
-			*/
-			_set_width(this, wEvent->get_width());
-			_set_height(this, wEvent->get_height());
+		/*
+		* Set framebuffer width
+		*/
+		_set_width(this, wEvent->get_width());
+		_set_height(this, wEvent->get_height());
 
-			/*
-			* Call swapchain resize impl
-			*/
-			on_swapchain_resize_impl();
-		}
+		/*
+		* Call swapchain resize impl
+		*/
+		on_swapchain_resize_impl();
 	}
 	
 	TextureFormat SwapchainFramebuffer::get_swapchain_depth_buffer_format() const

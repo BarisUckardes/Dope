@@ -70,7 +70,7 @@ namespace DopeEngine
 		/*
 		* Validate owner window
 		*/
-		if (ownerWindow != nullptr && swapchainDesc != nullptr)
+		if (ownerWindow != nullptr && swapchainDesc != nullptr) // wants to create a graphics device with swapchain and window
 		{
 			/*
 			* Validate display support
@@ -89,11 +89,14 @@ namespace DopeEngine
 			* Create swapchainbuffer
 			*/
 			device->create_swapchain_framebuffer(swapchainDesc);
-
 			LOG("GraphicsDevice", "Creation of swapchain requested!");
+
+			/*
+			* Assing graphics device to 
+			*/
+			Window::bind_window_and_device(ownerWindow, device);
 		}
 			
-		
 		return device;
 	}
 
@@ -195,7 +198,6 @@ namespace DopeEngine
 		*/
 		if (ownerWindow != nullptr)
 		{
-			ownerWindow->assing_graphics_device(this);
 			OffscreenGraphicsDevice = false;
 		}
 		else

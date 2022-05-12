@@ -404,6 +404,7 @@
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Application\Window\Window.cpp" />
     <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.cpp" />
     <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBuffer.cpp" />
     <ClCompile Include="src\Engine\Audio\API\OpenAL\State\OpenALSourceState.cpp" />

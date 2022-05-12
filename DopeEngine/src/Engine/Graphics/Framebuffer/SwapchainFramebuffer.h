@@ -4,11 +4,13 @@
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Texture/TextureFormat.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebufferDesc.h>
+#include <Engine/Application/Events/Window/WindowResizedEvent.h>
 namespace DopeEngine
 {
 	class ApplicationEvent;
 	class DOPE_ENGINE_API SwapchainFramebuffer : public Framebuffer
 	{
+		friend class Window;
 	public:
 		SwapchainFramebuffer(const SwapchainFramebufferDesc& desc,GraphicsDevice* device, Window* window);
 		~SwapchainFramebuffer();
@@ -40,7 +42,7 @@ namespace DopeEngine
 		GraphicsDevice* get_owner_device() const;
 		Window* get_owner_window() const;
 	private:
-		void on_event_receive(ApplicationEvent* event);
+		void on_window_resize(WindowResizedEvent* event);
 	private:
 		GraphicsDevice* OwnerDevice;
 		Window* OwnerWindow;

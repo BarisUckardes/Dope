@@ -32,6 +32,11 @@ namespace DopeEngine
 		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
+		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
+		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
+		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;
+		virtual void wait_for_finish_impl() override;
+		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;
 	private:
 		void _create_opengl_device();
 		void _create_opengl_win32_device();
@@ -42,17 +47,6 @@ namespace DopeEngine
 		HDC WindowDeviceContext;
 #endif
 
-		// Inherited via GraphicsDevice
-		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
-		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
-
-		// Inherited via GraphicsDevice
-		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;
-
-		// Inherited via GraphicsDevice
-		virtual void wait_for_finish_impl() override;
-
-		// Inherited via GraphicsDevice
-		virtual bool does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages) override;
+		
 	};
 }

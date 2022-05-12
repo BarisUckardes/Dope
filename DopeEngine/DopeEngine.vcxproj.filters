@@ -1172,5 +1172,8 @@
     <ClCompile Include="src\Engine\Audio\Buffer\AudioBufferUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Application\Window\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

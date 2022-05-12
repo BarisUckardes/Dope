@@ -3,6 +3,7 @@
 #include <Engine/Graphics/API/Directx11/Device/DX11DeviceObjects.h>
 #include <Engine/Graphics/Texture/TextureUtils.h>
 #include <Engine/Graphics/Device/GraphicsDeviceFeaturesDesc.h>
+#include <Engine/Platform/Windows/Window/WindowsWindow.h>
 
 namespace DopeEngine
 {
@@ -47,6 +48,11 @@ namespace DopeEngine
 		const Window* ownerWindow = get_owner_window();
 
 		/*
+		* Get window window
+		*/
+		const WindowsWindow* win32Window = (const WindowsWindow*)ownerWindow;
+
+		/*
 		* Create swapbuffer buffer desc
 		*/
 		DXGI_MODE_DESC bufferDesc = { 0 };
@@ -66,7 +72,7 @@ namespace DopeEngine
 		swapchainDesc.SampleDesc.Count = 1;
 		swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		swapchainDesc.BufferCount = 1;
-		swapchainDesc.OutputWindow = ownerWindow->get_win32_window_handle();
+		swapchainDesc.OutputWindow = win32Window->get_win32_window_handle();
 		swapchainDesc.Windowed = TRUE;
 		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 

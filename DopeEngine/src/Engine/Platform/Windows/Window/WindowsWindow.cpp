@@ -1,38 +1,19 @@
 #include "WindowsWindow.h"
 #include <Engine/Core/Assert.h>
 #include <Engine/Application/Events/Events.h>
+#include <Engine/Application/Window/Window.h>
 namespace DopeEngine
 {
     //LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description)
+	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description) : Window(description)
 	{
-        /*
-         * Initialize
-         */
-        Title = description.Title;
-        Width = description.Width;
-        Height = description.Height;
-        PositionX = description.PositionX;
-        PositionY = description.PositionY;
-        CloseRequest = false;
-
         /*
         * Create win32
         */
 		_create_win32_window(processHandle);
 	}
-	WindowsWindow::WindowsWindow(const WindowCreateDescription& description)
+	WindowsWindow::WindowsWindow(const WindowCreateDescription& description) : Window(description)
 	{
-        /*
-        * Initialize
-        */
-        Title = description.Title;
-        Width = description.Width;
-        Height = description.Height;
-        PositionX = description.PositionX;
-        PositionY = description.PositionY;
-        CloseRequest = false;
-
         /*
         * Create win32
         */
@@ -50,35 +31,8 @@ namespace DopeEngine
     {
         return WindowDeviceContext;
     }
-	void WindowsWindow::set_title(const String& title)
-	{
-        /*
-         * Set win32 window title
-         */
-        SetWindowTextA(WindowHandle, *title);
-
-        /*
-        * Set the title
-        */
-        Title = title;
-		
-	}
-	void WindowsWindow::swap_buffers()
-	{
-		SwapBuffers(WindowDeviceContext);
-	}
-	void WindowsWindow::poll_messages()
-	{
-		/*
-		* Iterate current pending messages and dispatch them
-		*/
-		MSG msg = { 0 };
-		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
+	
+	
 	void WindowsWindow::_create_win32_window(const HINSTANCE processHandle)
 	{
 		constexpr wchar_t WINDOW_CLASS_NAME[] = L"Win32Window";
@@ -137,118 +91,34 @@ namespace DopeEngine
         WindowDeviceContext = GetDC(windowHandle);
 
 	}
-    GraphicsDevice* WindowsWindow::get_graphics_device() const
-    {
-        return GDevice;
-    }
-    bool WindowsWindow::has_close_request() const
-    {
-        return CloseRequest;
-    }
-    void WindowsWindow::assing_graphics_device(GraphicsDevice* device)
-    {
-        GDevice = device;
-    }
-    void WindowsWindow::set_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate)
-    {
-        EventFeedListeners.add(functionDelegate);
-    }
-    void WindowsWindow::set_close_request()
-    {
-        CloseRequest = true;
-    }
-  
-    void WindowsWindow::broadcast_application_event(ApplicationEvent* event)
+    void WindowsWindow::set_title_impl(const String& title)
     {
         /*
-        * Catch events
-        */
-        const ApplicationEventType type = event->get_type();
+         * Set win32 window title
+         */
+        SetWindowTextA(WindowHandle, *title);
+    }
+    void WindowsWindow::poll_messages_impl()
+    {
 
-        switch (type)
+        /*
+        * Iterate current pending messages and dispatch them
+        */
+        MSG msg = { 0 };
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
         {
-        case DopeEngine::ApplicationEventType::Undefined:
-            break;
-        case DopeEngine::ApplicationEventType::KeyboardKeyDown:
-            break;
-        case DopeEngine::ApplicationEventType::KeyboardKeyUp:
-            break;
-        case DopeEngine::ApplicationEventType::KeyboardChar:
-            break;
-        case DopeEngine::ApplicationEventType::WindowResized:
-            break;
-        case DopeEngine::ApplicationEventType::WindowClosed:
-            CloseRequest = true;
-            break;
-        case DopeEngine::ApplicationEventType::WindowPositionChanged:
-            break;
-        case DopeEngine::ApplicationEventType::MouseButtonDown:
-            break;
-        case DopeEngine::ApplicationEventType::MouseButtonUp:
-            break;
-        case DopeEngine::ApplicationEventType::MouseScrolled:
-            break;
-        case DopeEngine::ApplicationEventType::MousePositionChanged:
-            break;
-        case DopeEngine::ApplicationEventType::WindowFileDrop:
-            break;
-        default:
-            break;
-
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
         }
+    }
 
-        /*
-        * Forward event to application feed
-        */
-        for (unsigned int i = 0;i < EventFeedListeners.get_cursor(); i++)
-        {
-            EventFeedListeners[i].invoke(event);
-        }
-
-        /*
-        * Dummy debug
-        */
-        //LOG("Window", "Event broacasting -> %s", *event->get_as_string());
-    }
-    unsigned int WindowsWindow::get_width() const
-    {
-        return Width;
-    }
-    unsigned int WindowsWindow::get_height() const
-    {
-        return Height;
-    }
-    unsigned int WindowsWindow::get_position_x() const
-    {
-        return PositionX;
-    }
-    unsigned int WindowsWindow::get_position_y() const
-    {
-        return PositionY;
-    }
-    String WindowsWindow::get_title() const
-    {
-        return Title;
-    }
-    bool WindowsWindow::is_visible() const
-    {
-        return Visibility;
-    }
-   
- 
-    void WindowsWindow::set_window_visibility(bool state)
+    void WindowsWindow::set_visibility_impl(const bool state)
     {
         /*
-        * 
-        * Set win32 window visiblity
+         * Set win32 window visiblity
         */
         ShowWindow(WindowHandle, state == true ? SW_SHOW : SW_HIDE);
         UpdateWindow(WindowHandle);
-
-        /*
-        * Set visibility
-        */
-        Visibility = state;
     }
     WindowsWindow* GetWindowData(HWND windowHandle)
     {
@@ -278,7 +148,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new WindowResizedEvent(LOWORD(lParam), HIWORD(lParam)));
+                window->broadcast_window_event(new WindowResizedEvent(LOWORD(lParam), HIWORD(lParam)));
                 break;
             }
             case WM_MOVE:
@@ -291,7 +161,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new WindowPositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
+                window->broadcast_window_event(new WindowPositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
                 break;
             }
             case WM_KEYDOWN:
@@ -304,7 +174,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new KeyboardKeyDownEvent((unsigned int)wParam, false));
+                window->broadcast_window_event(new KeyboardKeyDownEvent((unsigned int)wParam, false));
                 break;
             }
             case WM_KEYUP:
@@ -317,7 +187,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new KeyboardKeyUpEvent((unsigned int)wParam));
+                window->broadcast_window_event(new KeyboardKeyUpEvent((unsigned int)wParam));
                 break;
             }
             case WM_RBUTTONDOWN:
@@ -330,7 +200,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new MouseButtonDownEvent(0, false));
+                window->broadcast_window_event(new MouseButtonDownEvent(0, false));
                 break;
             }
             case WM_RBUTTONUP:
@@ -343,7 +213,7 @@ namespace DopeEngine
                 /*
                 * Boardcast event
                 */
-                window->broadcast_application_event(new MouseButtonUpEvent(0));
+                window->broadcast_window_event(new MouseButtonUpEvent(0));
                 break;
             }
             case WM_LBUTTONDOWN:
@@ -356,7 +226,7 @@ namespace DopeEngine
                  /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new MouseButtonDownEvent(1, false));
+                window->broadcast_window_event(new MouseButtonDownEvent(1, false));
                 break;
             }
             case WM_LBUTTONUP:
@@ -369,7 +239,7 @@ namespace DopeEngine
                  /*
                 * Boardcast event
                 */
-                window->broadcast_application_event(new MouseButtonUpEvent(1));
+                window->broadcast_window_event(new MouseButtonUpEvent(1));
                 break;
             }
             case WM_MOUSEMOVE:
@@ -382,7 +252,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new MousePositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
+                window->broadcast_window_event(new MousePositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
                 break;
             }
             case WM_MOUSEWHEEL:
@@ -395,7 +265,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_application_event(new MouseScrolledEvent(GET_WHEEL_DELTA_WPARAM(wParam) / 120));
+                window->broadcast_window_event(new MouseScrolledEvent(GET_WHEEL_DELTA_WPARAM(wParam) / 120));
                 break;
             }
 
@@ -409,7 +279,7 @@ namespace DopeEngine
                 /*
                 * Set close request
                 */
-                window->broadcast_application_event(new WindowClosedEvent());
+                window->broadcast_window_event(new WindowClosedEvent());
                 break;
             }
         }
