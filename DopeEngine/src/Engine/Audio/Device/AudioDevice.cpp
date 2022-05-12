@@ -1,6 +1,8 @@
 #include "AudioDevice.h"
 #include <Engine/Audio/API/OpenAL/Device/OpenALAudioDevice.h>
+#include <Engine/Audio/API/XAudio2/Device/X2AudioDevice.h>
 #include <Engine/Audio/Device/AudioDeviceObjects.h>
+#include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
     AudioDevice* AudioDevice::create(AudioAPIType apiType)
@@ -8,6 +10,7 @@ namespace DopeEngine
 		switch (apiType)
 		{
 			case DopeEngine::AudioAPIType::Undefined:
+				return new X2AudioDevice();
 				break;
 			case DopeEngine::AudioAPIType::OpenAL:
 				return new OpenALAudioDevice();
@@ -107,6 +110,35 @@ namespace DopeEngine
 		state->Position = desc.Position;
 		state->Velocity = desc.Velocity;
 		state->Orientation = desc.Orientation;
+	}
+
+	void AudioDevice::sumbit_listener(const AudioListenerState* state)
+	{
+		/*
+		* Call api impl
+		*/
+		submit_listener_impl(state);
+	}
+
+	void AudioDevice::submit_source(const AudioSourceState* state, const AudioBuffer* buffer)
+	{
+		/*
+		* Validate match
+		*/
+		ASSERT(state->get_expected_format() == buffer->get_format(), "AudioDevice", "AudioSourceState and AudioBuffer formats dont match!");
+
+		/*
+		* Call api impl
+		*/
+		submit_source_impl(state, buffer);
+	}
+
+	void AudioDevice::submit_play_source(const AudioSourceState* state)
+	{
+		/*
+		* call api impl
+		*/
+		submit_play_source_impl(state);
 	}
 
 	AudioDevice::AudioDevice(const AudioAPIType apiType) : Type(apiType)

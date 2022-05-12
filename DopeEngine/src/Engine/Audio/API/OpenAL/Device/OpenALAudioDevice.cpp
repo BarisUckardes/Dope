@@ -45,6 +45,50 @@ namespace DopeEngine
        ASSERT(alcMakeContextCurrent(Context), "OpenALAudioDevice", "Context cannot be set as Current");
     }
 
+    void OpenALAudioDevice::submit_listener_impl(const AudioListenerState* state)
+    {
+        /*
+        * Get listener state
+        */
+        const Vector3f position = state->get_position();
+        const Vector3f velocity = state->get_velocity();
+        const float orientation = state->get_orientation();
+
+        /*
+        * Set listener state
+        */
+        alListener3f(AL_POSITION, position.X, position.Y, position.Z);
+        alListener3f(AL_VELOCITY, velocity.X, velocity.Y, velocity.Z);
+        alListeneri(AL_ORIENTATION, orientation);
+    }
+
+    void OpenALAudioDevice::submit_source_impl(const AudioSourceState* state, const AudioBuffer* buffer)
+    {
+        /*
+        * Get al state and al buffer
+        */
+        const OpenALSourceState* alState = (const OpenALSourceState*)state;
+        const OpenALBuffer* alBuffer = (const OpenALBuffer*)buffer;
+
+        /*
+        * Set source buffer
+        */
+        alSourcei(alState->get_al_state_handle(), AL_BUFFER, alBuffer->get_al_buffer_handle());
+    }
+
+    void OpenALAudioDevice::submit_play_source_impl(const AudioSourceState* state)
+    {
+        /*
+        * Get al state
+        */
+        const OpenALSourceState* alState = (const OpenALSourceState*)state;
+
+        /*
+        * Play
+        */
+        alSourcePlay(alState->get_al_state_handle());
+    }
+
     AudioBuffer* OpenALAudioDevice::create_buffer_impl(const AudioBufferDesc& desc)
     {
         return new OpenALBuffer(desc);

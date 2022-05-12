@@ -7,3 +7,8 @@ void validate_openal_error();
 
 typedef unsigned int BUFFER_HANDLE;
 typedef unsigned int SOURCE_STATE_HANDLE;
+
+namespace DopeEngine
+{
+	class OpenALAudioDevice;
+}

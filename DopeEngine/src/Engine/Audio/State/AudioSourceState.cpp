@@ -4,6 +4,7 @@ namespace DopeEngine
 {
 	AudioSourceState::AudioSourceState(const AudioSourceStateDesc& desc) : AudioDeviceObject(AudioDeviceObjectType::SourceState)
 	{
+		ExpectedFormat = desc.ExpectedFormat;
 		Position = desc.Position;
 		Velocity = desc.Velocity;
 		Pitch = desc.Pitch;
@@ -11,6 +12,11 @@ namespace DopeEngine
 		Looping = desc.Looping;
 	}
 
+
+	AudioBufferFormat AudioSourceState::get_expected_format() const
+	{
+		return ExpectedFormat;
+	}
 
 	Vector3f AudioSourceState::get_position() const
 	{

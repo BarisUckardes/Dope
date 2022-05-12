@@ -1,15 +1,18 @@
 #pragma once
 #include <Engine/Audio/Device/AudioDevice.h>
-#include <Engine/Audio/API/OpenAL/Core/OpenALCore.h>
-
+#include <Engine/Audio/API/XAudio2/Core/X2Core.h>
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API OpenALAudioDevice : public AudioDevice
+	class DOPE_ENGINE_API X2AudioDevice : public AudioDevice
 	{
 	public:
-		OpenALAudioDevice();
-		virtual ~OpenALAudioDevice() final override;
+		X2AudioDevice();
+		virtual ~X2AudioDevice() final override;
+
+		FORCEINLINE X2PTR<X2Engine> get_x2_engine() const;
+		FORCEINLINE X2Device* get_x2_device() const;
 	protected:
+		// Inherited via AudioDevice
 		virtual AudioBuffer* create_buffer_impl(const AudioBufferDesc& desc) override;
 		virtual AudioSourceState* create_source_state_impl(const AudioSourceStateDesc& desc) override;
 		virtual AudioListenerState* create_listener_state_impl(const AudioListenerStateDesc& desc) override;
@@ -20,11 +23,9 @@ namespace DopeEngine
 		virtual void submit_source_impl(const AudioSourceState* state, const AudioBuffer* buffer) override;
 		virtual void submit_play_source_impl(const AudioSourceState* state) override;
 	private:
-		void create();
-	private:
-		ALCdevice* Device;
-		ALCcontext* Context;
-
-		
+		X2PTR<X2Engine> EngineInstance;
+		X2Device* Device;
 	};
+
+
 }

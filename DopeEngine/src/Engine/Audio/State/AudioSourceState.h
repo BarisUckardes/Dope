@@ -8,6 +8,7 @@ namespace DopeEngine
 	{
 		friend class AudioDevice;
 	public:
+		FORCEINLINE AudioBufferFormat get_expected_format() const;
 		FORCEINLINE Vector3f get_position() const;
 		FORCEINLINE Vector3f get_velocity() const;
 		FORCEINLINE float get_pitch() const;
@@ -18,6 +19,7 @@ namespace DopeEngine
 		virtual ~AudioSourceState() override = default;
 
 	private:
+		AudioBufferFormat ExpectedFormat;
 		Vector3f Position;
 		Vector3f Velocity;
 		float Pitch;

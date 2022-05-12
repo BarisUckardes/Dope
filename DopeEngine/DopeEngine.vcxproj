@@ -180,6 +180,7 @@
     <ClInclude Include="src\Engine\Audio\API\OpenAL\Device\OpenALAudioDeviceObjects.h" />
     <ClInclude Include="src\Engine\Audio\API\OpenAL\State\OpenALSourceState.h" />
     <ClInclude Include="src\Engine\Audio\API\OpenAL\State\OpenALListenerState.h" />
+    <ClInclude Include="src\Engine\Audio\API\XAudio2\Device\X2AudioDeviceObjects.h" />
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferDesc.h" />
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferFormat.h" />
     <ClInclude Include="src\Engine\Audio\Device\AudioDeviceObjects.h" />
@@ -396,6 +397,11 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererConfigFlags.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.h" />
+    <ClInclude Include="src\Engine\Audio\API\XAudio2\Device\X2AudioDevice.h" />
+    <ClInclude Include="src\Engine\Audio\API\XAudio2\Core\X2Core.h" />
+    <ClInclude Include="src\Engine\Audio\API\XAudio2\Buffer\X2Buffer.h" />
+    <ClInclude Include="src\Engine\Audio\API\XAudio2\State\X2SourceState.h" />
+    <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.cpp" />
@@ -551,6 +557,11 @@
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.cpp" />
     <ClCompile Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\XAudio2\Device\X2AudioDevice.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\XAudio2\Core\X2Core.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\XAudio2\Buffer\X2Buffer.cpp" />
+    <ClCompile Include="src\Engine\Audio\API\XAudio2\State\X2SourceState.cpp" />
+    <ClCompile Include="src\Engine\Audio\Buffer\AudioBufferUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

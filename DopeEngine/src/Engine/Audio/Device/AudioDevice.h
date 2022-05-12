@@ -23,6 +23,9 @@ namespace DopeEngine
 		void update_buffer(const Byte* data,AudioBuffer* buffer);
 		void update_source_state(const AudioSourceStateDesc& desc,AudioSourceState* state);
 		void update_listener_state(const AudioListenerStateDesc& desc, AudioListenerState* state);
+		void sumbit_listener(const AudioListenerState* state);
+		void submit_source(const AudioSourceState* state, const AudioBuffer* buffer);
+		void submit_play_source(const AudioSourceState* state);
 	protected:
 		AudioDevice(const AudioAPIType apiType);
 		virtual ~AudioDevice();
@@ -33,6 +36,9 @@ namespace DopeEngine
 		virtual void update_buffer_impl(const Byte* data, AudioBuffer* buffer) = 0;
 		virtual void update_source_state_impl(const AudioSourceStateDesc& desc, AudioSourceState* state) = 0;
 		virtual void update_listener_state_impl(const AudioListenerStateDesc& desc, AudioListenerState* state) = 0;
+		virtual void submit_listener_impl(const AudioListenerState* state) = 0;
+		virtual void submit_source_impl(const AudioSourceState* state, const AudioBuffer* buffer) = 0;
+		virtual void submit_play_source_impl(const AudioSourceState* state) = 0;
 	private:
 		void register_device_object(AudioDeviceObject* childObject);
 		void delete_device_object(AudioDeviceObject* childObject);

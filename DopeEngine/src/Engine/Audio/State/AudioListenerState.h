@@ -5,7 +5,7 @@
 
 namespace DopeEngine
 {
-	class AudioListenerState : public AudioDeviceObject
+	class DOPE_ENGINE_API AudioListenerState : public AudioDeviceObject
 	{
 		friend class AudioDevice;
 	public:
