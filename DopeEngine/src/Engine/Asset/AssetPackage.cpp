@@ -136,7 +136,7 @@ namespace DopeEngine
 	{
 		OwnerPool = ownerPool;
 		Name = packageName;
-		ID = Guid::create();
+		ID = Guid();
 		CompressedPhysicalFileSize = 0;
 		UncompressedPhysicalFileSize = 0;
 		CpuAllocatedFunctionalMemorySize = 0;

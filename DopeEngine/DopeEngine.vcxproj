@@ -175,6 +175,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\File\PlatformFile.h" />
+    <ClInclude Include="src\Engine\File\PlatformPaths.h" />
+    <ClInclude Include="src\Engine\OS\PlatformError.h" />
+    <ClInclude Include="src\Engine\Memory\ByteBlock.h" />
+    <ClInclude Include="src\Engine\Audio\Clip\Loader\AudioClipLoaderType.h" />
+    <ClInclude Include="src\Engine\Audio\Clip\Loader\AudioClipLoadResult.h" />
+    <ClInclude Include="src\Engine\Audio\Clip\Loader\IAudioClipLoader.h" />
+    <ClInclude Include="src\Engine\Audio\Clip\AudioClip.h" />
     <ClInclude Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.h" />
     <ClInclude Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBuffer.h" />
     <ClInclude Include="src\Engine\Audio\API\OpenAL\Device\OpenALAudioDeviceObjects.h" />
@@ -183,7 +191,12 @@
     <ClInclude Include="src\Engine\Audio\API\XAudio2\Device\X2AudioDeviceObjects.h" />
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferDesc.h" />
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferFormat.h" />
+    <ClInclude Include="src\Engine\Audio\Clip\AudioFileFormat.h" />
     <ClInclude Include="src\Engine\Audio\Device\AudioDeviceObjects.h" />
+    <ClInclude Include="src\Engine\Audio\Loader\AudioLoaderType.h" />
+    <ClInclude Include="src\Engine\Audio\Loader\AudioLoadResult.h" />
+    <ClInclude Include="src\Engine\Audio\Loader\IAudioLoader.h" />
+    <ClInclude Include="src\Engine\Audio\Loader\Loaders\Wav\WavFileData.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioListenerStateDesc.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioSourceState.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioListenerState.h" />
@@ -368,7 +381,7 @@
     <ClInclude Include="src\Engine\World\WorldResolver.h" />
     <ClInclude Include="src\Engine\Application\Modules\TestingModule.h" />
     <ClInclude Include="src\Engine\World\Components\TestComponent.h" />
-    <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowsGuid.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Structures\WindowsGuidGenerator.h" />
     <ClInclude Include="src\Engine\Threading\Thread.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsMutex.h" />
     <ClInclude Include="src\Engine\Platform\Windows\Threading\WindowsThread.h" />
@@ -402,8 +415,17 @@
     <ClInclude Include="src\Engine\Audio\API\XAudio2\Buffer\X2Buffer.h" />
     <ClInclude Include="src\Engine\Audio\API\XAudio2\State\X2SourceState.h" />
     <ClInclude Include="src\Engine\Audio\Buffer\AudioBufferUtils.h" />
+    <ClInclude Include="src\Engine\Audio\Loader\Loaders\Wav\WavAudioLoader.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\Error\WindowsError.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\File\WindowsPaths.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\File\WindowsFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\File\PlatformFile.cpp" />
+    <ClCompile Include="src\Engine\File\PlatformPaths.cpp" />
+    <ClCompile Include="src\Engine\OS\PlatformError.cpp" />
+    <ClCompile Include="src\Engine\Memory\ByteBlock.cpp" />
+    <ClCompile Include="src\Engine\Audio\Clip\AudioClip.cpp" />
     <ClCompile Include="src\Engine\Application\Window\Window.cpp" />
     <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBufferFormatUtils.cpp" />
     <ClCompile Include="src\Engine\Audio\API\OpenAL\Buffer\OpenALBuffer.cpp" />
@@ -530,7 +552,7 @@
     <ClCompile Include="src\Engine\World\WorldResolver.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\TestingModule.cpp" />
     <ClCompile Include="src\Engine\World\Components\TestComponent.cpp" />
-    <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowsGuid.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Structures\WindowsGuidGenerator.cpp" />
     <ClCompile Include="src\Engine\Threading\Thread.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsMutex.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\Threading\WindowsThread.cpp" />
@@ -563,6 +585,10 @@
     <ClCompile Include="src\Engine\Audio\API\XAudio2\Buffer\X2Buffer.cpp" />
     <ClCompile Include="src\Engine\Audio\API\XAudio2\State\X2SourceState.cpp" />
     <ClCompile Include="src\Engine\Audio\Buffer\AudioBufferUtils.cpp" />
+    <ClCompile Include="src\Engine\Audio\Loader\Loaders\Wav\WavAudioLoader.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\Error\WindowsError.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\File\WindowsPaths.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\File\WindowsFile.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
