@@ -175,6 +175,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\File\PlatformDirectory.h" />
     <ClInclude Include="src\Engine\File\PlatformFile.h" />
     <ClInclude Include="src\Engine\File\PlatformPaths.h" />
     <ClInclude Include="src\Engine\OS\PlatformError.h" />
@@ -419,8 +420,10 @@
     <ClInclude Include="src\Engine\Platform\Windows\Error\WindowsError.h" />
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsPaths.h" />
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsFile.h" />
+    <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\File\PlatformDirectory.cpp" />
     <ClCompile Include="src\Engine\File\PlatformFile.cpp" />
     <ClCompile Include="src\Engine\File\PlatformPaths.cpp" />
     <ClCompile Include="src\Engine\OS\PlatformError.cpp" />
@@ -589,6 +592,7 @@
     <ClCompile Include="src\Engine\Platform\Windows\Error\WindowsError.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\File\WindowsPaths.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\File\WindowsFile.cpp" />
+    <ClCompile Include="src\Engine\Platform\Windows\File\WindowsDirectory.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
