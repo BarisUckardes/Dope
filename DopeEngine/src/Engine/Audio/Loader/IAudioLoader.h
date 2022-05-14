@@ -8,6 +8,7 @@ namespace DopeEngine
 	class DOPE_ENGINE_API IAudioLoader
 	{
 	public:
+		static IAudioLoader* create(const AudioLoaderType requestedLoader);
 		IAudioLoader() = default;
 		~IAudioLoader() = default;
 

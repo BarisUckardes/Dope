@@ -98,6 +98,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,6 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,6 +142,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,6 +164,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>src;$(SolutionDir)deps\GLAD\include;$(SolutionDir)deps\STBI\include;$(SolutionDir)deps\dxhelpers;$(SolutionDir)deps\VULKAN\include;$(SolutionDir)deps\IMGUI\include;$(SolutionDir)deps\OPENAL\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>6387;6386;4251;4244;4477;4715;4267;4005;4312;4838;6385;26812</DisableSpecificWarnings>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,6 +179,20 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.h" />
+    <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionDispatcher.h" />
+    <ClInclude Include="src\Engine\Reflection\Field\ReflectableFieldDispatcher.h" />
+    <ClInclude Include="src\Engine\Reflection\Reflection.h" />
+    <ClInclude Include="src\Engine\Reflection\Type\ReflectableRawTypes.h" />
+    <ClInclude Include="src\Engine\Reflection\Type\ReflectableType.h" />
+    <ClInclude Include="src\Engine\Reflection\Enum\ReflectableEnum.h" />
+    <ClInclude Include="src\Engine\Reflection\Enum\ReflectableEnumField.h" />
+    <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunction.h" />
+    <ClInclude Include="src\Engine\Reflection\Field\ReflectableField.h" />
+    <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionParameter.h" />
+    <ClInclude Include="src\Engine\Reflection\Object\ReflectableObjectDispatcher.h" />
+    <ClInclude Include="src\Engine\Reflection\Object\ReflectableObjectGenerator.h" />
+    <ClInclude Include="src\Engine\Reflection\Object\ReflectableObject.h" />
     <ClInclude Include="src\Engine\File\PlatformDirectory.h" />
     <ClInclude Include="src\Engine\File\PlatformFile.h" />
     <ClInclude Include="src\Engine\File\PlatformPaths.h" />
@@ -197,7 +215,6 @@
     <ClInclude Include="src\Engine\Audio\Loader\AudioLoaderType.h" />
     <ClInclude Include="src\Engine\Audio\Loader\AudioLoadResult.h" />
     <ClInclude Include="src\Engine\Audio\Loader\IAudioLoader.h" />
-    <ClInclude Include="src\Engine\Audio\Loader\Loaders\Wav\WavFileData.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioListenerStateDesc.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioSourceState.h" />
     <ClInclude Include="src\Engine\Audio\State\AudioListenerState.h" />
@@ -312,6 +329,7 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h" />
     <ClInclude Include="src\Engine\Platform\PlatformString.h" />
+    <ClInclude Include="src\Engine\Reflection\ReflectionBindingFlags.h" />
     <ClInclude Include="src\Engine\Threading\Mutex.h" />
     <ClInclude Include="src\Engine\Math\Math.h" />
     <ClInclude Include="src\Engine\Math\Matrix4x4.h" />
@@ -423,6 +441,18 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Audio\Loader\IAudioLoader.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Function\ReflectableFunctionDispatcher.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Field\ReflectableFieldDispatcher.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Type\ReflectableRawTypes.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Type\ReflectableType.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Enum\ReflectableEnum.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Function\ReflectableFunction.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Field\ReflectableField.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Object\ReflectableObjectDispatcher.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Object\ReflectableObjectGenerator.cpp" />
+    <ClCompile Include="src\Engine\Reflection\Object\ReflectableObject.cpp" />
     <ClCompile Include="src\Engine\File\PlatformDirectory.cpp" />
     <ClCompile Include="src\Engine\File\PlatformFile.cpp" />
     <ClCompile Include="src\Engine\File\PlatformPaths.cpp" />

@@ -228,8 +228,8 @@ namespace DopeEngine
 	bool WindowsFile::read(const String& path, ByteBlock& block, const unsigned long startIndex, const unsigned long endIndex)
 	{
 		/*
-				* Validate if file exists
-				*/
+		* Validate if file exists
+		*/
 		if (!is_file_exists(path))
 			return false;
 

@@ -6,6 +6,11 @@
 #include <Engine/Application/Modules/TestingModule.h>
 #include <Engine/Application/Modules/TestRenderingModule.h>
 #include <Engine/Threading/Thread.h>
+#include "TestReflectionClass.h"
+#include <Engine/Audio/Loader/IAudioLoader.h>
+#include <Engine/Audio/Loader/AudioLoadResult.h>
+#include <Engine/File/PlatformFile.h>
+
 
 void* test_thread(void* param)
 {
@@ -15,6 +20,12 @@ void* test_thread(void* param)
 }
 int main(int argumentCount, char** arguments)
 {
+	TestReflectionClass test;
+	DopeEngine::ReflectableType* type = TestReflectionClass_reflection_type_accessor_::get_owner_type();
+	type = typeof(TestReflectionClass);
+
+	LOG("Reflection", "Type name : %s", *type->get_name());
+
 	/*
 	* Create application
 	*/
@@ -40,6 +51,12 @@ int main(int argumentCount, char** arguments)
 	//thread.wait_for_task_finish();
 	//
 	//LOG("Test app", "Value is : %d", a);
+
+
+	DopeEngine::IAudioLoader* audioLoader = DopeEngine::IAudioLoader::create(DopeEngine::AudioLoaderType::Wav);
+	DopeEngine::AudioLoadResult loadResult = {};
+	audioLoader->load("E:\\Dope\\Development\\Resources\\Audio\\TestWAVFile.wav",loadResult);
+
 	/*
 	* Run app
 	*/

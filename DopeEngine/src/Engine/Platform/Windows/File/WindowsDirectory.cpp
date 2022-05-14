@@ -96,8 +96,8 @@ namespace DopeEngine
     bool WindowsDirectory::get_item_names(const String& path, Array<String>& itemsOut)
     {
         /*
-       * Create search filter
-       */
+        * Create search filter
+        */
         const String searchFilter = path + "*";
 
         /*
