@@ -48,40 +48,10 @@ namespace DopeEngine
 		Guid get_id() const;
 
 		/// <summary>
-		/// Returns the compressed physical file size
+		/// Returns if this package is an virtual package
 		/// </summary>
 		/// <returns></returns>
-		unsigned long get_compressed_physical_file_size() const;
-
-		/// <summary>
-		/// Returns the uncompressed physical file size
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_uncompressed_physical_file_size() const;
-
-		/// <summary>
-		/// Returns the allocated cpu memory size(only functional memory)
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_allocated_functional_memory_size() const;
-
-		/// <summary>
-		/// Returns the allocated gpu memory size
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_gpu_allocated_functional_memory_size() const;
-
-		/// <summary>
-		/// Returns the cpu cached memory size
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_cached_memory_size() const;
-
-		/// <summary>
-		/// Returns the total allocated cpu memory size(functional + cached)
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_allocated_total_memory_size() const;
+		bool is_virtual_package() const;
 
 		/// <summary>
 		/// Creates a packed asset
@@ -104,82 +74,17 @@ namespace DopeEngine
 		/// <param name="object"></param>
 		/// <returns></returns>
 		Asset* create_virtual_asset(AssetObject* object);
-
-		/// <summary>
-		/// Internal method for incrementing compressed physical file size
-		/// </summary>
-		/// <param name="size"></param>
-		void _add_compressed_physical_file_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for decrementing compressed physical file size
-		/// </summary>
-		/// <param name="size"></param>
-		void _remove_compressed_physical_file_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for incrementing uncompressed physical file size
-		/// </summary>
-		/// <param name="size"></param>
-		void _add_uncompressed_physical_file_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for decrementing uncompressed physical file size
-		/// </summary>
-		/// <param name="size"></param>
-		void _remove_uncompressed_physical_file_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for incrementing cpu allocated functional memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _add_cpu_functional_memory_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for decrementing cpu allocated functional memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _remove_cpu_functional_memory_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for incrementing gpu allocated functional memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _add_gpu_functional_memory_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for decrementing gpu allocated functional memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _remove_gpu_functional_memory_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for incrementing cpu cached memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _add_cached_cpu_memory_size(unsigned long size);
-
-		/// <summary>
-		/// Internal method for decrementing cpu cached memory size
-		/// </summary>
-		/// <param name="size"></param>
-		void _remove_cached_cpu_memory_size(unsigned long size);
-		
 	private:
 		AssetPackage(const String& packageName,AssetPackagePool* ownerPool);
+		AssetPackage(AssetPackagePool* ownerPool);
 		~AssetPackage() = default;
 
-		 void register_asset(Asset * asset);
+		void register_asset(Asset * asset);
 	private:
 		Array<Asset*> Assets;
 		AssetPackagePool* OwnerPool;
 		String Name;
 		Guid ID;
-		unsigned long CompressedPhysicalFileSize;
-		unsigned long UncompressedPhysicalFileSize;
-		unsigned long CpuAllocatedFunctionalMemorySize;
-		unsigned long GpuAllocatedFunctionalMemorySize;
-		unsigned long CpuCachedMemorySize;
-		unsigned long CpuAllocatedTotalMemorySize;
+		bool Virtual;
 	};
 }

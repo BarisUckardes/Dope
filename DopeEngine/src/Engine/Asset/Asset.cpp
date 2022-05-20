@@ -35,30 +35,6 @@ namespace DopeEngine
 	{
 		return ImportType;
 	}
-	unsigned long Asset::get_compressed_physical_file_size() const
-	{
-		return CompressedPhysicalFileSize;
-	}
-	unsigned long Asset::get_uncompressed_physical_file_size() const
-	{
-		return UncompressedPhysicalFileSize;
-	}
-	unsigned long Asset::get_cpu_allocated_functional_memory_size() const
-	{
-		return CpuAllocatedFunctionalMemorySize;
-	}
-	unsigned long Asset::get_gpu_allocated_functional_memory_size() const
-	{
-		return GpuAllocatedFunctionalMemorySize;
-	}
-	unsigned long Asset::get_cpu_cached_memory_size() const
-	{
-		return CpuCachedMemorySize;
-	}
-	unsigned long Asset::get_cpu_total_allocated_memory_size() const
-	{
-		return CpuAllocatedTotalMemorySize;
-	}
 	bool Asset::has_cached_memory() const
 	{
 		return false;
@@ -102,15 +78,6 @@ namespace DopeEngine
 			default:
 				break;
 		}
-	}
-	void Asset::_set_allocated_cpu_memory_size(unsigned long size)
-	{
-		CpuAllocatedFunctionalMemorySize = size;
-		CpuAllocatedTotalMemorySize = size + CpuCachedMemorySize;
-	}
-	void Asset::_set_allocated_gpu_memory_size(unsigned long size)
-	{
-		GpuAllocatedFunctionalMemorySize = size;
 	}
 	Asset::Asset(const String& sourceFileAbsolutePath, const String& headerFileAbsolutePath, AssetPackage* ownerPackage)
 	{

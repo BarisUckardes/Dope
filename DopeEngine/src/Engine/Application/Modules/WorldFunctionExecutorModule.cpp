@@ -1,13 +1,13 @@
-#include "WorldResolverModule.h"
+#include "WorldFunctionExecutorModule.h"
 #include <Engine/Structures/Array.h>
 #include <Engine/World/World.h>
 #include <Engine/Application/Session/GameSession.h>
 namespace DopeEngine
 {
-    void WorldResolverModule::initialize()
+    void WorldFunctionExecutorModule::initialize()
     {
     }
-    void WorldResolverModule::update()
+    void WorldFunctionExecutorModule::update()
     {
         /*
         * Get world
@@ -25,25 +25,25 @@ namespace DopeEngine
             World* world = worlds[worldIndex];
 
             /*
-            * Get world resolvers
+            * Get world functions
             */
-            const Array<WorldResolver*>& resolvers = world->get_resolvers_fast();
+            const Array<WorldFunction*>& functions = world->get_functions();
 
             /*
-            * Iterate each resolver
+            * Iterate each function
             */
-            for (unsigned int resolverIndex = 0; resolverIndex < resolvers.get_cursor(); resolverIndex++)
+            for (unsigned int functionIndex = 0; functionIndex < functions.get_cursor(); functionIndex++)
             {
-                resolvers[resolverIndex]->resolve();
+                functions[functionIndex]->execute();
             }
 
         }
     }
-    void WorldResolverModule::finalize()
+    void WorldFunctionExecutorModule::finalize()
     {
 
     }
-    void WorldResolverModule::on_receive_application_event(ApplicationEvent* event)
+    void WorldFunctionExecutorModule::on_receive_application_event(ApplicationEvent* event)
     {
 
     }

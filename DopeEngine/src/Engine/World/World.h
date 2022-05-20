@@ -2,7 +2,7 @@
 #include <Engine/Core/Symbols.h>
 #include <Engine/Structures/String.h>
 #include <Engine/Structures/Array.h>
-#include <Engine/World/WorldResolver.h>
+#include <Engine/World/WorldFunction.h>
 namespace DopeEngine
 {
 	class GameSession;
@@ -19,77 +19,66 @@ namespace DopeEngine
 		/// Returns a reference to the entity list
 		/// </summary>
 		/// <returns></returns>
-		 const Array<Entity*>& get_entities_fast() const;
+		const Array<Entity*>& get_entities_fast() const;
 
 		/// <summary>
 		/// Returns a copy to the entity list
 		/// </summary>
 		/// <returns></returns>
-		 Array<Entity*> get_entities_slow() const;
+		Array<Entity*> get_entities_slow() const;
 
 		/// <summary>
 		/// Returns a reference to the resolver list
 		/// </summary>
 		/// <returns></returns>
-		 Array<WorldResolver*>& get_resolvers_fast();
-
-		/// <summary>
-		/// Returns a copy to the resolver list
-		/// </summary>
-		/// <returns></returns>
-		 Array<WorldResolver*> get_resolvers_slow();
+		Array<WorldFunction*>& get_functions();
 
 		/// <summary>
 		/// Returns whether this world is current
 		/// </summary>
 		/// <returns></returns>
-		 bool is_current() const;
+		bool is_current() const;
 
 		/// <summary>
 		/// Returns the owning game session of this world
 		/// </summary>
 		/// <returns></returns>
-		 GameSession* get_owner_session() const;
+		GameSession* get_owner_session() const;
 
 		/// <summary>
 		/// Creates anew entity and returns it
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		 Entity* create_entity(const String& name = "Default Entity Name");
+		Entity* create_entity(const String& name = "Default Entity Name");
 
 		/// <summary>
 		/// Deletes an existing entity
 		/// </summary>
-		 void delete_entity(Entity* entity);
+		void delete_entity(Entity* entity);
 
 		/// <summary>
 		/// Returns a resolver with the specified type
 		/// </summary>
 		/// <typeparam name="TResolver"></typeparam>
 		/// <returns></returns>
-		template<typename TResolver>
-		 TResolver* get_resolver() const;
+		template<typename TFunction>
+		TFunction* get_function() const;
 
 		/// <summary>
 		/// Registers anew resolver to the world
 		/// </summary>
 		/// <typeparam name="TResolver"></typeparam>
-		template<typename TResolver,typename... TParameters>
-		void register_resolver(TParameters... parameters);
+		template<typename TFunction,typename... TParameters>
+		void register_function(TParameters... parameters);
 
 		/// <summary>
 		/// Attempts to remove a resolver by type, returns whether the removal was successfull or not
 		/// </summary>
 		/// <typeparam name="TResolver"></typeparam>
 		/// <returns></returns>
-		template<typename TResolver>
-		bool remove_resolver();
-
-		/// <summary>
-		/// Runs the world routine
-		/// </summary>
-		void tick_world();
+		template<typename TFunction>
+		bool remove_function();
 
 		/// <summary>
 		/// Destroys this world
@@ -104,101 +93,101 @@ namespace DopeEngine
 		void _on_destroy();
 	private:
 		Array<Entity*> Entities;
-		Array<WorldResolver*> Resolvers;
+		Array<WorldFunction*> Functions;
 		GameSession* OwnerSession;
 		String Name;
 		bool Current;
 	};
 
 
-	template<typename TResolver>
-	 TResolver* World::get_resolver() const
+	template<typename TFunction>
+	TFunction* World::get_function() const
 	{
 		/*
-		* Get resolver class name
+		* Get function class name
 		*/
-		const String className = TResolver::get_resolver_class_name_static();
+		const String className = TFunction::get_function_class_name_static();
 
 		/*
 		* Iterate and find
 		*/
-		for (unsigned int i = 0; i < Resolvers.get_cursor(); i++)
+		for (unsigned int i = 0; i < Functions.get_cursor(); i++)
 		{
 			/*
-			* Get resolver
+			* Get function
 			*/
-			WorldResolver* resolver = Resolvers[i];
+			WorldFunction* function = Functions[i];
 
 			/*
 			* Validate match
 			*/
-			if (className == resolver->get_resolver_class_name())
-				return (TResolver*)resolver;
+			if (className == function->get_function_class_name())
+				return (TFunction*)function;
 		}
 		return nullptr;
 	}
 
-	template<typename TResolver,typename... TParameters>
-	inline void World::register_resolver(TParameters... parameters)
+	template<typename TFunction,typename... TParameters>
+	inline void World::register_function(TParameters... parameters)
 	{
 		/*
-		* Create resolver
+		* Create function
 		*/
-		TResolver* resolver = new TResolver(parameters...);
+		TFunction* function = new TFunction(parameters...);
 
 		/*
 		* Set owner world
 		*/
-		resolver->_set_owner_world(this);
+		function->_set_owner_world(this);
 
 		/*
 		* Initialize
 		*/
-		resolver->initialize();
+		function->initialize();
 
 		/*
-		* Register it to the world resolvers list
+		* Register it to the world functions list
 		*/
-		Resolvers.add(resolver);
+		Functions.add(function);
 	}
 
-	template<typename TResolver>
-	inline bool World::remove_resolver()
+	template<typename TFunction>
+	inline bool World::remove_function()
 	{
 		/*
 		* Get resolver class name
 		*/
-		const String className = TResolver::get_resolver_class_name_static();
+		const String className = TFunction::get_function_class_name_static();
 
 		/*
 		* Iterate and find a match
 		*/
-		for (unsigned int i = 0; i < Resolvers.get_cursor(); i++)
+		for (unsigned int i = 0; i < Functions.get_cursor(); i++)
 		{
 			/*
-			* Get resolver
+			* Get function
 			*/
-			WorldResolver* resolver = Resolvers[i];
+			WorldFunction* function = Functions[i];
 
 			/*
 			* Validate class names
 			*/
-			if (className == resolver->get_resolver_class_name())
+			if (className == function->get_function_class_name())
 			{
 				/*
-				* Finalize resolvers
+				* Finalize function
 				*/
-				resolver->finalize();
+				function->finalize();
 
 				/*
 				* Free heap memory
 				*/
-				delete resolver;
+				delete function;
 
 				/*
-				* Remove it from the world resolvers list
+				* Remove it from the world functions list
 				*/
-				Resolvers.remove_index(i);
+				Functions.remove_index(i);
 				i--;
 
 				return true;

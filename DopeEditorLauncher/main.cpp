@@ -2,16 +2,14 @@
 #include <Engine/Application/Application.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <Engine/Core/Assert.h>
-#include <Engine/Application/Modules/WorldResolverModule.h>
+#include <Engine/Application/Modules/WorldFunctionExecutorModule.h>
 #include <Engine/Application/Modules/TestingModule.h>
 #include <Engine/Application/Modules/TestRenderingModule.h>
 #include <Engine/Threading/Thread.h>
-#include "TestReflectionClass.h"
 #include <Engine/Audio/Loader/IAudioLoader.h>
 #include <Engine/Audio/Loader/AudioLoadResult.h>
 #include <Engine/File/PlatformFile.h>
-
-
+#include <Editor/Module/EditorModule.h>
 void* test_thread(void* param)
 {
 	unsigned int* p = (unsigned int*)param;
@@ -20,12 +18,6 @@ void* test_thread(void* param)
 }
 int main(int argumentCount, char** arguments)
 {
-	TestReflectionClass test;
-	DopeEngine::ReflectableType* type = TestReflectionClass_reflection_type_accessor_::get_owner_type();
-	type = typeof(TestReflectionClass);
-
-	LOG("Reflection", "Type name : %s", *type->get_name());
-
 	/*
 	* Create application
 	*/
@@ -37,9 +29,10 @@ int main(int argumentCount, char** arguments)
 	/*
 	* Register modules
 	*/
-	app.register_pending_module<DopeEngine::WorldResolverModule>();
+	app.register_pending_module<DopeEngine::WorldFunctionExecutorModule>();
 	app.register_pending_module<DopeEngine::TestingModule>();
 	app.register_pending_module<DopeEngine::TestRenderingModule>();
+	app.register_pending_module<DopeEditor::EditorModule>();
 
 	Thread thread;
 	//unsigned int a = 1;
@@ -51,11 +44,6 @@ int main(int argumentCount, char** arguments)
 	//thread.wait_for_task_finish();
 	//
 	//LOG("Test app", "Value is : %d", a);
-
-
-	DopeEngine::IAudioLoader* audioLoader = DopeEngine::IAudioLoader::create(DopeEngine::AudioLoaderType::Wav);
-	DopeEngine::AudioLoadResult loadResult = {};
-	audioLoader->load("E:\\Dope\\Development\\Resources\\Audio\\TestWAVFile.wav",loadResult);
 
 	/*
 	* Run app

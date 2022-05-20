@@ -264,7 +264,5 @@ namespace DopeEngine
         * Validate pso
         */
         ASSERT(SUCCEEDED(createPSOHR), "DX12RenderPass", "PSO creation failed");
-
-      
     }
 }

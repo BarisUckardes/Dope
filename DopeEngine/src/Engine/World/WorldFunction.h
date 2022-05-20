@@ -10,15 +10,15 @@ namespace DopeEngine
 	/// <summary>
 	/// A world procedure unit, can create renderer,logic,physics and etc routines
 	/// </summary>
-	class DOPE_ENGINE_API WorldResolver
+	class DOPE_ENGINE_API WorldFunction
 	{
 		friend class World;
 	public:
 		/// <summary>
-		/// Returns the class name for this resolver
+		/// Returns the class name for this WorldFunction
 		/// </summary>
 		/// <returns></returns>
-		virtual String get_resolver_class_name() const = 0;
+		virtual String get_function_class_name() const = 0;
 
 		/// <summary>
 		/// Registers a component
@@ -40,17 +40,17 @@ namespace DopeEngine
 		/// <summary>
 		/// Resolves this world resolver
 		/// </summary>
-		virtual void resolve() = 0;
+		virtual void execute() = 0;
 
 		/// <summary>
 		/// Called upon destroy
 		/// </summary>
 		virtual void finalize() = 0;
 	protected:
-		WorldResolver() : OwnerWorld(nullptr) {}
-		~WorldResolver() = default;
+		WorldFunction() : OwnerWorld(nullptr) {}
+		~WorldFunction() = default;
 
-		 World* get_owner_world() const;
+		World* get_owner_world() const;
 	private:
 		void _set_owner_world(World* world);
 	private:
@@ -58,5 +58,5 @@ namespace DopeEngine
 	};
 
 
-#define GENERATE_RESOLVER(className) public: static String get_resolver_class_name_static() { return #className; } virtual String get_resolver_class_name() const override { return #className;}
+#define GENERATE_WORLD_FUNCTION(className) public: static String get_function_class_name_static() { return #className; } virtual String get_function_class_name() const override { return #className;}
 }

@@ -3,12 +3,12 @@
 
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API WorldResolverModule : public ApplicationModule
+	class DOPE_ENGINE_API WorldFunctionExecutorModule : public ApplicationModule
 	{
-		GENERATE_MODULE(WorldResolverModule);
+		GENERATE_MODULE(WorldFunctionExecutorModule);
 	public:
-		WorldResolverModule() = default;
-		~WorldResolverModule() = default;
+		WorldFunctionExecutorModule() = default;
+		~WorldFunctionExecutorModule() = default;
 
 		// Inherited via ApplicationModule
 		virtual void initialize() override;

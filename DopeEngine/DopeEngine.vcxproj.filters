@@ -165,10 +165,10 @@
     <ClInclude Include="src\Engine\World\Components\Spatial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\World\WorldResolver.h">
+    <ClInclude Include="src\Engine\World\WorldFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\World\Resolvers\IterativeLogicResolver.h">
+    <ClInclude Include="src\Engine\World\Functions\IterativeLogicWorldFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Application\Events\Events.h">
@@ -180,7 +180,7 @@
     <ClInclude Include="src\Engine\Application\Session\GameSession.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Application\Modules\WorldResolverModule.h">
+    <ClInclude Include="src\Engine\Application\Modules\WorldFunctionExecutorModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Application\Modules\TestingModule.h">
@@ -905,16 +905,16 @@
     <ClCompile Include="src\Engine\World\Components\Spatial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\World\WorldResolver.cpp">
+    <ClCompile Include="src\Engine\World\WorldFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\World\Resolvers\IterativeLogicResolver.cpp">
+    <ClCompile Include="src\Engine\World\Functions\IterativeLogicWorldFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Session\GameSession.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Application\Modules\WorldResolverModule.cpp">
+    <ClCompile Include="src\Engine\Application\Modules\WorldFunctionExecutorModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Modules\TestingModule.cpp">

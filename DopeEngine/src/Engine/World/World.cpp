@@ -1,7 +1,7 @@
 #include "World.h"
 #include <Engine/World/Entity.h>
 #include <Engine/Application/Session/GameSession.h>
-#include <Engine/World/WorldResolver.h>
+#include <Engine/World/WorldFunction.h>
 namespace DopeEngine
 {
     const Array<Entity*>& World::get_entities_fast() const
@@ -14,16 +14,12 @@ namespace DopeEngine
         return Entities;
     }
 
-    Array<WorldResolver*>& World::get_resolvers_fast()
+    Array<WorldFunction*>& World::get_functions()
     {
-        return Resolvers;
+        return Functions;
     }
 
-    Array<WorldResolver*> World::get_resolvers_slow()
-    {
-        return Resolvers;
-    }
-
+  
     bool World::is_current() const
     {
         return Current;
@@ -83,16 +79,6 @@ namespace DopeEngine
         }
     }
 
-    void World::tick_world()
-    {
-        /*
-        * Iterate resolvers and resolve them
-        */
-        for (unsigned int i = 0; i < Resolvers.get_cursor(); i++)
-        {
-            Resolvers[i]->resolve();
-        }
-    }
 
     void World::destroy()
     {
@@ -116,26 +102,26 @@ namespace DopeEngine
     void World::_on_destroy()
     {
         /*
-        * Destroy resolvers
+        * Destroy functions
         */
-        for (unsigned int i = 0; i < Resolvers.get_cursor(); i++)
+        for (unsigned int i = 0; i < Functions.get_cursor(); i++)
         {
             /*
-            * Get resolvers
+            * Get functions
             */
-            WorldResolver* resolver = Resolvers[i];
+            WorldFunction* function = Functions[i];
 
             /*
-            * Finalize resolver
+            * Finalize function
             */
-            resolver->finalize();
+            function->finalize();
 
             /*
             * Delete heap memory
             */
-            delete resolver;
+            delete function;
         }
-        Resolvers.clear();
+        Functions.clear();
 
         /*
         * Destroy entities

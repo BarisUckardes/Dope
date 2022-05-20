@@ -65,42 +65,6 @@ namespace DopeEngine
 		AssetImportType get_import_type() const;
 
 		/// <summary>
-		/// Returns the compressed physical file size
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_compressed_physical_file_size() const;
-
-		/// <summary>
-		/// Returns the uncompressed physical file size
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_uncompressed_physical_file_size() const;
-
-		/// <summary>
-		/// Returns the size of the functional memory allocated on the cpu
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_allocated_functional_memory_size() const;
-
-		/// <summary>
-		/// Returns the size of the functional memory allocated on the gpu
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_gpu_allocated_functional_memory_size() const;
-
-		/// <summary>
-		/// Returns the size of the cached memory on the cpu
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_cached_memory_size() const;
-
-		/// <summary>
-		/// Returns the total allocated cpu memory size(Cpu + cache)
-		/// </summary>
-		/// <returns></returns>
-		unsigned long get_cpu_total_allocated_memory_size() const;
-
-		/// <summary>
 		/// Returns whether this asset has a cached memory on the cpu
 		/// </summary>
 		/// <returns></returns>
@@ -122,17 +86,6 @@ namespace DopeEngine
 		/// </summary>
 		void unload_sync();
 
-		/// <summary>
-		/// An internal allocated cpu memory setter
-		/// </summary>
-		/// <param name="size"></param>
-		void _set_allocated_cpu_memory_size(unsigned long size);
-
-		/// <summary>
-		/// An internal allocated gpu memory setter
-		/// </summary>
-		/// <param name="size"></param>
-		void _set_allocated_gpu_memory_size(unsigned long size);
 	private:
 		/// <summary>
 		/// Creates this asset as a packed asset
@@ -209,12 +162,7 @@ namespace DopeEngine
 		Guid ID;
 		AssetType Type;
 		AssetImportType ImportType;
-		unsigned long UncompressedPhysicalFileSize;
-		unsigned long CompressedPhysicalFileSize;
-		unsigned long CpuAllocatedFunctionalMemorySize;
-		unsigned long GpuAllocatedFunctionalMemorySize;
-		unsigned long CpuCachedMemorySize;
-		unsigned long CpuAllocatedTotalMemorySize;
+	
 	};
 
 

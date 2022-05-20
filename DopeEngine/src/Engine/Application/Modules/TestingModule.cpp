@@ -3,7 +3,7 @@
 #include <Engine/World/Entity.h>
 #include <Engine/Application/Session/GameSession.h>
 #include <Engine/World/Components/TestComponent.h>
-#include <Engine/World/Resolvers/IterativeLogicResolver.h>
+#include <Engine/World/Functions/IterativeLogicWorldFunction.h>
 namespace DopeEngine
 {
 	void TestingModule::initialize()
@@ -17,7 +17,7 @@ namespace DopeEngine
 		/*
 		* Register logic resolver
 		*/
-		world->register_resolver<IterativeLogicResolver>();
+		world->register_function<IterativeLogicWorldFunction>();
 
 		/*
 		* Create entity

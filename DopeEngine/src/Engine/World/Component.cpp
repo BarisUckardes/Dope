@@ -1,7 +1,7 @@
 #include "Component.h"
 #include <Engine/World/Entity.h>
 #include <Engine/World/World.h>
-#include <Engine/World/Resolvers/IterativeLogicResolver.h>
+#include <Engine/World/Functions/IterativeLogicWorldFunction.h>
 
 namespace DopeEngine
 {
@@ -27,13 +27,13 @@ namespace DopeEngine
 			/*
 			* Get resolver
 			*/
-			IterativeLogicResolver* resolver = OwnerEntity->get_owner_world()->get_resolver<IterativeLogicResolver>();
+			IterativeLogicWorldFunction* function = OwnerEntity->get_owner_world()->get_function<IterativeLogicWorldFunction>();
 
 			/*
 			* Validate and register
 			*/
-			if (resolver != nullptr)
-				resolver->register_component(this);
+			if (function != nullptr)
+				function->register_component(this);
 		}
 	}
 	void Component::finalize()
@@ -44,15 +44,15 @@ namespace DopeEngine
 		if (should_tick())
 		{
 			/*
-			* Get resolver
+			* Get function
 			*/
-			IterativeLogicResolver* resolver = OwnerEntity->get_owner_world()->get_resolver<IterativeLogicResolver>();
+			IterativeLogicWorldFunction* function = OwnerEntity->get_owner_world()->get_function<IterativeLogicWorldFunction>();
 
 			/*
 			* Validate and register
 			*/
-			if (resolver != nullptr)
-				resolver->remove_component(this);
+			if (function != nullptr)
+				function->remove_component(this);
 		}
 	}
 	Component::~Component()

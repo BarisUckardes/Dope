@@ -1,21 +1,21 @@
-#include "IterativeLogicResolver.h"
+#include "IterativeLogicWorldFunction.h"
 #include <Engine/World/Component.h>
 
 namespace DopeEngine
 {
-	void IterativeLogicResolver::register_component(Component* component)
+	void IterativeLogicWorldFunction::register_component(Component* component)
 	{
 		LogicInflictedComponents.add(component);
 	}
-	void IterativeLogicResolver::remove_component(Component* component)
+	void IterativeLogicWorldFunction::remove_component(Component* component)
 	{
 		LogicInflictedComponents.remove(component);
 	}
-	void IterativeLogicResolver::initialize()
+	void IterativeLogicWorldFunction::initialize()
 	{
 
 	}
-	void IterativeLogicResolver::resolve()
+	void IterativeLogicWorldFunction::execute()
 	{
 		/*
 		* Iterate and invoke
@@ -25,7 +25,7 @@ namespace DopeEngine
 			LogicInflictedComponents[i]->update();
 		}
 	}
-	void IterativeLogicResolver::finalize()
+	void IterativeLogicWorldFunction::finalize()
 	{
 		/*
 		* Remove each component list
