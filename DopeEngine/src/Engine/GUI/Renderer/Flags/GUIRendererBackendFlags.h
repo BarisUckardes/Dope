@@ -3,6 +3,10 @@
 
 namespace DopeEngine
 {
+
+	/// <summary>
+	/// Supported GUIRenderer backend flags
+	/// </summary>
 	enum DOPE_ENGINE_API GUIRendererBackendFlags
 	{
 		None = 0,

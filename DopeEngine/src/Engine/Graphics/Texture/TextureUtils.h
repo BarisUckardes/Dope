@@ -3,13 +3,21 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Util operations for texture
+	/// </summary>
 	class DOPE_ENGINE_API TextureUtils
 	{
 	public:
 		TextureUtils() = delete;
 		~TextureUtils() = delete;
 
-		 static unsigned int get_format_size(const TextureFormat format);
+		/// <summary>
+		/// Returns the format size in bytes
+		/// </summary>
+		/// <param name="format"></param>
+		/// <returns></returns>
+		static unsigned int get_format_size(const TextureFormat format);
 	};
 
 

@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// OpenGL implementation of a GUIRenderer
+	/// </summary>
 	class DOPE_ENGINE_API OpenGLGUIRenderer : public GUIRenderer
 	{
 	public:

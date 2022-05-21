@@ -582,18 +582,6 @@
     <ClInclude Include="src\Engine\Graphics\RenderPass\ScissorsDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\IShaderCompiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilerType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilationResult.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Shader\Compiler\Compilers\HLSLCompiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Engine\GUI\Renderer\GUIRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1200,12 +1188,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Shader\Compiler\IShaderCompiler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Shader\Compiler\Compilers\HLSLCompiler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\GUI\Renderer\GUIRenderer.cpp">

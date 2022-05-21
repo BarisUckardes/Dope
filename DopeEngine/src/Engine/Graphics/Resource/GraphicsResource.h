@@ -5,12 +5,18 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Api agnostic graphics device resource
+	/// </summary>
 	class DOPE_ENGINE_API GraphicsResource : public GraphicsDeviceObject
 	{
 	public:
 		GraphicsResource(const GraphicsResourceDesc& description);
 		virtual ~GraphicsResource() = 0 {}
 
+		/// <summary>
+		/// Returns the target resource
+		/// </summary>
 		GraphicsDeviceObject* get_resource() const;
 	private:
 		GraphicsDeviceObject* Resource;

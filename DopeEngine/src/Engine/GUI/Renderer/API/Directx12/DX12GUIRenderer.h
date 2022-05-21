@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Directx12 implementation of a GUIRenderer
+	/// </summary>
 	class DX12GUIRenderer : public GUIRenderer
 	{
 	public:

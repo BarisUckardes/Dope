@@ -4,6 +4,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Supported GUIRenderer configuration flags
+	/// </summary>
 	enum DOPE_ENGINE_API GUIRendererConfigFlags
 	{
 		GUIRendererConfigFlags_None = 0,

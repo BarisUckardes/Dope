@@ -19,17 +19,54 @@ namespace DopeEngine
 	class MouseScrolledEvent;
 	class WindowResizedEvent;
 	class WindowPositionChangedEvent;
+
+	/// <summary>
+	/// A graphics renderer specialized in GUI rendering
+	/// <para>It uses IMGUI as backend renderer</api>
+	/// </summary>
 	class DOPE_ENGINE_API GUIRenderer
 	{
 	public:
+		/// <summary>
+		/// Creates api agnostic GUIRenderer
+		/// </summary>
+		/// <param name="type"></param>
+		/// <param name="backendFlags"></param>
+		/// <param name="configFlags"></param>
+		/// <param name="device"></param>
+		/// <returns></returns>
 		static GUIRenderer* create(const GraphicsAPIType type, const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
 
+		/// <summary>
+		/// Called when received an application event
+		/// </summary>
+		/// <param name="event"></param>
+		void on_application_event(ApplicationEvent* event);
+
+		/// <summary>
+		/// Begins the GUI rendering session
+		/// </summary>
+		/// <param name="deltaTimeInMilliseconds"></param>
+		void begin_rendering(const float deltaTimeInMilliseconds);
+
+		/// <summary>
+		/// Renders the contents
+		/// </summary>
+		/// <param name="cmdBuffer"></param>
+		void render(CommandBuffer* cmdBuffer);
+
+		/// <summary>
+		/// Sets anew gui theme
+		/// </summary>
+		/// <param name="desc"></param>
+		void set_theme(const GUIRendererThemeDesc& desc);
+
+		/// <summary>
+		/// Returns the graphics api type
+		/// </summary>
+		/// <returns></returns>
 		virtual FORCEINLINE GraphicsAPIType get_api_type() const = 0;
 
-		void on_application_event(ApplicationEvent* event);
-		void begin_rendering(const float deltaTimeInMilliseconds);
-		void render(CommandBuffer* cmdBuffer);
-		void set_theme(const GUIRendererThemeDesc& desc);
 	protected:
 		GUIRenderer(const GUIRendererBackendFlags backendFlags,const GUIRendererConfigFlags configFlags);
 		~GUIRenderer() = default;

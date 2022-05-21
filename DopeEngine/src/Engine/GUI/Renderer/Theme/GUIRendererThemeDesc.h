@@ -3,6 +3,9 @@
 #include <Engine/Math/ColorRgbaFloat.h>
 namespace DopeEngine
 {
+	/// <summary>
+	/// Required fields to create a GUIRendererTheme
+	/// </summary>
 	struct DOPE_ENGINE_API GUIRendererThemeDesc
 	{
 		GUIRendererThemeDesc();

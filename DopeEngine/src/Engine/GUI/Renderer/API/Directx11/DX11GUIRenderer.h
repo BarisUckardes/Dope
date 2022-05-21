@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Directx11 implementation of a GUIRenderer
+	/// </summary>
 	class DOPE_ENGINE_API DX11GUIRenderer : public GUIRenderer
 	{
 	public:
