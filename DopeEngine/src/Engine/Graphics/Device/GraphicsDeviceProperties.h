@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Contains the basic graphics device properties such as model and vendor name
+	/// </summary>
 	class DOPE_ENGINE_API GraphicsDeviceProperties
 	{
 	public:
@@ -13,7 +16,16 @@ namespace DopeEngine
 		~GraphicsDeviceProperties() = default;
 
 
+		/// <summary>
+		/// Returns the vendor name of the gpu
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE String get_vendor() const;
+
+		/// <summary>
+		/// Returns the model of the gpu
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE String get_model() const;
 	private:
 		String Vendor;

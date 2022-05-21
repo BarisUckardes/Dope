@@ -277,11 +277,11 @@
     <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPassType.h" />
     <ClInclude Include="src\Engine\Graphics\RenderPass\ScissorsDesc.h" />
     <ClInclude Include="src\Engine\Graphics\RenderPass\ViewportDesc.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceTypeUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObjectType.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceViewDescription.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceDesc.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResource.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.h" />
@@ -310,8 +310,8 @@
     <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPassDesc.h" />
     <ClInclude Include="src\Engine\Graphics\RenderPass\PolygonFillMode.h" />
     <ClInclude Include="src\Engine\Graphics\RenderPass\PrimitiveTopology.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceSlotDesc.h" />
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceSlotDesc.h" />
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilationResult.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\Compiler\ShaderCompilerType.h" />
     <ClInclude Include="src\Engine\Graphics\Shader\ShaderDescription.h" />
@@ -509,9 +509,9 @@
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceFeaturesDesc.cpp" />
     <ClCompile Include="src\Engine\Graphics\Device\GraphicsDeviceProperties.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Resource\ResourceTypeUtils.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Resource\GraphicsResourceTypeUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Resource\ResourceView.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Resource\GraphicsResource.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.cpp" />

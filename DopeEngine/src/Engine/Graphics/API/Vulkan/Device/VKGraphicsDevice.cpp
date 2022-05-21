@@ -129,7 +129,7 @@ namespace DopeEngine
 		return new VKCommandBuffer(this);
 	}
 
-	ResourceView* VKGraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
+	GraphicsResource* VKGraphicsDevice::create_resource_impl(const GraphicsResourceDesc& desc)
 	{
 		return nullptr;
 	}

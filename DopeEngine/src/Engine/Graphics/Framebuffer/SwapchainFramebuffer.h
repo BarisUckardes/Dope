@@ -8,6 +8,11 @@
 namespace DopeEngine
 {
 	class ApplicationEvent;
+
+	/// <summary>
+	/// Specialized framebuffer class for Swapchains
+	/// <para>Can receive window resize messages for resizing</para>
+	/// </summary>
 	class DOPE_ENGINE_API SwapchainFramebuffer : public Framebuffer
 	{
 		friend class Window;
@@ -39,9 +44,23 @@ namespace DopeEngine
 		/// </summary>
 		virtual void on_swapchain_resize_impl() = 0;
 
+		/// <summary>
+		/// Returns the owner graphics device
+		/// </summary>
+		/// <returns></returns>
 		GraphicsDevice* get_owner_device() const;
+
+		/// <summary>
+		/// Returns the owner window
+		/// </summary>
+		/// <returns></returns>
 		Window* get_owner_window() const;
 	private:
+
+		/// <summary>
+		/// Internal method for receiving the window resized event
+		/// </summary>
+		/// <param name="event"></param>
 		void on_window_resize(WindowResizedEvent* event);
 	private:
 		GraphicsDevice* OwnerDevice;

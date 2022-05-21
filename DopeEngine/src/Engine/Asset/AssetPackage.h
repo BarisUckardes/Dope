@@ -75,10 +75,14 @@ namespace DopeEngine
 		/// <returns></returns>
 		Asset* create_virtual_asset(AssetObject* object);
 	private:
-		AssetPackage(const String& packageName,AssetPackagePool* ownerPool);
+		AssetPackage(const String& packageAbsolutePath,AssetPackagePool* ownerPool);
 		AssetPackage(AssetPackagePool* ownerPool);
 		~AssetPackage() = default;
 
+		/// <summary>
+		/// Internal method for registering an asset to the assets list
+		/// </summary>
+		/// <param name="asset"></param>
 		void register_asset(Asset * asset);
 	private:
 		Array<Asset*> Assets;
@@ -86,5 +90,6 @@ namespace DopeEngine
 		String Name;
 		Guid ID;
 		bool Virtual;
+		String AbsolutePath;
 	};
 }

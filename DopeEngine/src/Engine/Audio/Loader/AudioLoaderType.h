@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Supported audio loader types
+	/// </summary>
 	enum class DOPE_ENGINE_API AudioLoaderType
 	{
 		Undefined = 0,

@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
+#include <Engine/Graphics/Resource/GraphicsResourceSlotDesc.h>
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/API/Directx12/Core/DX12Core.h>
 namespace DopeEngine
@@ -10,6 +10,6 @@ namespace DopeEngine
 		DX12ResourceLayoutUtils() = delete;
 		~DX12ResourceLayoutUtils() = delete;
 
-		static D3D12_ROOT_PARAMETER_TYPE get_dx12_root_parameter_type(const ResourceType type);
+		static D3D12_ROOT_PARAMETER_TYPE get_dx12_root_parameter_type(const GraphicsResourceType type);
 	};
 }

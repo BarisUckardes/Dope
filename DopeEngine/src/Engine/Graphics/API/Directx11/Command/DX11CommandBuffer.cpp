@@ -232,25 +232,25 @@ namespace DopeEngine
 	{
 		Device->get_dx11_immediate_context()->ClearDepthStencilView(CurrentDepthTarget.Get(), 0, depth, 0);
 	}
-	void DX11CommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
+	void DX11CommandBuffer::commit_resource_impl(const unsigned int slot, const GraphicsResource* resource)
 	{
 		/*
 		* Get slot resource layout
 		*/
-		const ResourceSlotDesc resourceSlotDesc = get_bound_render_pass()->get_resource_slots()[slot];
+		const GraphicsResourceSlotDesc resourceSlotDesc = get_bound_render_pass()->get_resource_slots()[slot];
 
 		/*
 		* Catch resource type
 		*/
-		const ResourceType resourceType = resourceSlotDesc.Type;
+		const GraphicsResourceType resourceType = resourceSlotDesc.Type;
 		const ShaderType shaderStage = resourceSlotDesc.ShaderStage;
 		switch (resourceType)
 		{
-			case DopeEngine::ResourceType::UniformBuffer:
-				set_constant_buffer((const GraphicsBuffer*)view->get_resource(), shaderStage);
+			case GraphicsResourceType::UniformBuffer:
+				set_constant_buffer((const GraphicsBuffer*)resource->get_resource(), shaderStage);
 				break;
-			case DopeEngine::ResourceType::Texture:
-				set_shader_resource(view, shaderStage);
+			case GraphicsResourceType::Texture:
+				set_shader_resource(resource, shaderStage);
 				break;
 			default:
 				break;
@@ -286,18 +286,18 @@ namespace DopeEngine
 		}
 	}
 	
-	void DX11CommandBuffer::set_shader_resource(const ResourceView* view, const ShaderType stage)
+	void DX11CommandBuffer::set_shader_resource(const GraphicsResource* resource, const ShaderType stage)
 	{
 		switch (stage)
 		{
 			case DopeEngine::ShaderType::Vertex:
-				Device->get_dx11_immediate_context()->VSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				Device->get_dx11_immediate_context()->VSSetShaderResources(0, 1, ((const DX11ResourceView*)resource)->get_dx11_srv().GetAddressOf());
 				break;
 			case DopeEngine::ShaderType::Fragment:
-				Device->get_dx11_immediate_context()->PSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				Device->get_dx11_immediate_context()->PSSetShaderResources(0, 1, ((const DX11ResourceView*)resource)->get_dx11_srv().GetAddressOf());
 				break;
 			case DopeEngine::ShaderType::Geometry:
-				Device->get_dx11_immediate_context()->GSSetShaderResources(0, 1, ((const DX11ResourceView*)view)->get_dx11_srv().GetAddressOf());
+				Device->get_dx11_immediate_context()->GSSetShaderResources(0, 1, ((const DX11ResourceView*)resource)->get_dx11_srv().GetAddressOf());
 				break;
 			case DopeEngine::ShaderType::TesellationEval:
 				break;

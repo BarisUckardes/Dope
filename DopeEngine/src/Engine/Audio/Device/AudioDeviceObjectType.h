@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Existing audio device object types
+	/// </summary>
 	enum class DOPE_ENGINE_API AudioDeviceObjectType
 	{
 		Undefined = 0,

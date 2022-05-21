@@ -12,13 +12,15 @@
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
-#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
+#include <Engine/Graphics/Resource/GraphicsResourceDesc.h>
+#include <Engine/Graphics/Resource/GraphicsResourceSlotDesc.h>
 #include <Engine/Graphics/RenderPass/ViewportDesc.h>
 #include <Engine/Graphics/RenderPass/ScissorsDesc.h>
+
 namespace DopeEngine
 {
 	/// <summary>
-	/// Description for creating a pipeline
+	/// Description for creating a renderpass
 	/// </summary>
 	struct DOPE_ENGINE_API RenderPassDesc
 	{
@@ -95,7 +97,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Resource layouts
 		/// </summary>
-		Array<ResourceSlotDesc> ResourceSlots;
+		Array<GraphicsResourceSlotDesc> ResourceSlots;
 
 		/// <summary>
 		/// Type of the render pass

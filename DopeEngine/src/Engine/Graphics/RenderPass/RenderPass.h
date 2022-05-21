@@ -3,12 +3,12 @@
 #include <Engine/Graphics/Device/GraphicsDeviceObject.h>
 #include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 #include <Engine/Graphics/RenderPass/RenderPassType.h>
-#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
+#include <Engine/Graphics/Resource/GraphicsResourceSlotDesc.h>
 namespace DopeEngine
 {
 	class Shader;
 	/// <summary>
-	/// Graphics api agnostic pipeline abstraction class
+	/// Graphics api agnostic render pass abstraction class
 	/// </summary>
 	class DOPE_ENGINE_API RenderPass : public GraphicsDeviceObject
 	{
@@ -86,7 +86,7 @@ namespace DopeEngine
 		/// Returns a copy of the resource layouts
 		/// </summary>
 		/// <returns></returns>
-		Array<ResourceSlotDesc> get_resource_slots() const;
+		Array<GraphicsResourceSlotDesc> get_resource_slots() const;
 
 		/// <summary>
 		/// Returns the type of this pipeline
@@ -105,7 +105,7 @@ namespace DopeEngine
 		Array<Shader*> Shaders;
 		Framebuffer* TargetFramebuffer;
 		VertexLayoutDescription VertexLayout;
-		Array<ResourceSlotDesc> ResourceSlots;
+		Array<GraphicsResourceSlotDesc> ResourceSlots;
 		RenderPassType Type;
 	};
 

@@ -2,11 +2,7 @@
 #include <Engine/Asset/AssetPackage.h>
 namespace DopeEngine
 {
-    const Array<AssetPackage*>& AssetPackagePool::get_packages_fast() const
-    {
-        return Packages;
-    }
-    Array<AssetPackage*> AssetPackagePool::get_packages_slow() const
+    const Array<AssetPackage*>& AssetPackagePool::get_packages() const
     {
         return Packages;
     }
@@ -24,6 +20,20 @@ namespace DopeEngine
         * Create new package
         */
         AssetPackage* package = new AssetPackage(name,this);
+
+        /*
+        * Register package
+        */
+        Packages.add(package);
+
+        return package;
+    }
+    AssetPackage* AssetPackagePool::create_package()
+    {
+        /*
+        * Create new package
+        */
+        AssetPackage* package = new AssetPackage(this);
 
         /*
         * Register package

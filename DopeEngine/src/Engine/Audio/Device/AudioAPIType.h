@@ -3,10 +3,13 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Supported audio api types
+	/// </summary>
 	enum class AudioAPIType
 	{
 		Undefined = 0,
 		OpenAL = 1,
-		DirectSound = 2
+		X2Audio = 2
 	};
 }

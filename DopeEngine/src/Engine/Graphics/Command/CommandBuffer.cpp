@@ -1,9 +1,9 @@
 #include "CommandBuffer.h"
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/RenderPass/RenderPass.h>
-#include <Engine/Graphics/Resource/ResourceTypeUtils.h>
-#include <Engine/Graphics/Resource/ResourceSlotDesc.h>
-#include <Engine/Graphics/Resource/ResourceView.h>
+#include <Engine/Graphics/Resource/GraphicsResourceTypeUtils.h>
+#include <Engine/Graphics/Resource/GraphicsResourceSlotDesc.h>
+#include <Engine/Graphics/Resource/GraphicsResource.h>
 #include <Engine/Core/Assert.h>
 namespace DopeEngine
 {
@@ -80,7 +80,7 @@ namespace DopeEngine
 	{
 		clear_depth_impl(depth);
 	}
-	void CommandBuffer::set_resource_view(const unsigned int slot, const ResourceView* view)
+	void CommandBuffer::commit_resource(const unsigned int slot, const GraphicsResource* resource)
 	{
 #ifdef _DEBUG
 		/*
@@ -91,15 +91,15 @@ namespace DopeEngine
 		/*
 		* Validate slot length and resources
 		*/
-		const Array<ResourceSlotDesc> resourceSlotDesc = CurrentBoundRenderPass->get_resource_slots();
+		const Array<GraphicsResourceSlotDesc> resourceSlotDesc = CurrentBoundRenderPass->get_resource_slots();
 		const unsigned int resourceSlotCount = resourceSlotDesc.get_cursor();
 		ASSERT(slot < resourceSlotDesc.get_cursor(), "CommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
 		/*
 		* Get layout variables
 		*/
-		const ResourceSlotDesc targetSlotDesc = resourceSlotDesc[slot];
-		const GraphicsDeviceObject* resource = view->get_resource();
+		const GraphicsResourceSlotDesc targetSlotDesc = resourceSlotDesc[slot];
+		const GraphicsDeviceObject* targetResource = resource->get_resource();
 
 		/*
 		* Get object type
@@ -109,14 +109,14 @@ namespace DopeEngine
 		/*
 		* Check resource layout
 		*/
-		const GraphicsDeviceObjectType slotType = ResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
+		const GraphicsDeviceObjectType slotType = GraphicsResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
 		if (objectType != slotType)
 		{
 			ASSERT(false, "CommandBuffer", "You binded a wrong resource to slot %d.Trying to bind resource type %d whereas slot accepts %d", slot,objectType, slotType);
 			return;
 		}
 #endif
-		set_resource_view_impl(slot, view);
+		commit_resource_impl(slot, resource);
 	}
 	void CommandBuffer::indexed_draw_call(const unsigned int count)
 	{

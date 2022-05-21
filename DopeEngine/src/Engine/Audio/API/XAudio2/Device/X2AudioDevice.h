@@ -11,6 +11,7 @@ namespace DopeEngine
 
 		FORCEINLINE X2PTR<X2Engine> get_x2_engine() const;
 		FORCEINLINE X2Device* get_x2_device() const;
+		virtual AudioAPIType get_api_type() const override;
 	protected:
 		// Inherited via AudioDevice
 		virtual AudioBuffer* create_buffer_impl(const AudioBufferDesc& desc) override;

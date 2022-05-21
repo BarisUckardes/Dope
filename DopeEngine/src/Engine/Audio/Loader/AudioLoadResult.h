@@ -4,6 +4,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Contains the audio load operation results
+	/// </summary>
 	struct DOPE_ENGINE_API AudioLoadResult
 	{
 		AudioLoadResult() = default;

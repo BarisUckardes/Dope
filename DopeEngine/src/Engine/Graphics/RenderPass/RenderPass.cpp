@@ -61,7 +61,7 @@ namespace DopeEngine
 	{
 		return TargetFramebuffer;
 	}
-	Array<ResourceSlotDesc> RenderPass::get_resource_slots() const
+	Array<GraphicsResourceSlotDesc> RenderPass::get_resource_slots() const
 	{
 		return ResourceSlots;
 	}

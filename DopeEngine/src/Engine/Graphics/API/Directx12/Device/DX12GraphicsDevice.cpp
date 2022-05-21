@@ -235,12 +235,12 @@ namespace DopeEngine
 			(Window*)get_owner_window());
 	}
 	
-	ResourceView* DX12GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
+	GraphicsResource* DX12GraphicsDevice::create_resource_impl(const GraphicsResourceDesc& desc)
 	{
 		/*
 		* Create directx12 resource view
 		*/
-		DX12ResourceView* view = new DX12ResourceView(description, this);
+		DX12ResourceView* view = new DX12ResourceView(desc, this);
 
 		return view;
 	}

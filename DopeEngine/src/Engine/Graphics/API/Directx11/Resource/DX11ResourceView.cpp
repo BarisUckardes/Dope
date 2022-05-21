@@ -1,5 +1,5 @@
 #include "DX11ResourceView.h"
-#include <Engine/Graphics/Resource/ResourceTypeUtils.h>
+#include <Engine/Graphics/Resource/GraphicsResourceTypeUtils.h>
 #include <Engine/Graphics/API/Directx11/Device/DX11GraphicsDevice.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11Texture.h>
 #include <Engine/Graphics/API/Directx11/Texture/DX11TextureUtils.h>
@@ -9,7 +9,7 @@
 
 namespace DopeEngine
 {
-	DX11ResourceView::DX11ResourceView(const ResourceViewDescription& desc, DX11GraphicsDevice* device) : ResourceView(desc)
+	DX11ResourceView::DX11ResourceView(const GraphicsResourceDesc& desc, DX11GraphicsDevice* device) : GraphicsResource(desc)
 	{
 		create(desc, device);
 	}
@@ -21,7 +21,7 @@ namespace DopeEngine
 	{
 		return ShaderResourceView;
 	}
-	void DX11ResourceView::create(const ResourceViewDescription& desc, DX11GraphicsDevice* device)
+	void DX11ResourceView::create(const GraphicsResourceDesc& desc, DX11GraphicsDevice* device)
 	{
 		/*
 		* Get resource

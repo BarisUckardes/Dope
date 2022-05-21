@@ -16,7 +16,7 @@
 #include <Engine/Math/Vector3f.h>
 #include <Engine/Utils/TextureLoader/TextureLoader.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
-#include <Engine/Graphics/Resource/ResourceViewDescription.h>
+#include <Engine/Graphics/Resource/GraphicsResourceDesc.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Core/Assert.h>
 
@@ -29,9 +29,9 @@ namespace DopeEngine
 	ShaderSet* shaderSet = nullptr;
 	RenderPass* renderPass = nullptr;
 	GraphicsBuffer* colorBuffer = nullptr;
-	ResourceView* colorResourceView = nullptr;
+	GraphicsResource* colorResource = nullptr;
 	Texture* texture = nullptr;
-	ResourceView* textureView = nullptr;
+	GraphicsResource* textureResource = nullptr;
 	CommandBuffer* cmdBuffer = nullptr;
 	ViewportDesc viewportDesc;
 	ScissorsDesc scissorsDesc;

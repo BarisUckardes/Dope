@@ -13,6 +13,7 @@
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/Device/GraphicsDeviceObjects.h>
 #include <Engine/Graphics/Device/GraphicsDeviceFeatures.h>
+#include <Engine/Graphics/Resource/GraphicsResource.h>
 #include <Engine/Core/Assert.h>
 
 namespace DopeEngine
@@ -107,19 +108,19 @@ namespace DopeEngine
 		return create_command_buffer_impl();
 	}
 
-	ResourceView* GraphicsDevice::create_resource_view(const ResourceViewDescription& description)
+	GraphicsResource* GraphicsDevice::create_resource(const GraphicsResourceDesc& desc)
 	{
 		/*
 		* Create resource view
 		*/
-		ResourceView* view = create_resource_view_impl(description);
+		GraphicsResource* resource = create_resource_impl(desc);
 
 		/*
 		* Register
 		*/
-		register_device_object(view);
+		register_device_object(resource);
 
-		return view;
+		return resource;
 	}
 
 	void GraphicsDevice::submit_command_buffer(CommandBuffer* commandBuffer)

@@ -22,7 +22,7 @@ namespace DopeEngine
 		virtual void set_scissors_desc_impl(const ScissorsDesc& desc) override final;
 		virtual void clear_color_impl(const ColorRgbaByte& color) override;
 		virtual void clear_depth_impl(const float depth) override;
-		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) override;
+		virtual void commit_resource_impl(const unsigned int slot, const GraphicsResource* resource) override;
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
 	private:

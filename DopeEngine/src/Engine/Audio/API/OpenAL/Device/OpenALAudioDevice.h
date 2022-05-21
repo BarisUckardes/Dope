@@ -10,6 +10,7 @@ namespace DopeEngine
 		OpenALAudioDevice();
 		virtual ~OpenALAudioDevice() final override;
 	protected:
+		virtual AudioAPIType get_api_type() const override;
 		virtual AudioBuffer* create_buffer_impl(const AudioBufferDesc& desc) override;
 		virtual AudioSourceState* create_source_state_impl(const AudioSourceStateDesc& desc) override;
 		virtual AudioListenerState* create_listener_state_impl(const AudioListenerStateDesc& desc) override;

@@ -5,7 +5,7 @@
 
 namespace DopeEngine
 {
-    OpenALAudioDevice::OpenALAudioDevice() : AudioDevice(AudioAPIType::OpenAL)
+    OpenALAudioDevice::OpenALAudioDevice()
     {
         create();
     }
@@ -87,6 +87,11 @@ namespace DopeEngine
         * Play
         */
         alSourcePlay(alState->get_al_state_handle());
+    }
+
+    AudioAPIType OpenALAudioDevice::get_api_type() const
+    {
+        return AudioAPIType::OpenAL;
     }
 
     AudioBuffer* OpenALAudioDevice::create_buffer_impl(const AudioBufferDesc& desc)

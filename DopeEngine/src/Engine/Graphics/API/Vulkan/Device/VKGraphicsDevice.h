@@ -28,7 +28,7 @@ namespace DopeEngine
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
 		virtual CommandBuffer* create_command_buffer_impl() override;
-		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
+		virtual GraphicsResource* create_resource_impl(const GraphicsResourceDesc& desc) override;
 		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
 		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;

@@ -55,7 +55,7 @@ namespace DopeEngine
 		virtual CommandBuffer* create_command_buffer_impl() override;
 		// Inherited via GraphicsDevice
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
-		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription& description) override;
+		virtual GraphicsResource* create_resource_impl(const GraphicsResourceDesc& desc) override;
 		virtual void update_buffer_impl(GraphicsBuffer* buffer, const Byte* data) override;
 		virtual void update_texture_impl(Texture* texture, const Byte* data) override;
 		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer* framebuffer) override;

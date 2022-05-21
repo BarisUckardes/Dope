@@ -43,19 +43,82 @@ namespace DopeEngine
 		/// <returns></returns>
 		FORCEINLINE bool has_shading_rate_support() const;
 
+		/// <summary>
+		/// Returns whether the graphics device can output to a swapchain
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE bool can_display() const;
 
+		/// <summary>
+		/// Returns the max texture1D dimension
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_texture1D_dimension() const;
+
+		/// <summary>
+		/// Returns the max texture2D dimension
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_texture2D_dimension() const;
+
+		/// <summary>
+		/// Returns the max texture3D dimension
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_texture3D_dimension() const;
+
+		/// <summary>
+		/// Returns the max cubeTexture dimension
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_cubeTexture_dimension() const;
+
+		/// <summary>
+		/// Returns the max number of color attachments for a framebuffer
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_color_attachments() const;
+
+		/// <summary>
+		/// Returns the max number of any shader stage resources
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_per_shader_stage_resources() const;
+
+		/// <summary>
+		/// Returns the compute shader work group counts
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE Vector3i get_compute_work_group_count() const;
+
+		/// <summary>
+		/// Returns the compute shader work group invocation count
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_compute_work_group_invocations() const;
+
+		/// <summary>
+		/// Returns the compute shader work group sizes
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE Vector3i get_compute_work_group_size() const;
+
+		/// <summary>
+		/// Returns the max number of draw call index count
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_draw_call_index_count() const;
+
+		/// <summary>
+		/// Returns the max framebuffer color attachment width
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_framebuffer_width() const;
+
+		/// <summary>
+		/// Returns the max framebuffer color attachment height
+		/// </summary>
+		/// <returns></returns>
 		FORCEINLINE unsigned int get_max_framebuffer_height() const;
     private:
         bool		 ComputeShader;

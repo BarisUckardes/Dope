@@ -19,7 +19,7 @@ namespace DopeEngine
 	class VertexLayout;
 	class GraphicsDeviceObject;
 	class CommandBuffer;
-	class ResourceView;
+	class GraphicsResource;
 	class RenderPass;
 	struct RenderPassDesc;
 
@@ -30,8 +30,8 @@ namespace DopeEngine
 	struct ShaderDescription;
 	struct TextureDescription;
 	struct VertexLayoutDescription;
-	struct ResourceSlotDesc;
-	struct ResourceViewDescription;
+	struct GraphicsResourceSlotDesc;
+	struct GraphicsResourceDesc;
 	class GraphicsDeviceFeatures;
 
 	/// <summary>
@@ -141,7 +141,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="description"></param>
 		/// <returns></returns>
-		ResourceView* create_resource_view(const ResourceViewDescription& description);
+		GraphicsResource* create_resource(const GraphicsResourceDesc& desc);
 
 		/// <summary>
 		/// Submits a command buffer for rendering.<para>Each API has a different submit impls</para>
@@ -206,7 +206,7 @@ namespace DopeEngine
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
 		virtual CommandBuffer* create_command_buffer_impl() = 0;
-		virtual ResourceView* create_resource_view_impl(const ResourceViewDescription & description) = 0;
+		virtual GraphicsResource* create_resource_impl(const GraphicsResourceDesc& desc) = 0;
 		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
 		virtual void update_buffer_impl(GraphicsBuffer * buffer, const Byte * data) = 0;
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;

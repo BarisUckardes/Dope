@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// Supported audio buffer formats
+	/// </summary>
 	enum class DOPE_ENGINE_API AudioBufferFormat
 	{
 		Undefined = 0,

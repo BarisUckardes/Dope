@@ -1,12 +1,12 @@
 #pragma once
-#include <Engine/Graphics/Resource/ResourceView.h>
+#include <Engine/Graphics/Resource/GraphicsResource.h>
 
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API OpenGLResourceView final : public ResourceView
+	class DOPE_ENGINE_API OpenGLResourceView final : public GraphicsResource
 	{
 	public:
-		OpenGLResourceView(const ResourceViewDescription& description);
+		OpenGLResourceView(const GraphicsResourceDesc& description);
 		virtual ~OpenGLResourceView() final override;
 
 	};

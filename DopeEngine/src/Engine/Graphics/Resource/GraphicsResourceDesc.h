@@ -6,11 +6,11 @@ namespace DopeEngine
 	/// <summary>
 	/// Create description for resource view
 	/// </summary>
-	struct DOPE_ENGINE_API ResourceViewDescription
+	struct DOPE_ENGINE_API GraphicsResourceDesc
 	{
-		ResourceViewDescription(GraphicsDeviceObject* deviceObjects) : Resource(deviceObjects) {}
-		ResourceViewDescription() = default;
-		~ResourceViewDescription() = default;
+		GraphicsResourceDesc(GraphicsDeviceObject* deviceObjects) : Resource(deviceObjects) {}
+		GraphicsResourceDesc() = default;
+		~GraphicsResourceDesc() = default;
 
 		/// <summary>
 		/// The resource array which is bound

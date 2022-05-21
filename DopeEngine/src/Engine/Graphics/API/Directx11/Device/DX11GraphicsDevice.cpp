@@ -171,9 +171,9 @@ namespace DopeEngine
 		return new DX11SwapchainFramebuffer(*desc, (DX11GraphicsDevice*)this, (Window*)get_owner_window());
 	}
 
-	ResourceView* DX11GraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
+	GraphicsResource* DX11GraphicsDevice::create_resource_impl(const GraphicsResourceDesc& desc)
 	{
-		return new DX11ResourceView(description,this);
+		return new DX11ResourceView(desc,this);
 	}
 
 	void DX11GraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)

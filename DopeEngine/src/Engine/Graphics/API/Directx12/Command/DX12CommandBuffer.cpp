@@ -245,7 +245,7 @@ namespace DopeEngine
 
 	}
 
-	void DX12CommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
+	void DX12CommandBuffer::commit_resource_impl(const unsigned int slot, const GraphicsResource* resource)
 	{
 
 	}

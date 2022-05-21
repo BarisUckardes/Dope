@@ -4,9 +4,9 @@
 namespace DopeEngine
 {
 	/// <summary>
-	/// Supported graphics resource type
+	/// Exisiting graphics resource type
 	/// </summary>
-	enum class DOPE_ENGINE_API ResourceType
+	enum class DOPE_ENGINE_API GraphicsResourceType
 	{
 		UniformBuffer = 0,
 		Texture = 1,

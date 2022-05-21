@@ -2,7 +2,7 @@
 
 namespace DopeEngine
 {
-    DX12ResourceView::DX12ResourceView(const ResourceViewDescription& desc, DX12GraphicsDevice* device) : ResourceView(desc)
+    DX12ResourceView::DX12ResourceView(const GraphicsResourceDesc& desc, DX12GraphicsDevice* device) : GraphicsResource(desc)
     {
 
     }

@@ -3,7 +3,7 @@
 #include <Engine/Audio/API/XAudio2/Device/X2AudioDeviceObjects.h>
 namespace DopeEngine
 {
-	X2AudioDevice::X2AudioDevice() : AudioDevice(AudioAPIType::DirectSound)
+	X2AudioDevice::X2AudioDevice()
 	{
 		/*
 		* Create engine instance
@@ -36,6 +36,10 @@ namespace DopeEngine
 	X2Device* X2AudioDevice::get_x2_device() const
 	{
 		return Device;
+	}
+	AudioAPIType X2AudioDevice::get_api_type() const
+	{
+		return AudioAPIType::X2Audio;
 	}
 	AudioBuffer* X2AudioDevice::create_buffer_impl(const AudioBufferDesc& desc)
 	{

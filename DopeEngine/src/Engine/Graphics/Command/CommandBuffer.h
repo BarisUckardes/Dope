@@ -16,7 +16,7 @@ namespace DopeEngine
 	class ShaderSet;
 	class VertexLayout;
 	class DeviceObject;
-	class ResourceView;
+	class GraphicsResource;
 	struct ColorRgbaByte;
 
 	/// <summary>
@@ -88,7 +88,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="slot"></param>
 		/// <param name="view"></param>
-		void set_resource_view(const unsigned int slot, const ResourceView* view);
+		void commit_resource(const unsigned int slot, const GraphicsResource* resource);
 
 		/// <summary>
 		/// Draw call
@@ -97,7 +97,6 @@ namespace DopeEngine
 	protected:
 		CommandBuffer() : GraphicsDeviceObject(GraphicsDeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
 		virtual ~CommandBuffer() = 0 {}
-
 
 		/// <summary>
 		/// Returns the total number of bound textures
@@ -110,7 +109,16 @@ namespace DopeEngine
 		/// <returns></returns>
 		const RenderPass* get_bound_render_pass() const;
 
+		/// <summary>
+		/// Returns the bound viewport description
+		/// </summary>
+		/// <returns></returns>
 		ViewportDesc get_bound_viewport_desc() const;
+
+		/// <summary>
+		/// Returns the bound scissors description
+		/// </summary>
+		/// <returns></returns>
 		ScissorsDesc get_bound_scissors_desc() const;
 
 		/// <summary>
@@ -186,7 +194,7 @@ namespace DopeEngine
 		/// </summary>
 		/// <param name="slot"></param>
 		/// <param name="view"></param>
-		virtual void set_resource_view_impl(const unsigned int slot, const ResourceView* view) = 0;
+		virtual void commit_resource_impl(const unsigned int slot, const GraphicsResource* view) = 0;
 
 		/// <summary>
 		/// Draw call

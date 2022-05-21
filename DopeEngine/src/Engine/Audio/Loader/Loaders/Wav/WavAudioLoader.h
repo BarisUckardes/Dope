@@ -3,6 +3,9 @@
 
 namespace DopeEngine
 {
+	/// <summary>
+	/// .wav file audio loader implementation
+	/// </summary>
 	class DOPE_ENGINE_API WavAudioLoader : public IAudioLoader
 	{
 	public:
@@ -15,6 +18,9 @@ namespace DopeEngine
 		virtual void load(const String& path, AudioLoadResult& result) override;
 
 	private:
+		/// <summary>
+		/// Officail .wav file data header
+		/// </summary>
 		struct WavFileHeaderData
 		{
 			char ChunkID[4];

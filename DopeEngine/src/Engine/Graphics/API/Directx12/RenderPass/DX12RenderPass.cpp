@@ -47,21 +47,21 @@ namespace DopeEngine
             /*
             * Get resource layout
             */
-            const ResourceSlotDesc resourceSlotDesc = desc.ResourceSlots[i];
+            const GraphicsResourceSlotDesc resourceSlotDesc = desc.ResourceSlots[i];
 
             /*
             * Get and catch resource type
             */
-            const ResourceType resourceType = resourceSlotDesc.Type;
+            const GraphicsResourceType resourceType = resourceSlotDesc.Type;
             const ShaderType shaderStage = resourceSlotDesc.ShaderStage;
             D3D12_ROOT_PARAMETER rootParameter = {};
             switch (resourceType)
             {
-                case DopeEngine::ResourceType::UniformBuffer:
+                case GraphicsResourceType::UniformBuffer:
                     break;
-                case DopeEngine::ResourceType::Texture:
+                case GraphicsResourceType::Texture:
                     break;
-                case DopeEngine::ResourceType::Undefined:
+                case GraphicsResourceType::Undefined:
                     break;
                 default:
                     break;

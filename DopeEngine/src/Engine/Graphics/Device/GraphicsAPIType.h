@@ -5,7 +5,7 @@
 namespace DopeEngine
 {
 	/// <summary>
-	/// Supported(or will be) graphics api types
+	/// Supported graphics api types
 	/// </summary>
 	enum class DOPE_ENGINE_API GraphicsAPIType
 	{

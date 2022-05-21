@@ -378,16 +378,16 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceType.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceSlotDesc.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceSlotDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceView.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceViewDescription.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceDesc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObjectType.h">
@@ -396,7 +396,7 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Resource\ResourceTypeUtils.h">
+    <ClInclude Include="src\Engine\Graphics\Resource\GraphicsResourceTypeUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.h">
@@ -1046,13 +1046,13 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Resource\ResourceView.cpp">
+    <ClCompile Include="src\Engine\Graphics\Resource\GraphicsResource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Resource\OpenGLResourceView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Graphics\Resource\ResourceTypeUtils.cpp">
+    <ClCompile Include="src\Engine\Graphics\Resource\GraphicsResourceTypeUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Graphics\API\Directx11\Command\DX11CommandBuffer.cpp">

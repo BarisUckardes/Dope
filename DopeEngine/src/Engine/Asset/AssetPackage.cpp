@@ -71,10 +71,10 @@ namespace DopeEngine
 		return asset;
 	}
 	
-	AssetPackage::AssetPackage(const String& packageName, AssetPackagePool* ownerPool)
+	AssetPackage::AssetPackage(const String& packageAbsolutePath, AssetPackagePool* ownerPool)
 	{
 		OwnerPool = ownerPool;
-		Name = packageName;
+		AbsolutePath = packageAbsolutePath;
 		ID = Guid();
 		Virtual = false;
 	}

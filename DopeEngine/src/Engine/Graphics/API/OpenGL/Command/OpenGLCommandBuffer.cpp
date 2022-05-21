@@ -3,7 +3,8 @@
 #include <Glad/glad.h>
 #include <Engine/Graphics/API/OpenGL/RenderPass/OpenGLRenderPassUtils.h>
 #include <Engine/Graphics/API/OpenGL/Vertex/OpenGLVertexUtils.h>
-#include <Engine/Graphics/Resource/ResourceTypeUtils.h>
+#include <Engine/Graphics/Resource/GraphicsResourceTypeUtils.h>
+#include <Engine/Graphics/Resource/GraphicsResource.h>
 #include <Engine/Core/ConsoleLog.h>
 #include <Engine/Graphics/API/OpenGL/Texture/OpenGLTextureUtils.h>
 #include <Engine/Graphics/Vertex/VertexUtils.h>
@@ -188,35 +189,35 @@ namespace DopeEngine
 		glDrawElements(CurrentPrimitive, count, GL_UNSIGNED_INT, nullptr);
 	}
 
-	void OpenGLCommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
+	void OpenGLCommandBuffer::commit_resource_impl(const unsigned int slot, const GraphicsResource* resource)
 	{
 		/*
 		* Get as opengl resource view
 		*/
-		const OpenGLResourceView* glView = (const OpenGLResourceView*)view;
+		const OpenGLResourceView* glView = (const OpenGLResourceView*)resource->get_resource();
 
 		/*
 		* Set resource
 		*/
-		const GraphicsDeviceObject* resource = view->get_resource();
-		const Array<ResourceSlotDesc> resourceSlotDescs = get_bound_render_pass()->get_resource_slots();
-		const ResourceSlotDesc targetResourceSlotDesc = resourceSlotDescs[slot];
+		const GraphicsDeviceObject* targetResource = resource->get_resource();
+		const Array<GraphicsResourceSlotDesc> resourceSlotDescs = get_bound_render_pass()->get_resource_slots();
+		const GraphicsResourceSlotDesc targetResourceSlotDesc = resourceSlotDescs[slot];
 
 		/*
 		* Get device object
 		*/
-		const GraphicsDeviceObjectType resourceDeviceObjectType = resource->get_device_object_type();
-		ResourceType resourceType = targetResourceSlotDesc.Type;
+		const GraphicsDeviceObjectType resourceDeviceObjectType = targetResource->get_device_object_type();
+		GraphicsResourceType resourceType = targetResourceSlotDesc.Type;
 
 
 		switch (resourceType)
 		{
-			case DopeEngine::ResourceType::Texture:
+			case GraphicsResourceType::Texture:
 			{
 				/*
 				* Get gl texture
 				*/
-				const OpenGLTexture* glTexture = ((const OpenGLTexture*)resource);
+				const OpenGLTexture* glTexture = ((const OpenGLTexture*)targetResource);
 
 				/*
 				* Get texture location
@@ -241,12 +242,12 @@ namespace DopeEngine
 				
 				break;
 			}
-			case DopeEngine::ResourceType::UniformBuffer:
+			case GraphicsResourceType::UniformBuffer:
 			{
 				/*
 				* Get uniform buffer handle
 				*/
-				const UNIFORM_BUFFER_HANDLE handle = ((OpenGLUniformBuffer*)resource)->get_handle();
+				const UNIFORM_BUFFER_HANDLE handle = ((OpenGLUniformBuffer*)targetResource)->get_handle();
 
 				/*
 				* Get uniform buffer program uniform location

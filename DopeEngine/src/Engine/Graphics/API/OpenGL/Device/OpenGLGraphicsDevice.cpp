@@ -246,12 +246,12 @@ namespace DopeEngine
 	{
 		return true;
 	}
-	ResourceView* OpenGLGraphicsDevice::create_resource_view_impl(const ResourceViewDescription& description)
+	GraphicsResource* OpenGLGraphicsDevice::create_resource_impl(const GraphicsResourceDesc& desc)
 	{
 		/*
 		* Create new opengl resource view
 		*/
-		OpenGLResourceView* view = new OpenGLResourceView(description);
+		OpenGLResourceView* view = new OpenGLResourceView(desc);
 
 		return view;
 	}

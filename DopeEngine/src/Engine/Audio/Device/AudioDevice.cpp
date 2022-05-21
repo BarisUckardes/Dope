@@ -15,17 +15,13 @@ namespace DopeEngine
 			case DopeEngine::AudioAPIType::OpenAL:
 				return new OpenALAudioDevice();
 				break;
-			case DopeEngine::AudioAPIType::DirectSound:
+			case DopeEngine::AudioAPIType::X2Audio:
 				break;
 			default:
 				break;
 		}
     }
 
-	AudioAPIType AudioDevice::get_api_type() const
-	{
-		return Type;
-	}
 
 	AudioBuffer* AudioDevice::create_buffer(const AudioBufferDesc& desc)
 	{
@@ -139,11 +135,6 @@ namespace DopeEngine
 		* call api impl
 		*/
 		submit_play_source_impl(state);
-	}
-
-	AudioDevice::AudioDevice(const AudioAPIType apiType) : Type(apiType)
-	{
-
 	}
 
 	AudioDevice::~AudioDevice()

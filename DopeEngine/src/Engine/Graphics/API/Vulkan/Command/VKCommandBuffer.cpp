@@ -224,7 +224,7 @@ namespace DopeEngine
 
 	}
 
-	void VKCommandBuffer::set_resource_view_impl(const unsigned int slot, const ResourceView* view)
+	void VKCommandBuffer::commit_resource_impl(const unsigned int slot, const GraphicsResource* resource)
 	{
 
 	}
