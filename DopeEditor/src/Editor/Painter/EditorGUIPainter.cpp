@@ -5,6 +5,7 @@ namespace DopeEditor
 {
 	EditorGUIPainter::EditorGUIPainter(const DopeEngine::GraphicsAPIType requestedApiType, DopeEngine::GraphicsDevice* device)
 	{
+	
 		/*
 		* Create renderer initialization flags
 		*/

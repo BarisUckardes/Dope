@@ -17,7 +17,9 @@ namespace DopeEngine
 		void create(DX11GraphicsDevice* device);
 
 	private:
-		DXPTR<ID3D11RenderTargetView> Rtv;
+		DXPTR<IDXGISwapChain> Swapchain;
+		DXPTR<ID3D11Device> Device;
+		Array<DXPTR<ID3D11RenderTargetView>> SwapchainRenderTargetViews;
 	};
 
 

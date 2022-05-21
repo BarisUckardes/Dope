@@ -12,6 +12,7 @@
 #include <Engine/Graphics/API/Vulkan/Device/VKGraphicsDeviceFeatures.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebufferDesc.h>
 #include <Engine/Audio/Device/AudioDevice.h>
+#include <Engine/GUI/Renderer/GUIRenderer.h>
 
 namespace DopeEngine
 {

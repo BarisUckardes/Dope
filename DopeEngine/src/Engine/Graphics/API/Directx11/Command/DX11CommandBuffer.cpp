@@ -26,7 +26,6 @@ namespace DopeEngine
 	}
 	void DX11CommandBuffer::clear_cached_state_impl()
 	{
-		CurrentColorTargets.clear();
 		CurrentDepthTarget = nullptr;
 	}
 	void DX11CommandBuffer::set_vertex_buffer_impl(const VertexBuffer* vertexBuffer)
@@ -155,7 +154,7 @@ namespace DopeEngine
 			*/
 			Device->get_dx11_immediate_context()->OMSetRenderTargets(1, rtv.GetAddressOf(), nullptr);
 
-			CurrentColorTargets.add(rtv);
+			//CurrentColorTargets.add(rtv);
 			CurrentDepthTarget = nullptr;
 		}
 		else
@@ -181,7 +180,6 @@ namespace DopeEngine
 			/*
 			* Set currents
 			*/
-			CurrentColorTargets = colorRenderTargets;
 			CurrentDepthTarget = depthStencilTarget;
 		}
 	}
@@ -214,19 +212,21 @@ namespace DopeEngine
 	}
 	void DX11CommandBuffer::clear_color_impl(const ColorRgbaByte& color)
 	{
-		for (unsigned int i = 0; i < CurrentColorTargets.get_cursor(); i++)
+		/*
+		* Get framebuffer
+		*/
+		const Framebuffer* framebuffer = get_bound_render_pass()->get_target_framebuffer();
+		if (framebuffer->is_swapchain_framebuffer() == true)
 		{
-			/*
-			* Get color target
-			*/
-			ID3D11RenderTargetView* rtv = CurrentColorTargets[i].Get();
-
-			/*
-			* Clear color
-			*/
+			const DX11SwapchainFramebuffer* dx11SwapchainFramebuffer = (const DX11SwapchainFramebuffer*)framebuffer;
 			const FLOAT dxColor[] = { (Byte)color.Red,(Byte)color.Green,(Byte)color.Blue,(Byte)color.Alpha };
-			Device->get_dx11_immediate_context()->ClearRenderTargetView(rtv,dxColor);
+			Device->get_dx11_immediate_context()->ClearRenderTargetView(dx11SwapchainFramebuffer->get_dx11_swapchain_rtv().Get(), dxColor);
 		}
+		else
+		{
+			const DX11Framebuffer* dx11Framebuffer = (const DX11Framebuffer*)framebuffer;
+		}
+		
 	}
 	void DX11CommandBuffer::clear_depth_impl(const float depth)
 	{

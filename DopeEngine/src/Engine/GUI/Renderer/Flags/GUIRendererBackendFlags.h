@@ -7,7 +7,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Supported GUIRenderer backend flags
 	/// </summary>
-	enum DOPE_ENGINE_API GUIRendererBackendFlags
+	enum DOPE_ENGINE_API GUIRendererBackendFlags 
 	{
 		None = 0,
 		HasGamepad = 1 << 0,

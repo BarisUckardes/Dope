@@ -31,7 +31,6 @@ namespace DopeEngine
 		 void set_shader_resource(const GraphicsResource* resource, const ShaderType stage);
 	private:
 		DX11GraphicsDevice* Device;
-		Array <ComPtr<ID3D11RenderTargetView>> CurrentColorTargets;
 		ComPtr<ID3D11DepthStencilView> CurrentDepthTarget;
 		D3D11_VIEWPORT CurrentDX11Viewport;
 	};

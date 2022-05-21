@@ -14,8 +14,7 @@ namespace DopeEngine
 		
 		ComPtr<ID3D11Device> get_dx11_device() const;
 		ComPtr<ID3D11DeviceContext> get_dx11_immediate_context() const;
-		ComPtr<ID3D11RenderTargetView> get_swawpchain_rtv() const;
-
+		ComPtr<IDXGISwapChain> get_dx11_swapchain() const;
 
 		virtual GraphicsAPIType get_api_type() const override;
 		virtual String get_version() const override;
@@ -42,7 +41,6 @@ namespace DopeEngine
 		DXPTR<ID3D11Device> Device;
 		DXPTR<ID3D11DeviceContext> ImmediateContext;
 		DXPTR<ID3D11DeviceContext> DeferredContext;
-		DXPTR<ID3D11RenderTargetView> SwapchainRenderTargetView;
 
 		// Inherited via GraphicsDevice
 		virtual void wait_for_finish_impl() override;

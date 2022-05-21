@@ -231,6 +231,7 @@ namespace DopeEngine
 		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());
 		device->wait_for_finish();
 		//device->delete_device_object(cmdBuffer);
+
 	}
 	void TestRenderingModule::finalize()
 	{
@@ -238,6 +239,13 @@ namespace DopeEngine
 	}
 	void TestRenderingModule::on_receive_application_event(ApplicationEvent* event)
 	{
-
+		if (event->get_type() == ApplicationEventType::WindowResized)
+		{
+			const WindowResizedEvent* windowResizedEvent = (const WindowResizedEvent*)event;
+			viewportDesc.Width = windowResizedEvent->get_width();
+			viewportDesc.Height = windowResizedEvent->get_height();
+			//scissorsDesc.Width = windowResizedEvent->get_width();
+			//scissorsDesc.Height = windowResizedEvent->get_height();
+		}
 	}
 }

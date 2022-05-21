@@ -26,9 +26,10 @@ namespace DopeEngine
 		return ImmediateContext;
 	}
 
-	ComPtr<ID3D11RenderTargetView> DX11GraphicsDevice::get_swawpchain_rtv() const
+
+	ComPtr<IDXGISwapChain> DX11GraphicsDevice::get_dx11_swapchain() const
 	{
-		return SwapchainRenderTargetView;
+		return SwapChain;
 	}
 
 	void DX11GraphicsDevice::_create_directx11_device()
@@ -71,10 +72,11 @@ namespace DopeEngine
 		swapchainDesc.BufferDesc = bufferDesc;
 		swapchainDesc.SampleDesc.Count = 1;
 		swapchainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapchainDesc.BufferCount = 1;
+		swapchainDesc.BufferCount = 3;
 		swapchainDesc.OutputWindow = win32Window->get_win32_window_handle();
 		swapchainDesc.Windowed = TRUE;
-		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
+		swapchainDesc.OutputWindow = win32Window->get_win32_window_handle();
 
 		/*
 		* Create swapchain,device and immediate context
@@ -101,22 +103,6 @@ namespace DopeEngine
 		* Validate deferred context creation
 		*/
 		ASSERT(SUCCEEDED(createDeferredContextHR), "DX11GraphicsDevice", "Deferred context creation failed!");
-
-		/*
-		* Create backbuffer
-		*/
-		ID3D11Texture2D* backBuffer;
-		SwapChain->GetBuffer(0,__uuidof(ID3D11Texture2D),(void**)&backBuffer);
-
-		/*
-		* Create render target
-		*/
-		Device->CreateRenderTargetView(backBuffer, nullptr, &SwapchainRenderTargetView);
-
-		/*
-		* Release backbuffer
-		*/
-		backBuffer->Release();
 
 		/*
 		* Create device properties
@@ -153,7 +139,7 @@ namespace DopeEngine
 
 	void DX11GraphicsDevice::wait_for_finish_impl()
 	{
-
+		ImmediateContext->Flush();
 	}
 
 	bool DX11GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)

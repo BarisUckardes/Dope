@@ -32,7 +32,7 @@ int main(int argumentCount, char** arguments)
 	app.register_pending_module<DopeEngine::WorldFunctionExecutorModule>();
 	app.register_pending_module<DopeEngine::TestingModule>();
 	app.register_pending_module<DopeEngine::TestRenderingModule>();
-	app.register_pending_module<DopeEditor::EditorModule>();
+	//app.register_pending_module<DopeEditor::EditorModule>();
 
 	Thread thread;
 	//unsigned int a = 1;
