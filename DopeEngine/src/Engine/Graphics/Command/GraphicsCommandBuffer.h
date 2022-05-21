@@ -5,7 +5,6 @@
 #include <Engine/Graphics/RenderPass/RenderPassDesc.h>
 namespace DopeEngine
 {
-
 	class GraphicsBuffer;
 	class VertexBuffer;
 	class IndexBuffer;

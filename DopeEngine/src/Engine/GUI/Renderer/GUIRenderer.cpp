@@ -83,7 +83,7 @@ namespace DopeEngine
 		set_theme(defaultThemeDesc);
 	}
 
-	void GUIRenderer::on_application_event(ApplicationEvent* event)
+	void GUIRenderer::on_application_event(const ApplicationEvent* event)
 	{
 		/*
 		* Get event type
@@ -155,7 +155,7 @@ namespace DopeEngine
 		ImGui::NewFrame();
 	}
 
-	void GUIRenderer::render(GraphicsCommandBuffer* cmdBuffer)
+	void GUIRenderer::render(const GraphicsCommandBuffer* cmdBuffer)
 	{
 		ImGui::Render();
 		render_impl(cmdBuffer);

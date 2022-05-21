@@ -20,7 +20,7 @@ namespace DopeEngine
 		ImGui_ImplOpenGL3_NewFrame();
 	}
 
-	void OpenGLGUIRenderer::render_impl(GraphicsCommandBuffer* cmdbuffer)
+	void OpenGLGUIRenderer::render_impl(const GraphicsCommandBuffer* cmdbuffer)
 	{
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}

@@ -15,7 +15,7 @@ namespace DopeEngine
 		virtual GraphicsAPIType get_api_type() const override;
 	protected:
 		virtual void begin_rendering_impl() override;
-		virtual void render_impl(GraphicsCommandBuffer* cmdBuffer) override;
+		virtual void render_impl(const GraphicsCommandBuffer* cmdBuffer) override;
 	};
 
 

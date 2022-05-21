@@ -786,6 +786,9 @@
     <ClInclude Include="src\Engine\Reflection\Assembly\ReflectableAssembly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Commands\GUIRenderingCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -1329,6 +1332,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Reflection\Assembly\ReflectableAssembly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\GUI\Commands\GUIRenderingCommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

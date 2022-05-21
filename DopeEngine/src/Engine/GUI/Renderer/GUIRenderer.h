@@ -36,12 +36,13 @@ namespace DopeEngine
 		/// <param name="device"></param>
 		/// <returns></returns>
 		static GUIRenderer* create(const GraphicsAPIType type, const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
+		~GUIRenderer() = default;
 
 		/// <summary>
 		/// Called when received an application event
 		/// </summary>
 		/// <param name="event"></param>
-		void on_application_event(ApplicationEvent* event);
+		void on_application_event(const ApplicationEvent* event);
 
 		/// <summary>
 		/// Begins the GUI rendering session
@@ -53,7 +54,7 @@ namespace DopeEngine
 		/// Renders the contents
 		/// </summary>
 		/// <param name="cmdBuffer"></param>
-		void render(GraphicsCommandBuffer* cmdBuffer);
+		void render(const GraphicsCommandBuffer* cmdBuffer);
 
 		/// <summary>
 		/// Sets anew gui theme
@@ -69,10 +70,10 @@ namespace DopeEngine
 
 	protected:
 		GUIRenderer(const GUIRendererBackendFlags backendFlags,const GUIRendererConfigFlags configFlags);
-		~GUIRenderer() = default;
+		
 
 		virtual void begin_rendering_impl() = 0;
-		virtual void render_impl(GraphicsCommandBuffer* cmdbuffer) = 0;
+		virtual void render_impl(const GraphicsCommandBuffer* cmdbuffer) = 0;
 	private:
 		void on_keyboard_key_down(const KeyboardKeyDownEvent* event);
 		void on_keyboard_key_up(const KeyboardKeyUpEvent* event);
