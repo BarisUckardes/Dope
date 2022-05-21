@@ -1,7 +1,7 @@
 #include "TestRenderingModule.h"
 #include <Engine/Application/Session/GameSession.h>
 #include <Engine/Graphics/Device/GraphicsDevice.h>
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/Shader/ShaderDescription.h>
@@ -32,7 +32,7 @@ namespace DopeEngine
 	GraphicsResource* colorResource = nullptr;
 	Texture* texture = nullptr;
 	GraphicsResource* textureResource = nullptr;
-	CommandBuffer* cmdBuffer = nullptr;
+	GraphicsCommandBuffer* cmdBuffer = nullptr;
 	ViewportDesc viewportDesc;
 	ScissorsDesc scissorsDesc;
 

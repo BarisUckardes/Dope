@@ -179,6 +179,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Reflection\Assembly\ReflectableAssembly.h" />
     <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.h" />
     <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionDispatcher.h" />
     <ClInclude Include="src\Engine\Reflection\Field\ReflectableFieldDispatcher.h" />
@@ -283,7 +284,7 @@
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Framebuffer\OpenGLSwapchainFramebuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.h" />
-    <ClInclude Include="src\Engine\Graphics\Command\CommandBuffer.h" />
+    <ClInclude Include="src\Engine\Graphics\Command\GraphicsCommandBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLDeviceObjects.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPass.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.h" />
@@ -437,6 +438,7 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\Reflection\Assembly\ReflectableAssembly.cpp" />
     <ClCompile Include="src\Engine\Audio\Loader\IAudioLoader.cpp" />
     <ClCompile Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.cpp" />
     <ClCompile Include="src\Engine\Reflection\Function\ReflectableFunctionDispatcher.cpp" />
@@ -510,7 +512,7 @@
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Core\OpenGLCore.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPassUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Command\OpenGLCommandBuffer.cpp" />
-    <ClCompile Include="src\Engine\Graphics\Command\CommandBuffer.cpp" />
+    <ClCompile Include="src\Engine\Graphics\Command\GraphicsCommandBuffer.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\RenderPass\OpenGLRenderPass.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Vertex\OpenGLVertexUtils.cpp" />
     <ClCompile Include="src\Engine\Graphics\API\OpenGL\Buffer\OpenGLUniformBuffer.cpp" />

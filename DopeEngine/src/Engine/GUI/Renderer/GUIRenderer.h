@@ -8,7 +8,7 @@ struct ImGuiContext;
 namespace DopeEngine
 {
 	class GraphicsDevice;
-	class CommandBuffer;
+	class GraphicsCommandBuffer;
 	class ApplicationEvent;
 	class KeyboardKeyDownEvent;
 	class KeyboardKeyUpEvent;
@@ -53,7 +53,7 @@ namespace DopeEngine
 		/// Renders the contents
 		/// </summary>
 		/// <param name="cmdBuffer"></param>
-		void render(CommandBuffer* cmdBuffer);
+		void render(GraphicsCommandBuffer* cmdBuffer);
 
 		/// <summary>
 		/// Sets anew gui theme
@@ -72,7 +72,7 @@ namespace DopeEngine
 		~GUIRenderer() = default;
 
 		virtual void begin_rendering_impl() = 0;
-		virtual void render_impl(CommandBuffer* cmdbuffer) = 0;
+		virtual void render_impl(GraphicsCommandBuffer* cmdbuffer) = 0;
 	private:
 		void on_keyboard_key_down(const KeyboardKeyDownEvent* event);
 		void on_keyboard_key_up(const KeyboardKeyUpEvent* event);

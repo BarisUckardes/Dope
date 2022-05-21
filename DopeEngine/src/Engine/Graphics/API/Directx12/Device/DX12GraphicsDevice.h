@@ -51,8 +51,8 @@ namespace DopeEngine
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) override;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) override;
 		virtual Texture* create_texture_impl(const TextureDescription& description) override;
-		virtual void submit_command_buffer_impl(CommandBuffer* commandBuffer) override;
-		virtual CommandBuffer* create_command_buffer_impl() override;
+		virtual void submit_command_buffer_impl(GraphicsCommandBuffer* GraphicsCommandBuffer) override;
+		virtual GraphicsCommandBuffer* create_command_buffer_impl() override;
 		// Inherited via GraphicsDevice
 		virtual Framebuffer* create_window_swapchain_framebuffer_impl(const SwapchainFramebufferDesc* desc) const override;
 		virtual GraphicsResource* create_resource_impl(const GraphicsResourceDesc& desc) override;

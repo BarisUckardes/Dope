@@ -1,18 +1,18 @@
 #pragma once
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/API/Directx11/Core/DX11Core.h>
 #include <Engine/Graphics/Shader/ShaderType.h>
 namespace DopeEngine
 {
 	class DX11GraphicsDevice;
-	class DOPE_ENGINE_API DX11CommandBuffer : public CommandBuffer
+	class DOPE_ENGINE_API DX11CommandBuffer : public GraphicsCommandBuffer
 	{
 	public:
 		DX11CommandBuffer(DX11GraphicsDevice* device);
 		virtual ~DX11CommandBuffer() final override;
 
 	protected:
-		// Inherited via CommandBuffer
+		// Inherited via GraphicsCommandBuffer
 		virtual void unlock_impl() override;
 		virtual void clear_cached_state_impl() override;
 		virtual void set_vertex_buffer_impl(const VertexBuffer* vertexBuffer) override;

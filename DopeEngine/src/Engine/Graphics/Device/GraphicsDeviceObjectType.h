@@ -14,7 +14,7 @@ namespace DopeEngine
 		Framebuffer = 3,
 		ResourceLayout = 4,
 		ResourceView = 5,
-		CommandBuffer = 6,
+		GraphicsCommandBuffer = 6,
 		RenderPass = 7
 	};
 }

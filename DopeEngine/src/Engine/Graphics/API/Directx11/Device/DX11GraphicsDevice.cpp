@@ -251,12 +251,12 @@ namespace DopeEngine
 		ImmediateContext->Unmap(textureResource, 0);
 	}
 
-	CommandBuffer* DX11GraphicsDevice::create_command_buffer_impl()
+	GraphicsCommandBuffer* DX11GraphicsDevice::create_command_buffer_impl()
 	{
 		return new DX11CommandBuffer(this);
 	}
 
-	void DX11GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	void DX11GraphicsDevice::submit_command_buffer_impl(GraphicsCommandBuffer* GraphicsCommandBuffer)
 	{
 
 	}

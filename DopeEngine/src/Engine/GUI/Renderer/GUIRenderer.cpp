@@ -155,7 +155,7 @@ namespace DopeEngine
 		ImGui::NewFrame();
 	}
 
-	void GUIRenderer::render(CommandBuffer* cmdBuffer)
+	void GUIRenderer::render(GraphicsCommandBuffer* cmdBuffer)
 	{
 		ImGui::Render();
 		render_impl(cmdBuffer);

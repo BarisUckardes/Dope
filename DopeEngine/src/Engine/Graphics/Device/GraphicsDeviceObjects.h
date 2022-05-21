@@ -2,7 +2,7 @@
 #include <Engine/Graphics/Buffer/IndexBuffer.h>
 #include <Engine/Graphics/Buffer/VertexBuffer.h>
 #include <Engine/Graphics/Buffer/UniformBuffer.h>
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/Framebuffer/Framebuffer.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
 #include <Engine/Graphics/RenderPass/RenderPass.h>

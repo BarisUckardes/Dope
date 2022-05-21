@@ -18,7 +18,7 @@ namespace DopeEngine
 	class ShaderSet;
 	class VertexLayout;
 	class GraphicsDeviceObject;
-	class CommandBuffer;
+	class GraphicsCommandBuffer;
 	class GraphicsResource;
 	class RenderPass;
 	struct RenderPassDesc;
@@ -134,7 +134,7 @@ namespace DopeEngine
 		/// Creates anew command buffer
 		/// </summary>
 		/// <returns></returns>
-		CommandBuffer* create_command_buffer();
+		GraphicsCommandBuffer* create_command_buffer();
 
 		/// <summary>
 		/// Creates anew resource view device object
@@ -146,7 +146,7 @@ namespace DopeEngine
 		/// <summary>
 		/// Submits a command buffer for rendering.<para>Each API has a different submit impls</para>
 		/// </summary>
-		void submit_command_buffer(CommandBuffer* commandBuffer);
+		void submit_command_buffer(GraphicsCommandBuffer* GraphicsCommandBuffer);
 
 		/// <summary>
 		/// Updates the texture
@@ -205,9 +205,9 @@ namespace DopeEngine
 		virtual RenderPass* create_render_pass_impl(const RenderPassDesc& desc) = 0;
 		virtual Shader* create_shader_impl(const ShaderDescription& description) = 0;
 		virtual Texture* create_texture_impl(const TextureDescription& description) = 0;
-		virtual CommandBuffer* create_command_buffer_impl() = 0;
+		virtual GraphicsCommandBuffer* create_command_buffer_impl() = 0;
 		virtual GraphicsResource* create_resource_impl(const GraphicsResourceDesc& desc) = 0;
-		virtual void submit_command_buffer_impl(CommandBuffer * commandBuffer) = 0;
+		virtual void submit_command_buffer_impl(GraphicsCommandBuffer * GraphicsCommandBuffer) = 0;
 		virtual void update_buffer_impl(GraphicsBuffer * buffer, const Byte * data) = 0;
 		virtual void update_texture_impl(Texture * texture, const Byte * data) = 0;
 		virtual void swap_swapchain_buffers_impl(const SwapchainFramebuffer * framebuffer) = 0;

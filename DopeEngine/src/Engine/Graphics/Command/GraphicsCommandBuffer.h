@@ -20,13 +20,13 @@ namespace DopeEngine
 	struct ColorRgbaByte;
 
 	/// <summary>
-	/// Graphics api agnostic commandbuffer abstraction class
+	/// Graphics api agnostic GraphicsCommandBuffer abstraction class
 	/// </summary>
-	class DOPE_ENGINE_API CommandBuffer : public GraphicsDeviceObject
+	class DOPE_ENGINE_API GraphicsCommandBuffer : public GraphicsDeviceObject
 	{
 	public:
 		/// <summary>
-		/// Locks the commandbuffer sumbit
+		/// Locks the GraphicsCommandBuffer sumbit
 		/// </summary>
 		void lock();
 
@@ -95,8 +95,8 @@ namespace DopeEngine
 		/// </summary>
 		void indexed_draw_call(const unsigned int count);
 	protected:
-		CommandBuffer() : GraphicsDeviceObject(GraphicsDeviceObjectType::CommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
-		virtual ~CommandBuffer() = 0 {}
+		GraphicsCommandBuffer() : GraphicsDeviceObject(GraphicsDeviceObjectType::GraphicsCommandBuffer), CurrentBoundTextures(0),CurrentBoundRenderPass(nullptr),CurrentBoundUniformBuffers(0) {}
+		virtual ~GraphicsCommandBuffer() = 0 {}
 
 		/// <summary>
 		/// Returns the total number of bound textures

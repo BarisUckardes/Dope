@@ -291,21 +291,21 @@ namespace DopeEngine
 
 	}
 
-	CommandBuffer* DX12GraphicsDevice::create_command_buffer_impl()
+	GraphicsCommandBuffer* DX12GraphicsDevice::create_command_buffer_impl()
 	{
 		/*
 		* Create directx12 command buffer
 		*/
-		DX12CommandBuffer* commandBuffer = new DX12CommandBuffer(this);
+		DX12CommandBuffer* GraphicsCommandBuffer = new DX12CommandBuffer(this);
 
-		return commandBuffer;
+		return GraphicsCommandBuffer;
 	}
-	void DX12GraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	void DX12GraphicsDevice::submit_command_buffer_impl(GraphicsCommandBuffer* GraphicsCommandBuffer)
 	{
 		/*
 		* Get dx command buffer
 		*/
-		DX12CommandBuffer* dxCommandBuffer = (DX12CommandBuffer*)commandBuffer;
+		DX12CommandBuffer* dxCommandBuffer = (DX12CommandBuffer*)GraphicsCommandBuffer;
 		DXPTR<ID3D12CommandList> cmdList = dxCommandBuffer->get_dx12_command_list();
 		CommandQueue->ExecuteCommandLists(1, cmdList.GetAddressOf());
 		//LOG("DX12GraphicsDevice", "Execute");

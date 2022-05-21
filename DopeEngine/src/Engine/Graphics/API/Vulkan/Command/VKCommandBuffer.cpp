@@ -253,7 +253,7 @@ namespace DopeEngine
 		/*
 		* Validate command buffer creation
 		*/
-		ASSERT(createCommandBuffer == VK_SUCCESS, "VKCommandBuffer", "Creating CommandBuffer failed!");
+		ASSERT(createCommandBuffer == VK_SUCCESS, "VKCommandBuffer", "Creating GraphicsCommandBuffer failed!");
 	}
 
 }

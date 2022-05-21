@@ -1,9 +1,9 @@
 #pragma once
 #include <Engine/Graphics/API/Directx12/Core/DX12Core.h>
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API DX12CommandBuffer : public CommandBuffer
+	class DOPE_ENGINE_API DX12CommandBuffer : public GraphicsCommandBuffer
 	{
 	public:
 		DX12CommandBuffer(DX12GraphicsDevice* device);
@@ -11,7 +11,7 @@ namespace DopeEngine
 
 		DXPTR<ID3D12GraphicsCommandList> get_dx12_command_list() const;
 	protected:
-		// Inherited via CommandBuffer
+		// Inherited via GraphicsCommandBuffer
 		virtual void unlock_impl() override;
 		virtual void clear_cached_state_impl() override;
 		virtual void set_vertex_buffer_impl(const VertexBuffer* vertexBuffer) override;

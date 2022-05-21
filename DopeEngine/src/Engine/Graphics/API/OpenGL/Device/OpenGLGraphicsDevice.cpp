@@ -261,11 +261,11 @@ namespace DopeEngine
 			(DEVICE)this,
 			(Window*)get_owner_window());
 	}
-	CommandBuffer* OpenGLGraphicsDevice::create_command_buffer_impl()
+	GraphicsCommandBuffer* OpenGLGraphicsDevice::create_command_buffer_impl()
 	{
 		return new OpenGLCommandBuffer();
 	}
-	void OpenGLGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	void OpenGLGraphicsDevice::submit_command_buffer_impl(GraphicsCommandBuffer* GraphicsCommandBuffer)
 	{
 
 	}

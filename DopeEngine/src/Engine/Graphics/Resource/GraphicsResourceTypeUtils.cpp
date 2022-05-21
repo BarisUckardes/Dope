@@ -35,7 +35,7 @@ namespace DopeEngine
 				break;
 			case GraphicsDeviceObjectType::ResourceView:
 				break;
-			case GraphicsDeviceObjectType::CommandBuffer:
+			case GraphicsDeviceObjectType::GraphicsCommandBuffer:
 				break;
 			case GraphicsDeviceObjectType::RenderPass:
 				break;

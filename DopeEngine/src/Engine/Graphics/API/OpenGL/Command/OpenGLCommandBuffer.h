@@ -1,11 +1,11 @@
 #pragma once
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
 #include <Engine/Graphics/Vertex/VertexLayoutDescription.h>
 namespace DopeEngine
 {
 	class OpenGLVertexLayout;
-	class DOPE_ENGINE_API OpenGLCommandBuffer final : public CommandBuffer
+	class DOPE_ENGINE_API OpenGLCommandBuffer final : public GraphicsCommandBuffer
 	{
 	public:
 		OpenGLCommandBuffer() = default;

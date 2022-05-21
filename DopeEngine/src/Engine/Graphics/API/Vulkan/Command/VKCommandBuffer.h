@@ -1,9 +1,9 @@
 #pragma once
-#include <Engine/Graphics/Command/CommandBuffer.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/API/Vulkan/Core/VKCore.h>
 namespace DopeEngine
 {
-	class DOPE_ENGINE_API VKCommandBuffer : public CommandBuffer
+	class DOPE_ENGINE_API VKCommandBuffer : public GraphicsCommandBuffer
 	{
 	public:
 		VKCommandBuffer(VKGraphicsDevice* device);
@@ -11,7 +11,7 @@ namespace DopeEngine
 
 		FORCEINLINE VkCommandBuffer get_vk_command_buffer() const;
 	protected:
-		// Inherited via CommandBuffer
+		// Inherited via GraphicsCommandBuffer
 		virtual void lock_impl() override;
 		virtual void unlock_impl() override;
 		virtual void clear_cached_state_impl() override;

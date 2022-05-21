@@ -124,7 +124,7 @@ namespace DopeEngine
 		return nullptr;
 	}
 
-	CommandBuffer* VKGraphicsDevice::create_command_buffer_impl()
+	GraphicsCommandBuffer* VKGraphicsDevice::create_command_buffer_impl()
 	{
 		return new VKCommandBuffer(this);
 	}
@@ -134,12 +134,12 @@ namespace DopeEngine
 		return nullptr;
 	}
 
-	void VKGraphicsDevice::submit_command_buffer_impl(CommandBuffer* commandBuffer)
+	void VKGraphicsDevice::submit_command_buffer_impl(GraphicsCommandBuffer* GraphicsCommandBuffer)
 	{
 		/*
 		* Get vk command buffer
 		*/
-		const VKCommandBuffer* vkCommandBuffer = (const VKCommandBuffer*)commandBuffer;
+		const VKCommandBuffer* vkCommandBuffer = (const VKCommandBuffer*)GraphicsCommandBuffer;
 
 
 		/*

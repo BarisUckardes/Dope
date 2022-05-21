@@ -103,7 +103,7 @@ namespace DopeEngine
 
 
 
-	CommandBuffer* GraphicsDevice::create_command_buffer()
+	GraphicsCommandBuffer* GraphicsDevice::create_command_buffer()
 	{
 		return create_command_buffer_impl();
 	}
@@ -123,9 +123,9 @@ namespace DopeEngine
 		return resource;
 	}
 
-	void GraphicsDevice::submit_command_buffer(CommandBuffer* commandBuffer)
+	void GraphicsDevice::submit_command_buffer(GraphicsCommandBuffer* GraphicsCommandBuffer)
 	{
-		submit_command_buffer_impl(commandBuffer);
+		submit_command_buffer_impl(GraphicsCommandBuffer);
 	}
 
 	void GraphicsDevice::update_texture(Texture* texture, const Byte* data)
