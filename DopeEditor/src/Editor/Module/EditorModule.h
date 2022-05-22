@@ -1,7 +1,7 @@
 #pragma once
 #include <Editor/Core/Symbols.h>
 #include <Engine/Application/ApplicationModule.h>
-
+#include <Engine/Structures/Array.h>
 
 namespace DopeEngine
 {
@@ -10,7 +10,11 @@ namespace DopeEngine
 namespace DopeEditor
 {
 	class EditorSession;
+	class EditorGUIModule;
 
+	/// <summary>
+	/// The module which responsible for all the Editor state
+	/// </summary>
 	class DOPE_EDITOR_API EditorModule : public DopeEngine::ApplicationModule
 	{
 	public:
@@ -25,5 +29,6 @@ namespace DopeEditor
 	private:
 		EditorSession* Session;
 		DopeEngine::GraphicsCommandBuffer* GUICommandBuffer;
+		DopeEngine::Array<EditorGUIModule*> GUIModules;
 	};
 }

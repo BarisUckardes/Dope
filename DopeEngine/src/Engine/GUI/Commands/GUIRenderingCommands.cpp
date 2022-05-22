@@ -4,14 +4,27 @@
 
 namespace DopeEngine
 {
-	void GUIRenderingCommands::test_window()
-	{
-		/*if (ImGui::Begin("Selam"))
-		{
-			
-		}
-		ImGui::End();*/
-		ImGui::ShowDemoWindow();
-	}
+    void GUIRenderingCommands::create_window(const String& title,bool* isCollapsed,bool* isOpen) const
+    {
+        /*
+        * Begin imgui window
+        */
+        const bool collapsed = ImGui::Begin(*title,isOpen);
+
+        /*
+        * Set collapsed state
+        */
+        *isCollapsed = collapsed;
+    }
+
+    void GUIRenderingCommands::finalize_window() const
+    {
+        ImGui::End();
+    }
+
+    void GUIRenderingCommands::create_demo_window() const
+    {
+        ImGui::ShowDemoWindow();
+    }
 
 }

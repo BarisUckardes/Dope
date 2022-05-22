@@ -33,6 +33,24 @@ namespace DopeEngine
 		}
 	}
 
+	GUIRenderer::~GUIRenderer()
+	{
+		delete RenderingCommands;
+		delete EventCommands;
+		RenderingCommands = nullptr;
+		EventCommands = nullptr;
+	}
+
+	const GUIRenderingCommands* GUIRenderer::get_rendering_commands() const
+	{
+		return RenderingCommands;
+	}
+
+	const GUIEventCommands* GUIRenderer::get_event_commands() const
+	{
+		return EventCommands;
+	}
+
 	GUIRenderer::GUIRenderer(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags)
 	{
 		/*
@@ -85,6 +103,12 @@ namespace DopeEngine
 		*/
 		GUIRendererThemeDesc defaultThemeDesc = {};
 		set_theme(defaultThemeDesc);
+
+		/*
+		* Create command
+		*/
+		RenderingCommands = new GUIRenderingCommands();
+		EventCommands = new GUIEventCommands();
 	}
 
 	void GUIRenderer::on_application_event(const ApplicationEvent* event)

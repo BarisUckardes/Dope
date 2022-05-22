@@ -17,13 +17,13 @@ namespace DopeEditor
 	{
 		friend class EditorModule;
 	public:
-
+		FORCEINLINE DopeEngine::GameSession* get_engine_session() const;
+		FORCEINLINE EditorGUIPainter* get_editor_painter() const;
 	private:
 		EditorSession(DopeEngine::GameSession* session);
 		~EditorSession();
 
-		FORCEINLINE DopeEngine::GameSession* get_engine_session() const;
-		FORCEINLINE EditorGUIPainter* get_editor_painter() const;
+		
 	private:
 		DopeEngine::GameSession* EngineSession;
 		EditorGUIPainter* Painter;

@@ -179,6 +179,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\GUI\Commands\GUIEventCommands.h" />
     <ClInclude Include="src\Engine\GUI\Commands\GUIRenderingCommands.h" />
     <ClInclude Include="src\Engine\Reflection\Assembly\ReflectableAssembly.h" />
     <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.h" />
@@ -439,6 +440,7 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\GUI\Commands\GUIEventCommands.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUIRenderingCommands.cpp" />
     <ClCompile Include="src\Engine\Reflection\Assembly\ReflectableAssembly.cpp" />
     <ClCompile Include="src\Engine\Audio\Loader\IAudioLoader.cpp" />

@@ -4,6 +4,8 @@
 #include <Engine/GUI/Renderer/Flags/GUIRendererBackendFlags.h>
 #include <Engine/GUI/Renderer/Flags/GUIRendererConfigFlags.h>
 #include <Engine/GUI/Renderer/Theme/GUIRendererThemeDesc.h>
+#include <Engine/GUI/Commands/GUIRenderingCommands.h>
+#include <Engine/GUI/Commands/GUIEventCommands.h>
 struct ImGuiContext;
 namespace DopeEngine
 {
@@ -36,7 +38,19 @@ namespace DopeEngine
 		/// <param name="device"></param>
 		/// <returns></returns>
 		static GUIRenderer* create(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
-		~GUIRenderer() = default;
+		~GUIRenderer();
+
+		/// <summary>
+		/// Returns the rendering command list for this GUIRenderer
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const GUIRenderingCommands* get_rendering_commands() const;
+
+		/// <summary>
+		/// Returns the event command list for this GUIRenderer
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const GUIEventCommands* get_event_commands() const;
 
 		/// <summary>
 		/// Called when received an application event
@@ -67,11 +81,9 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		virtual FORCEINLINE GraphicsAPIType get_api_type() const = 0;
-
 	protected:
 		GUIRenderer(const GUIRendererBackendFlags backendFlags,const GUIRendererConfigFlags configFlags);
 		
-
 		virtual void begin_rendering_impl() = 0;
 		virtual void render_impl(const GraphicsCommandBuffer* cmdbuffer) = 0;
 	private:
@@ -86,6 +98,8 @@ namespace DopeEngine
 		void on_window_position_changed(const WindowPositionChangedEvent* event);
 	private:
 		ImGuiContext* Context;
+		GUIRenderingCommands* RenderingCommands;
+		GUIEventCommands* EventCommands;
 		GUIRendererThemeDesc ThemeDesc;
 		unsigned int WindowWidth;
 		unsigned int WindowHeight;

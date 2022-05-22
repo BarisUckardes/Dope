@@ -25,12 +25,22 @@ namespace DopeEditor
 		delete Renderer;
 	}
 
-	void EditorGUIPainter::StartRendering()
+	const DopeEngine::GUIRenderingCommands* EditorGUIPainter::get_rendering_commands() const
+	{
+		return Renderer->get_rendering_commands();
+	}
+
+	const DopeEngine::GUIEventCommands* EditorGUIPainter::get_event_commands() const
+	{
+		return Renderer->get_event_commands();
+	}
+
+	void EditorGUIPainter::StartPainting()
 	{
 		Renderer->begin_rendering(1.0f / 60.0f);
 	}
 
-	void EditorGUIPainter::FinalizeRendering(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer)
+	void EditorGUIPainter::FinalizePainting(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer)
 	{
 		Renderer->render(targetCommandBuffer);
 	}

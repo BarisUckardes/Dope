@@ -8,6 +8,8 @@ namespace DopeEngine
 	class GUIRenderer;
 	class ApplicationEvent;
 	class GraphicsCommandBuffer;
+	class GUIEventCommands;
+	class GUIRenderingCommands;
 }
 
 namespace DopeEditor
@@ -22,14 +24,26 @@ namespace DopeEditor
 		~EditorGUIPainter();
 
 		/// <summary>
+		/// Returns the rendering commands for this GUIPainter
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const DopeEngine::GUIRenderingCommands* get_rendering_commands() const;
+
+		/// <summary>
+		/// Returns the event commands for this GUIPainter
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const DopeEngine::GUIEventCommands* get_event_commands() const;
+
+		/// <summary>
 		/// Starts the painter rendering session
 		/// </summary>
-		void StartRendering();
+		void StartPainting();
 
 		/// <summary>
 		/// Finalizes the painter rendering session and renders the draw data
 		/// </summary>
-		void FinalizeRendering(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer);
+		void FinalizePainting(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer);
 
 		/// <summary>
 		/// Called when painter receives an event
