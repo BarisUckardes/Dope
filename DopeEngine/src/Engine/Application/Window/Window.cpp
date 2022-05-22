@@ -3,6 +3,8 @@
 #include <Engine/Platform/Windows/Window/WindowsWindow.h>
 #include <Engine/Application/Events/Events.h>
 #include <Engine/Graphics/Framebuffer/SwapchainFramebuffer.h>
+#include <Engine/Graphics/Device/GraphicsDevice.h>
+#include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 namespace DopeEngine
 {
     Window* Window::create_window(const WindowCreateDescription& desc, void* windowData)
@@ -75,6 +77,11 @@ namespace DopeEngine
         * Call poll messages impl
         */
         poll_messages_impl();
+    }
+
+    void Window::present()
+    {
+        ChildGraphicsDevice->swap_swapchain_buffers(ChildGraphicsDevice->get_swapchain_framebuffer());
     }
 
     void Window::register_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate)

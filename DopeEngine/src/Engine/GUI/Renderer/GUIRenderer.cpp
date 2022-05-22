@@ -5,12 +5,13 @@
 #include <Engine/GUI/Renderer/API/Directx12/DX12GUIRenderer.h>
 #include <Engine/Application/Events/Events.h>
 #include <Engine/Input/Keys.h>
+#include <Engine/Graphics/Device/GraphicsDevice.h>
 #include <IMGUI/imgui.h>
 namespace DopeEngine
 {
-	GUIRenderer* GUIRenderer::create(const GraphicsAPIType type, const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags, const GraphicsDevice* device)
+	GUIRenderer* GUIRenderer::create(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags, const GraphicsDevice* device)
 	{
-		switch (type)
+		switch (device->get_api_type())
 		{
 			case DopeEngine::GraphicsAPIType::Undefined:
 				ASSERT(false, "GUIRenderer", "Invalid GraphicsApiType::Undefined, couldnt create the requested GUIRenderer");
@@ -150,7 +151,7 @@ namespace DopeEngine
 		/*
 		* Set display size
 		*/
-		io.DisplaySize = ImVec2(512.0f,512.0f);
+		io.DisplaySize = ImVec2(WindowWidth,WindowHeight);
 		io.DeltaTime = deltaTimeInMilliseconds;
 
 		/*
@@ -269,6 +270,7 @@ namespace DopeEngine
 		*/
 		MousePositionX = positionX;
 		MousePositionY = positionY;
+		//LOG("GUIRenderer", "Mouse position: %f,%f", io.MousePos.x, io.MousePos.y);
 	}
 
 	void GUIRenderer::on_mouse_scrolled(const MouseScrolledEvent* event)
@@ -281,7 +283,7 @@ namespace DopeEngine
 		/*
 		* Set scroll
 		*/
-		//io.MouseWheel += event->get_amount();
+		io.MouseWheel += event->get_amount();
 	}
 
 	void GUIRenderer::on_window_resized(const WindowResizedEvent* event)

@@ -2,6 +2,7 @@
 #include <Engine/Core/Assert.h>
 #include <Engine/Application/Events/Events.h>
 #include <Engine/Application/Window/Window.h>
+#include <Engine/Input/Keys.h>
 namespace DopeEngine
 {
     //LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -48,11 +49,12 @@ namespace DopeEngine
         wc.cbWndExtra = sizeof(WindowsWindow);
         wc.hInstance = processHandle;
         wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-        wc.hCursor = LoadIcon(NULL, IDC_ARROW);
+        //wc.hCursor = LoadIcon(NULL, IDC_ARROW);
         wc.hbrBackground = NULL;
         wc.lpszMenuName = NULL;
         wc.lpszClassName = WINDOW_CLASS_NAME;
         wc.hIconSm = NULL;
+
 
         /*
         * Register window class
@@ -200,7 +202,7 @@ namespace DopeEngine
                 /*
                 * Broadcast event
                 */
-                window->broadcast_window_event(new MouseButtonDownEvent(0, false));
+                window->broadcast_window_event(new MouseButtonDownEvent(DOPE_MOUSE_BUTTON_2, false));
                 break;
             }
             case WM_RBUTTONUP:
@@ -213,7 +215,7 @@ namespace DopeEngine
                 /*
                 * Boardcast event
                 */
-                window->broadcast_window_event(new MouseButtonUpEvent(0));
+                window->broadcast_window_event(new MouseButtonUpEvent(DOPE_MOUSE_BUTTON_2));
                 break;
             }
             case WM_LBUTTONDOWN:
@@ -226,7 +228,7 @@ namespace DopeEngine
                  /*
                 * Broadcast event
                 */
-                window->broadcast_window_event(new MouseButtonDownEvent(1, false));
+                window->broadcast_window_event(new MouseButtonDownEvent(DOPE_MOUSE_BUTTON_1, false));
                 break;
             }
             case WM_LBUTTONUP:
@@ -239,7 +241,7 @@ namespace DopeEngine
                  /*
                 * Boardcast event
                 */
-                window->broadcast_window_event(new MouseButtonUpEvent(1));
+                window->broadcast_window_event(new MouseButtonUpEvent(DOPE_MOUSE_BUTTON_1));
                 break;
             }
             case WM_MOUSEMOVE:

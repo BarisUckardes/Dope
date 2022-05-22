@@ -3,7 +3,7 @@
 
 namespace DopeEditor
 {
-	EditorGUIPainter::EditorGUIPainter(const DopeEngine::GraphicsAPIType requestedApiType, DopeEngine::GraphicsDevice* device)
+	EditorGUIPainter::EditorGUIPainter(DopeEngine::GraphicsDevice* device)
 	{
 	
 		/*
@@ -15,7 +15,7 @@ namespace DopeEditor
 		/*
 		* Create renderer
 		*/
-		Renderer = DopeEngine::GUIRenderer::create(requestedApiType, backendFlags, configFlags, device);
+		Renderer = DopeEngine::GUIRenderer::create(backendFlags, configFlags, device);
 	}
 
 	EditorGUIPainter::~EditorGUIPainter()

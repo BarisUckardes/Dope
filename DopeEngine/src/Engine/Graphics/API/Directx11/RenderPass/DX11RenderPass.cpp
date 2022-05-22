@@ -65,21 +65,38 @@ namespace DopeEngine
 		}
 
 		/*
-		* Get vertex shader
+		* Search for an vertex shader
 		*/
-		const DX11Shader* dx11Shader = (const DX11Shader*)desc.ShaderSet[0]; // default vertex shader [0]
-		const ID3D11VertexShader* vertexShader =  dx11Shader->get_dx11_vertex_shader().Get();
-		ID3DBlob* vertexShaderBlob = dx11Shader->get_dx11_blob().Get();
+		for (unsigned int i = 0; i < desc.ShaderSet.get_cursor(); i++)
+		{
+			/*
+			* Get target shader
+			*/
+			const Shader* shader = desc.ShaderSet[i];
 
-		/*
-		* Create input layout
-		*/
-		device->get_dx11_device()->CreateInputLayout(
-			inputElements.get_data(),
-			inputElements.get_cursor(),
-			vertexShaderBlob->GetBufferPointer(),
-			vertexShaderBlob->GetBufferSize()
-			, &InputLayout);
+			/*
+			* Validate if this is a vertex shader
+			*/
+			if (shader->get_type() == ShaderType::Vertex)
+			{
+				const DX11Shader* dx11Shader = (const DX11Shader*)shader;
+				const ID3D11VertexShader* vertexShader = dx11Shader->get_dx11_vertex_shader().Get();
+				ID3DBlob* vertexShaderBlob = dx11Shader->get_dx11_blob().Get();
+
+				/*
+				* Create input layout
+				*/
+				device->get_dx11_device()->CreateInputLayout(
+					inputElements.get_data(),
+					inputElements.get_cursor(),
+					vertexShaderBlob->GetBufferPointer(),
+					vertexShaderBlob->GetBufferSize()
+					, &InputLayout);
+				break;
+			}
+
+		}
+		
 
 		/*
 		* Create rasterizer state

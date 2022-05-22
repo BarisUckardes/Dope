@@ -131,6 +131,11 @@ namespace DopeEngine
 			}
 
 			/*
+			* Present window 
+			*/
+			ApplicationWindow->present();
+
+			/*
 			* Validate window should close
 			*/
 			if (ApplicationWindow->has_close_request())

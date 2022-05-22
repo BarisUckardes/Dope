@@ -35,7 +35,7 @@ namespace DopeEngine
 		/// <param name="configFlags"></param>
 		/// <param name="device"></param>
 		/// <returns></returns>
-		static GUIRenderer* create(const GraphicsAPIType type, const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
+		static GUIRenderer* create(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
 		~GUIRenderer() = default;
 
 		/// <summary>

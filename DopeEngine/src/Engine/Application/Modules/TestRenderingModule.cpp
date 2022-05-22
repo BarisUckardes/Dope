@@ -19,6 +19,8 @@
 #include <Engine/Graphics/Resource/GraphicsResourceDesc.h>
 #include <Engine/Graphics/Texture/Texture.h>
 #include <Engine/Core/Assert.h>
+#include <Engine/GUI/Renderer/GUIRenderer.h>
+#include <Engine/GUI/Commands/GUIRenderingCommands.h>
 
 namespace DopeEngine
 {
@@ -87,7 +89,6 @@ namespace DopeEngine
 		return float4(1.0f,0,0,1.0f);
 	}
 )";
-
 	void TestRenderingModule::initialize()
 	{
 		
@@ -228,9 +229,7 @@ namespace DopeEngine
 		cmdBuffer->indexed_draw_call(3);
 		cmdBuffer->unlock();
 		device->submit_command_buffer(cmdBuffer);
-		device->swap_swapchain_buffers(device->get_swapchain_framebuffer());
 		device->wait_for_finish();
-		//device->delete_device_object(cmdBuffer);
 
 	}
 	void TestRenderingModule::finalize()

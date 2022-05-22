@@ -6,11 +6,12 @@ namespace DopeEngine
 {
 	void GUIRenderingCommands::test_window()
 	{
-		if (ImGui::Begin("Selam"))
+		/*if (ImGui::Begin("Selam"))
 		{
 			
 		}
-		ImGui::End();
+		ImGui::End();*/
+		ImGui::ShowDemoWindow();
 	}
 
 }

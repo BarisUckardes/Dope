@@ -18,7 +18,7 @@ namespace DopeEditor
 	class DOPE_EDITOR_API EditorGUIPainter
 	{
 	public:
-		EditorGUIPainter(const DopeEngine::GraphicsAPIType requestedApiType,DopeEngine::GraphicsDevice* device);
+		EditorGUIPainter(DopeEngine::GraphicsDevice* device);
 		~EditorGUIPainter();
 
 		/// <summary>

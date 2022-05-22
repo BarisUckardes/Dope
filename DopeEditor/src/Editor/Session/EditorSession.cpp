@@ -17,7 +17,7 @@ namespace DopeEditor
 		* Create editor gui painter
 		*/
 		DopeEngine::GraphicsDevice* device = EngineSession->get_window()->get_child_graphics_device();
-		Painter = new EditorGUIPainter(device->get_api_type(), device);
+		Painter = new EditorGUIPainter(device);
 	}
 
 	EditorSession::~EditorSession()
