@@ -11,6 +11,8 @@ namespace DopeEditor
 		*/
 		DopeEngine::GUIRendererBackendFlags backendFlags = {};
 		DopeEngine::GUIRendererConfigFlags configFlags = {};
+		backendFlags = DopeEngine::GUIRendererBackendFlags::None;
+		configFlags = DopeEngine::GUIRendererConfigFlags::DockingEnabled;
 
 		/*
 		* Create renderer

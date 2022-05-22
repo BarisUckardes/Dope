@@ -49,12 +49,9 @@ namespace DopeEngine
 		* Create io flags
 		*/
 		ImGuiIO& io = ImGui::GetIO();
-	/*	io.BackendFlags = backendFlags;
-		io.ConfigFlags = configFlags;*/
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-		io.BackendFlags |= ImGuiBackendFlags_PlatformHasViewports;
-		io.ConfigFlags |= ImGuiConfigFlags_None;
+		io.BackendFlags = (int)backendFlags;
+		io.ConfigFlags = (int)configFlags;
+
 		WindowWidth = 512;
 		WindowHeight = 512;
 
@@ -219,6 +216,7 @@ namespace DopeEngine
 		/*
 		* Set char
 		*/
+		LOG("GUIRendeer", "Char: %d", event->get_key());
 		const unsigned int keyCode = event->get_key();
 		if (keyCode > 0 && keyCode < 0x10000)
 			io.AddInputCharacter((unsigned short)keyCode);
@@ -320,7 +318,6 @@ namespace DopeEngine
 		*/
 		io.MousePos.x = (float)event->get_x();
 		io.MousePos.y = (float)event->get_y();
-		LOG("GUREnderer", "Mouse pos: %d,%d", event->get_x(), event->get_y());
 	}
 
 

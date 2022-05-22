@@ -1,13 +1,13 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-
+//#include <winnt.h>
 namespace DopeEngine
 {
 
 	/// <summary>
 	/// Supported GUIRenderer backend flags
 	/// </summary>
-	enum DOPE_ENGINE_API GUIRendererBackendFlags 
+	enum class DOPE_ENGINE_API GUIRendererBackendFlags : int
 	{
 		None = 0,
 		HasGamepad = 1 << 0,
@@ -18,4 +18,10 @@ namespace DopeEngine
 		HasMouseHoveredViewport = 1 << 11,
 		RendererHasViewports = 1 << 12
 	};
+	//DEFINE_ENUM_FLAG_OPERATORS(GUIRendererBackendFlags);
+
+	FORCEINLINE static GUIRendererBackendFlags operator|(const GUIRendererBackendFlags a, const GUIRendererBackendFlags b)
+	{
+		return (GUIRendererBackendFlags)((int)a | (int)b);
+	}
 }

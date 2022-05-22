@@ -192,6 +192,19 @@ namespace DopeEngine
                 window->broadcast_window_event(new KeyboardKeyUpEvent((unsigned int)wParam));
                 break;
             }
+            case WM_CHAR:
+            {
+                /*
+                * Get window data
+                */
+                WindowsWindow* window = GetWindowData(hwnd);
+
+                /*
+                * Broadcast event
+                */
+                window->broadcast_window_event(new KeyboardCharEvent((unsigned int)wParam));
+                break;
+            }
             case WM_RBUTTONDOWN:
             {
                 /*
