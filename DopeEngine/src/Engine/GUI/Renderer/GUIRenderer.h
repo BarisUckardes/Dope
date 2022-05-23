@@ -1,11 +1,12 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Device/GraphicsAPIType.h>
-#include <Engine/GUI/Renderer/Flags/GUIRendererBackendFlags.h>
-#include <Engine/GUI/Renderer/Flags/GUIRendererConfigFlags.h>
+#include <Engine/GUI/Flags/GUIRendererBackendFlags.h>
+#include <Engine/GUI/Flags/GUIRendererConfigFlags.h>
 #include <Engine/GUI/Renderer/Theme/GUIRendererThemeDesc.h>
 #include <Engine/GUI/Commands/GUIRenderingCommands.h>
 #include <Engine/GUI/Commands/GUIEventCommands.h>
+#include <Engine/GUI/Commands/GUILayoutCommands.h>
 struct ImGuiContext;
 namespace DopeEngine
 {
@@ -51,6 +52,12 @@ namespace DopeEngine
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE const GUIEventCommands* get_event_commands() const;
+
+		/// <summary>
+		/// Returns the layout command list for this GUIRenderer
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const GUILayoutCommands* get_layout_commands() const;
 
 		/// <summary>
 		/// Called when received an application event
@@ -100,6 +107,7 @@ namespace DopeEngine
 		ImGuiContext* Context;
 		GUIRenderingCommands* RenderingCommands;
 		GUIEventCommands* EventCommands;
+		GUILayoutCommands* LayoutCommands;
 		GUIRendererThemeDesc ThemeDesc;
 		unsigned int WindowWidth;
 		unsigned int WindowHeight;

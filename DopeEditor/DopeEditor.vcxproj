@@ -166,10 +166,12 @@
     <ClInclude Include="src\Editor\GUI\EditorGUIModule.h" />
     <ClInclude Include="src\Editor\GUI\Window\EditorWindowGUIModule.h" />
     <ClInclude Include="src\Editor\GUI\Window\EditorGUIWindow.h" />
+    <ClInclude Include="src\Editor\GUI\Window\EditorGUIWindows.h" />
     <ClInclude Include="src\Editor\Painter\EditorGUIPainter.h" />
     <ClInclude Include="src\Editor\Session\EditorSession.h" />
     <ClInclude Include="src\Editor\Module\EditorModule.h" />
     <ClInclude Include="src\Editor\Core\Symbols.h" />
+    <ClInclude Include="src\Editor\GUI\Window\Templates\WorldObserverWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Editor\GUI\EditorGUIModule.cpp" />
@@ -178,6 +180,7 @@
     <ClCompile Include="src\Editor\Painter\EditorGUIPainter.cpp" />
     <ClCompile Include="src\Editor\Session\EditorSession.cpp" />
     <ClCompile Include="src\Editor\Module\EditorModule.cpp" />
+    <ClCompile Include="src\Editor\GUI\Window\Templates\WorldObserverWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DopeEngine\DopeEngine.vcxproj">

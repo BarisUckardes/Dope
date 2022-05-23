@@ -594,13 +594,13 @@
     <ClInclude Include="src\Engine\GUI\Renderer\API\Directx12\DX12GUIRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererBackendFlags.h">
+    <ClInclude Include="src\Engine\GUI\Flags\GUIRendererBackendFlags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Input\Keys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererConfigFlags.h">
+    <ClInclude Include="src\Engine\GUI\Flags\GUIRendererConfigFlags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.h">
@@ -790,6 +790,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\GUI\Commands\GUIEventCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUIWindowFlags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Commands\GUILayoutCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\GUICore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUIDockspaceFlags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUIStyleVariableTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUIStyleColorTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1341,6 +1359,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\GUI\Commands\GUIEventCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\GUI\Commands\GUILayoutCommands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

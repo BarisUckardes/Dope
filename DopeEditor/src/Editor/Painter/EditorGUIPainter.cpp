@@ -35,6 +35,11 @@ namespace DopeEditor
 		return Renderer->get_event_commands();
 	}
 
+	const DopeEngine::GUILayoutCommands* EditorGUIPainter::get_layout_commands() const
+	{
+		return Renderer->get_layout_commands();
+	}
+
 	void EditorGUIPainter::StartPainting()
 	{
 		Renderer->begin_rendering(1.0f / 60.0f);

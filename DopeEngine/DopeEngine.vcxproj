@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -179,8 +179,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\GUI\Flags\GUIStyleColorTypes.h" />
+    <ClInclude Include="src\Engine\GUI\Commands\GUILayoutCommands.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUIDockspaceFlags.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUIStyleVariableTypes.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUIWindowFlags.h" />
     <ClInclude Include="src\Engine\GUI\Commands\GUIEventCommands.h" />
     <ClInclude Include="src\Engine\GUI\Commands\GUIRenderingCommands.h" />
+    <ClInclude Include="src\Engine\GUI\GUICore.h" />
     <ClInclude Include="src\Engine\Reflection\Assembly\ReflectableAssembly.h" />
     <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionParameterDispatcher.h" />
     <ClInclude Include="src\Engine\Reflection\Function\ReflectableFunctionDispatcher.h" />
@@ -234,7 +240,7 @@
     <ClInclude Include="src\Engine\GUI\Renderer\API\Directx12\DX12GUIRenderer.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\API\Directx11\DX11GUIRenderer.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\API\OpenGL\OpenGLGUIRenderer.h" />
-    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererBackendFlags.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUIRendererBackendFlags.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\GUIRenderer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Shader\DX12ShaderUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Directx12\Resource\DX12ResourceLayoutUtils.h" />
@@ -426,7 +432,7 @@
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Buffer\VKConstanBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\RenderPass\VKRenderPassUtils.h" />
     <ClInclude Include="src\Engine\Graphics\API\Vulkan\Command\VKCommandBuffer.h" />
-    <ClInclude Include="src\Engine\GUI\Renderer\Flags\GUIRendererConfigFlags.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUIRendererConfigFlags.h" />
     <ClInclude Include="src\Engine\GUI\Renderer\Theme\GUIRendererThemeDesc.h" />
     <ClInclude Include="src\Engine\Audio\API\XAudio2\Device\X2AudioDevice.h" />
     <ClInclude Include="src\Engine\Audio\API\XAudio2\Core\X2Core.h" />
@@ -440,6 +446,7 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Engine\GUI\Commands\GUILayoutCommands.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUIEventCommands.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUIRenderingCommands.cpp" />
     <ClCompile Include="src\Engine\Reflection\Assembly\ReflectableAssembly.cpp" />

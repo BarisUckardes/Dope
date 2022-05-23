@@ -1,6 +1,6 @@
 #pragma once
 #include <Editor/Core/Symbols.h>
-
+#include <Engine/Structures/String.h>
 namespace DopeEditor
 {
 	/// <summary>
@@ -11,18 +11,20 @@ namespace DopeEditor
 	{
 		friend class EditorWindowGUIModule;
 	public:
-
-		/// <summary>
-		/// Returns whether this window is currently is visible or not
-		/// </summary>
-		/// <returns></returns>
-		FORCEINLINE bool is_visible() const;
+		EditorGUIWindow();
+		~EditorGUIWindow() = default;
 
 		/// <summary>
 		/// Returns whether this window is currently is visible or not
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE bool is_collapsed() const;
+
+		/// <summary>
+		/// Returns the window title
+		/// </summary>
+		/// <returns></returns>
+		virtual DopeEngine::String get_window_name() const = 0;
 
 		/// <summary>
 		/// Called upon first creation
@@ -51,18 +53,12 @@ namespace DopeEditor
 
 	private:
 		/// <summary>
-		/// Internal method for setting the Visible field
-		/// </summary>
-		/// <param name="state"></param>
-		void _set_visiblity(const bool state);
-
-		/// <summary>
 		/// Internal method for setting the Collapsed field
 		/// </summary>
 		/// <param name="state"></param>
 		void _set_collapsed(const bool state);
 	private:
-		bool Visible;
+		bool Active;
 		bool Collapsed;
 	};
 

@@ -37,8 +37,7 @@ namespace DopeEngine
 	{
 		delete RenderingCommands;
 		delete EventCommands;
-		RenderingCommands = nullptr;
-		EventCommands = nullptr;
+		delete LayoutCommands;
 	}
 
 	const GUIRenderingCommands* GUIRenderer::get_rendering_commands() const
@@ -49,6 +48,11 @@ namespace DopeEngine
 	const GUIEventCommands* GUIRenderer::get_event_commands() const
 	{
 		return EventCommands;
+	}
+
+	const GUILayoutCommands* GUIRenderer::get_layout_commands() const
+	{
+		return LayoutCommands;
 	}
 
 	GUIRenderer::GUIRenderer(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags)
@@ -109,6 +113,7 @@ namespace DopeEngine
 		*/
 		RenderingCommands = new GUIRenderingCommands();
 		EventCommands = new GUIEventCommands();
+		LayoutCommands = new GUILayoutCommands();
 	}
 
 	void GUIRenderer::on_application_event(const ApplicationEvent* event)

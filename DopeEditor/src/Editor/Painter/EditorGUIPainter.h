@@ -10,6 +10,7 @@ namespace DopeEngine
 	class GraphicsCommandBuffer;
 	class GUIEventCommands;
 	class GUIRenderingCommands;
+	class GUILayoutCommands;
 }
 
 namespace DopeEditor
@@ -34,6 +35,12 @@ namespace DopeEditor
 		/// </summary>
 		/// <returns></returns>
 		FORCEINLINE const DopeEngine::GUIEventCommands* get_event_commands() const;
+
+		/// <summary>
+		/// Returns the layout commands for thsi GUIPainter
+		/// </summary>
+		/// <returns></returns>
+		FORCEINLINE const DopeEngine::GUILayoutCommands* get_layout_commands() const;
 
 		/// <summary>
 		/// Starts the painter rendering session
