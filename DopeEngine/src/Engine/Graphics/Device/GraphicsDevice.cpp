@@ -20,9 +20,6 @@ namespace DopeEngine
 {
 	GraphicsDevice* GraphicsDevice::create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api, Window* ownerWindow,const SwapchainFramebufferDesc* swapchainDesc)
 	{
-		/*
-		* Create graphics device
-		*/
 		GraphicsDevice* device = nullptr;
 		switch (api)
 		{
@@ -46,55 +43,21 @@ namespace DopeEngine
 				break;
 		}
 		
-		/*
-		* Validate
-		*/
 		Array<String> messages;
 		ASSERT(device->does_support_features(requestedFeatures, messages),"GraphicsDevice","Cannot create the device with the requested features.One or more features does not supported on this device");
 
-		/*
-		* Log unsupported features
-		*/
-		for (unsigned int i = 0; i < messages.get_cursor(); i++)
-		{
-			/*
-			* Get string
-			*/
-			const String message = messages[i];
-
-			/*
-			* Log
-			*/
-			LOG("GraphicsDevice", "Feature %s not supported on this device",*message);
-		}
-
-		/*
-		* Validate owner window
-		*/
+		
 		if (ownerWindow != nullptr && swapchainDesc != nullptr) // wants to create a graphics device with swapchain and window
 		{
-			/*
-			* Validate display support
-			*/
 			const GraphicsDeviceFeatures* supportedFeatures = device->get_supported_features();
 			ASSERT(supportedFeatures->can_display(), "GraphicsDevice", "Swapchain requsted but this device cant display!");
 
-			/*
-			* Validate dimensions
-			*/
 			ASSERT(swapchainDesc->Width <= supportedFeatures->get_max_framebuffer_width() && swapchainDesc->Height <= supportedFeatures->get_max_framebuffer_height(),
 				"GraphicsDevice", "This device doesnt support the requester framebuffer size!. Requested size %d,%d but device supports only %d,%d",
 				swapchainDesc->Width, swapchainDesc->Height, supportedFeatures->get_max_framebuffer_width(), supportedFeatures->get_max_framebuffer_height());
 
-			/*
-			* Create swapchainbuffer
-			*/
 			device->create_swapchain_framebuffer(swapchainDesc);
-			LOG("GraphicsDevice", "Creation of swapchain requested!");
 
-			/*
-			* Assing graphics device to 
-			*/
 			Window::bind_window_and_device(ownerWindow, device);
 		}
 			
@@ -110,14 +73,7 @@ namespace DopeEngine
 
 	GraphicsResource* GraphicsDevice::create_resource(const GraphicsResourceDesc& desc)
 	{
-		/*
-		* Create resource view
-		*/
 		GraphicsResource* resource = create_resource_impl(desc);
-
-		/*
-		* Register
-		*/
 		register_device_object(resource);
 
 		return resource;
@@ -140,14 +96,8 @@ namespace DopeEngine
 
 	void GraphicsDevice::swap_swapchain_buffers(const SwapchainFramebuffer* framebuffer)
 	{
-		/*
-		* Validate if target framebuffer is an swapchain framebuffer
-		*/
 		ASSERT(framebuffer->is_swapchain_framebuffer(), "GraphicsDevice", "Given framebuffer is not a swapchain framebuffer");
 
-		/*
-		* Call swapbuffer impls
-		*/
 		swap_swapchain_buffers_impl(framebuffer);
 	}
 
@@ -158,9 +108,6 @@ namespace DopeEngine
 
 	bool GraphicsDevice::does_support_features(const GraphicsDeviceFeatures* features, Array<String>& messages)
 	{
-		/*
-		* Check features
-		*/
 		unsigned char result = 1;
 		if(features->has_compute_shader_support())
 			result *= Features->has_compute_shader_support() == true ? 1 : 0;
@@ -194,9 +141,6 @@ namespace DopeEngine
 
 	GraphicsDevice::GraphicsDevice(Window* ownerWindow)
 	{
-		/*
-		* Validate and set offscreen state
-		*/
 		if (ownerWindow != nullptr)
 		{
 			OffscreenGraphicsDevice = false;
@@ -206,14 +150,7 @@ namespace DopeEngine
 			OffscreenGraphicsDevice = true;
 		}
 
-		/*
-		* Set target window even if its a nullptr value
-		*/
 		OwnerWindow = ownerWindow;
-
-		/*
-		* Initialize
-		*/
 		Current = false;
 		Features = {};
 		SWCHNFramebuffer = nullptr;
@@ -257,99 +194,47 @@ namespace DopeEngine
 	}
 	void GraphicsDevice::make_current()
 	{
-		/*
-		* Calll api implementation
-		*/
 		make_current_impl();
-
-		/*
-		* Set current state
-		*/
 		Current = true;
 	}
 	void GraphicsDevice::delete_device_object(GraphicsDeviceObject* object)
 	{
-		/*
-		* Remove it from this device
-		*/
 		remove_device_object(object);
 
-		/*
-		* Call impl
-		*/
 		delete_device_object_impl(object);
-
-		/*
-		* Delete heap
-		*/
 		delete object;
 	}
 	GraphicsBuffer* GraphicsDevice::create_buffer(const BufferDescription& description)
 	{
-		/*
-		* Create buffer impl
-		*/
 		GraphicsBuffer* buffer = create_buffer_impl(description);
-
-		/*
-		* Register it to this device
-		*/
 		register_device_object(buffer);
 
 		return buffer;
 	}
 	Framebuffer* GraphicsDevice::create_framebuffer(const FramebufferDescription& description)
 	{
-		/*
-		* Create framebuffer impl
-		*/
 		Framebuffer* framebuffer = create_framebuffer_impl(description);
-
-		/*
-		* Register it to this device
-		*/
 		register_device_object(framebuffer);
 
 		return framebuffer;
 	}
 	RenderPass* GraphicsDevice::create_render_pass(const RenderPassDesc& desc)
 	{
-		/*
-		* Create pipeline impl
-		*/
 		RenderPass* renderPass = create_render_pass_impl(desc);
-
-		/*
-		* Register it to this device
-		*/
 		register_device_object(renderPass);
 
 		return renderPass;
 	}
 	Shader* GraphicsDevice::create_shader(const ShaderDescription& description)
 	{
-		/*
-		* Create shader impl
-		*/
 		Shader* shader = create_shader_impl(description);
-
-		/*
-		* Register it to this device
-		*/
 		register_device_object(shader);
 
 		return shader;
 	}
 	Texture* GraphicsDevice::create_texture(const TextureDescription& description)
 	{
-		/*
-		* Create texture
-		*/
 		Texture* texture = create_texture_impl(description);
-
-		/*
-		* Register it to this device
-		*/
 		register_device_object(texture);
 
 		return texture;

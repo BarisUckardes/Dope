@@ -12,18 +12,7 @@ namespace DopeEngine
 		AudioBufferUtils() = delete;
 		~AudioBufferUtils() = delete;
 
-		/// <summary>
-		/// Returns the raw channel count
-		/// </summary>
-		/// <param name="format"></param>
-		/// <returns></returns>
 		FORCEINLINE static unsigned int get_channel_count(const AudioBufferFormat format);
-
-		/// <summary>
-		/// Returns the raw sample count
-		/// </summary>
-		/// <param name="format"></param>
-		/// <returns></returns>
 		FORCEINLINE static unsigned int get_sample_count(const AudioBufferFormat format);
 	};
 

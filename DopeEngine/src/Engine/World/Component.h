@@ -13,48 +13,16 @@ namespace DopeEngine
 	{
 		friend class Entity;
 	public:
-		/// <summary>
-		/// Returns the spatial of this component's owner entity
-		/// </summary>
-		/// <returns></returns>
-		 Spatial* get_spatial() const;
+		FORCEINLINE Spatial* get_spatial() const;
+		FORCEINLINE Entity* get_owner_entity() const;
 
-		/// <summary>
-		/// Returns the owning entity of this component
-		/// </summary>
-		/// <returns></returns>
-		 Entity* get_owner_entity() const;
-
-		/// <summary>
-		/// Destroys this component
-		/// </summary>
 		void destroy();
 
-		/// <summary>
-		/// Returns the component class name for identification
-		/// </summary>
-		/// <returns></returns>
 		virtual String get_component_class_name() const = 0;
-
-		/// <summary>
-		/// Returns whether this component should tick or not
-		/// </summary>
-		/// <returns></returns>
 		virtual bool should_tick() const = 0;
 
-		/// <summary>
-		/// Called upon first creation
-		/// </summary>
 		virtual void initialize();
-
-		/// <summary>
-		/// Called every frame from the logic feed
-		/// </summary>
 		virtual void update() = 0;
-
-		/// <summary>
-		/// Called upon destroy
-		/// </summary>
 		virtual void finalize();
 
 	protected:

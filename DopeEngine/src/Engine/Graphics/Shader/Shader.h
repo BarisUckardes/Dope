@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
 #include <Engine/Graphics/Device/GraphicsDeviceObject.h>
-#include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderStage.h>
 #include <Engine/Graphics/Shader/ShaderDescription.h>
 
 namespace DopeEngine
@@ -15,26 +15,12 @@ namespace DopeEngine
 		Shader(const ShaderDescription& description);
 		virtual ~Shader() = default;
 
-
-		/// <summary>
-		/// Returns the shader source
-		/// </summary>
-		/// <returns></returns>
 		String get_source() const;
-
-		/// <summary>
-		/// Returns the shader stage type of this shader
-		/// </summary>
-		/// <returns></returns>
-		ShaderType get_type() const;
-
-		/// <summary>
-		/// Compiles this shader
-		/// </summary>
+		ShaderStage get_type() const;
 		virtual void compile() = 0;
 	private:
 		String Source;
-		ShaderType Type;
+		ShaderStage Type;
 	};
 
 

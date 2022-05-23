@@ -135,8 +135,8 @@ namespace DopeEngine
 		/*
 		* Create shaders
 		*/
-		vShader = device->create_shader(ShaderDescription(ShaderType::Vertex,vs));
-		fShader = device->create_shader(ShaderDescription(ShaderType::Fragment, fs));
+		vShader = device->create_shader(ShaderDescription(ShaderStage::Vertex,vs));
+		fShader = device->create_shader(ShaderDescription(ShaderStage::Fragment, fs));
 
 
 		/*

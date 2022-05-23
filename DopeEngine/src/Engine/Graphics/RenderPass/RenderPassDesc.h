@@ -29,79 +29,20 @@ namespace DopeEngine
 		ShaderSet(Array<Shader*>()),LayoutDescription(VertexLayoutDescription()),TargetFramebuffer(nullptr),Type(RenderPassType::Graphics) {};
 		~RenderPassDesc() = default;
 
-		/// <summary>
-		/// Blending function
-		/// </summary>
 		BlendState BlendingState;
-
-		/// <summary>
-		/// Depth comparision function
-		/// </summary>
 		DepthComparisionKind DepthComparision;
-
-		/// <summary>
-		/// Depth testing enabled or not
-		/// </summary>
 		bool DepthTest;
-
-		/// <summary>
-		/// Depth write enabled or not
-		/// </summary>
 		bool DepthWrite;
-
-		/// <summary>
-		/// Target front face
-		/// </summary>
 		FrontFaceMode FrontFace;
-
-		/// <summary>
-		/// Target cull face
-		/// </summary>
 		FaceCullMode CullFace;
-
-		/// <summary>
-		/// Fill method for the polygons
-		/// </summary>
 		PolygonFillMode FillMode;
-
-		/// <summary>
-		/// Depth clipping enabled or not
-		/// </summary>
 		bool DepthClip;
-
-		/// <summary>
-		/// Scissor test enabled or not
-		/// </summary>
 		bool ScissorTest;
-
-		/// <summary>
-		/// Target primitive types
-		/// </summary>
 		PrimitiveTopology Primitives;
-
-		/// <summary>
-		/// Target shader set
-		/// </summary>
 		Array<Shader*> ShaderSet;
-
-		/// <summary>
-		/// Target framebuffer
-		/// </summary>
 		Framebuffer* TargetFramebuffer;
-
-		/// <summary>
-		/// Vertex layout
-		/// </summary>
 		VertexLayoutDescription LayoutDescription;
-
-		/// <summary>
-		/// Resource layouts
-		/// </summary>
 		Array<GraphicsResourceSlotDesc> ResourceSlots;
-
-		/// <summary>
-		/// Type of the render pass
-		/// </summary>
 		RenderPassType Type;
 	};
 }

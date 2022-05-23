@@ -12,15 +12,9 @@ namespace DopeEngine
 
 	void WavAudioLoader::load(const String& path, AudioLoadResult& result)
 	{
-		/*
-		* Load .wav header
-		*/
 		ByteBlock headerBlock;
 		const bool isFileValid = PlatformFile::read(path,headerBlock,0,44);
 
-		/*
-		* Validate file
-		*/
 		if (!isFileValid)
 		{
 			LOG("WavAudioLoader", "Couldnt read the file on the specified path");

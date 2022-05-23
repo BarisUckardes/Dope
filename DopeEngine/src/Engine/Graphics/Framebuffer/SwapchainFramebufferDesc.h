@@ -9,40 +9,17 @@ namespace DopeEngine
 	struct DOPE_ENGINE_API SwapchainFramebufferDesc
 	{
 
-		SwapchainFramebufferDesc(const unsigned int width,const unsigned int height,const unsigned int count,const TextureFormat format,const TextureFormat depthFormat,const bool generateDepth) :
-			Width(width),Height(height),Count(count),Format(format),DepthFormat(depthFormat),GenerateDepth(generateDepth)
+		SwapchainFramebufferDesc(const unsigned int width,const unsigned int height,const unsigned int bufferCount,const TextureFormat format,const TextureFormat depthFormat,const bool generateDepth) :
+			Width(width),Height(height),BufferCount(bufferCount),Format(format),DepthFormat(depthFormat),GenerateDepth(generateDepth)
 		{}
 		SwapchainFramebufferDesc() = default;
 		~SwapchainFramebufferDesc() = default;
 
-		/// <summary>
-		/// The width of the backbuffers
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// The height of the backbuffers
-		/// </summary>
 		unsigned int Height;
-
-		/// <summary>
-		/// The backbuffer count
-		/// </summary>
-		unsigned int Count;
-
-		/// <summary>
-		/// Backbuffer formats
-		/// </summary>
+		unsigned int BufferCount;
 		TextureFormat Format;
-
-		/// <summary>
-		/// Depth format
-		/// </summary>
 		TextureFormat DepthFormat;
-
-		/// <summary>
-		/// Whether generate depth or not
-		/// </summary>
 		bool GenerateDepth;
 	};
 }

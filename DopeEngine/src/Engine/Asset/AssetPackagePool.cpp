@@ -16,28 +16,14 @@ namespace DopeEngine
     }
     AssetPackage* AssetPackagePool::create_package(const String& name)
     {
-        /*
-        * Create new package
-        */
         AssetPackage* package = new AssetPackage(name,this);
-
-        /*
-        * Register package
-        */
         Packages.add(package);
 
         return package;
     }
     AssetPackage* AssetPackagePool::create_package()
     {
-        /*
-        * Create new package
-        */
         AssetPackage* package = new AssetPackage(this);
-
-        /*
-        * Register package
-        */
         Packages.add(package);
 
         return package;

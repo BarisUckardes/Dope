@@ -16,29 +16,10 @@ namespace DopeEngine
 		FramebufferDescription() : Width(0),Height(0),CreateDepthAttachment(false),DepthAttachmentFormat(TextureFormat::R8unorm),AttachmentDescriptions() {}
 		~FramebufferDescription() = default;
 
-		/// <summary>
-		/// Width in pixels
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// Height in pixels
-		/// </summary>
 		unsigned int Height;
-
-		/// <summary>
-		/// Should create depth attachment or not
-		/// </summary>
 		bool CreateDepthAttachment;
-
-		/// <summary>
-		/// Depth attachment format
-		/// </summary>
 		TextureFormat DepthAttachmentFormat;
-
-		/// <summary>
-		/// List of attachment descriptions
-		/// </summary>
 		Array<FramebufferAttachmentDescription> AttachmentDescriptions;
 	};
 }

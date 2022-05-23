@@ -15,19 +15,9 @@ namespace DopeEngine
 		Event() = default;
 		~Event() = default;
 
-		/// <summary>
-		/// Returns the subscription invocation list
-		/// </summary>
-		/// <returns></returns>
 		Array<Delegate<TReturn(TParameters...)>> get_invocation_list() const;
-
-		/// <summary>
-		/// Invokes this event's subscription invocation list
-		/// </summary>
-		/// <param name="...parameters"></param>
 		void invoke(TParameters... parameters);
 
-		
 		void operator +=(const Delegate<TReturn(TParameters...)>& delegate);
 		void operator -=(const Delegate<TReturn(TParameters...)>& delegate);
 	private:

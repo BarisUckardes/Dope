@@ -12,14 +12,7 @@ namespace DopeEngine
 		WindowsMutex();
 		 ~WindowsMutex();
 
-		/// <summary>
-		/// lokcs the mutex
-		/// </summary>
 		void lock();
-
-		/// <summary>
-		/// Unlocks the mutex
-		/// </summary>
 		void unlock();
 	private:
 		void create_win32_mutex();

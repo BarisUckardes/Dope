@@ -12,15 +12,8 @@ namespace DopeEngine
 		WindowPositionChangedEvent(const unsigned int x, const unsigned int y);
 		~WindowPositionChangedEvent() = default;
 
-		/// <summary>
-		/// Returns the current x-axis position of the window
-		/// </summary>
-		 unsigned int get_x() const;
-
-		/// <summary>
-		/// Returns the current y-axis position of the window
-		/// </summary>
-		 unsigned int get_y() const;
+		FORCEINLINE unsigned int get_x() const;
+		FORCEINLINE unsigned int get_y() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

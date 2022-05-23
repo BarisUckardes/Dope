@@ -30,69 +30,22 @@ namespace DopeEngine
 	class DOPE_ENGINE_API GUIRenderer
 	{
 	public:
-		/// <summary>
-		/// Creates api agnostic GUIRenderer
-		/// </summary>
-		/// <param name="type"></param>
-		/// <param name="backendFlags"></param>
-		/// <param name="configFlags"></param>
-		/// <param name="device"></param>
-		/// <returns></returns>
 		static GUIRenderer* create(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
 		~GUIRenderer();
 
-		/// <summary>
-		/// Returns the rendering command list for this GUIRenderer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE const GUIRenderingCommands* get_rendering_commands() const;
-
-		/// <summary>
-		/// Returns the event command list for this GUIRenderer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE const GUIEventCommands* get_event_commands() const;
-
-		/// <summary>
-		/// Returns the layout command list for this GUIRenderer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE const GUILayoutCommands* get_layout_commands() const;
-
-		/// <summary>
-		/// Called when received an application event
-		/// </summary>
-		/// <param name="event"></param>
 		void on_application_event(const ApplicationEvent* event);
-
-		/// <summary>
-		/// Begins the GUI rendering session
-		/// </summary>
-		/// <param name="deltaTimeInMilliseconds"></param>
 		void begin_rendering(const float deltaTimeInMilliseconds);
-
-		/// <summary>
-		/// Renders the contents
-		/// </summary>
-		/// <param name="cmdBuffer"></param>
-		void render(const GraphicsCommandBuffer* cmdBuffer);
-
-		/// <summary>
-		/// Sets anew gui theme
-		/// </summary>
-		/// <param name="desc"></param>
+		void finalize_rendering(const GraphicsCommandBuffer* cmdBuffer);
 		void set_theme(const GUIRendererThemeDesc& desc);
-
-		/// <summary>
-		/// Returns the graphics api type
-		/// </summary>
-		/// <returns></returns>
 		virtual FORCEINLINE GraphicsAPIType get_api_type() const = 0;
 	protected:
 		GUIRenderer(const GUIRendererBackendFlags backendFlags,const GUIRendererConfigFlags configFlags);
 		
 		virtual void begin_rendering_impl() = 0;
-		virtual void render_impl(const GraphicsCommandBuffer* cmdbuffer) = 0;
+		virtual void finalize_rendering_impl(const GraphicsCommandBuffer* cmdbuffer) = 0;
 	private:
 		void on_keyboard_key_down(const KeyboardKeyDownEvent* event);
 		void on_keyboard_key_up(const KeyboardKeyUpEvent* event);

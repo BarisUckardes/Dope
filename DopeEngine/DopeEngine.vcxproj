@@ -332,7 +332,7 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceObject.h" />
     <ClInclude Include="src\Engine\Graphics\Buffer\GraphicsBuffer.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDeviceFeatures.h" />
-    <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h" />
+    <ClInclude Include="src\Engine\Graphics\Shader\ShaderStage.h" />
     <ClInclude Include="src\Engine\Platform\PlatformString.h" />
     <ClInclude Include="src\Engine\Reflection\ReflectionBindingFlags.h" />
     <ClInclude Include="src\Engine\Threading\Mutex.h" />
@@ -563,8 +563,6 @@
     <ClCompile Include="src\Engine\Application\Devices\Portable\PortableDeviceInformation.cpp" />
     <ClCompile Include="src\Engine\Application\ApplicationModule.cpp" />
     <ClCompile Include="src\Engine\Application\Application.cpp" />
-    <ClCompile Include="src\Engine\Event\Event.cpp" />
-    <ClCompile Include="src\Engine\Event\Delegate.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardKeyUpEvent.cpp" />
     <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardKeyDownEvent.cpp" />

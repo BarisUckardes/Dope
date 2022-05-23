@@ -5,15 +5,9 @@ namespace DopeEngine
 {
 	OpenGLUniformBuffer::OpenGLUniformBuffer(const BufferDescription& desc, DEVICE device) : UniformBuffer(desc)
 	{
-		/*
-		* Initialize
-		*/
 		Device = device;
 		Handle = GL_NONE;
 
-		/*
-		* Create buffer
-		*/
 		create();
 	}
 	OpenGLUniformBuffer::~OpenGLUniformBuffer()
@@ -27,23 +21,14 @@ namespace DopeEngine
 	}
 	void OpenGLUniformBuffer::update(const Byte* data)
 	{
-		/*
-		* Update
-		*/
 		glBindBuffer(GL_UNIFORM_BUFFER, Handle);
 		glBufferSubData(GL_UNIFORM_BUFFER, 0, get_allocated_size(), data);
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	}
 	void OpenGLUniformBuffer::create()
 	{
-		/*
-		* First invalidate
-		*/
 		invalidate();
 
-		/*
-		* Create
-		*/
 		glGenBuffers(1, &Handle);
 		glBindBuffer(GL_UNIFORM_BUFFER, Handle);
 		glBufferData(GL_UNIFORM_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
@@ -51,9 +36,6 @@ namespace DopeEngine
 	}
 	void OpenGLUniformBuffer::invalidate()
 	{
-		/*
-		* Validate and delete
-		*/
 		if (Handle != GL_NONE)
 		{
 			glDeleteBuffers(1, &Handle);

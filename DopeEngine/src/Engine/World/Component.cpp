@@ -19,38 +19,18 @@ namespace DopeEngine
 	}
 	void Component::initialize()
 	{
-		/*
-		* Validate if this component should tick
-		*/
 		if (should_tick())
 		{
-			/*
-			* Get resolver
-			*/
 			IterativeLogicWorldFunction* function = OwnerEntity->get_owner_world()->get_function<IterativeLogicWorldFunction>();
-
-			/*
-			* Validate and register
-			*/
 			if (function != nullptr)
 				function->register_component(this);
 		}
 	}
 	void Component::finalize()
 	{
-		/*
-		* Validate if this component should tick
-		*/
 		if (should_tick())
 		{
-			/*
-			* Get function
-			*/
 			IterativeLogicWorldFunction* function = OwnerEntity->get_owner_world()->get_function<IterativeLogicWorldFunction>();
-
-			/*
-			* Validate and register
-			*/
 			if (function != nullptr)
 				function->remove_component(this);
 		}

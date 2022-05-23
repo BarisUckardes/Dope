@@ -8,14 +8,8 @@ namespace DopeEditor
 {
 	EditorSession::EditorSession(DopeEngine::GameSession* session)
 	{
-		/*
-		* Initialize
-		*/
 		EngineSession = session;
 
-		/*
-		* Create editor gui painter
-		*/
 		DopeEngine::GraphicsDevice* device = EngineSession->get_window()->get_child_graphics_device();
 		Painter = new EditorGUIPainter(device);
 	}

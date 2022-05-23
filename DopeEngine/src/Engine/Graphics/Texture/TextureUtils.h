@@ -12,11 +12,6 @@ namespace DopeEngine
 		TextureUtils() = delete;
 		~TextureUtils() = delete;
 
-		/// <summary>
-		/// Returns the format size in bytes
-		/// </summary>
-		/// <param name="format"></param>
-		/// <returns></returns>
 		static unsigned int get_format_size(const TextureFormat format);
 	};
 

@@ -30,9 +30,6 @@ namespace DopeEngine
 
 	void DX12Shader::_create_shader(const ShaderDescription& desc, DX12GraphicsDevice* device)
 	{
-		/*
-		* Compile shader
-		*/
 		HRESULT compileHR = D3DCompile(
 			*desc.Source,desc.Source.get_cursor(),
 			nullptr,nullptr,nullptr,
@@ -40,10 +37,6 @@ namespace DopeEngine
 			D3DCOMPILE_ENABLE_STRICTNESS,
 			0,
 			&ShaderBlob,&ErrorBlob);
-
-		/*
-		* Validate shader compilation
-		*/
 		ASSERT(SUCCEEDED(compileHR),"DX12Shader", "Shader compilation error with logs: %s", ErrorBlob->GetBufferPointer());
 	}
 

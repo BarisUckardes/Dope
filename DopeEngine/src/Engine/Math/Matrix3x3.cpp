@@ -49,11 +49,7 @@ namespace DopeEngine
 	}
 	Matrix3x3 Matrix3x3::get_inverse() const
 	{
-		/*
-			* Get Determinant of this matrix
-			*/
 		const float determinant = get_determinant();
-
 
 		const float a0 = (B1 * C2) - (B2 * C1);
 		const float a1 = ((B0 * C2) - (B2 * C0)) * -1;

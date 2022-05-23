@@ -10,22 +10,8 @@ namespace DopeEngine
 	{
 		friend class GraphicsDevice;
 	public:
-		/// <summary>
-		/// Returns the debug name for this device object
-		/// </summary>
-		/// <returns></returns>
 		String get_debug_name() const;
-
-		/// <summary>
-		/// Sets the debug name for this device object
-		/// </summary>
-		/// <param name="name"></param>
 		void set_debug_name(const String& name);
-
-		/// <summary>
-		/// Returns the type of this device object
-		/// </summary>
-		/// <returns></returns>
 		GraphicsDeviceObjectType get_device_object_type() const;
 	protected:
 		GraphicsDeviceObject(const GraphicsDeviceObjectType type) : DebugName("Device Object"),Type(type) {}

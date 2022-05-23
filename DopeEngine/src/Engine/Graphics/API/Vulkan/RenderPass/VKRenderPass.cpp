@@ -53,49 +53,32 @@ namespace DopeEngine
 
 	void VKRenderPass::create(VKGraphicsDevice* device)
 	{
-		/*
-		* Create vertex input state
-		*/
 		VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
 		vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		Array<VkVertexInputAttributeDescription> vertexInputAttributeDescs;
-		Array<VkVertexInputBindingDescription> vertexInputBindingDescs;
+
 		const VertexLayoutDescription vertexLayoutDesc = get_vertex_layout();
 		const Array<VertexElementDescription>& vertexLayoutElementDescs = vertexLayoutDesc.get_elements_fast();
+		Array<VkVertexInputAttributeDescription> vertexInputAttributeDescs;
+		Array<VkVertexInputBindingDescription> vertexInputBindingDescs;
 		unsigned int currentOffset = 0;
 		for (unsigned int i = 0; i < vertexLayoutElementDescs.get_cursor(); i++)
 		{
-			/*
-			* Get element description
-			*/
 			const VertexElementDescription elementDesc = vertexLayoutElementDescs[i];
 
-			/*
-			* Create vertex input attribute desc
-			*/
 			VkVertexInputAttributeDescription attributeDesc = {};
 			attributeDesc.binding = i;
 			attributeDesc.format = VK_FORMAT_UNDEFINED; // will be changed
 			attributeDesc.location = i;
 			attributeDesc.offset = currentOffset; // will be changed
 
-			/*
-			* Create vertex input binding desc
-			*/
 			VkVertexInputBindingDescription bindingDesc = {};
 			bindingDesc.binding = i;
 			bindingDesc.inputRate = VK_VERTEX_INPUT_RATE_VERTEX; // should be adaptable
 			bindingDesc.stride = vertexLayoutDesc.get_stride();
 
-			/*
-			* Register descs
-			*/
 			vertexInputAttributeDescs.add(attributeDesc);
 			vertexInputBindingDescs.add(bindingDesc);
 
-			/*
-			* Increment offset
-			*/
 			currentOffset += VertexUtils::get_data_type_size(elementDesc.DataType);
 		}
 		vertexInputStateCreateInfo.vertexAttributeDescriptionCount = vertexInputAttributeDescs.get_cursor();
@@ -103,17 +86,11 @@ namespace DopeEngine
 		vertexInputStateCreateInfo.vertexBindingDescriptionCount = vertexInputBindingDescs.get_cursor();
 		vertexInputStateCreateInfo.pVertexBindingDescriptions = vertexInputBindingDescs.get_data();
 
-		/*
-		* Create input assembler state
-		*/
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyStateCreateInfo = {};
 		inputAssemblyStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
 		inputAssemblyStateCreateInfo.topology = VKRenderPassUtils::get_vk_primitive_topology(get_primitives()); // will be changed
 		inputAssemblyStateCreateInfo.primitiveRestartEnable = VK_FALSE;
 
-		/*
-		* Create rasterizer state
-		*/
 		VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo = {};
 		rasterizationStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 		rasterizationStateCreateInfo.depthBiasEnable = false;
@@ -127,9 +104,6 @@ namespace DopeEngine
 		rasterizationStateCreateInfo.depthBiasClamp = 0.0f; // Default for Dope
 		rasterizationStateCreateInfo.depthBiasSlopeFactor = 0.0f; // Default for Dope
 
-		/*
-		* Create blending state
-		*/
 		VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo = {};
 		colorBlendStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
 
@@ -152,17 +126,11 @@ namespace DopeEngine
 		colorBlendStateCreateInfo.blendConstants[2] = 0.0f; // Optional
 		colorBlendStateCreateInfo.blendConstants[3] = 0.0f; // Optional
 
-		/*
-		* Create depth stencil state
-		*/
 		VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo = {};
 		depthStencilStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
 		depthStencilStateCreateInfo.depthTestEnable = is_depth_test_enabled() ? VK_TRUE : VK_FALSE;
 		depthStencilStateCreateInfo.depthWriteEnable = is_depth_write_enabled() ? VK_TRUE : VK_FALSE;
 
-		/*
-		* Create multisample state
-		*/
 		VkPipelineMultisampleStateCreateInfo multisampleStateCreateInfo = {};
 		multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
 		multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE; // may be changed in the future
@@ -172,9 +140,6 @@ namespace DopeEngine
 		multisampleStateCreateInfo.alphaToCoverageEnable = VK_FALSE; // may be changed in the future
 		multisampleStateCreateInfo.alphaToOneEnable = VK_FALSE; // may be changed in the future
 
-		/*
-		* Create dynamic state
-		*/
 		VkDynamicState vkDefaultDynamicStates[] =
 		{ VK_DYNAMIC_STATE_VIEWPORT,VK_DYNAMIC_STATE_SCISSOR };
 		VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
@@ -182,9 +147,6 @@ namespace DopeEngine
 		dynamicStateCreateInfo.dynamicStateCount = 2;
 		dynamicStateCreateInfo.pDynamicStates = vkDefaultDynamicStates; // default for Dope
 
-		/*
-		* Get target framebuffer properties
-		*/
 		const Framebuffer* targetFramebuffer = get_target_framebuffer();
 		Array<TextureFormat> framebufferAttachmentFormats;
 		if (targetFramebuffer->is_swapchain_framebuffer())
@@ -197,9 +159,6 @@ namespace DopeEngine
 			//framebufferAttachmentFormats = targetFramebuffer
 		}
 
-		/*
-		* Create pipeline layout
-		*/
 		VkPipelineLayoutCreateInfo layoutCreateInfo = {};
 		layoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		layoutCreateInfo.setLayoutCount = 0; // will be changed in the future
@@ -207,47 +166,27 @@ namespace DopeEngine
 		layoutCreateInfo.pushConstantRangeCount = 0; // will be changed in the future
 		layoutCreateInfo.pPushConstantRanges = nullptr; // will be changed in the future
 
-		/*
-		* Create pipeline 
-		*/
 		const VkResult layoutCreateVkR = vkCreatePipelineLayout(device->get_vk_logical_device(), &layoutCreateInfo, nullptr,&Layout);
-
-		/*
-		* Validate layout creation
-		*/
 		ASSERT(layoutCreateVkR == VK_SUCCESS, "VKPipeline", "Pipeline layout creation failed!");
 
-		/*
-		* Create shader state
-		*/
 		const Array<Shader*>& shaders = get_shader_set();
+
 		Array<VkPipelineShaderStageCreateInfo> pipelineShaderStageCreateInfos;
 		pipelineShaderStageCreateInfos.reserve(shaders.get_cursor());
+
 		for (unsigned int i = 0; i < shaders.get_cursor(); i++)
 		{
-			/*
-			* Get shader
-			*/
 			const VKShader* shader =(const VKShader*)shaders[i];
 
-			/*
-			* Create pipeline shader stage create info
-			*/
 			VkPipelineShaderStageCreateInfo shaderStageCreateInfo = {};
 			shaderStageCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
 			shaderStageCreateInfo.module = shader->get_vk_shader_module();
 			shaderStageCreateInfo.stage = VKRenderPassUtils::get_vk_shader_stage(shader->get_type());
 			shaderStageCreateInfo.pName = "main";
 
-			/*
-			* Register
-			*/
 			pipelineShaderStageCreateInfos.add(shaderStageCreateInfo);
 		}
 
-		/*
-		* Create render pass attachments
-		*/
 		const unsigned int colorAttachmentCount = framebufferAttachmentFormats.get_cursor();
 		Array<VkAttachmentDescription> colorAttachmentDescs;
 		Array<VkAttachmentReference> colorAttachmentReferences;
@@ -255,9 +194,6 @@ namespace DopeEngine
 		colorAttachmentReferences.reserve(colorAttachmentCount);
 		for (unsigned int i = 0; i < colorAttachmentCount; i++)
 		{
-			/*
-			* Create attachment desc
-			*/
 			VkAttachmentDescription attachmentDesc = {};
 			attachmentDesc.samples = VK_SAMPLE_COUNT_1_BIT;
 			attachmentDesc.format = VKTextureUtils::get_vk_format(framebufferAttachmentFormats[i]);
@@ -268,31 +204,19 @@ namespace DopeEngine
 			attachmentDesc.initialLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 			attachmentDesc.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
-			/*
-			* Create color attachment reference
-			*/
 			VkAttachmentReference attachmentReference = {};
 			attachmentReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 			attachmentReference.attachment = i;
 
-			/*
-			* Register attachment desc and reference
-			*/
 			colorAttachmentDescs.add(attachmentDesc);
 			colorAttachmentReferences.add(attachmentReference);
 		}
 
-		/*
-		* Create subpass desc
-		*/
 		VkSubpassDescription subpassDescription = {};
 		subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
 		subpassDescription.colorAttachmentCount = colorAttachmentCount;
 		subpassDescription.pColorAttachments = colorAttachmentReferences.get_data();
 
-		/*
-		* Create render pass create info
-		*/
 		VkRenderPassCreateInfo renderPassCreateInfo = {};
 		renderPassCreateInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
 		renderPassCreateInfo.attachmentCount = colorAttachmentCount;
@@ -300,39 +224,16 @@ namespace DopeEngine
 		renderPassCreateInfo.subpassCount = 1; // default for DopeEngine
 		renderPassCreateInfo.pSubpasses = &subpassDescription;
 
-		/*
-		* Create render pass
-		*/
 		const VkResult createRenderPassVkR = vkCreateRenderPass(device->get_vk_logical_device(), &renderPassCreateInfo, nullptr, &BaseRenderPass);
-
-		/*
-		* Validate render pass creation
-		*/
 		ASSERT(createRenderPassVkR == VK_SUCCESS, "VKPipeline", "Pipeline creation failed!");
 
-		/*
-		* Get attachment views
-		*/
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{
-			/*
-			* Get vk swapchain framebuffer
-			*/
 			const VKSwapchainFramebuffer* vkSwapchainFramebuffer = (const VKSwapchainFramebuffer*)targetFramebuffer;
-
-			/*
-			* Set attachments
-			*/
 			const VkImageView swapchainMainImageView = vkSwapchainFramebuffer->get_vk_main_image_view();
 
-			/*
-			* Create framebuffer for each swapchain image
-			*/
 			for (unsigned int i = 0; i < vkSwapchainFramebuffer->get_swapchain_buffer_count(); i++)
 			{
-				/*
-				* Create framebuffer create info
-				*/
 				VkFramebufferCreateInfo framebufferCreateInfo = {};
 				framebufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 				framebufferCreateInfo.renderPass = BaseRenderPass;
@@ -342,31 +243,16 @@ namespace DopeEngine
 				framebufferCreateInfo.height = targetFramebuffer->get_height();
 				framebufferCreateInfo.layers = 1; // default for swapchains in Dope
 
-				/*
-				* Create framebuffer
-				*/
 				VkFramebuffer vkFramebuffer = VK_NULL_HANDLE;
 				const VkResult createFramebufferVkR = vkCreateFramebuffer(device->get_vk_logical_device(), &framebufferCreateInfo, nullptr, &vkFramebuffer);
-
-				/*
-				* Validate framebuffer creation
-				*/
 				ASSERT(createFramebufferVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Swapchainframebuffer creation failed!");
 
-				/*
-				* Register
-				*/
 				SwapchainFramebuffers.add(vkFramebuffer);
 				LOG("VKRenderPass", "Created 1 framebuffer for swapchain");
 			}
 			
 		}
 
-		
-
-		/*
-		* Create pipeline create info
-		*/
 		const RenderPassType renderPassType = get_type();
 		switch (renderPassType)
 		{
@@ -390,14 +276,7 @@ namespace DopeEngine
 				graphicsPipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;
 				graphicsPipelineCreateInfo.basePipelineIndex = -1;
 
-				/*
-				* Create pipeline
-				*/
 				const VkResult createGraphicsPipelineVkR = vkCreateGraphicsPipelines(device->get_vk_logical_device(), VK_NULL_HANDLE, 1, &graphicsPipelineCreateInfo, nullptr, &BasePipeline);
-
-				/*
-				* Validate graphics pipeline creation
-				*/
 				ASSERT(createGraphicsPipelineVkR == VK_SUCCESS, "VKPipeline", "Graphics pipeline creation failed!");
 
 				break;

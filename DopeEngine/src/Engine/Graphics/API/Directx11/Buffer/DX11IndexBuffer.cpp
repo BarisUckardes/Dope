@@ -17,9 +17,6 @@ namespace DopeEngine
 	}
 	void DX11IndexBuffer::create(DX11GraphicsDevice* device)
 	{
-		/*
-		* Create buffer desc
-		*/
 		D3D11_BUFFER_DESC bufferDesc;
 		bufferDesc.ByteWidth = get_allocated_size();
 		bufferDesc.StructureByteStride = get_item_size();
@@ -27,10 +24,6 @@ namespace DopeEngine
 		bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		bufferDesc.MiscFlags = 0;
-
-		/*
-		* Create index buffer
-		*/
 		device->get_dx11_device()->CreateBuffer(&bufferDesc, nullptr, &Buffer);
 
 	}

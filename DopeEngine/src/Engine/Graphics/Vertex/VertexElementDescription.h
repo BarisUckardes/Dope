@@ -16,19 +16,8 @@ namespace DopeEngine
 		VertexElementDescription() : Normalized(false),DataType(VertexElementDataType::Float) {}
 		~VertexElementDescription() = default;
 
-		/// <summary>
-		/// Name of the attribute
-		/// </summary>
 		String Name;
-
-		/// <summary>
-		/// Data is normalized or not
-		/// </summary>
 		bool Normalized;
-
-		/// <summary>
-		/// Attribute data type
-		/// </summary>
 		VertexElementDataType DataType;
 	};
 }

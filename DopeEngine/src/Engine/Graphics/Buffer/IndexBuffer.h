@@ -13,12 +13,7 @@ namespace DopeEngine
 		IndexBuffer(const BufferDescription& desc);
 		virtual ~IndexBuffer() = default;
 
-		/// <summary>
-		/// Returns the index count
-		/// </summary>
-		/// <returns></returns>
 		unsigned long get_index_capacity() const;
-
 	private:
 		unsigned int ElementSize;
 		unsigned long IndexCapacity;

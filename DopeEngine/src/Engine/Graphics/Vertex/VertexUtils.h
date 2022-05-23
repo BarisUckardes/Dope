@@ -12,11 +12,6 @@ namespace DopeEngine
 		VertexUtils() = delete;
 		~VertexUtils() = delete;
 
-		/// <summary>
-		/// Returns the vertex element size in bytes
-		/// </summary>
-		/// <param name=""></param>
-		/// <returns></returns>
 		static unsigned int get_data_type_size(const VertexElementDataType type);
 	};
 }

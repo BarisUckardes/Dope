@@ -3,29 +3,29 @@
 
 namespace DopeEngine
 {
-	D3D12_SHADER_VISIBILITY DX12ShaderUtils::get_dx12_shader_visibility(ShaderType type)
+	D3D12_SHADER_VISIBILITY DX12ShaderUtils::get_dx12_shader_visibility(ShaderStage type)
 	{
 		switch (type)
 		{
-			case DopeEngine::ShaderType::Vertex:
+			case DopeEngine::ShaderStage::Vertex:
 				return D3D12_SHADER_VISIBILITY_VERTEX;
 				break;
-			case DopeEngine::ShaderType::Fragment:
+			case DopeEngine::ShaderStage::Fragment:
 				return D3D12_SHADER_VISIBILITY_PIXEL;
 				break;
-			case DopeEngine::ShaderType::Geometry:
+			case DopeEngine::ShaderStage::Geometry:
 				return D3D12_SHADER_VISIBILITY_GEOMETRY;
 				break;
-			case DopeEngine::ShaderType::TesellationEval:
+			case DopeEngine::ShaderStage::TesellationEval:
 				break;
-			case DopeEngine::ShaderType::TesellationControl:
+			case DopeEngine::ShaderStage::TesellationControl:
 				break;
-			case DopeEngine::ShaderType::Compute:
+			case DopeEngine::ShaderStage::Compute:
 				break;
-			case DopeEngine::ShaderType::Undefined:
+			case DopeEngine::ShaderStage::Undefined:
 				break;
 			default:
-				ASSERT(false, "DX12ShaderUtils", "Invalid ShaderType, cannot produce D3D12_SHADER_VISIBILITY");
+				ASSERT(false, "DX12ShaderUtils", "Invalid ShaderStage, cannot produce D3D12_SHADER_VISIBILITY");
 				break;
 		}
 	}

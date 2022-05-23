@@ -13,69 +13,22 @@ namespace DopeEngine
 	{
 		friend class World;
 	public:
-		/// <summary>
-		/// Returns a reference to the components list
-		/// </summary>
-		/// <returns></returns>
 		const Array<Component*>& get_components_fast() const;
-
-		/// <summary>
-		/// Returns a copy of the component list
-		/// </summary>
-		/// <returns></returns>
 		Array<Component*> get_components_slow() const;
-
-		/// <summary>
-		/// Returns the name of this entity
-		/// </summary>
-		/// <returns></returns>
 		String get_name() const;
-
-		/// <summary>
-		/// Returns the world which owns this entity
-		/// </summary>
-		/// <returns></returns>
 		World* get_owner_world() const;
-
-		/// <summary>
-		/// Returns the spatial of this entity
-		/// </summary>
-		/// <returns></returns>
 		Spatial* get_spatial() const;
 
-		/// <summary>
-		/// Returns whether the target component exists or not
-		/// </summary>
-		/// <returns></returns>
+
 		template<typename TComponent>
 		bool has_component() const;
-
-		/// <summary>
-		/// Creates and adds anew component
-		/// </summary>
 		template<typename TComponent,typename ...TParameters>
 		TComponent* create_component(TParameters... parameters);
-
-		/// <summary>
-		/// Removes the existing component,returns if the removal happened or not
-		/// </summary>
-		/// <returns></returns>
 		template<typename TComponent>
 		bool delete_component();
 
-		/// <summary>
-		/// Removes the existing component, returns if the removal happened or not
-		/// </summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
 		bool delete_component(Component* other);
-
-		/// <summary>
-		/// Destroys this entity
-		/// </summary>
 		void destroy();
-
-
 	private:
 		Entity(const String& name,World* ownerWorld);
 		~Entity();

@@ -1,7 +1,7 @@
 #pragma once
 #include <Engine/Graphics/Command/GraphicsCommandBuffer.h>
 #include <Engine/Graphics/API/Directx11/Core/DX11Core.h>
-#include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderStage.h>
 namespace DopeEngine
 {
 	class DX11GraphicsDevice;
@@ -27,8 +27,8 @@ namespace DopeEngine
 		virtual void indexed_draw_call_impl(const unsigned int count) override;
 		virtual void lock_impl();
 	private:
-		 void set_constant_buffer(const GraphicsBuffer* buffer,const ShaderType stage);
-		 void set_shader_resource(const GraphicsResource* resource, const ShaderType stage);
+		 void set_constant_buffer(const GraphicsBuffer* buffer,const ShaderStage stage);
+		 void set_shader_resource(const GraphicsResource* resource, const ShaderStage stage);
 	private:
 		DX11GraphicsDevice* Device;
 		ComPtr<ID3D11DepthStencilView> CurrentDepthTarget;

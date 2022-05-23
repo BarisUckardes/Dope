@@ -26,7 +26,7 @@ namespace DopeEngine
         ImGui_ImplDX11_NewFrame();
     }
 
-    void DX11GUIRenderer::render_impl(const GraphicsCommandBuffer* cmdBuffer)
+    void DX11GUIRenderer::finalize_rendering_impl(const GraphicsCommandBuffer* cmdBuffer)
     {
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
     }

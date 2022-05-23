@@ -19,10 +19,6 @@ namespace DopeEngine
 	}
 	void DX11VertexBuffer::create(DX11GraphicsDevice* device)
 	{
-		
-		/*
-		* Create buffer desc
-		*/
 		D3D11_BUFFER_DESC bufferDesc;
 		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 		bufferDesc.ByteWidth = get_allocated_size();
@@ -30,10 +26,6 @@ namespace DopeEngine
 		bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 		bufferDesc.MiscFlags = 0;
-		LOG("DX11VertexBuffer", "Per vertex size: %d", get_per_vertex_size());
-		/*
-		* Create vertex buffer
-		*/
 		device->get_dx11_device()->CreateBuffer(&bufferDesc,nullptr, &Buffer);
 	}
 }

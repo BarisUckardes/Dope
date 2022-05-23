@@ -81,38 +81,20 @@ namespace DopeEngine
 	}
 	Asset::Asset(const String& sourceFileAbsolutePath, const String& headerFileAbsolutePath, AssetPackage* ownerPackage)
 	{
-		/*
-		* Initialize
-		*/
 		initialize(sourceFileAbsolutePath, headerFileAbsolutePath, "Not Raw Asset", AssetType::Undefined, AssetImportType::Packed, ownerPackage);
 
-		/*
-		* Gather packed information
-		*/
 		gather_packed_asset_information();
 	}
 	Asset::Asset(const String& rawFileAbsolutePath, const AssetType targetFileType, AssetPackage* ownerPackage)
 	{
-		/*
-		* Initialize
-		*/
 		initialize("Not Packed Asset", "Not Packed Asset", rawFileAbsolutePath, targetFileType, AssetImportType::Raw, ownerPackage);
 
-		/*
-		* Gather raw information
-		*/
 		gather_raw_file_information();
 	}
 	Asset::Asset(AssetObject* childObject, AssetPackage* ownerPackage)
 	{
-		/*
-		* Initialize
-		*/
 		initialize("Not Packed Asset", "Not Packed Asset", "Not Raw Asset", childObject->get_asset_type(), AssetImportType::Virtual, ownerPackage);
 
-		/*
-		* Bind child object
-		*/
 		bind_child_object(childObject);
 	}
 	void Asset::initialize(const String& sourceFileAbsolutePath, const String& headerFileAbsolutePath,const String& rawFileAbsolutePath, const AssetType type, const AssetImportType importType, AssetPackage* ownerPackage)

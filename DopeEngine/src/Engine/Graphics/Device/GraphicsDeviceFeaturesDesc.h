@@ -18,90 +18,23 @@ namespace DopeEngine
 		MaxDrawCallIndexCount(0),MaxFramebufferWidth(1024),MaxFramebufferHeight(1024) {}
 		~GraphicsDeviceFeaturesDesc() = default;
 
-		/// <summary>
-		/// Whether supports compute shader or not
-		/// </summary>
 		bool ComputeShader;
-
-		/// <summary>
-		/// Whether supports geometry shader or not
-		/// </summary>
 		bool GeometryShader;
-
-		/// <summary>
-		/// Whether supports tesellation shader or not
-		/// </summary>
 		bool TesellationShader;
-
-		/// <summary>
-		/// Whether supports multiple viewports or not
-		/// </summary>
 		bool MultipleViewports;
-
-		/// <summary>
-		/// Whether supports variable shading rates or not
-		/// </summary>
 		bool ShadingRate;
-
-		/// <summary>
-		/// Whether supports outputting to a swapchain or not
-		/// </summary>
 		bool CanDisplay;
 		unsigned int MaxTexture1DDimension;
-
-		/// <summary>
-		/// Max dimensions for a 1D-Texture
-		/// </summary>
 		unsigned int MaxTexture2DDimension;
-
-		/// <summary>
-		/// Max dimensions for a 2D-Texture
-		/// </summary>
 		unsigned int MaxTexture3DDimension;
-
-		/// <summary>
-		/// Max dimensions for a Cube-Texture
-		/// </summary>
 		unsigned int MaxCubeTextureDimension;
-
-		/// <summary>
-		/// Max count of framebuffer color attachments
-		/// </summary>
 		unsigned int MaxColorAttachments;
-
-		/// <summary>
-		/// Max amount of resources per shader stage
-		/// </summary>
 		unsigned int MaxPerShaderStageResources;
-
-		/// <summary>
-		/// Max compute shader work group counts
-		/// </summary>
 		Vector3i MaxComputeWorkGroupCount;
-
-		/// <summary>
-		/// Max compute shader work group invocation count
-		/// </summary>
 		unsigned int MaxComputeWorkGroupInvocations;
-
-		/// <summary>
-		/// Max compute shader work group sizes
-		/// </summary>
 		Vector3i MaxComputeWorkGroupSize;
-
-		/// <summary>
-		/// Max index count per draw call
-		/// </summary>
 		unsigned int MaxDrawCallIndexCount;
-
-		/// <summary>
-		/// Max framebuffer color attachment width
-		/// </summary>
 		unsigned int MaxFramebufferWidth;
-
-		/// <summary>
-		/// Max framebuffer color attachment height
-		/// </summary>
 		unsigned int MaxFramebufferHeight;
 	};
 }

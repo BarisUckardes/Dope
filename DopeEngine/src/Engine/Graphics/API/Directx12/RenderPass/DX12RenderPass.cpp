@@ -29,31 +29,19 @@ namespace DopeEngine
     }
     void DX12RenderPass::create(const RenderPassDesc& desc, DX12GraphicsDevice* device)
     {
-        /*
-        * Create root signature
-        */
         D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc;
         rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
         rootSignatureDesc.NumParameters = 0;
         rootSignatureDesc.NumStaticSamplers = 0;
 
-        /*
-        * Create root parameters
-        */
         Array<D3D12_ROOT_PARAMETER> rootParameters;
         Array<D3D12_STATIC_SAMPLER_DESC> samplerDescs;
         for (unsigned int i = 0; i < desc.ResourceSlots.get_cursor();i++)
         {
-            /*
-            * Get resource layout
-            */
             const GraphicsResourceSlotDesc resourceSlotDesc = desc.ResourceSlots[i];
 
-            /*
-            * Get and catch resource type
-            */
             const GraphicsResourceType resourceType = resourceSlotDesc.Type;
-            const ShaderType shaderStage = resourceSlotDesc.ShaderStage;
+            const ShaderStage shaderStage = resourceSlotDesc.ShaderStage;
             D3D12_ROOT_PARAMETER rootParameter = {};
             switch (resourceType)
             {
@@ -73,61 +61,31 @@ namespace DopeEngine
         rootSignatureDesc.pParameters = rootParameters.get_data(); // TODO: implement parameters
         rootSignatureDesc.pStaticSamplers = samplerDescs.get_data(); // TODO: implement samplers
 
-        /*
-        * Serialize root signature
-        */
         ID3DBlob* signatureBlob;
         ID3DBlob* errorBlob;
-        HRESULT rootSignatureSerializationHR = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlob);
 
-        /*
-        * Validate root signature serialization
-        */
+        HRESULT rootSignatureSerializationHR = D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1, &signatureBlob, &errorBlob);
         ASSERT(SUCCEEDED(rootSignatureSerializationHR), "DX12RenderPass", "Root signature serialization failed with logs: %s", errorBlob->GetBufferPointer());
 
-        /*
-        * Create root signature
-        */
-        HRESULT createRootSignatureHR = device->get_dx12_device()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(RootSignature.GetAddressOf()));
 
-        /*
-        * Validate create root signature
-        */
+        HRESULT createRootSignatureHR = device->get_dx12_device()->CreateRootSignature(0, signatureBlob->GetBufferPointer(), signatureBlob->GetBufferSize(), IID_PPV_ARGS(RootSignature.GetAddressOf()));
         ASSERT(SUCCEEDED(createRootSignatureHR), "DX12RenderPass", "Root signature creation failed!");
 
-        /*
-        * Create input signature
-        */
         const VertexLayoutDescription vertexLayoutDescription = desc.LayoutDescription;
-        const Array<VertexElementDescription> vertexElementDescs = vertexLayoutDescription.get_elements_slow();
+        const Array<VertexElementDescription>& vertexElementDescs = vertexLayoutDescription.get_elements_fast();
         Array<D3D12_INPUT_ELEMENT_DESC> inputElements;
         unsigned int offset = 0;
         for (unsigned int i = 0; i < vertexElementDescs.get_cursor(); i++)
         {
-            /*
-            * Get element description
-            */
             const VertexElementDescription& elementDesc = vertexElementDescs[i];
 
-            /*
-             * Create input element desc
-             */
             D3D12_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, i, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
 
-            /*
-            * Register input element
-            */
             inputElements.add(inputElementDesc);
 
-            /*
-            * Increment offset
-            */
             offset += VertexUtils::get_data_type_size(elementDesc.DataType);
         }
 
-        /*
-        * Create dx12 graphics pipeline state
-        */
         const Array<Shader*> shaderSetShaders = desc.ShaderSet;
         D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = { };
         psoDesc.InputLayout.pInputElementDescs = inputElements.get_data();
@@ -135,51 +93,39 @@ namespace DopeEngine
         psoDesc.pRootSignature = RootSignature.Get();
         for (unsigned int i = 0; i < shaderSetShaders.get_cursor(); i++)
         {
-            /*
-            * Get shader
-            */
             const Shader* shader = shaderSetShaders[i];
             const DX12Shader* dx12Shader = (const DX12Shader*)shader;
 
-            /*
-            * Get shader type
-            */
-            const ShaderType shaderType = shader->get_type();
+            const ShaderStage ShaderStage = shader->get_type();
 
-            /*
-            * Catch shader type
-            */
             ID3DBlob* blob = dx12Shader->get_dx12_shader_blob();
-            switch (shaderType)
+            switch (ShaderStage)
             {
-                case DopeEngine::ShaderType::Vertex:
+                case DopeEngine::ShaderStage::Vertex:
                     psoDesc.VS.pShaderBytecode = (const void*)blob->GetBufferPointer();
                     psoDesc.VS.BytecodeLength = blob->GetBufferSize();
                     break;
-                case DopeEngine::ShaderType::Fragment:
+                case DopeEngine::ShaderStage::Fragment:
                     psoDesc.PS.pShaderBytecode = (const void*)blob->GetBufferPointer();
                     psoDesc.PS.BytecodeLength = blob->GetBufferSize();
                     break;
-                case DopeEngine::ShaderType::Geometry:
+                case DopeEngine::ShaderStage::Geometry:
                     psoDesc.GS.pShaderBytecode = (const void*)blob->GetBufferPointer();
                     psoDesc.GS.BytecodeLength = blob->GetBufferSize();
                     break;
-                case DopeEngine::ShaderType::TesellationEval:
+                case DopeEngine::ShaderStage::TesellationEval:
                     break;
-                case DopeEngine::ShaderType::TesellationControl:
+                case DopeEngine::ShaderStage::TesellationControl:
                     break;
-                case DopeEngine::ShaderType::Compute:
+                case DopeEngine::ShaderStage::Compute:
                     break;
-                case DopeEngine::ShaderType::Undefined:
+                case DopeEngine::ShaderStage::Undefined:
                     break;
                 default:
                     break;
             }
         }
 
-        /*
-        * Create rasterizer state
-        */
         D3D12_RASTERIZER_DESC rasterizerDesc = {};
         rasterizerDesc.AntialiasedLineEnable = false;
         rasterizerDesc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
@@ -194,9 +140,6 @@ namespace DopeEngine
         rasterizerDesc.SlopeScaledDepthBias = 0;
         psoDesc.RasterizerState = rasterizerDesc;
 
-        /*
-        * Get target framebuffer properties
-        */
         Array<TextureFormat> targetFramebufferFormats;
         unsigned int framebufferWidth = 0;
         unsigned int framebufferHeight = 0;
@@ -208,9 +151,6 @@ namespace DopeEngine
             framebufferHeight = swapchainFramebuffer->get_height();
         }
 
-        /*
-        * Create blend state
-        */
         D3D12_BLEND_DESC blendDesc = {}; // TODO: implement this
         blendDesc.AlphaToCoverageEnable = false;
         blendDesc.IndependentBlendEnable = false;
@@ -227,21 +167,12 @@ namespace DopeEngine
         {
             blendDesc.RenderTarget[i] = defaultRenderTargetBlendDesc;
         }
+
         psoDesc.BlendState = blendDesc;
-
-
-        /*
-        * Create depth stencil state
-        */
         psoDesc.DepthStencilState.DepthEnable = false;
         psoDesc.DepthStencilState.StencilEnable = false;
         psoDesc.SampleMask = UINT_MAX;
-
-        /*
-        * Create output state
-        */
         psoDesc.PrimitiveTopologyType = DX12RenderPassUtils::get_dx12_primitive_type(desc.Primitives);
-
         Array<DXGI_FORMAT> rtvFormats;
         for (unsigned int i = 0; i < targetFramebufferFormats.get_cursor(); i++)
         {
@@ -251,18 +182,10 @@ namespace DopeEngine
         {
             psoDesc.RTVFormats[i] = rtvFormats[i];
         }
-
         psoDesc.NumRenderTargets = rtvFormats.get_cursor();
         psoDesc.SampleDesc.Count = 1;
-
-        /*
-        * Create pso object
-        */
+  
         HRESULT createPSOHR = device->get_dx12_device()->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&Pso));
-
-        /*
-        * Validate pso
-        */
         ASSERT(SUCCEEDED(createPSOHR), "DX12RenderPass", "PSO creation failed");
     }
 }

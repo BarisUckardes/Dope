@@ -18,139 +18,33 @@ namespace DopeEngine
 		Array(std::initializer_list<TValue> initializerList);
 		~Array();
 
-		/// <summary>
-		/// Allocates a fixed sized capacity
-		/// <para>Deletes the former elements</para>
-		/// </summary>
-		/// <param name="capacity"></param>
+
+		unsigned int get_capacity() const { return Capacity; }
+		unsigned int get_cursor() const { return Cursor; }
+		TValue* get_data() const { return m_Source; }
+		unsigned int get_allocate_multiplier() const { return AllocateMultiplier; }
+		bool has(const TValue& element) const;
+		bool hasAll(const Array<TValue>& other);
+		int find_index(const TValue& element) const;
+
 		void reserve(unsigned int capacity);
-
-		/// <summary>
-		/// Allocates a fixed sized capacity and sets default values
-		/// </summary>
-		/// <param name="capacity"></param>
-		/// <param name="defaultValue"></param>
 		void reserve(unsigned int capacity, const TValue& defaultValue);
-
-		/// <summary>
-		/// Returns a slice of this array(does not copy the contents)
-		/// </summary>
-		/// <typeparam name="TValue"></typeparam>
 		void copy(const TValue* data, unsigned int count);
-
-		/// <summary>
-		/// Returns a slice of this array(does not copy the contents)
-		/// </summary>
-		/// <typeparam name="TValue"></typeparam>
 		void copy(const Array<TValue>& data, unsigned int start, unsigned int end);
-
-		/// <summary>
-		/// moves the target source to this array
-		/// </summary>
-		/// <param name="targetSource"></param>
-		/// <param name="numberOfElements"></param>
 		void move(TValue* targetSource, unsigned long numberOfElements);
-
-		/// <summary>
-		/// adds a new element to the array
-		/// </summary>
-		/// <param name="element"></param>
 		void add(const TValue& element);
-
-		/// <summary>
-		/// adds a new array to array
-		/// </summary>
-		/// <param name="elements"></param>
 		void add_range(const Array<TValue>& elements);
-
-		/// <summary>
-		/// Insert the item
-		/// </summary>
-		/// <param name="index"></param>
-		/// <param name="element"></param>
 		void insert(unsigned int index, const TValue& element);
-
-		/// <summary>
-		/// Clears the whole array
-		/// <para>Invokes the deconstructors if the TValue is a value type</para>
-		/// </summary>
 		void clear();
-
-		/// <summary>
-		/// Removes the target index
-		/// </summary>
-		/// <param name="index"></param>
 		void remove_index(unsigned int index);
-
-		/// <summary>
-		/// Removes the target value
-		/// </summary>
-		/// <param name="element"></param>
 		void remove(const TValue& element);
-
-		/// <summary>
-		/// Removes the spare space
-		/// </summary>
 		void compact();
-
-		/// <summary>
-		/// Sets the value which determines how large the next array size is when array size is insufficient
-		/// </summary>
-		/// <param name="amount"></param>
 		void set_allocate_multiplier(unsigned int amount);
 
-		/// <summary>
-		/// Returns the value of max elements which this array can take at this instant
-		/// </summary>
-		/// <returns></returns>
-		unsigned int get_capacity() const { return Capacity; }
-
-		/// <summary>
-		/// Returns the current cursor of this array thus returning the number of elements inside the array
-		/// </summary>
-		/// <returns></returns>
-		unsigned int get_cursor() const { return Cursor; }
-
-		/// <summary>
-		/// Returns a pointer to the const source
-		/// </summary>
-		/// <returns></returns>
-		TValue* get_data() const { return m_Source; }
-
-		/// <summary>
-		/// Returns the array allocation multiplier
-		/// </summary>
-		/// <returns></returns>
-		unsigned int get_allocate_multiplier() const { return AllocateMultiplier; }
-
-		/// <summary>
-		/// Returns whether the element exists in this array
-		/// </summary>
-		/// <param name="element"></param>
-		/// <returns></returns>
-		bool has(const TValue& element) const;
-
-		/// <summary>
-		/// Returns whether this array contains all the target array elements
-		/// </summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
-		bool hasAll(const Array<TValue>& other);
-
-		/// <summary>
-		/// Returns the index of the element
-		/// </summary>
-		/// <param name="element"></param>
-		/// <returns></returns>
-		int find_index(const TValue& element) const;
 	public:
 		TValue& operator[](unsigned int index) const;
 		void operator=(const Array<TValue>& targetSource);
 	private:
-		/// <summary>
-		/// Clears the source memory
-		/// <para>Invokes element deconstructors if the TValue is a value type</para>
-		/// </summary>
 		void clear_memory();
 	private:
 		TValue* m_Source;

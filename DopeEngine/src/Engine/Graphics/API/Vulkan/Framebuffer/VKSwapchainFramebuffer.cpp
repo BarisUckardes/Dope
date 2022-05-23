@@ -60,50 +60,25 @@ namespace DopeEngine
 
 	void VKSwapchainFramebuffer::create_win32(VKGraphicsDevice* device, Window* window)
 	{
-		/*
-		* Get win32 window
-		*/
 		const WindowsWindow* win32Window = (const WindowsWindow*)window;
 
-		/*
-		* Get device features
-		*/
 		const GraphicsDeviceFeatures* supportedFeatures = device->get_supported_features();
 
-		/*
-		* Create win32 surface creation
-		*/
 		VkWin32SurfaceCreateInfoKHR surfaceCreateInfo = {};
 		surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
 		surfaceCreateInfo.hwnd = win32Window->get_win32_window_handle();
 		surfaceCreateInfo.hinstance = GetModuleHandleA(nullptr);
 
-		/*
-		* Create win32 surface
-		*/
 		const VkResult surfaceCreateVkR = vkCreateWin32SurfaceKHR(device->get_vk_instance(), &surfaceCreateInfo, nullptr,&Surface);
-
-		/*
-		* Validate surface creation
-		*/
 		ASSERT(surfaceCreateVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Win32 surface creation failed!");
 
-		/*
-		* Get physical device surface capabilities
-		*/
 		VkSurfaceCapabilitiesKHR surfaceCapabilities = {};
 		vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->get_vk_physicalDevice(), Surface, &surfaceCapabilities);
 
-		/*
-		* Get surface formats
-		*/
 		unsigned int surfaceFormatCount = 0;
 		vkGetPhysicalDeviceSurfaceFormatsKHR(device->get_vk_physicalDevice(),Surface,&surfaceFormatCount,nullptr);
-		VkSurfaceFormatKHR* surfaceFormats = new VkSurfaceFormatKHR[surfaceFormatCount];
 
-		/*
-		* Iterate formats
-		*/
+		VkSurfaceFormatKHR* surfaceFormats = new VkSurfaceFormatKHR[surfaceFormatCount];
 		for (unsigned int i = 0; i < surfaceFormatCount; i++)
 		{
 			/*
@@ -112,29 +87,18 @@ namespace DopeEngine
 			const VkSurfaceFormatKHR surfaceFormat = surfaceFormats[i];
 		}
 
-		/*
-		* Get present modes
-		*/
 		unsigned int presentModeCount = 0;
 		vkGetPhysicalDeviceSurfacePresentModesKHR(device->get_vk_physicalDevice(), Surface, &presentModeCount, nullptr);
+
 		VkPresentModeKHR* presentModes = new VkPresentModeKHR[presentModeCount];
 		vkGetPhysicalDeviceSurfacePresentModesKHR(device->get_vk_physicalDevice(), Surface, &presentModeCount, nullptr);
 
-		/*
-		* Iterate present modes
-		*/
 		for (unsigned int i = 0; i < presentModeCount; i++)
 		{
-			/*
-			* Get present mode
-			*/
 			const VkPresentModeKHR presentMode = presentModes[i];
 
 		}
 
-		/*
-		* Create surface
-		*/
 		VkSwapchainCreateInfoKHR swapchainCreateInfo = {};
 		swapchainCreateInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 		swapchainCreateInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT; // might change this in the future for dept stencil buffers
@@ -153,39 +117,20 @@ namespace DopeEngine
 		swapchainCreateInfo.queueFamilyIndexCount = 0;
 		swapchainCreateInfo.pQueueFamilyIndices = nullptr;
 
-		/*
-		* Create swapchain
-		*/
 		const VkResult swapchainCreateVkR = vkCreateSwapchainKHR(device->get_vk_logical_device(), &swapchainCreateInfo, nullptr, &Swapchain);
-
-		/*
-		* Validate swapchain create
-		*/
-		LOG("VKSwapchainFramebuffer", "Swapchain status: %d", swapchainCreateVkR);
 		ASSERT(swapchainCreateVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Cannot create swapchain");
 
-		/*
-		* Get swapchain images
-		*/
 		unsigned int swapchainImageCount = 0;
 		vkGetSwapchainImagesKHR(device->get_vk_logical_device(),Swapchain,&swapchainImageCount,nullptr);
+
 		VkImage* swapchainImages = new VkImage[swapchainImageCount];
 		vkGetSwapchainImagesKHR(device->get_vk_logical_device(), Swapchain, &swapchainImageCount, swapchainImages);
 
-		/*
-		* Validate image count
-		*/
 		ASSERT(get_swapchain_buffer_count() == swapchainImageCount, "VKSwapchainFramebuffer", "Requested %d buffers for swapchain but given is %d", get_swapchain_buffer_count(), swapchainImageCount);
 
-		/*
-		* Create image views
-		*/
 		ImageViews.reserve(swapchainImageCount);
 		for (unsigned int i = 0; i < swapchainImageCount; i++)
 		{
-			/*
-			* Create image view create info
-			*/
 			VkImageViewCreateInfo imageViewCreateInfo = {};
 			imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 			imageViewCreateInfo.image = swapchainImages[i];
@@ -207,20 +152,11 @@ namespace DopeEngine
 			componentMapping.a = VK_COMPONENT_SWIZZLE_IDENTITY;
 			imageViewCreateInfo.components = componentMapping;
 
-			/*
-			* Create image view
-			*/
 			VkImageView imageView = {};
-			const VkResult createImageViewVkR = vkCreateImageView(device->get_vk_logical_device(), &imageViewCreateInfo, nullptr, &imageView);
 
-			/*
-			* Validate create image view
-			*/
+			const VkResult createImageViewVkR = vkCreateImageView(device->get_vk_logical_device(), &imageViewCreateInfo, nullptr, &imageView);
 			ASSERT(createImageViewVkR == VK_SUCCESS, "VKSwapchainFramebuffer", "Cannot create the swapchain image view!");
 
-			/*
-			* Register view
-			*/
 			ImageViews.add(imageView);
 		}
 

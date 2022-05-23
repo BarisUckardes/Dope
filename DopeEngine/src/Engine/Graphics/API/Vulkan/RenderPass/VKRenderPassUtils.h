@@ -13,7 +13,7 @@ namespace DopeEngine
 		FORCEINLINE static VkCullModeFlags get_vk_cull_mode(const FaceCullMode cullMode);
 		FORCEINLINE static VkFrontFace get_vk_front_face(const FrontFaceMode frontFace);
 		FORCEINLINE static VkPolygonMode get_vk_polygon_mode(const PolygonFillMode polygonFillMode);
-		FORCEINLINE static VkShaderStageFlagBits get_vk_shader_stage(const ShaderType shaderType);
+		FORCEINLINE static VkShaderStageFlagBits get_vk_shader_stage(const ShaderStage ShaderStage);
 		FORCEINLINE static VkPipelineBindPoint get_vk_pipeline_type(const RenderPassType renderPassType);
 	};
 

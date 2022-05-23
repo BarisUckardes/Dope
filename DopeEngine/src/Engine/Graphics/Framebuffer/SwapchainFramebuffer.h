@@ -20,47 +20,16 @@ namespace DopeEngine
 		SwapchainFramebuffer(const SwapchainFramebufferDesc& desc,GraphicsDevice* device, Window* window);
 		~SwapchainFramebuffer();
 
-		/// <summary>
-		/// Returns the buffer count for the swapchain backbuffers
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE unsigned int get_swapchain_buffer_count() const;
-
-		/// <summary>
-		/// Returns the format of the backbuffers
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE TextureFormat get_swapchain_buffer_format() const;
-
-		/// <summary>
-		/// Returns the format of the depth buffer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE TextureFormat get_swapchain_depth_buffer_format() const;
 
 	protected:
-		/// <summary>
-		/// Called when swapchain is resized
-		/// </summary>
-		virtual void on_swapchain_resize_impl() = 0;
-
-		/// <summary>
-		/// Returns the owner graphics device
-		/// </summary>
-		/// <returns></returns>
 		GraphicsDevice* get_owner_device() const;
-
-		/// <summary>
-		/// Returns the owner window
-		/// </summary>
-		/// <returns></returns>
 		Window* get_owner_window() const;
-	private:
 
-		/// <summary>
-		/// Internal method for receiving the window resized event
-		/// </summary>
-		/// <param name="event"></param>
+		virtual void on_swapchain_resize_impl() = 0;
+	private:
 		void on_window_resize(WindowResizedEvent* event);
 	private:
 		GraphicsDevice* OwnerDevice;

@@ -5,15 +5,8 @@ namespace DopeEngine
 {
 	VertexLayoutDescription::VertexLayoutDescription(const Array<VertexElementDescription>& descriptions)
 	{
-		/*
-		* Initialize
-		*/
 		ElementDescriptions = descriptions;
 		Stride = 0;
-
-		/*
-		* Calculate stride of this layout
-		*/
 		calculate_stride();
 	}
 	VertexLayoutDescription::VertexLayoutDescription()
@@ -21,10 +14,6 @@ namespace DopeEngine
 		Stride = 0;
 	}
 	const Array<VertexElementDescription>& VertexLayoutDescription::get_elements_fast() const
-	{
-		return ElementDescriptions;
-	}
-	Array<VertexElementDescription> VertexLayoutDescription::get_elements_slow() const
 	{
 		return ElementDescriptions;
 	}

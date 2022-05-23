@@ -28,7 +28,7 @@ namespace DopeEngine
 		ImGui_ImplDX12_NewFrame();
 	}
 
-	void DX12GUIRenderer::render_impl(const GraphicsCommandBuffer* cmdBuffer)
+	void DX12GUIRenderer::finalize_rendering_impl(const GraphicsCommandBuffer* cmdBuffer)
 	{
 		/*
 		* Get dx12 command buffer

@@ -6,14 +6,8 @@ namespace DopeEngine
 
 	OpenGLVertexBuffer::OpenGLVertexBuffer(const BufferDescription& desc, DEVICE device) : VertexBuffer(desc)
 	{
-		/*
-		* Initialize
-		*/
 		Device = device;
 
-		/*
-		* Create
-		*/
 		create();
 	}
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -27,9 +21,6 @@ namespace DopeEngine
 	}
 	void OpenGLVertexBuffer::update(const Byte* data)
 	{
-		/*
-		* Update buffer data
-		*/
 		glBindBuffer(GL_ARRAY_BUFFER, Handle);
 		glBufferSubData(GL_ARRAY_BUFFER, 0, get_allocated_size(), data);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -37,29 +28,15 @@ namespace DopeEngine
 	}
 	void OpenGLVertexBuffer::create()
 	{
-		/*
-		* Invalidate
-		*/
 		invalidate();
 
-		/*
-		* Create vertex buffer
-		*/
 		glGenBuffers(1, &Handle);
-
-		LOG("OpenGLVertexBuffer", "Buffer created with handle : %d", Handle);
-		/*
-		* Allocate buffer
-		*/
 		glBindBuffer(GL_ARRAY_BUFFER, Handle);
 		glBufferData(GL_ARRAY_BUFFER, get_allocated_size(), nullptr, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 	void OpenGLVertexBuffer::invalidate()
 	{
-		/*
-		* Validate and delete
-		*/
 		if (Handle == GL_NONE)
 		{
 			glDeleteBuffers(1, &Handle);

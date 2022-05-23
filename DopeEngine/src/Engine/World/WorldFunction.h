@@ -14,37 +14,12 @@ namespace DopeEngine
 	{
 		friend class World;
 	public:
-		/// <summary>
-		/// Returns the class name for this WorldFunction
-		/// </summary>
-		/// <returns></returns>
 		virtual String get_function_class_name() const = 0;
 
-		/// <summary>
-		/// Registers a component
-		/// </summary>
-		/// <param name="component"></param>
 		virtual void register_component(Component* component) = 0;
-
-		/// <summary>
-		/// Removes the existing component
-		/// </summary>
-		/// <param name="component"></param>
 		virtual void remove_component(Component* component) = 0;
-
-		/// <summary>
-		/// Called upon first creation
-		/// </summary>
 		virtual void initialize() = 0;
-
-		/// <summary>
-		/// Resolves this world resolver
-		/// </summary>
 		virtual void execute() = 0;
-
-		/// <summary>
-		/// Called upon destroy
-		/// </summary>
 		virtual void finalize() = 0;
 	protected:
 		WorldFunction() : OwnerWorld(nullptr) {}

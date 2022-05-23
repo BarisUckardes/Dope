@@ -16,76 +16,18 @@ namespace DopeEngine
 	{
 		friend class AssetPackage;
 	public:
-		/// <summary>
-		/// Returns the owner package of this asset
-		/// </summary>
-		/// <returns></returns>
 		AssetPackage* get_owner_package() const;
-
-		/// <summary>
-		/// Returns the child object of this asset
-		/// </summary>
-		/// <returns></returns>
 		AssetObject* get_child_object() const;
-
-		/// <summary>
-		/// Returns the source file absolute path
-		/// </summary>
-		/// <returns></returns>
 		String get_source_file_absolute_path() const;
-
-		/// <summary>
-		/// Returns the header file absolute path
-		/// </summary>
-		/// <returns></returns>
 		String get_header_file_absolute_path() const;
-
-		/// <summary>
-		/// Returns the name of the asset
-		/// </summary>
-		/// <returns></returns>
 		String get_name() const;
-
-		/// <summary>
-		/// Returns the unique id of this asset
-		/// </summary>
-		/// <returns></returns>
 		Guid get_id() const;
-
-		/// <summary>
-		/// Returns the asset type
-		/// </summary>
-		/// <returns></returns>
 		AssetType get_type() const;
-
-		/// <summary>
-		/// Returns the asset import type
-		/// </summary>
-		/// <returns></returns>
 		AssetImportType get_import_type() const;
-
-		/// <summary>
-		/// Returns whether this asset has a cached memory on the cpu
-		/// </summary>
-		/// <returns></returns>
 		bool has_cached_memory() const;
 
-		/// <summary>
-		/// Loads the asset sync
-		/// <para>Packed Asset	->	Loads the data from the packed file path</para>
-		/// <para>Raw Asset		->	Loads the data from the raw file path</para>
-		/// <para>Virtual Asset ->	Cannot load it because virtual is independent</para>
-		/// </summary>
 		void load_sync();
-
-		/// <summary>
-		/// Unloads the asset sync
-		/// <para>Packed asset	->	Unloads the asset</para>
-		/// <para>Raw asset		->	Unloads the asset</para>
-		/// <para>Virtual asset ->	Unloads the asset</para>
-		/// </summary>
 		void unload_sync();
-
 	private:
 		/// <summary>
 		/// Creates this asset as a packed asset
@@ -107,50 +49,14 @@ namespace DopeEngine
 		/// <param name="childObject"></param>
 		Asset(AssetObject* childObject,AssetPackage* ownerPackage);
 
-		/// <summary>
-		/// Initializes the member variables for this asset
-		/// </summary>
 		void initialize(const String& sourceFileAbsolutePath, const String& headerFileAbsolutePath,const String& rawFileAbsolutePath, const AssetType type, const AssetImportType importType, AssetPackage* ownerPackage);
-
-		/// <summary>
-		/// Loads the packed asset sync
-		/// </summary>
 		void load_packed_asset_sync();
-
-		/// <summary>
-		/// Loads the raw asset sync
-		/// </summary>
 		void load_raw_asset_sync();
-
-		/// <summary>
-		/// Unloads the packed asset sync
-		/// </summary>
 		void unload_packed_asset_sync();
-
-		/// <summary>
-		/// Unloads the raw asset sync
-		/// </summary>
 		void unload_raw_asset_sync();
-
-		/// <summary>
-		/// Unloads the virtual asset sync
-		/// </summary>
 		void unload_virtual_asset_sync();
-
-		/// <summary>
-		/// Retrives the required information from the packed asset
-		/// </summary>
 		void gather_packed_asset_information();
-
-		/// <summary>
-		/// Retrives the required information from the raw asset
-		/// </summary>
 		void gather_raw_file_information();
-
-		/// <summary>
-		/// Bind this asset with the target child object
-		/// </summary>
-		/// <param name="childObject"></param>
 		void bind_child_object(AssetObject* childObject);
 	private:
 		AssetPackage* OwnerPackage;

@@ -15,74 +15,20 @@ namespace DopeEngine
 	{
 		friend class GameSession;
 	public:
-		/// <summary>
-		/// Returns a reference to the entity list
-		/// </summary>
-		/// <returns></returns>
 		const Array<Entity*>& get_entities_fast() const;
-
-		/// <summary>
-		/// Returns a copy to the entity list
-		/// </summary>
-		/// <returns></returns>
-		Array<Entity*> get_entities_slow() const;
-
-		/// <summary>
-		/// Returns a reference to the resolver list
-		/// </summary>
-		/// <returns></returns>
 		Array<WorldFunction*>& get_functions();
-
-		/// <summary>
-		/// Returns whether this world is current
-		/// </summary>
-		/// <returns></returns>
 		bool is_current() const;
-
-		/// <summary>
-		/// Returns the owning game session of this world
-		/// </summary>
-		/// <returns></returns>
 		GameSession* get_owner_session() const;
-
-		/// <summary>
-		/// Creates anew entity and returns it
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
 		Entity* create_entity(const String& name = "Default Entity Name");
-
-		/// <summary>
-		/// Deletes an existing entity
-		/// </summary>
 		void delete_entity(Entity* entity);
 
-		/// <summary>
-		/// Returns a resolver with the specified type
-		/// </summary>
-		/// <typeparam name="TResolver"></typeparam>
-		/// <returns></returns>
 		template<typename TFunction>
 		TFunction* get_function() const;
-
-		/// <summary>
-		/// Registers anew resolver to the world
-		/// </summary>
-		/// <typeparam name="TResolver"></typeparam>
 		template<typename TFunction,typename... TParameters>
 		void register_function(TParameters... parameters);
-
-		/// <summary>
-		/// Attempts to remove a resolver by type, returns whether the removal was successfull or not
-		/// </summary>
-		/// <typeparam name="TResolver"></typeparam>
-		/// <returns></returns>
 		template<typename TFunction>
 		bool remove_function();
 
-		/// <summary>
-		/// Destroys this world
-		/// </summary>
 		void destroy();
 	private:
 		World(const String& name = "Default World Name", GameSession* ownerSession = nullptr);

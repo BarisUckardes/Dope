@@ -12,16 +12,7 @@ namespace DopeEngine
 		VertexBuffer(const BufferDescription& desc);
 		virtual ~VertexBuffer() = default;
 
-		/// <summary>
-		/// Returns the index buffer
-		/// </summary>
-		/// <returns></returns>
 		unsigned long get_vertex_capacity() const;
-
-		/// <summary>
-		/// Returns the single vertex size in bytes
-		/// </summary>
-		/// <returns></returns>
 		unsigned int get_per_vertex_size() const;
 	private:
 		unsigned long VertexCapacity;

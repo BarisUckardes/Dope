@@ -13,35 +13,11 @@ namespace DopeEngine
 		ViewportDesc() : OffsetX(0),OffsetY(0),Width(0),Height(0),MinDepth(0),MaxDepth(0) {}
 		~ViewportDesc() = default;
 
-
-		/// <summary>
-		/// Offset-X in screen coordinates
-		/// </summary>
 		unsigned int OffsetX;
-
-		/// <summary>
-		/// Offset-Y in screen coordinates
-		/// </summary>
 		unsigned int OffsetY;
-
-		/// <summary>
-		/// Width of the viewport rect
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// Height of the viewport rect
-		/// </summary>
 		unsigned int Height;
-
-		/// <summary>
-		/// Min pixel depth
-		/// </summary>
 		float MinDepth;
-
-		/// <summary>
-		/// Max pixel depth
-		/// </summary>
 		float MaxDepth;
 	};
 }

@@ -12,19 +12,8 @@ namespace DopeEngine
 		AudioListenerStateDesc() : Orientation(0) {}
 		~AudioListenerStateDesc() = default;
 
-		/// <summary>
-		/// Position of the listener
-		/// </summary>
 		Vector3f Position;
-
-		/// <summary>
-		/// Velocity of the listener
-		/// </summary>
 		Vector3f Velocity;
-
-		/// <summary>
-		/// Orientation of the listener
-		/// </summary>
 		float Orientation;
 	};
 }

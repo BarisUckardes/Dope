@@ -12,9 +12,6 @@ namespace DopeEngine
 		FramebufferAttachmentDescription() = default;
 		~FramebufferAttachmentDescription() = default;
 
-		/// <summary>
-		/// The format of the framebuffer attachments
-		/// </summary>
 		TextureFormat Format;
 	};
 

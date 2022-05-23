@@ -15,23 +15,9 @@ namespace DopeEngine
 		PortableDeviceInformation() = default;
 		~PortableDeviceInformation() = default;
 
-		/// <summary>
-		/// Returns the manufacturer name
-		/// </summary>
-		/// <returns></returns>
-		 String get_manufacturer() const;
-
-		/// <summary>
-		/// Returns the device friendly name
-		/// </summary>
-		/// <returns></returns>
-		 String get_friendly_name() const;
-
-		/// <summary>
-		/// Returns the description of the device
-		/// </summary>
-		/// <returns></returns>
-		 String get_description() const;
+		FORCEINLINE String get_manufacturer() const;
+		FORCEINLINE String get_friendly_name() const;
+		FORCEINLINE String get_description() const;
 	private:
 		String Manufacturer;
 		String FriendlyName;

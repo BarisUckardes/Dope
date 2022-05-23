@@ -11,7 +11,7 @@ namespace DopeEngine
 	{
 		return Source;
 	}
-	ShaderType Shader::get_type() const
+	ShaderStage Shader::get_type() const
 	{
 		return Type;
 	}

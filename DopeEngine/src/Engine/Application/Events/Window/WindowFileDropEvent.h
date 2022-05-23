@@ -13,11 +13,8 @@ namespace DopeEngine
 		WindowFileDropEvent(const Array<String>& files);
 		~WindowFileDropEvent() = default;
 
-		/// <summary>
-		/// Returns the drag and dropped files
-		/// </summary>
-		/// <returns></returns>
-		 Array<String> get_drops() const;
+
+		Array<String> get_drop_paths() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

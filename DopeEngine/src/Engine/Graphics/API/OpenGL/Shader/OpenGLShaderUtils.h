@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderStage.h>
 #include <Engine/Graphics/API/OpenGL/Core/OpenGLCore.h>
 namespace DopeEngine
 {
@@ -9,7 +9,7 @@ namespace DopeEngine
 		OpenGLShaderUtils() = delete;
 		~OpenGLShaderUtils() = delete;
 
-		static  SHADER_TYPE get_type(const ShaderType type);
+		static  SHADER_TYPE get_type(const ShaderStage type);
 	};
 
 

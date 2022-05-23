@@ -40,155 +40,33 @@ namespace DopeEngine
 	class DOPE_ENGINE_API GraphicsDevice
 	{
 	public:
-		/// <summary>
-		/// Creates new graphics device with the specified api type
-		/// </summary>
-		/// <param name="api"></param>
-		/// <param name="ownerWindow"></param>
-		/// <returns></returns>
 		static GraphicsDevice* create(const GraphicsDeviceFeatures* requestedFeatures,GraphicsAPIType api,Window* ownerWindow = nullptr,const SwapchainFramebufferDesc* swapchainDesc = nullptr);
 
-		/// <summary>
-		/// Returns whether this device is the current device
-		/// </summary>
-		/// <returns></returns>
+
 		bool is_current() const;
-
-		/// <summary>
-		/// Returns whether this graphics device has a target window or not
-		/// </summary>
-		/// <returns></returns>
 		bool is_offscreen_device() const;
-
-		/// <summary>
-		/// Returns the owner window of this device (if any)
-		/// </summary>
-		/// <returns></returns>
 		const Window* get_owner_window() const;
-
-		/// <summary>
-		/// Returns the swapchain framebuffer
-		/// </summary>
-		/// <returns></returns>
 		SwapchainFramebuffer* get_swapchain_framebuffer() const;
-
-		/// <summary>
-		/// Returns the graphics device supported features for this device
-		/// </summary>
-		/// <returns></returns>
 		const GraphicsDeviceFeatures* get_supported_features() const;
-
-		/// <summary>
-		/// Returns the graphics device properties
-		/// </summary>
-		/// <returns></returns>
 		GraphicsDeviceProperties get_properties() const;
-
-		/// <summary>
-		/// Makes this device current for this process
-		/// </summary>
-		void make_current();
-
-		/// <summary>
-		/// Deletes the target device object
-		/// </summary>
-		/// <param name="object"></param>
-		void delete_device_object(GraphicsDeviceObject* object);
-
-		/// <summary>
-		/// Creates a buffer
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		GraphicsBuffer* create_buffer(const BufferDescription& description);
-
-		/// <summary>
-		/// Creates a framebuffer
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		Framebuffer* create_framebuffer(const FramebufferDescription& description);
-
-		/// <summary>
-		/// Creates a pipeline
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		RenderPass* create_render_pass(const RenderPassDesc& desc);
-
-		/// <summary>
-		/// Creates a shader
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		Shader* create_shader(const ShaderDescription& description);
-
-		/// <summary>
-		/// Creates a texture
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		Texture* create_texture(const TextureDescription& description);
-
-		/// <summary>
-		/// Creates anew command buffer
-		/// </summary>
-		/// <returns></returns>
 		GraphicsCommandBuffer* create_command_buffer();
-
-		/// <summary>
-		/// Creates anew resource view device object
-		/// </summary>
-		/// <param name="description"></param>
-		/// <returns></returns>
 		GraphicsResource* create_resource(const GraphicsResourceDesc& desc);
 
-		/// <summary>
-		/// Submits a command buffer for rendering.<para>Each API has a different submit impls</para>
-		/// </summary>
+		void make_current();
+		void delete_device_object(GraphicsDeviceObject* object);
 		void submit_command_buffer(GraphicsCommandBuffer* GraphicsCommandBuffer);
-
-		/// <summary>
-		/// Updates the texture
-		/// </summary>
-		/// <param name="texture"></param>
-		/// <param name="data"></param>
 		void update_texture(Texture* texture,const Byte* data);
-
-		/// <summary>
-		/// Updates the buffer
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="data"></param>
 		void update_buffer(GraphicsBuffer* buffer, const Byte* data);
-
-		/// <summary>
-		/// Swaps the buffers of the swapchain
-		/// </summary>
 		void swap_swapchain_buffers(const SwapchainFramebuffer* framebuffer);
-
-		/// <summary>
-		/// Awaits the graphics device commands to finish
-		/// </summary>
 		void wait_for_finish();
 
-		/// <summary>
-		/// Returns the graphics api type
-		/// </summary>
-		/// <returns></returns>
 		virtual GraphicsAPIType get_api_type() const = 0;
-
-		/// <summary>
-		/// Returns the graphics api version string
-		/// </summary>
-		/// <returns></returns>
 		virtual String get_version() const = 0;
-
-		/// <summary>
-		/// Returns whether this graphics device supports the target features
-		/// </summary>
-		/// <param name="features"></param>
-		/// <returns></returns>
 		virtual bool does_support_features(const GraphicsDeviceFeatures* features,Array<String>& messages);
 	protected:
 		GraphicsDevice(Window* window);

@@ -12,24 +12,9 @@ namespace DopeEngine
 		ColorRgbaByte() : Red(0),Green(0),Blue(0),Alpha(0) {}
 		~ColorRgbaByte() = default;
 
-		/// <summary>
-		/// Red component
-		/// </summary>
 		Byte Red;
-
-		/// <summary>
-		/// Green component
-		/// </summary>
 		Byte Green;
-
-		/// <summary>
-		/// Blue component
-		/// </summary>
 		Byte Blue;
-
-		/// <summary>
-		/// Alpha component
-		/// </summary>
 		Byte Alpha;
 	};
 

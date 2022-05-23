@@ -9,15 +9,10 @@ namespace DopeEngine
 	class DOPE_ENGINE_API MouseButtonEvent : public ApplicationEvent
 	{
 	public:
-		/// <summary>
-		/// Returns the related button
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_button() const;
+		FORCEINLINE unsigned int get_button() const;
 	protected:
 		MouseButtonEvent(const unsigned int relatedButton);
 		~MouseButtonEvent() = default;
-
 	private:
 		unsigned int RelatedButton;
 	};

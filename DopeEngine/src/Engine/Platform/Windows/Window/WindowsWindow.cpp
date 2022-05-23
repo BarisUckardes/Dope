@@ -8,16 +8,10 @@ namespace DopeEngine
     //LRESULT CALLBACK Win32WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	WindowsWindow::WindowsWindow(const HINSTANCE processHandle, const WindowCreateDescription& description) : Window(description)
 	{
-        /*
-        * Create win32
-        */
 		_create_win32_window(processHandle);
 	}
 	WindowsWindow::WindowsWindow(const WindowCreateDescription& description) : Window(description)
 	{
-        /*
-        * Create win32
-        */
 		_create_win32_window(NULL);
 	}
 	WindowsWindow::~WindowsWindow()
@@ -38,9 +32,6 @@ namespace DopeEngine
 	{
 		constexpr wchar_t WINDOW_CLASS_NAME[] = L"Win32Window";
 
-		/*
-		* Create window class
-		*/
 		WNDCLASSEX wc = { 0 };
 		wc.cbSize = sizeof(WNDCLASSEX);
 		wc.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -56,19 +47,10 @@ namespace DopeEngine
         wc.hIconSm = NULL;
 
 
-        /*
-        * Register window class
-        */
         WORD registerClsState = RegisterClassEx(&wc);
-
-        /*
-        * Validate registertration
-        */
         ASSERT(registerClsState != NULL, "Win32Window", "Window registration failed!");
 
-        /*
-        * Create window
-        */
+
         HWND windowHandle = CreateWindowEx(
             0, // STYLES
             WINDOW_CLASS_NAME,
@@ -80,32 +62,18 @@ namespace DopeEngine
             processHandle,
             this
         );
-
-        /*
-        * Validate window creation
-        */
         ASSERT(windowHandle != NULL, "Win32Window", "Window creation failed!");
 
-        /*
-        * Initialize
-        */
         WindowHandle = windowHandle;
         WindowDeviceContext = GetDC(windowHandle);
 
 	}
     void WindowsWindow::set_title_impl(const String& title)
     {
-        /*
-         * Set win32 window title
-         */
         SetWindowTextA(WindowHandle, *title);
     }
     void WindowsWindow::poll_messages_impl()
     {
-
-        /*
-        * Iterate current pending messages and dispatch them
-        */
         MSG msg = { 0 };
         while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
         {
@@ -116,9 +84,6 @@ namespace DopeEngine
 
     void WindowsWindow::set_visibility_impl(const bool state)
     {
-        /*
-         * Set win32 window visiblity
-        */
         ShowWindow(WindowHandle, state == true ? SW_SHOW : SW_HIDE);
         UpdateWindow(WindowHandle);
     }
@@ -132,169 +97,106 @@ namespace DopeEngine
         {
             case WM_CREATE:
             {
-                /*
-                * Set window data
-                */
                 WindowsWindow* userWindow = (WindowsWindow*)((LPCREATESTRUCT)lParam)->lpCreateParams;
+
                 SetWindowLongPtr(hwnd, -21, (LONG_PTR)userWindow);
 
                 break;
             }
             case WM_SIZE:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new WindowResizedEvent(LOWORD(lParam), HIWORD(lParam)));
+
                 break;
             }
             case WM_MOVE:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new WindowPositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
+
                 break;
             }
             case WM_KEYDOWN:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new KeyboardKeyDownEvent((unsigned int)wParam, false));
+
                 break;
             }
             case WM_KEYUP:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new KeyboardKeyUpEvent((unsigned int)wParam));
+
                 break;
             }
             case WM_CHAR:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new KeyboardCharEvent((unsigned int)wParam));
+
                 break;
             }
             case WM_RBUTTONDOWN:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new MouseButtonDownEvent(DOPE_MOUSE_BUTTON_2, false));
+
                 break;
             }
             case WM_RBUTTONUP:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Boardcast event
-                */
                 window->broadcast_window_event(new MouseButtonUpEvent(DOPE_MOUSE_BUTTON_2));
                 break;
             }
             case WM_LBUTTONDOWN:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                 /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new MouseButtonDownEvent(DOPE_MOUSE_BUTTON_1, false));
+
                 break;
             }
             case WM_LBUTTONUP:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                 /*
-                * Boardcast event
-                */
                 window->broadcast_window_event(new MouseButtonUpEvent(DOPE_MOUSE_BUTTON_1));
+
                 break;
             }
             case WM_MOUSEMOVE:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new MousePositionChangedEvent(LOWORD(lParam), HIWORD(lParam)));
+
                 break;
             }
             case WM_MOUSEWHEEL:
             {
-                /*
-                 * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Broadcast event
-                */
                 window->broadcast_window_event(new MouseScrolledEvent(GET_WHEEL_DELTA_WPARAM(wParam) / 120));
+
                 break;
             }
 
             case WM_CLOSE:
             {
-                /*
-                * Get window data
-                */
                 WindowsWindow* window = GetWindowData(hwnd);
 
-                /*
-                * Set close request
-                */
                 window->broadcast_window_event(new WindowClosedEvent());
+
                 break;
             }
         }

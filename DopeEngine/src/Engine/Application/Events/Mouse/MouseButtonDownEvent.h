@@ -12,11 +12,7 @@ namespace DopeEngine
 		MouseButtonDownEvent(const unsigned int button, const bool holding);
 		~MouseButtonDownEvent() = default;
 
-		/// <summary>
-		/// Returns whether the button is a hold event
-		/// </summary>
-		/// <returns></returns>
-		bool is_holding() const;
+		FORCEINLINE bool is_holding() const;
 
 		// Inherited via MouseButtonEvent
 		virtual ApplicationEventType get_type() const override final;

@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Supported shader types
 	/// </summary>
-	enum class DOPE_ENGINE_API ShaderType
+	enum class DOPE_ENGINE_API ShaderStage
 	{
 		Vertex = 0,
 		Fragment = 1,

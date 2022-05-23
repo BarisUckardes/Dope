@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderStage.h>
 #include <Engine/Structures/String.h>
 namespace DopeEngine
 {
@@ -8,18 +8,11 @@ namespace DopeEngine
 	/// </summary>
 	struct DOPE_ENGINE_API ShaderDescription
 	{
-		ShaderDescription(const ShaderType type, const String& source) : Type(type),Source(source) {}
-		ShaderDescription() : Type(ShaderType::Undefined) {}
+		ShaderDescription(const ShaderStage type, const String& source) : Type(type),Source(source) {}
+		ShaderDescription() : Type(ShaderStage::Undefined) {}
 		~ShaderDescription() = default;
 
-		/// <summary>
-		/// The type of the shader
-		/// </summary>
-		ShaderType Type;
-
-		/// <summary>
-		/// Source text of the shader
-		/// </summary>
+		ShaderStage Type;
 		String Source;
 	};
 }

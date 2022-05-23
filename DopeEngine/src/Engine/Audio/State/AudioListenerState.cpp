@@ -25,6 +25,4 @@ namespace DopeEngine
 		Orientation = desc.Orientation;
 	}
 
-
-
 }

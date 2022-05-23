@@ -25,29 +25,13 @@ namespace DopeEngine
 
 	bool Entity::delete_component(Component* other)
 	{
-		/*
-		* Try find index of the component
-		*/
 		const int index = Components.find_index(other);
-
-		/*
-		* Validate index and delete
-		*/
 		if (index != 0)
 		{
-			/*
-			* Get component
-			*/
 			Component* component = Components[index];
 
-			/*
-			* Delete the component
-			*/
 			destory_component(component);
 
-			/*
-			* Remove it from the list
-			*/
 			Components.remove_index(index);
 
 			return true;
@@ -61,15 +45,9 @@ namespace DopeEngine
 	}
 	Entity::Entity(const String& name,World* ownerWorld)
 	{
-		/*
-		* Initialize
-		*/
 		Name = name;
 		OwnerWorld = ownerWorld;
 
-		/*
-		* Create default spatial
-		*/
 		create_default_spatial();
 	}
 	Entity::~Entity()
@@ -78,14 +56,8 @@ namespace DopeEngine
 	}
 	void Entity::destory_component(Component* component)
 	{
-		/*
-		* Call finalize impl of the component
-		*/
 		component->finalize();
 
-		/*
-		* Free heap memory(???)
-		*/
 		delete component;
 	}
 	void Entity::create_default_spatial()
@@ -95,22 +67,13 @@ namespace DopeEngine
 	}
 	void Entity::_on_destroy()
 	{
-		/*
-		* Iterate and destroy components
-		*/
 		for (unsigned int i = 0; i < Components.get_cursor(); i++)
 		{
 			destory_component(Components[i]);
 		}
 
-		/*
-		* Clear the component list
-		*/
 		Components.clear();
 
-		/*
-		* Detach owner world
-		*/
 		OwnerWorld = nullptr;
 	}
 }

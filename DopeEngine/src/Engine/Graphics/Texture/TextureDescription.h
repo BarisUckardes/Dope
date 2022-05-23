@@ -17,44 +17,13 @@ namespace DopeEngine
 		TextureDescription() = default;
 		~TextureDescription() = default;
 
-		/// <summary>
-		/// The usage flags
-		/// </summary>
 		TextureUsage Usage;
-
-		/// <summary>
-		/// Texture pixel format
-		/// </summary>
 		TextureFormat Format;
-
-		/// <summary>
-		/// Texture dimension type
-		/// </summary>
 		TextureType Type;
-
-		/// <summary>
-		/// Width in pixels
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// Height in pixels
-		/// </summary>
 		unsigned int Height;
-
-		/// <summary>
-		/// Depth in pixels
-		/// </summary>
 		unsigned int Depth;
-
-		/// <summary>
-		/// Minification levels count
-		/// </summary>
 		unsigned int MipCount;
-
-		/// <summary>
-		/// Initial data ptr for readonly textures
-		/// </summary>
 		const Byte* InitialData;
 	};
 }

@@ -13,22 +13,10 @@ namespace DopeEngine
 		Vector2f(const float value) : X(value),Y(value) {}
 		Vector2f() : X(0),Y(0) {}
 
-		/// <summary>
-		/// Returns the length of the vector(distance from the origin)
-		/// </summary>
-		/// <returns></returns>
-		 float get_length() const;
 
-		/// <summary>
-		/// Returns it as a unit vector
-		/// </summary>
-		/// <returns></returns>
-		 Vector2f get_normalized() const;
-
-		/// <summary>
-		/// Makes this vector a unit vector
-		/// </summary>
-		 void normalize_this();
+		FORCEINLINE float get_length() const;
+		FORCEINLINE Vector2f get_normalized() const;
+		FORCEINLINE void normalize_this();
 
 		/*
 		* Operators
@@ -44,16 +32,8 @@ namespace DopeEngine
 		void operator*=(const float other);
 		void operator/=(const float other);
 
-		/// <summary>
-		/// The x-axis component
-		/// </summary>
 		float X;
-
-		/// <summary>
-		/// The y-axis component
-		/// </summary>
 		float Y;
-
 	};
 
 	static Vector2f operator+(const Vector2f& a, const Vector2f& b)

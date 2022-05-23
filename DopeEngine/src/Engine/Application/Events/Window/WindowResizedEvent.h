@@ -12,17 +12,8 @@ namespace DopeEngine
 		WindowResizedEvent(const unsigned int width, const unsigned int height);
 		~WindowResizedEvent() = default;
 
-		/// <summary>
-		/// Returns the new width of the window
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_width() const;
-
-		/// <summary>
-		/// Returns the new height of the window
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_height() const;
+		FORCEINLINE unsigned int get_width() const;
+		FORCEINLINE unsigned int get_height() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;
@@ -30,8 +21,6 @@ namespace DopeEngine
 	private:
 		unsigned int Width;
 		unsigned int Height;
-
-		
 	};
 
 

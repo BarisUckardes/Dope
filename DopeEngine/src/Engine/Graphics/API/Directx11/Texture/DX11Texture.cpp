@@ -30,9 +30,6 @@ namespace DopeEngine
 	}
 	void DX11Texture::create(const TextureDescription& desc, DX11GraphicsDevice* device)
 	{
-		/*
-		* Create texture desc
-		*/
 		const TextureType textureType = get_type();
 		switch (textureType)
 		{
@@ -53,10 +50,6 @@ namespace DopeEngine
 	}
 	void DX11Texture::create2d(const TextureDescription& desc, DX11GraphicsDevice* device)
 	{
-
-		/*
-		* Create texture2D desc
-		*/
 		D3D11_TEXTURE2D_DESC textureDesc;
 		textureDesc.Width = desc.Width;
 		textureDesc.Height = desc.Height;
@@ -70,16 +63,11 @@ namespace DopeEngine
 		textureDesc.CPUAccessFlags = 0;
 		textureDesc.ArraySize = 1;
 
-		/*
-		* Create ýnitial data
-		*/
 		const unsigned int pixelSize = TextureUtils::get_format_size(desc.Format);
 		D3D11_SUBRESOURCE_DATA initialSubData = { 0 };
 		initialSubData.pSysMem = desc.InitialData;
 		initialSubData.SysMemPitch = desc.Width* pixelSize; // TODO implement mem pitch
 		initialSubData.SysMemSlicePitch = desc.Height * pixelSize;
-
-		LOG("DX11Texture", "Initial data SysMemPitch: %d", initialSubData.SysMemPitch);
 
 		/*
 		* Validate initial data and create texture
@@ -88,8 +76,6 @@ namespace DopeEngine
 			device->get_dx11_device()->CreateTexture2D(&textureDesc, &initialSubData, &Texture2D);
 		else
 			device->get_dx11_device()->CreateTexture2D(&textureDesc, nullptr, &Texture2D);
-
-		
 	}
 	void DX11Texture::create3d(const TextureDescription& desc, DX11GraphicsDevice* device)
 	{

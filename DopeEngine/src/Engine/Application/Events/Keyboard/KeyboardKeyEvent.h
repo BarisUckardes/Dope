@@ -12,11 +12,7 @@ namespace DopeEngine
 		KeyboardKeyEvent(const unsigned int relatedKey);
 		~KeyboardKeyEvent() = default;
 
-		/// <summary>
-		/// Returns the related key for this keyboard key event
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_key() const;
+		FORCEINLINE unsigned int get_key() const;
 	private:
 		unsigned int RelatedKey;
 	};

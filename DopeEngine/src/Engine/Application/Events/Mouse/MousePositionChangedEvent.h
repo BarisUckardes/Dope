@@ -12,18 +12,9 @@ namespace DopeEngine
 		MousePositionChangedEvent(const unsigned int x,const unsigned int y);
 		~MousePositionChangedEvent() = default;
 
+		FORCEINLINE unsigned int get_x() const;
+		FORCEINLINE unsigned int get_y() const;
 
-		/// <summary>
-		/// Returns the mouse position in pixels
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_x() const;
-
-		/// <summary>
-		/// Returns the mouse position in pixels
-		/// </summary>
-		/// <returns></returns>
-		 unsigned int get_y() const;
 	private:
 		unsigned int X;
 		unsigned int Y;

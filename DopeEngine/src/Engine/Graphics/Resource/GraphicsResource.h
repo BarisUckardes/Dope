@@ -14,9 +14,6 @@ namespace DopeEngine
 		GraphicsResource(const GraphicsResourceDesc& description);
 		virtual ~GraphicsResource() = 0 {}
 
-		/// <summary>
-		/// Returns the target resource
-		/// </summary>
 		GraphicsDeviceObject* get_resource() const;
 	private:
 		GraphicsDeviceObject* Resource;

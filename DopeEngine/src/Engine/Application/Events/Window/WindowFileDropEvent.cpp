@@ -6,7 +6,7 @@ namespace DopeEngine
 	{
 		Drops = files;
 	}
-	Array<String> WindowFileDropEvent::get_drops() const
+	Array<String> WindowFileDropEvent::get_drop_paths() const
 	{
 		return Drops;
 	}

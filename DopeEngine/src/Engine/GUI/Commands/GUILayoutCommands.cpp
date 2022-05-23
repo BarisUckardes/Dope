@@ -18,14 +18,19 @@ namespace DopeEngine
         ImGui::SetNextWindowViewport(id);
     }
 
-    void GUILayoutCommands::push_style(const GUIStyleVariableTypes flag, const Vector2f& value) const
+    void GUILayoutCommands::push_variable_style(const GUIStyleVariableTypes flag, const Vector2f& value) const
     {
         ImGui::PushStyleVar((ImGuiStyleVar)flag, { value.X,value.Y });
     }
 
-    void GUILayoutCommands::push_style(const GUIStyleVariableTypes flag, const float value) const
+    void GUILayoutCommands::push_variable_style(const GUIStyleVariableTypes flag, const float value) const
     {
         ImGui::PushStyleVar((ImGuiStyleVar)flag, value);
+    }
+
+    void GUILayoutCommands::pop_variable_style() const
+    {
+        ImGui::PopStyleVar();
     }
 
     void GUILayoutCommands::push_color_style(const GUIStyleColorTypes type, const ColorRgbaFloat& color) const
@@ -38,10 +43,7 @@ namespace DopeEngine
         ImGui::PopStyleColor();
     }
 
-    void GUILayoutCommands::pop_style() const
-    {
-        ImGui::PopStyleVar();
-    }
+    
 
  
     GUIID GUILayoutCommands::get_main_viewport_id() const

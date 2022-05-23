@@ -5,18 +5,11 @@ namespace DopeEditor
 {
 	EditorGUIPainter::EditorGUIPainter(DopeEngine::GraphicsDevice* device)
 	{
-	
-		/*
-		* Create renderer initialization flags
-		*/
 		DopeEngine::GUIRendererBackendFlags backendFlags = {};
 		DopeEngine::GUIRendererConfigFlags configFlags = {};
 		backendFlags = DopeEngine::GUIRendererBackendFlags::None;
 		configFlags = DopeEngine::GUIRendererConfigFlags::DockingEnabled;
 
-		/*
-		* Create renderer
-		*/
 		Renderer = DopeEngine::GUIRenderer::create(backendFlags, configFlags, device);
 	}
 
@@ -47,7 +40,7 @@ namespace DopeEditor
 
 	void EditorGUIPainter::FinalizePainting(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer)
 	{
-		Renderer->render(targetCommandBuffer);
+		Renderer->finalize_rendering(targetCommandBuffer);
 	}
 
 	void EditorGUIPainter::on_painter_receive_event(const DopeEngine::ApplicationEvent* event)

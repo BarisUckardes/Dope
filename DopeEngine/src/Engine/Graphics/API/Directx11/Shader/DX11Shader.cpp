@@ -9,14 +9,8 @@ namespace DopeEngine
 {
 	DX11Shader::DX11Shader(const ShaderDescription& description, DX11GraphicsDevice* device) : Shader(description)
 	{
-		/*
-		* Initialize
-		*/
 		Device = device;
 
-		/*
-		* Compile
-		*/
 		compile();
 	}
 	DX11Shader::~DX11Shader()
@@ -40,14 +34,8 @@ namespace DopeEngine
 	}
 	void DX11Shader::compile()
 	{
-		/*
-		* Get source
-		*/
 		const String source = get_source();
 
-		/*
-		* Create and compile shader blob
-		*/
 		ID3DBlob* errorBlob = nullptr;
 		D3DCompile(*source,
 			source.get_cursor(),
@@ -57,38 +45,31 @@ namespace DopeEngine
 			0,
 			&ShaderBlob,
 			&errorBlob);
-
-		/*
-		* Validate shader
-		*/
 		ASSERT(ShaderBlob, "DX11Shader", "Shader compilation error with logs: %s",errorBlob->GetBufferPointer());
 
-		/*
-		* Create shader
-		*/
-		const ShaderType shaderType = get_type();
-		switch (shaderType)
+		const ShaderStage ShaderStage = get_type();
+		switch (ShaderStage)
 		{
-			case DopeEngine::ShaderType::Vertex:
+			case DopeEngine::ShaderStage::Vertex:
 				Device->get_dx11_device()->CreateVertexShader(
 					ShaderBlob->GetBufferPointer(),
 					ShaderBlob->GetBufferSize(),
 					nullptr,
 					&VertexShader);
 				break;
-			case DopeEngine::ShaderType::Fragment:
+			case DopeEngine::ShaderStage::Fragment:
 				Device->get_dx11_device()->CreatePixelShader(ShaderBlob->GetBufferPointer(),
 					ShaderBlob->GetBufferSize(),
 					nullptr,
 					&FragmentShader);
 				break;
-			case DopeEngine::ShaderType::Geometry:
+			case DopeEngine::ShaderStage::Geometry:
 				break;
-			case DopeEngine::ShaderType::TesellationEval:
+			case DopeEngine::ShaderStage::TesellationEval:
 				break;
-			case DopeEngine::ShaderType::TesellationControl:
+			case DopeEngine::ShaderStage::TesellationControl:
 				break;
-			case DopeEngine::ShaderType::Compute:
+			case DopeEngine::ShaderStage::Compute:
 				break;
 			default:
 				break;

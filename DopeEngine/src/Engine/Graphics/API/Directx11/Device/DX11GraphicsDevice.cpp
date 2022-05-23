@@ -43,19 +43,9 @@ namespace DopeEngine
 
 	void DX11GraphicsDevice::_create_win32_directx11_device()
 	{
-		/*
-		* Get window
-		*/
 		const Window* ownerWindow = get_owner_window();
-
-		/*
-		* Get window window
-		*/
 		const WindowsWindow* win32Window = (const WindowsWindow*)ownerWindow;
 
-		/*
-		* Create swapbuffer buffer desc
-		*/
 		DXGI_MODE_DESC bufferDesc = { 0 };
 		bufferDesc.Width = ownerWindow->get_width();
 		bufferDesc.Height = ownerWindow->get_height();
@@ -65,9 +55,6 @@ namespace DopeEngine
 		bufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		bufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
-		/*
-		* Create swapchain desc
-		*/
 		DXGI_SWAP_CHAIN_DESC swapchainDesc = { 0 };
 		swapchainDesc.BufferDesc = bufferDesc;
 		swapchainDesc.SampleDesc.Count = 1;
@@ -78,9 +65,6 @@ namespace DopeEngine
 		swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
 		swapchainDesc.OutputWindow = win32Window->get_win32_window_handle();
 
-		/*
-		* Create swapchain,device and immediate context
-		*/
 #ifdef _DEBUG
 		const HRESULT createSwapchainHR = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, D3D11_CREATE_DEVICE_DEBUG, NULL, NULL,
 			D3D11_SDK_VERSION, &swapchainDesc, &SwapChain, &Device, NULL, &ImmediateContext);
@@ -88,27 +72,13 @@ namespace DopeEngine
 		const HRESULT createSwapchainHR = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, NULL, NULL, NULL,
 			D3D11_SDK_VERSION, &swapchainDesc, &SwapChain, &Device, NULL, &ImmediateContext);
 #endif
-
-		/*
-		* Validate swapchain create
-		*/
 		ASSERT(SUCCEEDED(createSwapchainHR), "DX11GraphicsDevice", "Swapchain creation failed!");
 
-		/*
-		* Create deferred context
-		*/
-		const HRESULT createDeferredContextHR = Device->CreateDeferredContext(0, &DeferredContext);
 
-		/*
-		* Validate deferred context creation
-		*/
+		const HRESULT createDeferredContextHR = Device->CreateDeferredContext(0, &DeferredContext);
 		ASSERT(SUCCEEDED(createDeferredContextHR), "DX11GraphicsDevice", "Deferred context creation failed!");
 
-		/*
-		* Create device properties
-		*/
 		GraphicsDeviceProperties properties = {"Null vendor","Null gpu"};
-
 		set_properties(properties);
 
 		/*
@@ -132,7 +102,6 @@ namespace DopeEngine
 		featuresDesc.MaxCubeTextureDimension = 16384;
 		featuresDesc.MaxComputeWorkGroupCount = 65535;
 		featuresDesc.MaxComputeWorkGroupSize = 1024;
-
 		GraphicsDeviceFeatures* features = new GraphicsDeviceFeatures(featuresDesc);
 		set_features(features);
 	}
@@ -164,10 +133,8 @@ namespace DopeEngine
 
 	void DX11GraphicsDevice::update_buffer_impl(GraphicsBuffer* buffer, const Byte* data)
 	{
-		/*
-		* Get dx11 buffer
-		*/
 		BufferType type = buffer->get_buffer_type();
+
 		ID3D11Resource* bufferResource = nullptr;
 		switch (type)
 		{
@@ -185,10 +152,6 @@ namespace DopeEngine
 				break;
 		}
 
-		/*
-		* Map/UnMap and update resource
-		*/
-		LOG("DX11GraphicsDevice", "Updating %d bytes to buffer %s", buffer->get_allocated_size(),*buffer->get_debug_name());
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
 		ImmediateContext->Map(bufferResource,0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		memcpy(mappedResource.pData, data, buffer->get_allocated_size());
@@ -197,17 +160,12 @@ namespace DopeEngine
 
 	void DX11GraphicsDevice::update_texture_impl(Texture* texture, const Byte* data)
 	{
-		/*
-		* Get dx11 texture
-		*/
 		const DX11Texture* dx11Texture = (const DX11Texture*)texture;
 		const TextureType textureType = dx11Texture->get_type();
-		const unsigned int rowPitch = (texture->get_width() + texture->get_height()) * TextureUtils::get_format_size(texture->get_format());
-		ID3D11Resource* textureResource = nullptr;
 
-		/*
-		* Catch resource
-		*/
+		const unsigned int rowPitch = (texture->get_width() + texture->get_height()) * TextureUtils::get_format_size(texture->get_format());
+
+		ID3D11Resource* textureResource = nullptr;
 		switch (textureType)
 		{
 			case DopeEngine::TextureType::Texture1D:
@@ -226,9 +184,6 @@ namespace DopeEngine
 				break;
 		}
 
-		/*
-		* Update resource
-		*/
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
 		ImmediateContext->Map(textureResource, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 		mappedResource.pData = (void*)data;

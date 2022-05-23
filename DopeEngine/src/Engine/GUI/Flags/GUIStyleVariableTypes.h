@@ -33,6 +33,5 @@ namespace DopeEngine
         TabRounding,         // float     TabRounding
         ButtonTextAlign,     // ImVec2    ButtonTextAlign
         SelectableTextAlign, // ImVec2    SelectableTextAlign
-        COUNT
 	};
 }

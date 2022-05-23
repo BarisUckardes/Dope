@@ -10,23 +10,8 @@ namespace DopeEngine
 		VertexLayoutDescription();
 		~VertexLayoutDescription() = default;
 
-		/// <summary>
-		/// Returns a reference to the elements list
-		/// </summary>
-		/// <returns></returns>
-		const Array<VertexElementDescription>& get_elements_fast() const;
-
-		/// <summary>
-		/// Returns a copy of the elements list
-		/// </summary>
-		/// <returns></returns>
-		Array<VertexElementDescription> get_elements_slow() const;
-
-		/// <summary>
-		/// Returns the stride for this layout
-		/// </summary>
-		/// <returns></returns>
-		unsigned int get_stride() const;
+		FORCEINLINE const Array<VertexElementDescription>& get_elements_fast() const;
+		FORCEINLINE unsigned int get_stride() const;
 	private:
 		void calculate_stride();
 	private:

@@ -16,9 +16,6 @@ namespace DopeEngine
 	}
 	void DX11ConstantBuffer::create(DX11GraphicsDevice* device)
 	{
-		/*
-		* Create buffer desc
-		*/
 		D3D11_BUFFER_DESC bufferDesc;
 		bufferDesc.ByteWidth = get_allocated_size() + (16-(get_allocated_size()%16));
 		bufferDesc.StructureByteStride = get_item_size();
@@ -27,11 +24,6 @@ namespace DopeEngine
 		bufferDesc.MiscFlags = 0;
 		bufferDesc.StructureByteStride = 0;
 		bufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-
-
-		/*
-		* Create constant buffer
-		*/
 		device->get_dx11_device()->CreateBuffer(&bufferDesc, nullptr, &Buffer);
 	}
 }

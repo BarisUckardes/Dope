@@ -9,21 +9,12 @@ namespace DopeEngine
 {
 	void GraphicsCommandBuffer::lock()
 	{
-		/*
-		* Clear cached state
-		*/
 		clear_cached_state();
 
-		/*
-		* Call impl
-		*/
 		lock_impl();
 	}
 	void GraphicsCommandBuffer::unlock()
 	{
-		/*
-		* Call impl
-		*/
 		unlock_impl();
 	}
 	void GraphicsCommandBuffer::set_vertex_buffer(const VertexBuffer* vertexBuffer)
@@ -49,27 +40,13 @@ namespace DopeEngine
 
 	void GraphicsCommandBuffer::set_viewport_desc(const ViewportDesc& desc)
 	{
-		/*
-		* Set current viewport desc
-		*/
 		CurrentBoundViewportDesc = desc;
-
-		/*
-		* Call graphics api impl
-		*/
 		set_viewport_desc_impl(desc);
 	}
 
 	void GraphicsCommandBuffer::set_scissors_desc(const ScissorsDesc& desc)
 	{
-		/*
-		* Set current scissors desc
-		*/
 		CurrentBoundScissorsDesc = desc;
-
-		/*
-		* Call graphics api impl
-		*/
 		set_scissors_desc_impl(desc);
 	}
 
@@ -84,33 +61,18 @@ namespace DopeEngine
 	void GraphicsCommandBuffer::commit_resource(const unsigned int slot, const GraphicsResource* resource)
 	{
 #ifdef _DEBUG
-		/*
-		* Validate pipeline
-		*/
 		ASSERT(get_bound_render_pass(), "GraphicsCommandBuffer", "You must first set a RenderPass in order to set resource views! ");
 
-		/*
-		* Validate slot length and resources
-		*/
 		const Array<GraphicsResourceSlotDesc> resourceSlotDesc = CurrentBoundRenderPass->get_resource_slots();
 		const unsigned int resourceSlotCount = resourceSlotDesc.get_cursor();
+
 		ASSERT(slot < resourceSlotDesc.get_cursor(), "GraphicsCommandBuffer", "You bound a resource view to slot %d, whereas there is only %d slots defined for this pipeline!", slot, resourceSlotCount);
 
-		/*
-		* Get layout variables
-		*/
 		const GraphicsResourceSlotDesc targetSlotDesc = resourceSlotDesc[slot];
 		const GraphicsDeviceObject* targetResource = resource->get_resource();
-
-		/*
-		* Get object type
-		*/
 		const GraphicsDeviceObjectType objectType = resource->get_device_object_type();
-
-		/*
-		* Check resource layout
-		*/
 		const GraphicsDeviceObjectType slotType = GraphicsResourceTypeUtils::get_device_object_type(targetSlotDesc.Type);
+
 		if (objectType != slotType)
 		{
 			ASSERT(false, "GraphicsCommandBuffer", "You binded a wrong resource to slot %d.Trying to bind resource type %d whereas slot accepts %d", slot,objectType, slotType);

@@ -33,51 +33,25 @@ namespace DopeEngine
 	}
 	void DX11RenderPass::create(const RenderPassDesc& desc, DX11GraphicsDevice* device)
 	{
-		/*
-		* Create input layout
-		*/
 		const VertexLayoutDescription vertexLayoutDescription = desc.LayoutDescription;
-		const Array<VertexElementDescription> vertexElements = vertexLayoutDescription.get_elements_slow();
+		const Array<VertexElementDescription>& vertexElements = vertexLayoutDescription.get_elements_fast();
 		Array<D3D11_INPUT_ELEMENT_DESC> inputElements;
 		unsigned int offset = 0;
 		for (unsigned int i = 0; i < vertexElements.get_cursor(); i++)
 		{
-			
-			/*
-			* Get element desc
-			*/
 			const VertexElementDescription& elementDesc = vertexElements[i];
 
-			/*
-			* Create input element desc
-			*/
 			D3D11_INPUT_ELEMENT_DESC inputElementDesc = { *elementDesc.Name, i, DX11VertexUtils::get_format(elementDesc.DataType), 0, offset, D3D11_INPUT_PER_VERTEX_DATA, 0};
-			
-			/*
-			* Register input element
-			*/
+
 			inputElements.add(inputElementDesc);
 
-			/*
-			* Increment offset
-			*/
 			offset += VertexUtils::get_data_type_size(elementDesc.DataType);
 		}
 
-		/*
-		* Search for an vertex shader
-		*/
 		for (unsigned int i = 0; i < desc.ShaderSet.get_cursor(); i++)
 		{
-			/*
-			* Get target shader
-			*/
 			const Shader* shader = desc.ShaderSet[i];
-
-			/*
-			* Validate if this is a vertex shader
-			*/
-			if (shader->get_type() == ShaderType::Vertex)
+			if (shader->get_type() == ShaderStage::Vertex)
 			{
 				const DX11Shader* dx11Shader = (const DX11Shader*)shader;
 				const ID3D11VertexShader* vertexShader = dx11Shader->get_dx11_vertex_shader().Get();
@@ -97,10 +71,6 @@ namespace DopeEngine
 
 		}
 		
-
-		/*
-		* Create rasterizer state
-		*/
 		D3D11_RASTERIZER_DESC rasterizerDesc;
 		ZeroMemory(&rasterizerDesc, sizeof(D3D11_RASTERIZER_DESC));
 		rasterizerDesc.DepthClipEnable = desc.DepthClip;
@@ -112,9 +82,6 @@ namespace DopeEngine
 		rasterizerDesc.DepthBiasClamp = 0;
 		device->get_dx11_device()->CreateRasterizerState(&rasterizerDesc,&RasterizerState);
 
-		/*
-		* Create depth stencil state
-		*/
 		D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
 		depthStencilDesc.DepthEnable = desc.DepthTest;
 		depthStencilDesc.DepthWriteMask = desc.DepthWrite == true ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
@@ -130,12 +97,8 @@ namespace DopeEngine
 		depthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
 		depthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 		depthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
 		device->get_dx11_device()->CreateDepthStencilState(&depthStencilDesc, &DepthStencilState);
 
-		/*
-		* Create blend state
-		*/
 		D3D11_BLEND_DESC blendDesc;
 		blendDesc.AlphaToCoverageEnable = false;
 		blendDesc.IndependentBlendEnable = false;

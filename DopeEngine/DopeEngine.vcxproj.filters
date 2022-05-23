@@ -267,7 +267,7 @@
     <ClInclude Include="src\Engine\Graphics\Shader\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Shader\ShaderType.h">
+    <ClInclude Include="src\Engine\Graphics\Shader\ShaderStage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\RenderPass\RenderPass.h">
@@ -864,12 +864,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Events\Keyboard\KeyboardCharEvent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Event\Delegate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Event\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Application.cpp">

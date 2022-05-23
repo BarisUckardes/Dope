@@ -10,22 +10,8 @@ namespace DopeEngine
 	{
 		friend class AudioDevice;
 	public:
-		/// <summary>
-		/// Returns the total allocated size in bytes
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE unsigned long get_allocated_size() const;
-
-		/// <summary>
-		/// Returns the frequency of the audio buffer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE unsigned long get_frequency() const;
-
-		/// <summary>
-		/// Returns the format of the buffer
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE AudioBufferFormat get_format() const;
 	protected:
 		AudioBuffer(const AudioBufferDesc& desc);

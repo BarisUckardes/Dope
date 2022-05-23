@@ -23,11 +23,11 @@ namespace DopeEngine
 		FORCEINLINE void set_next_window_position(const Vector2f& position) const;
 		FORCEINLINE void set_next_window_size(const Vector2f& size) const;
 		FORCEINLINE void set_next_window_viewport(const GUIID id) const;
-		FORCEINLINE void push_style(const GUIStyleVariableTypes flag,const Vector2f& value) const;
-		FORCEINLINE void push_style(const GUIStyleVariableTypes flag, const float value) const;
+		FORCEINLINE void push_variable_style(const GUIStyleVariableTypes flag,const Vector2f& value) const;
+		FORCEINLINE void push_variable_style(const GUIStyleVariableTypes flag, const float value) const;
+		FORCEINLINE void pop_variable_style() const;
 		FORCEINLINE void push_color_style(const GUIStyleColorTypes type,const ColorRgbaFloat& color) const;
 		FORCEINLINE void pop_color_style() const;
-		FORCEINLINE void pop_style() const;
 	private:
 		GUILayoutCommands() = default;
 		~GUILayoutCommands() = default;

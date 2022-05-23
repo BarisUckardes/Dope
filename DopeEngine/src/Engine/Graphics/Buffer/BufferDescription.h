@@ -13,24 +13,9 @@ namespace DopeEngine
 		BufferDescription() : Type(BufferType::VertexBuffer),Name("Undefined buffer"),AllocatedSize(0),PerItemSize(0) {}
 		~BufferDescription() = default;
 
-		/// <summary>
-		/// The type of the buffer
-		/// </summary>
 		BufferType Type;
-
-		/// <summary>
-		/// The name of the buffer
-		/// </summary>
 		String Name;
-
-		/// <summary>
-		/// Staticly allocated size of the buffer
-		/// </summary>
 		unsigned long AllocatedSize;
-
-		/// <summary>
-		/// Size of a single item
-		/// </summary>
 		unsigned int PerItemSize;
 	};
 }

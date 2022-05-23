@@ -3,37 +3,32 @@
 
 namespace DopeEngine
 {
-	String DX11ShaderUtils::get_shader_target_string(ShaderType type, const unsigned int majorVersion, const unsigned int minorVersion)
+	String DX11ShaderUtils::get_shader_target_string(ShaderStage type, const unsigned int majorVersion, const unsigned int minorVersion)
 	{
 		String text;
 
-		/*
-		* Embed shader stage
-		*/
 		switch (type)
 		{
-			case DopeEngine::ShaderType::Vertex:
+			case DopeEngine::ShaderStage::Vertex:
 				text = "vs_";
 				break;
-			case DopeEngine::ShaderType::Fragment:
+			case DopeEngine::ShaderStage::Fragment:
 				text = "ps_";
 				break;
-			case DopeEngine::ShaderType::Geometry:
+			case DopeEngine::ShaderStage::Geometry:
 				break;
-			case DopeEngine::ShaderType::TesellationEval:
+			case DopeEngine::ShaderStage::TesellationEval:
 				break;
-			case DopeEngine::ShaderType::TesellationControl:
+			case DopeEngine::ShaderStage::TesellationControl:
 				break;
-			case DopeEngine::ShaderType::Compute:
+			case DopeEngine::ShaderStage::Compute:
 				break;
 			default:
 				break;
 		}
 
-		/*
-		* Embed shader ver
-		*/
 		text += String::get_from_integer(majorVersion) + "_" + String::get_from_integer(minorVersion);
+
 		return text;
 	}
 }

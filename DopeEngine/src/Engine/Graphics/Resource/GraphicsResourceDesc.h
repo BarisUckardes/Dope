@@ -12,9 +12,6 @@ namespace DopeEngine
 		GraphicsResourceDesc() = default;
 		~GraphicsResourceDesc() = default;
 
-		/// <summary>
-		/// The resource array which is bound
-		/// </summary>
 		GraphicsDeviceObject* Resource;
 	};
 }

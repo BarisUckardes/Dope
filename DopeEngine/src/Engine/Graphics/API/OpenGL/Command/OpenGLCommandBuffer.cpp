@@ -22,19 +22,9 @@ namespace DopeEngine
 
 	void OpenGLCommandBuffer::set_uniform_buffer_impl(const UniformBuffer* buffer)
 	{
-		/*
-		* Get opengl unibuffer
-		*/
 		const OpenGLUniformBuffer* openglGLBuffer = (const OpenGLUniformBuffer*)buffer;
 
-		/*
-		* Get index
-		*/
 		const SHADER_UNIFORM_ID blockIndex = glGetUniformBlockIndex(openglGLBuffer->get_handle(), *openglGLBuffer->get_buffer_name());
-
-		/*
-		* Set buffer
-		*/
 		glBindBufferBase(GL_UNIFORM_BUFFER, blockIndex,openglGLBuffer->get_handle());
 	}
 
@@ -42,18 +32,12 @@ namespace DopeEngine
 
 	void OpenGLCommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
 	{
-		/*
-		* Get gl pipeline
-		*/
 		const OpenGLRenderPass* glRenderPass = (const OpenGLRenderPass*)renderPass;
 
 		/*
-		* Blending
+		* Blending----
 		*/
 
-		/*
-		* Depth
-		*/
 		if (renderPass->is_depth_test_enabled())
 			glEnable(GL_DEPTH_TEST);
 		else
@@ -66,9 +50,6 @@ namespace DopeEngine
 
 		glDepthFunc(OpenGLRenderPassUtils::get_depth_function(renderPass->get_depth_function()));
 
-		/*
-		* Face culling
-		*/
 		if (renderPass->get_cull_mode() != FaceCullMode::DontCull)
 		{
 			glEnable(GL_CULL_FACE);
@@ -86,30 +67,15 @@ namespace DopeEngine
 		*/
 		//glPolygonMode(OpenGLPipelineUtils::get_front_face(pipeline.get_front_face()), OpenGLPipelineUtils::get_fill_mode(pipeline.get_fill_mode()));
 
-		/*
-		* Set primitive
-		*/
 		CurrentPrimitive = OpenGLRenderPassUtils::get_primitive(glRenderPass->get_primitives());
 
-		/*
-		* Set current program
-		*/
 		CurrentProgramHandle = glRenderPass->get_program_handle();
 
-		/*
-		* Set vertex layout
-		*/
 		CurrentVertexLayoutHandle = glRenderPass->get_vertex_layout_handle();
 		CurrentVertexLayoutDescription = glRenderPass->get_vertex_layout();
 
-		/*
-		* Start using current program
-		*/
 		glUseProgram(CurrentProgramHandle);
 
-		/*
-		* Set framebuffer
-		*/
 		const Framebuffer* targetFramebuffer = glRenderPass->get_target_framebuffer();
 		if (targetFramebuffer->is_swapchain_framebuffer())
 		{
@@ -119,7 +85,6 @@ namespace DopeEngine
 		{
 			glBindFramebuffer(GL_FRAMEBUFFER, ((const OpenGLFramebuffer*)targetFramebuffer)->get_handle());
 		}
-
 	}
 
 	void OpenGLCommandBuffer::set_viewport_desc_impl(const ViewportDesc& desc)

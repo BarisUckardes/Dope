@@ -12,24 +12,9 @@ namespace DopeEngine
 		ScissorsDesc() : OffsetX(0),OffsetY(0),Width(0),Height(0) {}
 		~ScissorsDesc() = default;
 
-		/// <summary>
-		/// Offset-X in screen coordinates
-		/// </summary>
 		unsigned int OffsetX;
-
-		/// <summary>
-		/// Offset-Y in screen coordinates
-		/// </summary>
 		unsigned int OffsetY;
-
-		/// <summary>
-		/// Width of the scissor rect
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// Height of the scissor rect
-		/// </summary>
 		unsigned int Height;
 	};
 }

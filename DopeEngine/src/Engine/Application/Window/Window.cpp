@@ -60,22 +60,12 @@ namespace DopeEngine
 
     void Window::set_title(const String& title)
     {
-        /*
-        * Set title impl
-        */
         set_title_impl(title);
-
-        /*
-        * Set title
-        */
         Title = title;
     }
 
     void Window::poll_messages()
     {
-        /*
-        * Call poll messages impl
-        */
         poll_messages_impl();
     }
 
@@ -86,25 +76,16 @@ namespace DopeEngine
 
     void Window::register_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate)
     {
-        /*
-        * Register delegate
-        */
         EventFeedListeners.add(functionDelegate);
     }
 
     void Window::remove_event_feed_listener(const Delegate<void, ApplicationEvent*>& functionDelegate)
     {
-        /*
-        * Remove delegate
-        */
         EventFeedListeners.remove(functionDelegate);
     }
 
     Window::Window(const WindowCreateDescription& desc)
     {
-        /*
-        * Initialize
-        */
         Title = desc.Title;
         Width = desc.Width;
         Height = desc.Height;
@@ -152,14 +133,7 @@ namespace DopeEngine
 
     void Window::set_visibility(const bool state)
     {
-        /*
-        * Call impl
-        */
         set_visibility_impl(state);
-
-        /*
-        * Set visibility
-        */
         Visibility = state;
     }
 
@@ -209,14 +183,10 @@ namespace DopeEngine
 
         }
 
-        /*
-        * Forward event to application feed
-        */
         for (unsigned int i = 0; i < EventFeedListeners.get_cursor(); i++)
         {
             EventFeedListeners[i].invoke(event);
         }
-
     }
 
 }

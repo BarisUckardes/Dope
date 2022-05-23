@@ -82,30 +82,30 @@ namespace DopeEngine
 		}
 	}
 
-	VkShaderStageFlagBits VKRenderPassUtils::get_vk_shader_stage(const ShaderType shaderType)
+	VkShaderStageFlagBits VKRenderPassUtils::get_vk_shader_stage(const ShaderStage ShaderStage)
 	{
-		switch (shaderType)
+		switch (ShaderStage)
 		{
-			case DopeEngine::ShaderType::Vertex:
+			case DopeEngine::ShaderStage::Vertex:
 				return VK_SHADER_STAGE_VERTEX_BIT;
 				break;
-			case DopeEngine::ShaderType::Fragment:
+			case DopeEngine::ShaderStage::Fragment:
 				return VK_SHADER_STAGE_FRAGMENT_BIT;
 				break;
-			case DopeEngine::ShaderType::Geometry:
+			case DopeEngine::ShaderStage::Geometry:
 				return VK_SHADER_STAGE_GEOMETRY_BIT;
 				break;
-			case DopeEngine::ShaderType::TesellationEval:
+			case DopeEngine::ShaderStage::TesellationEval:
 				return VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;
 				break;
-			case DopeEngine::ShaderType::TesellationControl:
+			case DopeEngine::ShaderStage::TesellationControl:
 				return VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;
 				break;
-			case DopeEngine::ShaderType::Compute:
+			case DopeEngine::ShaderStage::Compute:
 				return VK_SHADER_STAGE_COMPUTE_BIT;
 				break;
 			default:
-				ASSERT(false, "VKPipelineUtils", "Invalid ShaderType, cannot produce VkShaderStageFlagBits");
+				ASSERT(false, "VKPipelineUtils", "Invalid ShaderStage, cannot produce VkShaderStageFlagBits");
 				break;
 		}
 	}

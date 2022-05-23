@@ -12,11 +12,7 @@ namespace DopeEngine
 		MouseScrolledEvent(const float amount);
 		~MouseScrolledEvent() = default;
 
-		/// <summary>
-		/// Returns the amount and direction of the wheel scrolled
-		/// </summary>
-		/// <returns></returns>
-		 float get_amount() const;
+		FORCEINLINE float get_amount() const;
 
 		// Inherited via ApplicationEvent
 		virtual ApplicationEventType get_type() const override final;

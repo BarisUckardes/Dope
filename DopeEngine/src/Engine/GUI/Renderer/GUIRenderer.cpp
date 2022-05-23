@@ -57,29 +57,17 @@ namespace DopeEngine
 
 	GUIRenderer::GUIRenderer(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags)
 	{
-		/*
-		* Create new imgui context
-		*/
 		Context = ImGui::CreateContext();
 
-		/*
-		* Set current
-		*/
 		ImGui::SetCurrentContext(Context);
 
-		/*
-		* Create io flags
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 		io.BackendFlags = (int)backendFlags;
 		io.ConfigFlags = (int)configFlags;
 
-		WindowWidth = 512;
-		WindowHeight = 512;
+		WindowWidth = 512;  //Dummy
+		WindowHeight = 512; //Dummy
 
-		/*
-		* Set key mappings
-		*/
 		io.KeyMap[ImGuiKey_Tab] = DOPE_KEY_TAB;
 		io.KeyMap[ImGuiKey_LeftArrow] = DOPE_KEY_LEFT;
 		io.KeyMap[ImGuiKey_RightArrow] = DOPE_KEY_RIGHT;
@@ -102,15 +90,9 @@ namespace DopeEngine
 		io.KeyMap[ImGuiKey_Y] = DOPE_KEY_Y;
 		io.KeyMap[ImGuiKey_Z] = DOPE_KEY_Z;
 
-		/*
-		* Set default theme
-		*/
 		GUIRendererThemeDesc defaultThemeDesc = {};
 		set_theme(defaultThemeDesc);
 
-		/*
-		* Create command
-		*/
 		RenderingCommands = new GUIRenderingCommands();
 		EventCommands = new GUIEventCommands();
 		LayoutCommands = new GUILayoutCommands();
@@ -118,14 +100,7 @@ namespace DopeEngine
 
 	void GUIRenderer::on_application_event(const ApplicationEvent* event)
 	{
-		/*
-		* Get event type
-		*/
 		ApplicationEventType eventType = event->get_type();
-
-		/*
-		* catch event
-		*/
 		switch (eventType)
 		{
 			case DopeEngine::ApplicationEventType::Undefined:
@@ -169,28 +144,19 @@ namespace DopeEngine
 
 	void GUIRenderer::begin_rendering(const float deltaTimeInMilliseconds)
 	{
-		/*
-		* Get imgui io
-		*/
-		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set display size
-		*/
+		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2(WindowWidth,WindowHeight);
 		io.DeltaTime = deltaTimeInMilliseconds;
 
-		/*
-		* Call rendering squence
-		*/
 		begin_rendering_impl();
 		ImGui::NewFrame();
 	}
 
-	void GUIRenderer::render(const GraphicsCommandBuffer* cmdBuffer)
+	void GUIRenderer::finalize_rendering(const GraphicsCommandBuffer* cmdBuffer)
 	{
 		ImGui::Render();
-		render_impl(cmdBuffer);
+		finalize_rendering_impl(cmdBuffer);
 	}
 
 	void GUIRenderer::set_theme(const GUIRendererThemeDesc& desc)
@@ -207,14 +173,8 @@ namespace DopeEngine
 
 	void GUIRenderer::on_keyboard_key_down(const KeyboardKeyDownEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set keys down
-		*/
 		io.KeysDown[event->get_key()] = true;
 		io.KeyCtrl = io.KeysDown[DOPE_KEY_LEFT_CONTROL] || io.KeysDown[DOPE_KEY_RIGHT_CONTROL];
 		io.KeyShift = io.KeysDown[DOPE_KEY_LEFT_SHIFT] || io.KeysDown[DOPE_KEY_RIGHT_SHIFT];
@@ -224,28 +184,15 @@ namespace DopeEngine
 
 	void GUIRenderer::on_keyboard_key_up(const KeyboardKeyUpEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set up keys
-		*/
 		io.KeysDown[event->get_key()] = false;
 	}
 
 	void GUIRenderer::on_keyboard_char(const KeyboardCharEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set char
-		*/
-		LOG("GUIRendeer", "Char: %d", event->get_key());
 		const unsigned int keyCode = event->get_key();
 		if (keyCode > 0 && keyCode < 0x10000)
 			io.AddInputCharacter((unsigned short)keyCode);
@@ -253,98 +200,54 @@ namespace DopeEngine
 
 	void GUIRenderer::on_mouse_button_down(const MouseButtonDownEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set mouse button down
-		*/
 		io.MouseDown[event->get_button()] = true;
-
 	}
 
 	void GUIRenderer::on_mouse_button_up(const MouseButtonUpEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set mouse button up
-		*/
 		io.MouseDown[event->get_button()] = false;
 	}
 
 	void GUIRenderer::on_mouse_position_changed(const MousePositionChangedEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set mouse position
-		*/
 		const unsigned int positionX = event->get_x();
 		const unsigned int positionY = event->get_y();
 		io.MousePos = ImVec2(positionX, positionY);
 
-		/*
-		* Set renderer mouse position
-		*/
 		MousePositionX = positionX;
 		MousePositionY = positionY;
-		//LOG("GUIRenderer", "Mouse position: %f,%f", io.MousePos.x, io.MousePos.y);
 	}
 
 	void GUIRenderer::on_mouse_scrolled(const MouseScrolledEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set scroll
-		*/
 		io.MouseWheel += event->get_amount();
 	}
 
 	void GUIRenderer::on_window_resized(const WindowResizedEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set new window size
-		*/
 		const unsigned int width = event->get_width();
 		const unsigned int height = event->get_height();
 		io.DisplaySize = ImVec2(width,height);
 		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 
-		/*
-		* Set renderer window size
-		*/
 		WindowWidth = width;
 		WindowHeight = height;
 	}
 
 	void GUIRenderer::on_window_position_changed(const WindowPositionChangedEvent* event)
 	{
-		/*
-		* Get io
-		*/
 		ImGuiIO& io = ImGui::GetIO();
 
-		/*
-		* Set new mouse position
-		*/
 		io.MousePos.x = (float)event->get_x();
 		io.MousePos.y = (float)event->get_y();
 	}

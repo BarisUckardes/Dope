@@ -1,5 +1,5 @@
 #pragma once
-#include <Engine/Graphics/Shader/ShaderType.h>
+#include <Engine/Graphics/Shader/ShaderStage.h>
 #include <Engine/Structures/String.h>
 namespace DopeEngine
 {
@@ -9,7 +9,7 @@ namespace DopeEngine
 		DX11ShaderUtils() = delete;
 		~DX11ShaderUtils() = delete;
 
-		 static String get_shader_target_string(const ShaderType type, const unsigned int majorVersion,const unsigned int minorVersion);
+		 static String get_shader_target_string(const ShaderStage type, const unsigned int majorVersion,const unsigned int minorVersion);
 	};
 
 

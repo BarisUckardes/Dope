@@ -15,17 +15,7 @@ namespace DopeEngine
 		GraphicsDeviceProperties() = default;
 		~GraphicsDeviceProperties() = default;
 
-
-		/// <summary>
-		/// Returns the vendor name of the gpu
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE String get_vendor() const;
-
-		/// <summary>
-		/// Returns the model of the gpu
-		/// </summary>
-		/// <returns></returns>
 		FORCEINLINE String get_model() const;
 	private:
 		String Vendor;

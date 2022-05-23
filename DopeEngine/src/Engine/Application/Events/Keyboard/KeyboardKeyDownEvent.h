@@ -12,11 +12,7 @@ namespace DopeEngine
 		KeyboardKeyDownEvent(const unsigned int relatedKey, const bool holding);
 		~KeyboardKeyDownEvent() = default;
 
-		/// <summary>
-		/// Returns whether this keyboard key is holding at the moment
-		/// </summary>
-		/// <returns></returns>
-		 bool is_holding() const;
+		FORCEINLINE bool is_holding() const;
 
 		// Inherited via KeyboardKeyEvent
 		virtual ApplicationEventType get_type() const override final;

@@ -2,26 +2,26 @@
 #include <GLAD/glad.h>
 namespace DopeEngine
 {
-	SHADER_TYPE OpenGLShaderUtils::get_type(const ShaderType type)
+	SHADER_TYPE OpenGLShaderUtils::get_type(const ShaderStage type)
 	{
 		switch (type)
 		{
-			case DopeEngine::ShaderType::Vertex:
+			case DopeEngine::ShaderStage::Vertex:
 				return GL_VERTEX_SHADER;
 				break;
-			case DopeEngine::ShaderType::Fragment:
+			case DopeEngine::ShaderStage::Fragment:
 				return GL_FRAGMENT_SHADER;
 				break;
-			case DopeEngine::ShaderType::Geometry:
+			case DopeEngine::ShaderStage::Geometry:
 				return GL_GEOMETRY_SHADER;
 				break;
-			case DopeEngine::ShaderType::TesellationEval:
+			case DopeEngine::ShaderStage::TesellationEval:
 				return GL_TESS_EVALUATION_SHADER;
 				break;
-			case DopeEngine::ShaderType::TesellationControl:
+			case DopeEngine::ShaderStage::TesellationControl:
 				return GL_TESS_CONTROL_SHADER;
 				break;
-			case DopeEngine::ShaderType::Compute:
+			case DopeEngine::ShaderStage::Compute:
 				return GL_COMPUTE_SHADER;
 				break;
 			default:

@@ -14,30 +14,10 @@ namespace DopeEngine
 			Width(width),Height(height),
 			PositionX(positionX),PositionY(positionY) {}
 
-
-		/// <summary>
-		/// The title of the window
-		/// </summary>
 		String Title;
-
-		/// <summary>
-		/// Window width in pixels
-		/// </summary>
 		unsigned int Width;
-
-		/// <summary>
-		/// Window height in pixels
-		/// </summary>
 		unsigned int Height;
-
-		/// <summary>
-		/// Window x-axis in pixels
-		/// </summary>
 		unsigned int PositionX;
-
-		/// <summary>
-		/// Window y-axis position in pixels
-		/// </summary>
 		unsigned int PositionY;
 	};
 }
