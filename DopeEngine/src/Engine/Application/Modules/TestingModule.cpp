@@ -3,7 +3,7 @@
 #include <Engine/World/Entity.h>
 #include <Engine/Application/Session/GameSession.h>
 #include <Engine/World/Components/TestComponent.h>
-#include <Engine/World/Functions/IterativeLogicWorldFunction.h>
+#include <IterativeLogic/IterativeLogicWorldFunction.h>
 namespace DopeEngine
 {
 	void TestingModule::initialize()

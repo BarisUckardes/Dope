@@ -4,7 +4,7 @@
 #include <Engine/Application/Devices/Portable/PortableDeviceInformation.h>
 #include <Engine/Application/Devices/Drivers/DeviceDriverInformation.h>
 #include <Engine/Application/Window/WindowCreateDescription.h>
-#include <Engine/Graphics/Device/GraphicsAPIType.h>
+#include <Engine/Graphics/API/GraphicsAPIType.h>
 #include <Engine/Audio/Device/AudioAPIType.h>
 #include <Engine/Application/ApplicationModule.h>
 #include <Engine/Application/Window/Window.h>

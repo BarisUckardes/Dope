@@ -66,7 +66,7 @@ namespace DopeEngine
 	{
 
 	}
-	void VKCommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
+	void VKCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		const VKRenderPass* vkRenderPass = (const VKRenderPass*)renderPass;
 		const Framebuffer* targetFramebuffer = vkRenderPass->get_target_framebuffer();

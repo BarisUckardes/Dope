@@ -51,9 +51,11 @@ namespace DopeEditor
 		layoutCommands->set_next_window_viewport(layoutCommands->get_main_viewport_id());
 
 		layoutCommands->push_variable_style(DopeEngine::GUIStyleVariableTypes::WindowPadding, { 0,0 });
+		layoutCommands->push_color_style(DopeEngine::GUIStyleColorTypes::WindowBg, { 0.0f,0.0f,0.0f,1.0f });
 
 		DopeEngine::GUIWindowFlags dockWindowFlags =
 			DopeEngine::GUIWindowFlags::NoTitleBar |
+			DopeEngine::GUIWindowFlags::NoScrollbar |
 			DopeEngine::GUIWindowFlags::NoCollapse |
 			DopeEngine::GUIWindowFlags::NoMove |
 			DopeEngine::GUIWindowFlags::NoBringToFrontOnFocus |
@@ -62,6 +64,7 @@ namespace DopeEditor
 		renderingCommands->create_window("Dockspace", &dockspaceOpen, dockWindowFlags);
 
 		layoutCommands->pop_variable_style();
+		layoutCommands->pop_color_style();
 
 		GUIID dockspaceID = layoutCommands->get_id("EditorDockspace");
 		layoutCommands->create_dockspace(dockspaceID, { 0,0 }, DopeEngine::GUIDockspaceFlags::None | DopeEngine::GUIDockspaceFlags::PassthruCentralNode);

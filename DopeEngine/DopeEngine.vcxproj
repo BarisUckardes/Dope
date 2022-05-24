@@ -179,6 +179,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Engine\Graphics\API\SupportedGraphicsAPIs.h" />
+    <ClInclude Include="src\Forward2DRenderer\Forward2DRenderer.h" />
+    <ClInclude Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.h" />
     <ClInclude Include="src\Engine\GUI\Flags\GUIStyleColorTypes.h" />
     <ClInclude Include="src\Engine\GUI\Commands\GUILayoutCommands.h" />
     <ClInclude Include="src\Engine\GUI\Flags\GUIDockspaceFlags.h" />
@@ -351,7 +354,7 @@
     <ClInclude Include="src\Engine\Asset\AssetType.h" />
     <ClInclude Include="src\Engine\Core\EventWorks.h" />
     <ClInclude Include="src\Engine\Utils\TextureLoader\TextureLoadResult.h" />
-    <ClInclude Include="src\Engine\World\Functions\IterativeLogicWorldFunction.h" />
+    <ClInclude Include="src\IterativeLogic\IterativeLogicWorldFunction.h" />
     <ClInclude Include="src\Engine\World\Components\Spatial.h" />
     <ClInclude Include="src\Engine\World\Component.h" />
     <ClInclude Include="src\Engine\World\Entity.h" />
@@ -382,7 +385,7 @@
     <ClInclude Include="src\Engine\Core\Assert.h" />
     <ClInclude Include="src\Engine\Core\ConsoleLog.h" />
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.h" />
-    <ClInclude Include="src\Engine\Graphics\Device\GraphicsAPIType.h" />
+    <ClInclude Include="src\Engine\Graphics\API\GraphicsAPIType.h" />
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDevice.h" />
     <ClInclude Include="src\Engine\Core\Definitions.h" />
     <ClInclude Include="src\Engine\Core\Symbols.h" />
@@ -446,6 +449,8 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Forward2DRenderer\Forward2DRenderer.cpp" />
+    <ClCompile Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUILayoutCommands.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUIEventCommands.cpp" />
     <ClCompile Include="src\Engine\GUI\Commands\GUIRenderingCommands.cpp" />
@@ -552,7 +557,7 @@
     <ClCompile Include="src\Engine\Asset\AssetObject.cpp" />
     <ClCompile Include="src\Engine\Application\Modules\WorldFunctionExecutorModule.cpp" />
     <ClCompile Include="src\Engine\Application\Session\GameSession.cpp" />
-    <ClCompile Include="src\Engine\World\Functions\IterativeLogicWorldFunction.cpp" />
+    <ClCompile Include="src\IterativeLogic\IterativeLogicWorldFunction.cpp" />
     <ClCompile Include="src\Engine\World\Components\Spatial.cpp" />
     <ClCompile Include="src\Engine\World\Component.cpp" />
     <ClCompile Include="src\Engine\World\Entity.cpp" />

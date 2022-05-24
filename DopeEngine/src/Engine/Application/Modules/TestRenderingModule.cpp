@@ -218,7 +218,7 @@ namespace DopeEngine
 	{
 		GraphicsDevice* device = get_owner_session()->get_window()->get_child_graphics_device();
 		cmdBuffer->lock();
-		cmdBuffer->start_render_pass(renderPass);
+		cmdBuffer->set_render_pass(renderPass);
 		cmdBuffer->set_viewport_desc(viewportDesc);
 		cmdBuffer->set_scissors_desc(scissorsDesc);
 		cmdBuffer->clear_color({ 0u,0u,1u,1u });

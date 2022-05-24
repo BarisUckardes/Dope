@@ -1,7 +1,7 @@
 #include "Component.h"
 #include <Engine/World/Entity.h>
 #include <Engine/World/World.h>
-#include <Engine/World/Functions/IterativeLogicWorldFunction.h>
+#include <IterativeLogic/IterativeLogicWorldFunction.h>
 
 namespace DopeEngine
 {

@@ -36,7 +36,7 @@
     <ClInclude Include="src\Engine\Graphics\Device\GraphicsDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\Graphics\Device\GraphicsAPIType.h">
+    <ClInclude Include="src\Engine\Graphics\API\GraphicsAPIType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Graphics\API\OpenGL\Device\OpenGLGraphicsDevice.h">
@@ -168,7 +168,7 @@
     <ClInclude Include="src\Engine\World\WorldFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Engine\World\Functions\IterativeLogicWorldFunction.h">
+    <ClInclude Include="src\IterativeLogic\IterativeLogicWorldFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Application\Events\Events.h">
@@ -810,6 +810,15 @@
     <ClInclude Include="src\Engine\GUI\Flags\GUIStyleColorTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forward2DRenderer\Forward2DRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Graphics\API\SupportedGraphicsAPIs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -917,7 +926,7 @@
     <ClCompile Include="src\Engine\World\WorldFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\World\Functions\IterativeLogicWorldFunction.cpp">
+    <ClCompile Include="src\IterativeLogic\IterativeLogicWorldFunction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Application\Session\GameSession.cpp">
@@ -1356,6 +1365,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\GUI\Commands\GUILayoutCommands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forward2DRenderer\Forward2DRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

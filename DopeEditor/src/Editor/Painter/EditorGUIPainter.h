@@ -1,6 +1,6 @@
 #pragma once
 #include <Editor/Core/Symbols.h>
-#include <Engine/Graphics/Device/GraphicsAPIType.h>
+#include <Engine/Graphics/API/GraphicsAPIType.h>
 
 namespace DopeEngine
 {

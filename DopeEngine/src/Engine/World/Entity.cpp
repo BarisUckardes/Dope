@@ -63,7 +63,6 @@ namespace DopeEngine
 	void Entity::create_default_spatial()
 	{
 		EntitySpatial = create_component<Spatial>();
-
 	}
 	void Entity::_on_destroy()
 	{

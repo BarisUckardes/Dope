@@ -30,7 +30,7 @@ namespace DopeEngine
 		void set_vertex_buffer(const VertexBuffer* vertexBuffer);
 		void set_index_buffer(const IndexBuffer* indexBuffer);
 		void set_uniform_buffer(const UniformBuffer* buffer);
-		void start_render_pass(const RenderPass* renderPass);
+		void set_render_pass(const RenderPass* renderPass);
 		void set_viewport_desc(const ViewportDesc& desc);
 		void set_scissors_desc(const ScissorsDesc& desc);
 		void clear_color(const ColorRgbaByte& color);
@@ -58,7 +58,7 @@ namespace DopeEngine
 		virtual void set_vertex_buffer_impl(const VertexBuffer* vertexBuffer) = 0;
 		virtual void set_index_buffer_impl(const IndexBuffer* indexBuffer) = 0;
 		virtual void set_uniform_buffer_impl(const UniformBuffer* buffer) = 0;
-		virtual void start_render_pass_impl(const RenderPass* renderPass) = 0;
+		virtual void set_render_pass_impl(const RenderPass* renderPass) = 0;
 		virtual void set_viewport_desc_impl(const ViewportDesc& desc) = 0;
 		virtual void set_scissors_desc_impl(const ScissorsDesc& desc) = 0;
 		virtual void clear_color_impl(const ColorRgbaByte& color) = 0;

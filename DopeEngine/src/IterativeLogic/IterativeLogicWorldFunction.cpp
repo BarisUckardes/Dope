@@ -17,9 +17,6 @@ namespace DopeEngine
 	}
 	void IterativeLogicWorldFunction::execute()
 	{
-		/*
-		* Iterate and invoke
-		*/
 		for (unsigned int i = 0; i < LogicInflictedComponents.get_cursor(); i++)
 		{
 			LogicInflictedComponents[i]->update();
@@ -27,9 +24,6 @@ namespace DopeEngine
 	}
 	void IterativeLogicWorldFunction::finalize()
 	{
-		/*
-		* Remove each component list
-		*/
 		LogicInflictedComponents.clear();
 	}
 }

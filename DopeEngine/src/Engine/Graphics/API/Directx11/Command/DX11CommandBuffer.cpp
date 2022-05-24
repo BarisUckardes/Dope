@@ -49,7 +49,7 @@ namespace DopeEngine
 	{
 		const DX11ConstantBuffer* dx11Buffer = (const DX11ConstantBuffer*)buffer;
 	}
-	void DX11CommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
+	void DX11CommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		const DX11RenderPass* dx11RenderPass = (const DX11RenderPass*)renderPass;
 

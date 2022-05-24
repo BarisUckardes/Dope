@@ -30,7 +30,7 @@ namespace DopeEngine
 
 	
 
-	void OpenGLCommandBuffer::start_render_pass_impl(const RenderPass* renderPass)
+	void OpenGLCommandBuffer::set_render_pass_impl(const RenderPass* renderPass)
 	{
 		const OpenGLRenderPass* glRenderPass = (const OpenGLRenderPass*)renderPass;
 

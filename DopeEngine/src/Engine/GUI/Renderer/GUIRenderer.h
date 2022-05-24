@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/Device/GraphicsAPIType.h>
+#include <Engine/Graphics/API/GraphicsAPIType.h>
 #include <Engine/GUI/Flags/GUIRendererBackendFlags.h>
 #include <Engine/GUI/Flags/GUIRendererConfigFlags.h>
 #include <Engine/GUI/Renderer/Theme/GUIRendererThemeDesc.h>

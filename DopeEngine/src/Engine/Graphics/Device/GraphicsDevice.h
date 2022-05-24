@@ -1,6 +1,6 @@
 #pragma once
 #include <Engine/Core/Symbols.h>
-#include <Engine/Graphics/Device/GraphicsAPIType.h>
+#include <Engine/Graphics/API/GraphicsAPIType.h>
 #include <Engine/Structures/String.h>
 #include <Engine/Application/Window/Window.h>
 #include <Engine/Graphics/Device/GraphicsDeviceProperties.h>
