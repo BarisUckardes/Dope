@@ -5,10 +5,6 @@
 
 namespace DopeEngine
 {
-	Spatial* Component::get_spatial() const
-	{
-		return OwnerEntity->get_spatial();
-	}
 	Entity* Component::get_owner_entity() const
 	{
 		return OwnerEntity;

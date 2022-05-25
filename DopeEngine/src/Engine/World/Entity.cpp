@@ -18,10 +18,6 @@ namespace DopeEngine
 	{
 		return OwnerWorld;
 	}
-	Spatial* Entity::get_spatial() const
-	{
-		return EntitySpatial;
-	}
 
 	bool Entity::delete_component(Component* other)
 	{
@@ -30,7 +26,7 @@ namespace DopeEngine
 		{
 			Component* component = Components[index];
 
-			destory_component(component);
+			destroy_component(component);
 
 			Components.remove_index(index);
 
@@ -47,28 +43,23 @@ namespace DopeEngine
 	{
 		Name = name;
 		OwnerWorld = ownerWorld;
-
-		create_default_spatial();
 	}
 	Entity::~Entity()
 	{
 		OwnerWorld = nullptr;
 	}
-	void Entity::destory_component(Component* component)
+	void Entity::destroy_component(Component* component)
 	{
 		component->finalize();
 
 		delete component;
 	}
-	void Entity::create_default_spatial()
-	{
-		EntitySpatial = create_component<Spatial>();
-	}
+
 	void Entity::_on_destroy()
 	{
 		for (unsigned int i = 0; i < Components.get_cursor(); i++)
 		{
-			destory_component(Components[i]);
+			destroy_component(Components[i]);
 		}
 
 		Components.clear();

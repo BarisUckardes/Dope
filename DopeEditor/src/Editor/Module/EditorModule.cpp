@@ -42,9 +42,9 @@ namespace DopeEditor
 
 		painter->StartPainting();
 
-		const DopeEngine::GUIRenderingCommands* renderingCommands = painter->get_rendering_commands();
-		const DopeEngine::GUILayoutCommands* layoutCommands = painter->get_layout_commands();
-		const DopeEngine::GUIEventCommands* eventCommands = painter->get_event_commands();
+		DopeEngine::GUIRenderingCommands* renderingCommands = painter->get_rendering_commands();
+		DopeEngine::GUILayoutCommands* layoutCommands = painter->get_layout_commands();
+		DopeEngine::GUIEventCommands* eventCommands = painter->get_event_commands();
 
 		layoutCommands->set_next_window_position(layoutCommands->get_main_viewport_position());
 		layoutCommands->set_next_window_size(layoutCommands->get_main_viewport_size());
@@ -61,7 +61,7 @@ namespace DopeEditor
 			DopeEngine::GUIWindowFlags::NoBringToFrontOnFocus |
 			DopeEngine::GUIWindowFlags::NoNavFocus |
 			DopeEngine::GUIWindowFlags::MenuBar;
-		renderingCommands->create_window("Dockspace", &dockspaceOpen, dockWindowFlags);
+		renderingCommands->start_window("Dockspace", &dockspaceOpen, dockWindowFlags);
 
 		layoutCommands->pop_variable_style();
 		layoutCommands->pop_color_style();

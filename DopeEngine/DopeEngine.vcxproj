@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Graphics\API\SupportedGraphicsAPIs.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUITreeFlags.h" />
     <ClInclude Include="src\Forward2DRenderer\Forward2DRenderer.h" />
     <ClInclude Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.h" />
     <ClInclude Include="src\Engine\GUI\Flags\GUIStyleColorTypes.h" />
@@ -447,6 +448,7 @@
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsPaths.h" />
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsFile.h" />
     <ClInclude Include="src\Engine\Platform\Windows\File\WindowsDirectory.h" />
+    <ClInclude Include="src\Engine\Math\Vector2i.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Forward2DRenderer\Forward2DRenderer.cpp" />
@@ -633,6 +635,7 @@
     <ClCompile Include="src\Engine\Platform\Windows\File\WindowsPaths.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\File\WindowsFile.cpp" />
     <ClCompile Include="src\Engine\Platform\Windows\File\WindowsDirectory.cpp" />
+    <ClCompile Include="src\Engine\Math\Vector2i.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

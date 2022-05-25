@@ -24,9 +24,9 @@ namespace DopeEditor
 		EditorGUIPainter(DopeEngine::GraphicsDevice* device);
 		~EditorGUIPainter();
 
-		FORCEINLINE const DopeEngine::GUIRenderingCommands* get_rendering_commands() const;
-		FORCEINLINE const DopeEngine::GUIEventCommands* get_event_commands() const;
-		FORCEINLINE const DopeEngine::GUILayoutCommands* get_layout_commands() const;
+		FORCEINLINE DopeEngine::GUIRenderingCommands* get_rendering_commands() const;
+		FORCEINLINE DopeEngine::GUIEventCommands* get_event_commands() const;
+		FORCEINLINE DopeEngine::GUILayoutCommands* get_layout_commands() const;
 
 		void StartPainting();
 		void FinalizePainting(const DopeEngine::GraphicsCommandBuffer* targetCommandBuffer);

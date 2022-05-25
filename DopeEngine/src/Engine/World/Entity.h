@@ -17,8 +17,6 @@ namespace DopeEngine
 		Array<Component*> get_components_slow() const;
 		String get_name() const;
 		World* get_owner_world() const;
-		Spatial* get_spatial() const;
-
 
 		template<typename TComponent>
 		bool has_component() const;
@@ -33,14 +31,12 @@ namespace DopeEngine
 		Entity(const String& name,World* ownerWorld);
 		~Entity();
 
-		 void destory_component(Component* component);
+		void destroy_component(Component* component);
 
-		void create_default_spatial();
 		void _on_destroy();
 	private:
 		Array<Component*> Components;
 		World* OwnerWorld;
-		Spatial* EntitySpatial;
 		String Name;
 	};
 
@@ -113,7 +109,7 @@ namespace DopeEngine
 			*/
 			if (className == component->get_component_class_name())
 			{
-				destory_component(component);
+				destroy_component(component);
 				Components.remove_index(i);
 				i--;
 				return true;

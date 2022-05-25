@@ -13,7 +13,6 @@ namespace DopeEngine
 	{
 		friend class Entity;
 	public:
-		FORCEINLINE Spatial* get_spatial() const;
 		FORCEINLINE Entity* get_owner_entity() const;
 
 		void destroy();

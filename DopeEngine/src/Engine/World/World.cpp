@@ -4,12 +4,14 @@
 #include <Engine/World/WorldFunction.h>
 namespace DopeEngine
 {
+    String World::get_name() const
+    {
+        return Name;
+    }
     const Array<Entity*>& World::get_entities_fast() const
     {
         return Entities;
     }
-
-
 
     Array<WorldFunction*>& World::get_functions()
     {
@@ -51,7 +53,6 @@ namespace DopeEngine
         }
     }
 
-
     void World::destroy()
     {
         OwnerSession->delete_world(this);
@@ -63,9 +64,10 @@ namespace DopeEngine
         OwnerSession = ownerSession;
         Current = false;
     }
-    void World::_mark_current()
+    void World::mark_current()
     {
         Current = true;
+        OwnerSession->set_world_current(this);
     }
     void World::_unmark_current()
     {

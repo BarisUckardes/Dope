@@ -33,9 +33,9 @@ namespace DopeEngine
 		static GUIRenderer* create(const GUIRendererBackendFlags backendFlags, const GUIRendererConfigFlags configFlags,const GraphicsDevice* device);
 		~GUIRenderer();
 
-		FORCEINLINE const GUIRenderingCommands* get_rendering_commands() const;
-		FORCEINLINE const GUIEventCommands* get_event_commands() const;
-		FORCEINLINE const GUILayoutCommands* get_layout_commands() const;
+		FORCEINLINE GUIRenderingCommands* get_rendering_commands() const;
+		FORCEINLINE GUIEventCommands* get_event_commands() const;
+		FORCEINLINE GUILayoutCommands* get_layout_commands() const;
 		void on_application_event(const ApplicationEvent* event);
 		void begin_rendering(const float deltaTimeInMilliseconds);
 		void finalize_rendering(const GraphicsCommandBuffer* cmdBuffer);

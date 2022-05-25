@@ -12,7 +12,7 @@ namespace DopeEngine
 		* Create dummy world
 		*/
 		World* world = get_owner_session()->create_world("Dope engine test world");
-
+		world->mark_current();
 
 		/*
 		* Register logic resolver
@@ -28,11 +28,6 @@ namespace DopeEngine
 		* Create component
 		*/
 		TestComponent* testComponent = debugEntity->create_component<TestComponent>("my log message");
-
-		testComponent->destroy();
-		debugEntity->destroy();
-		world->destroy();
-
 	}
 	void TestingModule::update()
 	{

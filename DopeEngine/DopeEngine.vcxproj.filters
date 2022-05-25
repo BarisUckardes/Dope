@@ -819,6 +819,12 @@
     <ClInclude Include="src\Engine\Graphics\API\SupportedGraphicsAPIs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\Math\Vector2i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUITreeFlags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">
@@ -1371,6 +1377,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Forward2DRenderer\Forward2DRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Math\Vector2i.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// X-Y Axis Float Vector
 	/// </summary>
-	class Vector2f final
+	class DOPE_ENGINE_API Vector2f final
 	{
 	public:
 		Vector2f(const float x, const float y) : X(x),Y(y) {}

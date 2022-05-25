@@ -1,10 +1,12 @@
 #include "GameSession.h"
 #include <Engine/World/World.h>
+#include <Engine/Core/ConsoleLog.h>
 namespace DopeEngine
 {
     GameSession::GameSession(Window* window)
     {
         SessionWindow = window;
+        CurrentWorld = nullptr;
     }
     GameSession::~GameSession()
     {
@@ -41,7 +43,9 @@ namespace DopeEngine
     void GameSession::set_world_current(World* world)
     {
         unmark_existing_worlds();
-        world->_mark_current();
+        CurrentWorld = world;
+        CurrentWorld->Current = true;
+        LOG("World", "<%s> is the new current game World!", *world->get_name());
     }
     void GameSession::unmark_existing_worlds()
     {

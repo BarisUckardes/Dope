@@ -15,12 +15,15 @@ namespace DopeEngine
 	{
 		friend class GameSession;
 	public:
-		const Array<Entity*>& get_entities_fast() const;
-		Array<WorldFunction*>& get_functions();
-		bool is_current() const;
-		GameSession* get_owner_session() const;
+		FORCEINLINE String get_name() const;
+		FORCEINLINE const Array<Entity*>& get_entities_fast() const;
+		FORCEINLINE Array<WorldFunction*>& get_functions();
+		FORCEINLINE bool is_current() const;
+
 		Entity* create_entity(const String& name = "Default Entity Name");
 		void delete_entity(Entity* entity);
+
+		void mark_current();
 
 		template<typename TFunction>
 		TFunction* get_function() const;
@@ -30,12 +33,15 @@ namespace DopeEngine
 		bool remove_function();
 
 		void destroy();
+
 	private:
 		World(const String& name = "Default World Name", GameSession* ownerSession = nullptr);
 		~World() = default;
 
-		void _mark_current();
+		FORCEINLINE GameSession* get_owner_session() const;
+
 		void _unmark_current();
+		
 		void _on_destroy();
 	private:
 		Array<Entity*> Entities;

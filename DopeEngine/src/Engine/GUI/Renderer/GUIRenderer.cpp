@@ -40,17 +40,17 @@ namespace DopeEngine
 		delete LayoutCommands;
 	}
 
-	const GUIRenderingCommands* GUIRenderer::get_rendering_commands() const
+	GUIRenderingCommands* GUIRenderer::get_rendering_commands() const
 	{
 		return RenderingCommands;
 	}
 
-	const GUIEventCommands* GUIRenderer::get_event_commands() const
+	GUIEventCommands* GUIRenderer::get_event_commands() const
 	{
 		return EventCommands;
 	}
 
-	const GUILayoutCommands* GUIRenderer::get_layout_commands() const
+	GUILayoutCommands* GUIRenderer::get_layout_commands() const
 	{
 		return LayoutCommands;
 	}

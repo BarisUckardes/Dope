@@ -71,4 +71,16 @@ namespace DopeEngine
         return {ImGui::GetMainViewport()->Size.x,ImGui::GetMainViewport()->Size.y};
     }
 
+    Vector2f GUILayoutCommands::get_window_positon() const
+    {
+        const ImVec2 imVec = ImGui::GetWindowPos();
+        return {imVec.x,imVec.y};
+    }
+
+    Vector2f GUILayoutCommands::get_window_size() const
+    {
+        const ImVec2 imVec = ImGui::GetWindowSize();
+        return {imVec.x,imVec.y};
+    }
+
 }

@@ -18,17 +18,17 @@ namespace DopeEditor
 		delete Renderer;
 	}
 
-	const DopeEngine::GUIRenderingCommands* EditorGUIPainter::get_rendering_commands() const
+	DopeEngine::GUIRenderingCommands* EditorGUIPainter::get_rendering_commands() const
 	{
 		return Renderer->get_rendering_commands();
 	}
 
-	const DopeEngine::GUIEventCommands* EditorGUIPainter::get_event_commands() const
+	DopeEngine::GUIEventCommands* EditorGUIPainter::get_event_commands() const
 	{
 		return Renderer->get_event_commands();
 	}
 
-	const DopeEngine::GUILayoutCommands* EditorGUIPainter::get_layout_commands() const
+	DopeEngine::GUILayoutCommands* EditorGUIPainter::get_layout_commands() const
 	{
 		return Renderer->get_layout_commands();
 	}
