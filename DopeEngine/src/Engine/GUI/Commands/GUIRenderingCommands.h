@@ -4,6 +4,7 @@
 #include <Engine/Math/Vector3f.h>
 #include <Engine/GUI/Flags/GUIWindowFlags.h>
 #include <Engine/GUI/Flags/GUITreeFlags.h>
+#include <Engine/GUI/Flags/GUISelectableFlags.h>
 #include <Engine/GUI/GUICore.h>
 namespace DopeEngine
 {
@@ -25,6 +26,19 @@ namespace DopeEngine
 
 		FORCEINLINE bool create_collapsing_segment(const String& text,const GUITreeFlags flags = GUITreeFlags::None);
 
+		FORCEINLINE bool create_selectable(const String& text,const bool isSelected,const GUISelectableFlags flags = GUISelectableFlags::None,const Vector2f& size = {64,64});
+
+		FORCEINLINE bool start_tree_node(const String& text,const GUITreeFlags flags = GUITreeFlags::None);
+		FORCEINLINE void finalize_tree_node();
+
+		FORCEINLINE bool create_menu_item(const String& text);
+		FORCEINLINE bool start_menu(const String& text);
+		FORCEINLINE void finalize_menu();
+		FORCEINLINE bool start_menu_bar();
+		FORCEINLINE void finalize_menu_bar();
+		FORCEINLINE bool start_main_menu_bar();
+		FORCEINLINE void finalize_main_menu_bar();
+		
 	private:
 		GUIRenderingCommands() = default;
 		~GUIRenderingCommands() = default;

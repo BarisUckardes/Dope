@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-    enum GUITreeFlags
+    enum class DOPE_ENGINE_API GUITreeFlags
     {
         None = 0,
         Selected = 1 << 0,   // Draw as selected

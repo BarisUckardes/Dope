@@ -6,7 +6,7 @@ namespace DopeEngine
 	/// <summary>
 	/// Editable GUI variables
 	/// </summary>
-	enum class GUIStyleVariableTypes
+	enum class DOPE_ENGINE_API GUIStyleVariableTypes
 	{
         Alpha,               // float     Alpha
         DisabledAlpha,       // float     DisabledAlpha

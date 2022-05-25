@@ -9,6 +9,7 @@
 #include <Engine/GUI/Commands/GUIRenderingCommands.h>
 #include <Engine/GUI/Commands/GUILayoutCommands.h>
 #include <Editor/GUI/Window/EditorWindowGUIModule.h>
+#include <Editor/GUI/MainMenu/EditorMainMenuGUIModule.h>
 #include <Editor/GUI/EditorGUIModule.h>
 
 namespace DopeEditor
@@ -25,6 +26,7 @@ namespace DopeEditor
 		GUICommandBuffer = get_owner_session()->get_window()->get_child_graphics_device()->create_command_buffer();
 
 		GUIModules.add(new EditorWindowGUIModule());
+		GUIModules.add(new EditorMainMenuGUIModule());
 
 		for (unsigned int i = 0; i < GUIModules.get_cursor(); i++)
 		{

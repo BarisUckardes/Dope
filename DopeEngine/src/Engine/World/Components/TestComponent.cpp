@@ -9,7 +9,7 @@ namespace DopeEngine
 	}
 	bool TestComponent::should_tick() const
 	{
-		return true;
+		return false;
 	}
 	void TestComponent::initialize()
 	{
@@ -17,7 +17,7 @@ namespace DopeEngine
 	}
 	void TestComponent::update()
 	{
-		LOG("TestComponent", "Update tick message -> %s", *Message);
+
 	}
 	void TestComponent::finalize()
 	{

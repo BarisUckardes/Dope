@@ -180,6 +180,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine\Graphics\API\SupportedGraphicsAPIs.h" />
+    <ClInclude Include="src\Engine\GUI\Flags\GUISelectableFlags.h" />
     <ClInclude Include="src\Engine\GUI\Flags\GUITreeFlags.h" />
     <ClInclude Include="src\Forward2DRenderer\Forward2DRenderer.h" />
     <ClInclude Include="src\Forward2DRenderer\Forward2DRendererWorldFunction.h" />

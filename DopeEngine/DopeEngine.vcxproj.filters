@@ -825,6 +825,9 @@
     <ClInclude Include="src\Engine\GUI\Flags\GUITreeFlags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\GUI\Flags\GUISelectableFlags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Engine\Structures\String.cpp">

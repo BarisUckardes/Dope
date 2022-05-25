@@ -40,8 +40,61 @@ namespace DopeEngine
 
     bool GUIRenderingCommands::create_collapsing_segment(const String& text, const GUITreeFlags flags)
     {
-        return ImGui::CollapsingHeader(*text,flags);
+        return ImGui::CollapsingHeader(*text,(ImGuiTreeNodeFlags)flags);
     }
+
+    bool GUIRenderingCommands::create_selectable(const String& text, const bool isSelected, const GUISelectableFlags flags, const Vector2f& size)
+    {
+        return ImGui::Selectable(*text, isSelected, (ImGuiSelectableFlags)flags, {size.X,size.Y});
+    }
+
+    bool GUIRenderingCommands::start_tree_node(const String& text, const GUITreeFlags flags)
+    {
+        return ImGui::TreeNode(*text);
+    }
+
+    void GUIRenderingCommands::finalize_tree_node()
+    {
+        ImGui::TreePop();
+    }
+
+    bool GUIRenderingCommands::create_menu_item(const String& text)
+    {
+
+        return ImGui::MenuItem(*text);
+    }
+
+    bool GUIRenderingCommands::start_menu(const String& text)
+    {
+        return ImGui::BeginMenu(*text);
+    }
+
+    void GUIRenderingCommands::finalize_menu()
+    {
+        ImGui::EndMenu();
+    }
+
+    bool GUIRenderingCommands::start_menu_bar()
+    {
+        return ImGui::BeginMenuBar();
+    }
+
+    void GUIRenderingCommands::finalize_menu_bar()
+    {
+        ImGui::EndMenuBar();
+    }
+
+    bool GUIRenderingCommands::start_main_menu_bar()
+    {
+        return ImGui::BeginMainMenuBar();
+    }
+
+    void GUIRenderingCommands::finalize_main_menu_bar()
+    {
+        ImGui::EndMainMenuBar();
+    }
+
+
 
    
 

@@ -163,6 +163,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Editor\GUI\Menu\GUIMenuItem.h" />
+    <ClInclude Include="src\Editor\GUI\MainMenu\EditorMainMenuGUIModule.h" />
     <ClInclude Include="src\Editor\GUI\EditorGUIModule.h" />
     <ClInclude Include="src\Editor\GUI\Window\EditorWindowGUIModule.h" />
     <ClInclude Include="src\Editor\GUI\Window\EditorGUIWindow.h" />
@@ -174,6 +176,8 @@
     <ClInclude Include="src\Editor\GUI\Window\Templates\WorldObserverWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Editor\GUI\Menu\GUIMenuItem.cpp" />
+    <ClCompile Include="src\Editor\GUI\MainMenu\EditorMainMenuGUIModule.cpp" />
     <ClCompile Include="src\Editor\GUI\EditorGUIModule.cpp" />
     <ClCompile Include="src\Editor\GUI\Window\EditorWindowGUIModule.cpp" />
     <ClCompile Include="src\Editor\GUI\Window\EditorGUIWindow.cpp" />

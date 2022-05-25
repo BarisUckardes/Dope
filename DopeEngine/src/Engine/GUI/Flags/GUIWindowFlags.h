@@ -3,7 +3,7 @@
 
 namespace DopeEngine
 {
-    enum class GUIWindowFlags
+    enum class DOPE_ENGINE_API GUIWindowFlags
     {
         None = 0,
         NoTitleBar = 1 << 0,   // Disable title-bar
